@@ -32,9 +32,6 @@ public class Portals : MonoBehaviour
     {
         if(collider.gameObject.tag == "Player")
         {
-            portalEntrance = this.gameObject;
-            isOnPortal = true;
-            player.SendMessage("TeleportToPortalExit");
         }
     }
 }

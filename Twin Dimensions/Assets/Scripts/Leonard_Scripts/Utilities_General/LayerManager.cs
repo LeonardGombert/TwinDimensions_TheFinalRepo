@@ -11,8 +11,6 @@ public class LayerManager : SerializedMonoBehaviour
     [SerializeField]
     List <GameObject> Entities;
     [SerializeField]
-    List <GameObject> hookTower;
-    [SerializeField]
     GameObject player;
     
 
@@ -29,16 +27,12 @@ public class LayerManager : SerializedMonoBehaviour
         DontDestroyOnLoad(this);
 
         player = GameObject.FindGameObjectWithTag("Player");
-        hookTower.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
     }
 
     // Update is called once per frame
     void Update()
     {
         CompareEnemyToPlayerLayer(Entities);
-
-        if(Teleportation.hasTeleported) CheckIfLayerContainsHook(hookTower);
-
     }
 
     public static bool PlayerIsInRealWorld()
@@ -94,30 +88,6 @@ public class LayerManager : SerializedMonoBehaviour
                 //Debug.Log(Enemy.gameObject.name + "and I ain't sharing shit, son");
                 Enemy.SendMessage("MyLayerChecker", false);
             }
-        }
-    }
-
-    private void CheckIfLayerContainsHook(List<GameObject> hookTowerList)
-    {
-        foreach (GameObject hookTower in hookTowerList)
-        {
-            Vector3 hookTowerPosition = hookTower.transform.position;
-
-            if(hookTower.gameObject.layer == LayerMask.NameToLayer("Hook Layer 1")
-            && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 1"))
-            {
-                Debug.Log("The Tower's position is " + hookTowerPosition);            
-                //player.SendMessage("TeleportToHook(hookTowerPosition)");
-                player.SendMessage("TeleportToHook", hookTowerPosition);
-            }
-
-            if(hookTower.gameObject.layer == LayerMask.NameToLayer("Hook Layer 2")
-            && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 2"))
-            {
-                Debug.Log("The Tower's position is " + hookTowerPosition);
-                //player.SendMessage("TeleportToHook(hookTowerPosition)");
-                player.SendMessage("TeleportToHook", hookTowerPosition);
-            }            
         }
     }
 }

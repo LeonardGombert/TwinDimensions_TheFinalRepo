@@ -46,7 +46,9 @@ public class PlayerController : SerializedMonoBehaviour
     private bool hitTrap = false;
     private bool hitStaticEnvironment = false;
 
-    PortalManager pM;
+    TeleportationManager teleportationManager;
+    
+    GameObject firstPortal;
     #endregion
 
     #endregion
@@ -57,6 +59,7 @@ public class PlayerController : SerializedMonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        teleportationManager = GetComponent<TeleportationManager>();
     }
 
     // Update is called once per frame
@@ -79,8 +82,13 @@ public class PlayerController : SerializedMonoBehaviour
         int horizontal = 0;
         int vertical = 0;
 
-        horizontal = (int)Input.GetAxisRaw("Horizontal");
-        vertical = (int)Input.GetAxisRaw("Vertical");
+        if(PlayerInputManager.instance.KeyDown("up")) vertical = 1;
+        if(PlayerInputManager.instance.KeyDown("down")) vertical = -1;
+        if(PlayerInputManager.instance.KeyDown("left")) horizontal = -1;
+        if(PlayerInputManager.instance.KeyDown("right")) horizontal = 1;
+
+        //horizontal = (int)Input.GetAxisRaw("Horizontal");
+        //vertical = (int)Input.GetAxisRaw("Vertical");
 
         anim.SetFloat("Horizontal", horizontal);
         anim.SetFloat("Vertical", vertical);
@@ -96,16 +104,31 @@ public class PlayerController : SerializedMonoBehaviour
     }
 
     private void CalculateMovement(int xDirection, int yDirection)
-    {        
+    {
         currentPositionOnGrid = movementTilemap.WorldToCell(transform.position);
-
-        Vector3 lastPositionOnGrid = currentPositionOnGrid;
 
         desiredPositionOnGrid = movementTilemap.WorldToCell(new Vector3(currentPositionOnGrid.x + xDirection, currentPositionOnGrid.y + yDirection, 0));
 
         desiredPositionOnGrid = new Vector3(desiredPositionOnGrid.x + 0.5f, desiredPositionOnGrid.y + 0.75f, 0);
-                
-        StartCoroutine(MoveToCell(currentPositionOnGrid, desiredPositionOnGrid));
+
+        RaycastHit2D rangeDetection = Physics2D.Raycast(currentPositionOnGrid, desiredPositionOnGrid);
+
+        Debug.DrawRay(currentPositionOnGrid, desiredPositionOnGrid, Color.green);
+
+         StartCoroutine(MoveToCell(currentPositionOnGrid, desiredPositionOnGrid));
+/*
+        if(rangeDetection.collider)
+        {
+            Debug.Log(rangeDetection.collider.gameObject.name);
+
+            if(CollisionManager.IsWalkable()) StartCoroutine(MoveToCell(currentPositionOnGrid, desiredPositionOnGrid));
+
+            else if(!CollisionManager.IsWalkable()) return;
+
+            else return;
+        }
+
+        else return;*/
     }
 
     private IEnumerator MoveToCell(Vector3 startPosition, Vector3 destinationPosition)
@@ -176,17 +199,15 @@ public class PlayerController : SerializedMonoBehaviour
         {
             Debug.Log("I've touched the portal " + collider.gameObject.name);
 
-            GameObject firstPortal = collider.gameObject;
+            firstPortal = collider.gameObject;
 
-            //pM.SendMessage("PlayerHasEntered", firstPortal);
-            pM.PlayerHasEntered(firstPortal);
+            teleportationManager.FirstPortal(firstPortal);
+            //TeleportToPortalExit(firstPortal.transform.position);
         }
     }
 
     public void TeleportToHook(Vector3 towerPosition)
     {
-        Debug.Log("I've received a set of coordinates : " + towerPosition);
-
         transform.position = towerPosition;
         
         Teleportation.hasTeleported = false;

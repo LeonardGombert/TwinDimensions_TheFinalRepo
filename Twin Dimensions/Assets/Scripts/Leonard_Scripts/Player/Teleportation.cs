@@ -22,7 +22,7 @@ public class Teleportation : SerializedMonoBehaviour
     public Camera world2Cam;
 
     bool isTeleporting = false;
-    public static bool hasTeleported = false;
+    public static bool hasTeleported = false; //avoids looping the Teleport to hook function
 
     Animator anim;
     #endregion

@@ -23,7 +23,7 @@ public class PlayerInputManager : MonoBehaviour
 
     public bool KeyDown(string key)
     {
-        if(Input.GetKeyDown(keybindingManager.CheckKey(key)))
+        if(Input.GetKey(keybindingManager.CheckKey(key)))
         {
             return true;
         }

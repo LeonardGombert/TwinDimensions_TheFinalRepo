@@ -7,8 +7,8 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(fileName = "Keybindings", menuName = "Keybindings")]
 public class KeybindingManager : SerializedScriptableObject
 {
-    public KeyCode forward;
-    public KeyCode backward;
+    public KeyCode up;
+    public KeyCode down;
     public KeyCode left;
     public KeyCode right;
     
@@ -21,6 +21,10 @@ public class KeybindingManager : SerializedScriptableObject
     {
         switch(key)
         {
+            case "up": return up;
+            case "down": return down;
+            case "left": return left;
+            case "right": return right;
             case "teleport": return teleport;
             case "selectEnemies": return selectEnemies;
             case "placeStatue": return placeStatue;
