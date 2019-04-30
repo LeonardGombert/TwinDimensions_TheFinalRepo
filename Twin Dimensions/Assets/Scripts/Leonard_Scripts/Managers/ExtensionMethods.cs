@@ -52,6 +52,16 @@ public class ExtensionMethods
         return vector;
     }
 
+    public static Vector2 RemoveDiagonalsForStatues(Vector2 vector)
+    {
+        vector.x = Mathf.Floor(vector.x);
+        vector.y = Mathf.Floor(vector.y);
+        
+        //if (vector.x > vector.y)vector.y = 0;
+               
+        return vector;
+    }
+
     public static Vector2 RemoveDiagonalsForEntities(Vector2 vector)
     {
         vector.x = Mathf.FloorToInt(vector.x);
