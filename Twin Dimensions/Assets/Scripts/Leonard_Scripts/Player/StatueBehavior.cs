@@ -43,7 +43,7 @@ public class StatueBehavior : SerializedMonoBehaviour
 
             kickDirection = ExtensionMethods.RemoveDiagonalsForEntities(kickDirection);
 
-            if(PlayerInputManager.instance.KeyDown("kickStatue"))
+            if(PlayerInputManager.instance.GetKeyDown("kickStatue"))
             {
                 Debug.Log("I'm working");
                 rb.AddForce(kickDirection * StatueManager.statueKickSpeed);

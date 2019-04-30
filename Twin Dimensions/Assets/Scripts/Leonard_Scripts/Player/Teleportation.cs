@@ -114,13 +114,13 @@ public class Teleportation : SerializedMonoBehaviour
 
     private void CheckPlayerInputs()
     {
-        if (PlayerInputManager.instance.KeyDown("selectEnemies"))
+        if (PlayerInputManager.instance.GetKeyDown("selectEnemies"))
         {
             isSelectingEnemies = true;
             hasSelectedEnemies = true;
         }
 
-        if (PlayerInputManager.instance.KeyDown("teleport") && hasSelectedEnemies == true)
+        if (PlayerInputManager.instance.GetKeyDown("teleport") && hasSelectedEnemies == true)
         {
             isSelectingEnemies = false;
             if (isOnLockedLayer == false) isTeleporting = true;

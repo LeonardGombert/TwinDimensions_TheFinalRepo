@@ -17,6 +17,8 @@ public class KeybindingManager : SerializedScriptableObject
     public KeyCode placeStatue;
     public KeyCode kickStatue;
 
+    public KeyCode selectedPortalExit;
+
     public KeyCode CheckKey(string key)
     {
         switch(key)
@@ -29,6 +31,7 @@ public class KeybindingManager : SerializedScriptableObject
             case "selectEnemies": return selectEnemies;
             case "placeStatue": return placeStatue;
             case "kickStatue": return kickStatue;
+            case "selectedPortalExit": return selectedPortalExit;
             default: return KeyCode.None;
         }
     }

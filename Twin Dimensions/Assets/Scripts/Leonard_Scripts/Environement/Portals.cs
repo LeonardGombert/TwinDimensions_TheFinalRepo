@@ -17,21 +17,13 @@ public class Portals : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void TeleportToExit()
-    {
-
-    }
-
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.gameObject.tag == "Player")
         {
+            GameObject manager;
+            manager = GameObject.FindGameObjectWithTag("Manager");
+            manager.SendMessage("GetAllPortals", this.gameObject);        
         }
     }
 }

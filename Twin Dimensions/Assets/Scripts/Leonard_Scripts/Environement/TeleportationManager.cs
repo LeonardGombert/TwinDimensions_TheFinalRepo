@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
@@ -10,7 +11,7 @@ public class TeleportationManager : SerializedMonoBehaviour
 
     GameObject portalEntrance;
     [SerializeField]
-    List<GameObject> portalExits;
+    List<GameObject> portalExits = new List<GameObject>();
     [SerializeField]
     List <GameObject> hookTower;
 
@@ -19,7 +20,15 @@ public class TeleportationManager : SerializedMonoBehaviour
 
     [SerializeField]
     GameObject player;
-     
+    
+    Vector3 worldMousePosition;
+    Vector3Int currentPortalSelected;
+    Vector3Int previousPortalSelected;
+    public Tilemap generalTilemap;
+    public Tile highlightTile;
+
+    int currentIndexNumber = 0;
+
     void Awake()
     {
         if(instance == null)
@@ -36,26 +45,48 @@ public class TeleportationManager : SerializedMonoBehaviour
         hookTower.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
     }
 
-
     // Update is called once per frame
     void Update()
     {
         if(Teleportation.hasTeleported) CheckIfLayerContainsHook(hookTower);
+       
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber <= portalExits.Count) currentIndexNumber += 1;
+
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
+
+        if(portalExits.Count != 0) SelectPortalExit();
     }
 
-    public void PlayerHasEntered(GameObject touchedPortal)
+    private void GetAllPortals(GameObject touchedPortal)
     {
-        Debug.Log("I've received the gameObject " + touchedPortal);
+        portalExits.Clear();
+        currentIndexNumber = 0;    
 
-        touchedPortal = portalEntrance;
-
-        portalExits.AddRange(GameObject.FindGameObjectsWithTag("Portals"));
-        portalExits.Remove(touchedPortal);
+        portalExits.AddRange(GameObject.FindGameObjectsWithTag("Portal"));
+        portalExits.Remove(touchedPortal);                               
     }
 
-    public void FirstPortal(GameObject firstPortal)
+    private void SelectPortalExit()
     {
-        player.transform.position = firstPortal.transform.position;
+        currentPortalSelected = generalTilemap.WorldToCell(portalExits[currentIndexNumber].transform.position);
+
+        if (currentPortalSelected != previousPortalSelected)
+        {
+            generalTilemap.SetTile(currentPortalSelected, highlightTile);
+
+            generalTilemap.SetTile(previousPortalSelected, null);
+
+            previousPortalSelected = currentPortalSelected;
+        } 
+
+        if(PlayerInputManager.instance.GetKeyDown("selectedPortalExit")) TeleportToExit(currentIndexNumber);
+    }
+
+    private void TeleportToExit(int exitIndexNumber)
+    {
+        exitPosition = portalExits[exitIndexNumber].transform.position;
+
+        player.transform.position = exitPosition;
     }
 
     private void CheckIfLayerContainsHook(List<GameObject> hookTowerList)

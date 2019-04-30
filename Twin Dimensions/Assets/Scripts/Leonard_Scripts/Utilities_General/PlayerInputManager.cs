@@ -21,9 +21,21 @@ public class PlayerInputManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    public bool KeyDown(string key)
+    public bool GetKey(string key)
     {
         if(Input.GetKey(keybindingManager.CheckKey(key)))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool GetKeyDown(string key)
+    {
+        if(Input.GetKeyDown(keybindingManager.CheckKey(key)))
         {
             return true;
         }

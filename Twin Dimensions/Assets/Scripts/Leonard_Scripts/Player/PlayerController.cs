@@ -46,9 +46,11 @@ public class PlayerController : SerializedMonoBehaviour
     private bool hitTrap = false;
     private bool hitStaticEnvironment = false;
 
-    TeleportationManager teleportationManager;
+    //TeleportationManager tManager;
     
     GameObject firstPortal;
+    
+    GameObject manager;
     #endregion
 
     #endregion
@@ -59,7 +61,7 @@ public class PlayerController : SerializedMonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        teleportationManager = GetComponent<TeleportationManager>();
+        manager = GameObject.FindGameObjectWithTag("Manager");
     }
 
     // Update is called once per frame
@@ -82,10 +84,10 @@ public class PlayerController : SerializedMonoBehaviour
         int horizontal = 0;
         int vertical = 0;
 
-        if(PlayerInputManager.instance.KeyDown("up")) vertical = 1;
-        if(PlayerInputManager.instance.KeyDown("down")) vertical = -1;
-        if(PlayerInputManager.instance.KeyDown("left")) horizontal = -1;
-        if(PlayerInputManager.instance.KeyDown("right")) horizontal = 1;
+        if(PlayerInputManager.instance.GetKey("up")) vertical = 1;
+        if(PlayerInputManager.instance.GetKey("down")) vertical = -1;
+        if(PlayerInputManager.instance.GetKey("left")) horizontal = -1;
+        if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
 
         //horizontal = (int)Input.GetAxisRaw("Horizontal");
         //vertical = (int)Input.GetAxisRaw("Vertical");
@@ -194,30 +196,11 @@ public class PlayerController : SerializedMonoBehaviour
         {
             SandManager.AddNewSandShard(1);
         }
-
-        if(collider.gameObject.tag == "Portal")
-        {
-            Debug.Log("I've touched the portal " + collider.gameObject.name);
-
-            firstPortal = collider.gameObject;
-
-            teleportationManager.FirstPortal(firstPortal);
-            //TeleportToPortalExit(firstPortal.transform.position);
-        }
     }
 
     public void TeleportToHook(Vector3 towerPosition)
     {
         transform.position = towerPosition;
-        
-        Teleportation.hasTeleported = false;
-    }
-
-    void TeleportToPortalExit(Vector3 portalPosition)
-    {
-        Debug.Log("I've received a set of coordinates : " + portalPosition);
-
-        transform.position = portalPosition;
         
         Teleportation.hasTeleported = false;
     }

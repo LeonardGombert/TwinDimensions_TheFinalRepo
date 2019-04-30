@@ -57,12 +57,12 @@ public class StatueManager : SerializedMonoBehaviour
     {
         CheckPlayerLayer();
 
-        if(PlayerInputManager.instance.KeyDown("placeStatue"))
+        if(PlayerInputManager.instance.GetKeyDown("placeStatue"))
         {
             isPlacingStatue = true;
         }
        
-        if(PlayerInputManager.instance.KeyDown("kickStatue"))
+        if(PlayerInputManager.instance.GetKeyDown("kickStatue"))
         {
             isKickingStatue = true;
         }        
