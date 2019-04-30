@@ -89,9 +89,6 @@ public class PlayerController : SerializedMonoBehaviour
         if(PlayerInputManager.instance.GetKey("left")) horizontal = -1;
         if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
 
-        //horizontal = (int)Input.GetAxisRaw("Horizontal");
-        //vertical = (int)Input.GetAxisRaw("Vertical");
-
         anim.SetFloat("Horizontal", horizontal);
         anim.SetFloat("Vertical", vertical);
 

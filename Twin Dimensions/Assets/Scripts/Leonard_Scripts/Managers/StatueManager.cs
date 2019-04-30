@@ -15,18 +15,15 @@ public class StatueManager : SerializedMonoBehaviour
 
     Vector3Int currentMousePositionInGrid;
     
-    [SerializeField]
-    List<GameObject> playerStatue = new List<GameObject>();
-
     public GameObject player;
+    public GameObject world1Statue;
+    public GameObject world2Statue;
 
     public static float statueKickSpeed = 800;
 
     public bool isPlacingStatue = false;
     public static bool isKickingStatue = false;
     public static bool isInRange = false;
-
-    public GameObject[] statues;
 
     #region Kick
 
@@ -55,33 +52,18 @@ public class StatueManager : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckPlayerLayer();
+        //Check current player layer
+        if(LayerManager.PlayerIsInRealWorld()) PlaceStatue(LayerMask.NameToLayer("Player Layer 1"));
 
-        if(PlayerInputManager.instance.GetKeyDown("placeStatue"))
-        {
-            isPlacingStatue = true;
-        }
+        if(!LayerManager.PlayerIsInRealWorld()) PlaceStatue(LayerMask.NameToLayer("Player Layer 2"));
+
+        //Check if player is placing or kicking statues
+        if(PlayerInputManager.instance.GetKeyDown("placeStatue")) isPlacingStatue = true;
        
-        if(PlayerInputManager.instance.GetKeyDown("kickStatue"))
-        {
-            isKickingStatue = true;
-        }        
+        if(PlayerInputManager.instance.GetKeyDown("kickStatue")) isKickingStatue = true;
     }
 
-    private void CheckPlayerLayer()
-    {
-        if(LayerManager.PlayerIsInRealWorld())
-        {
-            CheckIfPlacingStatue(LayerMask.NameToLayer("Player Layer 1"));
-        }
-
-        if(!LayerManager.PlayerIsInRealWorld())
-        {
-            CheckIfPlacingStatue(LayerMask.NameToLayer("Player Layer 2"));
-        }
-    }
-
-    private void CheckIfPlacingStatue(LayerMask layer)
+    private void PlaceStatue(LayerMask layer)
     {
         if(isPlacingStatue == true && LayerManager.PlayerIsInRealWorld())
         {
@@ -94,11 +76,8 @@ public class StatueManager : SerializedMonoBehaviour
 
             if(Input.GetMouseButtonDown(0))
             {
-                statues = GameObject.FindGameObjectsWithTag("Statue");
-
-                foreach(GameObject statue in statues) Destroy(statue);
-
-                Instantiate(playerStatue[0], worldMousePosition, Quaternion.identity);
+                Destroy(world1Statue, 0f);
+                Instantiate(world1Statue, worldMousePosition, Quaternion.identity);
                 isPlacingStatue = false;
             }
         }
@@ -114,11 +93,8 @@ public class StatueManager : SerializedMonoBehaviour
 
             if(Input.GetMouseButtonDown(0))
             {
-                statues = GameObject.FindGameObjectsWithTag("Statue");
-
-                foreach(GameObject statue in statues) Destroy(statue);
-
-                Instantiate(playerStatue[1], worldMousePosition, Quaternion.identity);
+                Destroy(world2Statue, 0f);
+                Instantiate(world2Statue, worldMousePosition, Quaternion.identity);
                 isPlacingStatue = false;
             }
         }
