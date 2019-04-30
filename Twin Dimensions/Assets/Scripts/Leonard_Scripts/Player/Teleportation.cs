@@ -12,14 +12,18 @@ public class Teleportation : SerializedMonoBehaviour
     #region Variable Declarations
 
     #region //TELEPORTATION
-    public Tile highlightTile;
-    public Tilemap highlightTilemap;
+    [FoldoutGroup("Base References")][SerializeField]
+    Tile highlightTile;
+    [FoldoutGroup("Base References")][SerializeField]
+    Tilemap highlightTilemap;
 
-    private Vector3 mousePosition;
-    private Vector3Int previous;
+    Vector3 mousePosition;
+    Vector3Int previous;
 
-    public Camera world1Cam;
-    public Camera world2Cam;
+    [FoldoutGroup("Cameras")][SerializeField]
+    Camera world1Cam;
+    [FoldoutGroup("Cameras")][SerializeField]
+    Camera world2Cam;
 
     bool isTeleporting = false;
     public static bool hasTeleported = false; //avoids looping the Teleport to hook function
@@ -31,11 +35,12 @@ public class Teleportation : SerializedMonoBehaviour
     [FoldoutGroup("Selected Enemies")][SerializeField]
     List<GameObject> SelectedEnemies = new List<GameObject>();
 
-    private GameObject targetedObject1;
-    private GameObject targetedObject2;
-    private GameObject targetedChildObject;
+    GameObject targetedObject1;
+    GameObject targetedObject2;
+    GameObject targetedChildObject;
+
     [FoldoutGroup("Selected Enemies")][SerializeField]
-    private GameObject lightningPrefab;
+    GameObject lightningPrefab;
 
     bool isSelectingEnemies = false;
     bool hasSelectedEnemies = false;
@@ -46,37 +51,36 @@ public class Teleportation : SerializedMonoBehaviour
 
     #region //COUNTDOWN TIMER
     [FoldoutGroup("Time Variables")][SerializeField]
-    public float teleportTimer;
+    float teleportTimer;
     [FoldoutGroup("Time Variables")][SerializeField]
-    public float baseCountdownTimerValue;
+    float baseCountdownTimerValue;
     [FoldoutGroup("Time Variables")][SerializeField]
-    public float slowTimeMultiplier;
+    float slowTimeMultiplier;
     #endregion
 
     #region //POST PROCESSING
-    [FoldoutGroup("Effect Values")][SerializeField]
-    private float maxBloomIntensity;
-    [FoldoutGroup("Effect Values")][SerializeField]
-    private float maxBloomSoftKnee;
-    [FoldoutGroup("Effect Values")][SerializeField]
-    private float maxBloomDiffusion;    
-    [FoldoutGroup("Effect Values")][SerializeField]
-    private float maxBloomAnamorphRatio;    
-
-    [FoldoutGroup("Effect Values")][SerializeField]
-    private float maxChrmAberrationIntensity;
-
-    [FoldoutGroup("Effect Values")][SerializeField]
-    private float maxLensDistortionIntensity;
-    [FoldoutGroup("Effect Values")][SerializeField]
-    private float maxLensDistortionScale;
+    [FoldoutGroup("Post Process Effect Values")][SerializeField]
+    float maxBloomIntensity;
+    [FoldoutGroup("Post Process Effect Values")][SerializeField]
+    float maxBloomSoftKnee;
+    [FoldoutGroup("Post Process Effect Values")][SerializeField]
+    float maxBloomDiffusion;    
+    [FoldoutGroup("Post Process Effect Values")][SerializeField]
+    float maxBloomAnamorphRatio;
+    [FoldoutGroup("Post Process Effect Values")][SerializeField]
+    float maxChrmAberrationIntensity;
+    [FoldoutGroup("Post Process Effect Values")][SerializeField]
+    float maxLensDistortionIntensity;
+    [FoldoutGroup("Post Process Effect Values")][SerializeField]
+    float maxLensDistortionScale;
     
+    [FoldoutGroup("Post Process Profiles")][SerializeField]
+    List<PostProcessVolume> m_VolumeList = new List<PostProcessVolume>();
+
     [FoldoutGroup("Lerp Values in Seconds")][SerializeField]
-    private float startTime;
+    float startTime;
     [FoldoutGroup("Lerp Values in Seconds")][SerializeField]
-    private float timeToTeleport;
-    
-    public List<PostProcessVolume> m_VolumeList = new List<PostProcessVolume>();
+    float timeToTeleport;
 
     Bloom bloomLayer = null;
     ChromaticAberration chrmAberrationLayer = null;

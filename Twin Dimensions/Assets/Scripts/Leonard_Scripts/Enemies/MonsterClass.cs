@@ -55,12 +55,12 @@ public class MonsterClass : MonoBehaviour
         {
             if (LayerManager.EnemyIsInRealWorld(this.gameObject))
             {
-                ExtensionMethods.LayerSwitchManager(gameObject, "Enemy Layer 2");
+                LayerManager.LayerSwitchManager(gameObject, "Enemy Layer 2");
             }
 
             else if (!LayerManager.EnemyIsInRealWorld(this.gameObject))
             {
-                ExtensionMethods.LayerSwitchManager(gameObject, "Enemy Layer 1");
+                LayerManager.LayerSwitchManager(gameObject, "Enemy Layer 1");
             }
         }
         isBeingTeleported = false;

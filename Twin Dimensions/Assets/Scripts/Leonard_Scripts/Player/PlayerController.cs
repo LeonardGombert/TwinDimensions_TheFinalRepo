@@ -197,12 +197,5 @@ public class PlayerController : SerializedMonoBehaviour
             SandManager.AddNewSandShard(1);
         }
     }
-
-    public void TeleportToHook(Vector3 towerPosition)
-    {
-        transform.position = towerPosition;
-        
-        Teleportation.hasTeleported = false;
-    }
     #endregion
 }

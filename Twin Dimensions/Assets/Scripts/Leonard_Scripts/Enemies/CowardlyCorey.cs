@@ -47,9 +47,9 @@ public class CowardlyCorey : PriestClass
     private void Switch()
     {        
         if (LayerManager.EnemyIsInRealWorld(this.gameObject)) 
-        ExtensionMethods.LayerSwitchManager(this.gameObject, "Enemy Layer 2");
+        LayerManager.LayerSwitchManager(this.gameObject, "Enemy Layer 2");
 
         else if (!LayerManager.EnemyIsInRealWorld(this.gameObject)) 
-        ExtensionMethods.LayerSwitchManager(this.gameObject, "Enemy Layer 1");
+        LayerManager.LayerSwitchManager(this.gameObject, "Enemy Layer 1");
     }
 }
