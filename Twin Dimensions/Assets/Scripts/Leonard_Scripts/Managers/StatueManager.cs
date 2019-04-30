@@ -9,11 +9,13 @@ public class StatueManager : SerializedMonoBehaviour
 {
     public static StatueManager instance;
 
-    public Tilemap selectionTilemap;
+    public Tilemap generalTilemap;
+    public Tile highlightTile;
 
     Vector3 worldMousePosition;
 
     Vector3Int currentMousePositionInGrid;
+    Vector3Int previous;
     
     public GameObject player;
     public GameObject world1Statue;
@@ -22,6 +24,7 @@ public class StatueManager : SerializedMonoBehaviour
     public static float statueKickSpeed = 800;
 
     public bool isPlacingStatue = false;
+    public bool isSelectingStatueLocation = false;
     public static bool isKickingStatue = false;
     public static bool isInRange = false;
 
@@ -52,15 +55,40 @@ public class StatueManager : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SelectStatuePlacement();
+
         //Check current player layer
         if(LayerManager.PlayerIsInRealWorld()) PlaceStatue(LayerMask.NameToLayer("Player Layer 1"));
 
         if(!LayerManager.PlayerIsInRealWorld()) PlaceStatue(LayerMask.NameToLayer("Player Layer 2"));
 
         //Check if player is placing or kicking statues
-        if(PlayerInputManager.instance.GetKeyDown("placeStatue")) isPlacingStatue = true;
+        if(PlayerInputManager.instance.GetKeyDown("placeStatue")) isSelectingStatueLocation = true;
        
         if(PlayerInputManager.instance.GetKeyDown("kickStatue")) isKickingStatue = true;
+    }
+
+    private void SelectStatuePlacement()
+    {
+        if(isSelectingStatueLocation == true)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition = ExtensionMethods.getFlooredWorldPosition(mousePosition);
+
+            Vector3Int currentMousePositionInGrid = generalTilemap.WorldToCell(mousePosition);
+
+            if (currentMousePositionInGrid != previous)
+            {
+                generalTilemap.SetTile(currentMousePositionInGrid, highlightTile);
+
+                generalTilemap.SetTile(previous, null);
+
+                previous = currentMousePositionInGrid;
+            }
+
+            if(Input.GetMouseButtonDown(0)){ isPlacingStatue = true; isSelectingStatueLocation = false;}
+        }
+        
     }
 
     private void PlaceStatue(LayerMask layer)
@@ -70,14 +98,16 @@ public class StatueManager : SerializedMonoBehaviour
             Debug.Log("Is placing statue on Layer 1");
                 
             worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldMousePosition = ExtensionMethods.floorWithHalfOffset(worldMousePosition);
 
-            currentMousePositionInGrid = selectionTilemap.WorldToCell(worldMousePosition);
+            currentMousePositionInGrid = generalTilemap.WorldToCell(worldMousePosition);
+
+            Vector3 offSetGridPosition;
+            
+            offSetGridPosition = new Vector3(currentMousePositionInGrid.x + 0.5f, currentMousePositionInGrid.y + 1, 0f);
 
             if(Input.GetMouseButtonDown(0))
             {
-                Destroy(world1Statue, 0f);
-                Instantiate(world1Statue, worldMousePosition, Quaternion.identity);
+                Instantiate(world1Statue, offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
             }
         }
@@ -87,14 +117,16 @@ public class StatueManager : SerializedMonoBehaviour
             Debug.Log("Is placing statue on Layer 2");
                 
             worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldMousePosition = ExtensionMethods.floorWithHalfOffset(worldMousePosition);
 
-            currentMousePositionInGrid = selectionTilemap.WorldToCell(worldMousePosition);
+            currentMousePositionInGrid = generalTilemap.WorldToCell(worldMousePosition);
+
+            Vector3 offSetGridPosition;
+
+            offSetGridPosition = new Vector3(currentMousePositionInGrid.x + 0.5f, currentMousePositionInGrid.y + 1, 0f);
 
             if(Input.GetMouseButtonDown(0))
             {
-                Destroy(world2Statue, 0f);
-                Instantiate(world2Statue, worldMousePosition, Quaternion.identity);
+                Instantiate(world2Statue, offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
             }
         }

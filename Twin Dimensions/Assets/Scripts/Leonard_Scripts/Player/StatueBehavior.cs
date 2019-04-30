@@ -39,9 +39,9 @@ public class StatueBehavior : SerializedMonoBehaviour
         {
             Debug.Log("Is kicking statue");
 
-            kickDirection = (this.transform.position - player.position).normalized;
+            kickDirection = (transform.position - player.position).normalized;
 
-            kickDirection = ExtensionMethods.RemoveDiagonalsForEntities(kickDirection);
+            //kickDirection = ExtensionMethods.RemoveDiagonalsForStatues(kickDirection);
 
             if(PlayerInputManager.instance.GetKeyDown("kickStatue"))
             {
