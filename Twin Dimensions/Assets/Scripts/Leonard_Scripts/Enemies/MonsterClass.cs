@@ -46,11 +46,6 @@ public class MonsterClass : MonoBehaviour
         if(isOnSameLayer == false) Debug.Log(this.gameObject.name + "and I ain't sharing shit, son");
     }
 
-    public void CheckIfBeingDestroyed()
-    {
-        Destroy(gameObject);
-    }
-
     public void CheckIfBeingTeleported()
     {
         if(isBeingTeleported == true)
@@ -126,7 +121,12 @@ public class MonsterClass : MonoBehaviour
         if(collision.tag == "Elephant")
         {
             Debug.Log("The Elephant hit " + gameObject.name);
-            CheckIfBeingDestroyed();
+            Destroy(gameObject);
+        }
+
+        if(collision.tag == "Trap")
+        {
+            Destroy(gameObject);
         }
     }
 }
