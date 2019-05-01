@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 public class PriestClass : MonoBehaviour
 {
-    bool isOnMyLayer = false;
+    public static bool isOnMyLayer = false;
 
     [FoldoutGroup("References")][SerializeField]
     public GameObject player;
@@ -28,7 +28,7 @@ public class PriestClass : MonoBehaviour
         
     }
 
-    public bool MyLayerChecker(bool isOnSameLayer = false)
+    public bool MyLayerChecker(bool isOnSameLayer)
     {
         if(isOnSameLayer == true)
         {

@@ -15,8 +15,8 @@ public class PlayerController : SerializedMonoBehaviour
     private Vector3 newPosition;
     private Vector3 lastPosition;
 
-    private Vector3 currentPositionOnGrid;
-    private Vector3 desiredPositionOnGrid;
+    private Vector3 currentPosition;
+    private Vector3 desiredPosition;
 
     private GameObject touchedObject;
     public Tilemap movementTilemap;
@@ -104,30 +104,12 @@ public class PlayerController : SerializedMonoBehaviour
 
     private void CalculateMovement(int xDirection, int yDirection)
     {
-        currentPositionOnGrid = movementTilemap.WorldToCell(transform.position);
+        currentPosition = movementTilemap.WorldToCell(transform.position);
 
-        desiredPositionOnGrid = movementTilemap.WorldToCell(new Vector3(currentPositionOnGrid.x + xDirection, currentPositionOnGrid.y + yDirection, 0));
+        desiredPosition = movementTilemap.WorldToCell(new Vector3(currentPosition.x + xDirection, currentPosition.y + yDirection, 0));
+        desiredPosition = new Vector3(desiredPosition.x + 0.5f, desiredPosition.y, 0);
 
-        desiredPositionOnGrid = new Vector3(desiredPositionOnGrid.x + 0.5f, desiredPositionOnGrid.y + 0.75f, 0);
-
-        RaycastHit2D rangeDetection = Physics2D.Raycast(currentPositionOnGrid, desiredPositionOnGrid);
-
-        Debug.DrawRay(currentPositionOnGrid, desiredPositionOnGrid, Color.green);
-
-         StartCoroutine(MoveToCell(currentPositionOnGrid, desiredPositionOnGrid));
-/*
-        if(rangeDetection.collider)
-        {
-            Debug.Log(rangeDetection.collider.gameObject.name);
-
-            if(CollisionManager.IsWalkable()) StartCoroutine(MoveToCell(currentPositionOnGrid, desiredPositionOnGrid));
-
-            else if(!CollisionManager.IsWalkable()) return;
-
-            else return;
-        }
-
-        else return;*/
+        StartCoroutine(MoveToCell(currentPosition, desiredPosition));
     }
 
     private IEnumerator MoveToCell(Vector3 startPosition, Vector3 destinationPosition)

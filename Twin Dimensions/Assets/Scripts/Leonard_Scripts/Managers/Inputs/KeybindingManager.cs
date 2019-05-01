@@ -19,6 +19,12 @@ public class KeybindingManager : SerializedScriptableObject
 
     public KeyCode selectedPortalExit;
 
+    public KeyCode cameraZoomOut;
+    public KeyCode previewOtherWorld;
+    public KeyCode resetScene;
+    //public KeyCode ;
+
+
     public KeyCode CheckKey(string key)
     {
         switch(key)
@@ -27,11 +33,18 @@ public class KeybindingManager : SerializedScriptableObject
             case "down": return down;
             case "left": return left;
             case "right": return right;
+            
             case "teleport": return teleport;
             case "selectEnemies": return selectEnemies;
             case "placeStatue": return placeStatue;
             case "kickStatue": return kickStatue;
+
             case "selectedPortalExit": return selectedPortalExit;
+            case "cameraZoomOut" : return cameraZoomOut;
+
+            case "previewOtherWorld": return previewOtherWorld;
+            case "resetScene": return resetScene;
+            //case "": return;
             default: return KeyCode.None;
         }
     }

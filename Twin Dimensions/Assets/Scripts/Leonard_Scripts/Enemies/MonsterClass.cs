@@ -25,6 +25,8 @@ public class MonsterClass : MonoBehaviour
     public static bool isInAltMode = false; 
     public static bool isInActiveMode = false;
 
+    public static bool isOnMyLayer = false;
+
     // Start is called before the first frame update
     public virtual void Awake()
     {
@@ -38,7 +40,7 @@ public class MonsterClass : MonoBehaviour
 
     }
 
-    public void MyLayerChecker(bool isOnSameLayer = false)
+    public void MyLayerChecker(bool isOnSameLayer)
     {
         if(isOnSameLayer == true) Debug.Log(this.gameObject.name + " and I are on the same layer");
         if(isOnSameLayer == false) Debug.Log(this.gameObject.name + "and I ain't sharing shit, son");
@@ -67,7 +69,7 @@ public class MonsterClass : MonoBehaviour
     }
 
 
-    public void CheckIfActivatedByPriest()
+    public void CheckBehaviorMode()
     {
         if(isBeingSwitchedByPriest == false)
         {

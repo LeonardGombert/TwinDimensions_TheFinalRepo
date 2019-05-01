@@ -8,9 +8,9 @@ public class LayerManager : SerializedMonoBehaviour
 {
     public static LayerManager instance;
 
-    [SerializeField]
-    List <GameObject> Entities;
-    [SerializeField]
+    [FoldoutGroup("Enemies in Scene")][SerializeField]
+    List <GameObject> fillThisListWithEnemies;
+    
     GameObject player;
     
 
@@ -32,7 +32,7 @@ public class LayerManager : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CompareEnemyToPlayerLayer(Entities);
+        CompareEnemyToPlayerLayer(fillThisListWithEnemies);
     }
 
     public static void LayerSwitchManager(GameObject gameObject, string layerName)
@@ -76,29 +76,29 @@ public class LayerManager : SerializedMonoBehaviour
             if(Enemy.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")
             && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 1"))
             {
-                //Debug.Log(Enemy.gameObject.name + " and I are on the same layer");
-                Enemy.SendMessage("MyLayerChecker", true);
+                PriestClass.isOnMyLayer = true;
+                MonsterClass.isOnMyLayer = true;
             }
             
-            if(Enemy.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")
+            else if(Enemy.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")
             && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 2"))
             {
-                //Debug.Log(Enemy.gameObject.name + " and I are on the same layer");
-                Enemy.SendMessage("MyLayerChecker", true);
+                PriestClass.isOnMyLayer = false;
+                MonsterClass.isOnMyLayer = false;
             }
 
-            if(Enemy.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")
+            else if(Enemy.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")
             && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 2"))
             {
-                //Debug.Log(Enemy.gameObject.name + "and I ain't sharing shit, son");
-                Enemy.SendMessage("MyLayerChecker", false);
+                PriestClass.isOnMyLayer = true;
+                MonsterClass.isOnMyLayer = true;
             }
-            
-            if(Enemy.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")
+
+            else if(Enemy.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")
             && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 1"))
             {
-                //Debug.Log(Enemy.gameObject.name + "and I ain't sharing shit, son");
-                Enemy.SendMessage("MyLayerChecker", false);
+                PriestClass.isOnMyLayer = false;
+                MonsterClass.isOnMyLayer = false;
             }
         }
     }

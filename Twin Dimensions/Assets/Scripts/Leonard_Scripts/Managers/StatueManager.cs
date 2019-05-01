@@ -9,33 +9,29 @@ public class StatueManager : SerializedMonoBehaviour
 {
     public static StatueManager instance;
 
-    public Tilemap generalTilemap;
-    public Tile highlightTile;
+    [FoldoutGroup("Tilemap")][SerializeField]
+    Tilemap generalTilemap;
+    [FoldoutGroup("Tilemap")][SerializeField]
+    Tile highlightTile;
 
     Vector3 worldMousePosition;
 
     Vector3Int currentMousePositionInGrid;
     Vector3Int previous;
+
+    GameObject player;
     
-    public GameObject player;
-    public GameObject world1Statue;
-    public GameObject world2Statue;
+    [FoldoutGroup("Statue world 1")][SerializeField]
+    List<GameObject> world1Statue = new List<GameObject>();
+    [FoldoutGroup("Statue world 2")][SerializeField]
+    List<GameObject> world2Statue = new List<GameObject>();
 
     public static float statueKickSpeed = 800;
 
-    public bool isPlacingStatue = false;
-    public bool isSelectingStatueLocation = false;
+    bool isPlacingStatue = false;
+    bool isSelectingStatueLocation = false;
     public static bool isKickingStatue = false;
     public static bool isInRange = false;
-
-    #region Kick
-
-    public Transform playerPosition;
-    Vector3 currentPositionOnGrid;
-    Vector3 kickDirection;
-    Rigidbody2D rb;
-
-    #endregion
 
     void Awake()
     {
@@ -107,7 +103,7 @@ public class StatueManager : SerializedMonoBehaviour
 
             if(Input.GetMouseButtonDown(0))
             {
-                Instantiate(world1Statue, offSetGridPosition, Quaternion.identity);
+                Instantiate(world1Statue[0], offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
             }
         }
@@ -126,7 +122,7 @@ public class StatueManager : SerializedMonoBehaviour
 
             if(Input.GetMouseButtonDown(0))
             {
-                Instantiate(world2Statue, offSetGridPosition, Quaternion.identity);
+                Instantiate(world2Statue[0], offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
             }
         }

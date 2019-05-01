@@ -74,9 +74,9 @@ public class ElephantController : MonsterClass
     {
         base.CheckIfBeingTeleported();
 
-        base.CheckIfActivatedByPriest();
+        base.CheckBehaviorMode();
 
-        CheckBehaviorMode();
+        CheckBehaviorModeInOtherWorld();
         
         LookForPlayer();
     }
@@ -212,7 +212,7 @@ public class ElephantController : MonsterClass
     #endregion
 
     #region //WORLD SWITCHING
-    private void CheckBehaviorMode()
+    private void CheckBehaviorModeInOtherWorld()
     {
         if (isInAltMode == true)
         {
