@@ -9,23 +9,26 @@ public class TeleportationManager : SerializedMonoBehaviour
 {
     public static TeleportationManager instance;
 
-    GameObject portalEntrance;
-    [SerializeField]
+    [FoldoutGroup("Tilemap")][SerializeField]
+    Tilemap generalTilemap;
+    [FoldoutGroup("Tilemap")][SerializeField]
+    Tile highlightTile;
+
+    [FoldoutGroup("Portal Exits")][SerializeField]
     List<GameObject> portalExits = new List<GameObject>();
-    [SerializeField]
+
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     List <GameObject> hookTower;
+
+    GameObject player;
+    GameObject portalEntrance;
 
     Vector3 entrancePosition;
     Vector3 exitPosition;
-
-    [SerializeField]
-    GameObject player;
     
     Vector3 worldMousePosition;
     Vector3Int currentPortalSelected;
     Vector3Int previousPortalSelected;
-    public Tilemap generalTilemap;
-    public Tile highlightTile;
 
     int currentIndexNumber = 0;
 

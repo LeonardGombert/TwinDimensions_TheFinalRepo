@@ -1,47 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.Serialization;
+using Sirenix.OdinInspector;
 
-public class CowardlyCorey : PriestClass
+public class CowardlyCorey : MonoBehaviour
 {
-    [SerializeField]
-    public List<Animation> animations = new List<Animation>();
-    [SerializeField]
-    public Animation[] animations2;
+    public static bool isOnMyLayer = false;
 
-    public Animation anim3;
+    [FoldoutGroup("References")][SerializeField]
+    public GameObject player;
+    
+    public SpriteRenderer sr;
+    public Animator anim;
 
     // Start is called before the first frame update
-    public override void Awake()
+    public void Awake()
     {
-        
+        anim = GetComponentInChildren<Animator>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        //SwitchWorldsBitch();
+        CheckPlayerLayer();
     }
 
-    private void SwitchWorldsBitch()
+    void CheckPlayerLayer()
     {
-        if (base.MyLayerChecker()) //if on my layer
-        {
-            anim.SetBool("isOnMyLayer", true);            
-            Switch();
-        }
-
-        if (!base.MyLayerChecker()) //if not on my layer
-        {
-            anim.SetBool("isOnMyLayer", false);     
-        }        
-    }
-
-    private IEnumerator WaitForAnimation (Animation animation)
-    {
-        do yield return null;
-        
-        while (animation.isPlaying);
+        if(this.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1") && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 1")) Switch();
+        if(this.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2") && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 2")) Switch();
+        else return;
     }
 
     private void Switch()
