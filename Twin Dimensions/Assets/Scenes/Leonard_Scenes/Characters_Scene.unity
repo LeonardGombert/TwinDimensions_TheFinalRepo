@@ -478,6 +478,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4572292861943194037}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &655391514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8792020596287759731, guid: b97ae54f87b9b5e4ab85ad7a844b663b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8792020595337111590}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &810782338
 GameObject:
   m_ObjectHideFlags: 8
@@ -511,11 +517,12 @@ MonoBehaviour:
   - {fileID: 810782338}
   - {fileID: 2062949103533308448}
   - {fileID: 671069913887635782}
-  - {fileID: 5740760350441515539}
   - {fileID: 5654071093098729487}
   - {fileID: 8611705300400449122}
   - {fileID: 2145945194635649262}
   - {fileID: 2815914250919488023}
+  - {fileID: 655391514}
+  - {fileID: 5740760350441515539}
   editModeVisibileObjects: []
   editModeInvisibleObjects: []
   wireframeHiddenObjects: []
@@ -1634,8 +1641,6 @@ MonoBehaviour:
   movementTilemap: {fileID: 4791265082829101678}
   movementCooldown: 0.3
   moveTime: 0.3
-  playerHasMoved: 0
-  sr: {fileID: 951672533108289977}
 --- !u!114 &1926797900226358922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2072,7 +2077,7 @@ GameObject:
   - component: {fileID: 2424314866982835665}
   - component: {fileID: 2424314866982835664}
   m_Layer: 12
-  m_Name: VRW_props
+  m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3083,7 +3088,7 @@ GameObject:
   - component: {fileID: 4791265082418913573}
   - component: {fileID: 4791265082418913572}
   m_Layer: 13
-  m_Name: VRW_tiles
+  m_Name: Tiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3402,7 +3407,7 @@ GameObject:
   - component: {fileID: 4791265083001346186}
   - component: {fileID: 4791265083001346181}
   m_Layer: 13
-  m_Name: VRW_props
+  m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3577,7 +3582,7 @@ GameObject:
   - component: {fileID: 4791265083140934035}
   - component: {fileID: 4791265083140934034}
   m_Layer: 12
-  m_Name: VRW_tiles
+  m_Name: Tiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4493,6 +4498,11 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 5740760350555012030, guid: 4915ada60a7e01b4ba20097bf44ffbcd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4915ada60a7e01b4ba20097bf44ffbcd, type: 3}
 --- !u!1 &5740760350441515539 stripped
@@ -4517,6 +4527,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8611705301032273210, guid: f3bb72ee2076ccc42ba15cffefcb47ab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8611705301032273213, guid: f3bb72ee2076ccc42ba15cffefcb47ab,
         type: 3}

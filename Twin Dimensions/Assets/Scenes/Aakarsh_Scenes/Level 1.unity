@@ -151,15 +151,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  selectionTilemap: {fileID: 0}
-  playerStatue:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  player: {fileID: 0}
-  isPlacingStatue: 0
-  statues: []
-  playerPosition: {fileID: 0}
+  generalTilemap: {fileID: 0}
+  highlightTile: {fileID: 0}
+  world1Statue: []
+  world2Statue: []
 --- !u!114 &127236524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,7 +374,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -587,7 +582,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -710,11 +705,11 @@ MonoBehaviour:
   maxChrmAberrationIntensity: 1
   maxLensDistortionIntensity: -100
   maxLensDistortionScale: 1
-  startTime: 0
-  timeToTeleport: 4
   m_VolumeList:
   - {fileID: 827637710}
   - {fileID: 564430655}
+  startTime: 0
+  timeToTeleport: 4
 --- !u!114 &282147850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,8 +734,6 @@ MonoBehaviour:
   movementTilemap: {fileID: 4791265083771417041}
   movementCooldown: 0.3
   moveTime: 0.3
-  playerHasMoved: 0
-  sr: {fileID: 282147852}
 --- !u!95 &282147851
 Animator:
   serializedVersion: 3
@@ -1791,7 +1784,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
