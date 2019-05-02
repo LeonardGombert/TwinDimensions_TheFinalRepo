@@ -6,7 +6,7 @@ using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
 
-public class MonsterClass : MonoBehaviour
+public class MonsterClass : SerializedMonoBehaviour
 {
     [FoldoutGroup("World Switching")][SerializeField]
     public SpriteRenderer spiritWorldVisuals;
@@ -15,8 +15,13 @@ public class MonsterClass : MonoBehaviour
     [FoldoutGroup("Sprite Switching")][SerializeField]
     public List<Sprite> spriteList = new List<Sprite>();
 
+    [FoldoutGroup("Visual Component References")]
     public SpriteRenderer sr;
+    [FoldoutGroup("Visual Component References")]
     public Animator anim;
+
+    [HideInInspector]
+    public GameObject player;
 
     public static bool isBeingSwitchedByPriest;
     public static bool isBeingCharged;
@@ -32,12 +37,13 @@ public class MonsterClass : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-
+        if(isActivatedByTurret()) TriggerBehavior();
     }
 
     public void MyLayerChecker(bool isOnSameLayer)
@@ -62,7 +68,6 @@ public class MonsterClass : MonoBehaviour
         }
         isBeingTeleported = false;
     }
-
 
     public void CheckBehaviorMode()
     {
@@ -103,6 +108,14 @@ public class MonsterClass : MonoBehaviour
                 anim.enabled = true;
             }
         }        
+    }
+
+    public virtual void TriggerBehavior(){}
+
+    private bool isActivatedByTurret(bool messageListener = false)
+    {
+        if(messageListener == true) return true;
+        else return false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
