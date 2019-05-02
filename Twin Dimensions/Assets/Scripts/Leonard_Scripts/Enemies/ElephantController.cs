@@ -18,7 +18,7 @@ public class ElephantController : MonsterClass
     bool isAnimatorFacingDirection = false;
     
     [FoldoutGroup("Raycast Detection Vectors")][SerializeField]
-    Vector3 Up = new Vector3(0, 50), Down = new Vector3(0, -50), Right = new Vector3(50, 0),Left = new Vector3(-50, 0);
+    Vector3 Up = new Vector3(0, 1), Right = new Vector3(1, 0), Down = new Vector3(0, -1), Left = new Vector3(-1, 0);
     #endregion
 
     #region //CHARGING
@@ -37,8 +37,12 @@ public class ElephantController : MonsterClass
     Vector3 currentPositionOnGrid;
     Vector3 centeredPositionOnGrid;
 
+    Vector3Int currentSelectedDirection;
+    Vector3Int previousSelectedDirection;
+    public Tile highlightTile;
+
     [FoldoutGroup("Tilemap")][SerializeField]
-    Tilemap movementTilemap;
+    Tilemap generalTilemap;
 
     Transform target;
 
@@ -46,6 +50,10 @@ public class ElephantController : MonsterClass
     Camera myCenteredCam;
 
     bool isActive;
+    bool isTriggered = false;
+
+    int currentIndexNumber = 0;
+    int maxIndexNmber = 0;
 
     List<Vector3> CardinalDirections = new List<Vector3>();
     #endregion
@@ -58,7 +66,7 @@ public class ElephantController : MonsterClass
         rb = GetComponent<Rigidbody2D>();
         myCenteredCam = GetComponentInChildren<Camera>();
         target = GameObject.FindWithTag("Player").transform;
-        CardinalDirections.AddRange(new Vector3[] { Up, Down, Right, Left });
+        CardinalDirections.AddRange(new Vector3[] { Up, Right, Down, Left });
     }
     
     public override void Update()
@@ -70,6 +78,16 @@ public class ElephantController : MonsterClass
         CheckBehaviorModeInOtherWorld();
         
         LookForPlayer();
+        
+        int maxIndexNmber = CardinalDirections.Count;
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber <= maxIndexNmber) currentIndexNumber += 1;
+
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
+
+        if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
+
+        if(isTriggered) ConfirmDirection();
     }
     #endregion
 
@@ -123,13 +141,13 @@ public class ElephantController : MonsterClass
             {
                 wallPointCoordinates = new Vector3(wallSeeker.point.x, wallSeeker.point.y);
                 
-                currentPositionOnGrid = movementTilemap.WorldToCell(wallPointCoordinates);
+                currentPositionOnGrid = generalTilemap.WorldToCell(wallPointCoordinates);
 
                 centeredPositionOnGrid = new Vector3(wallPointCoordinates.x + 0, wallPointCoordinates.y + 0, 0);
 
                 isCharging = true;
                 lookingForWall = false;
-                StartCoroutine(Charging(centeredPositionOnGrid, direction));
+                StartCoroutine(Charging(centeredPositionOnGrid));
             }
         }
     }
@@ -171,7 +189,7 @@ public class ElephantController : MonsterClass
     #endregion
 
     #region  //CHARGE
-    private IEnumerator Charging(Vector3 destination, Vector3 lookDirection)
+    private IEnumerator Charging(Vector3 destination)
     {
         playerDirection = (target.position - transform.position).normalized;
 
@@ -217,11 +235,42 @@ public class ElephantController : MonsterClass
             anim.enabled = true;
         }           
     }
-    #endregion
+    #endregion    
     
     public override void TriggerBehavior()
     {
-        
+        Debug.Log("I'm triggered");
+        isTriggered = true;           
+    }
+    
+    void ConfirmDirection()
+    {
+        if(isTriggered)
+        {            
+            anim.SetFloat("MoveX", CardinalDirections[currentIndexNumber].x);
+            anim.SetFloat("MoveY", CardinalDirections[currentIndexNumber].y);
+
+            //highlight 4 squares around, representing directions
+            
+            currentSelectedDirection = generalTilemap.WorldToCell(CardinalDirections[currentIndexNumber]);
+
+            if (currentSelectedDirection != previousSelectedDirection)
+            {
+                generalTilemap.SetTile(currentSelectedDirection, highlightTile);
+
+                generalTilemap.SetTile(previousSelectedDirection, null);
+
+                previousSelectedDirection = currentSelectedDirection;
+            } 
+
+            if(PlayerInputManager.instance.GetKeyDown("chargeElephant"))
+            {
+                lookingForWall = true;
+                isCharging = true;
+                LookForWall(currentSelectedDirection);        
+            }
+        }
+        else return;
     }
     #endregion
 }

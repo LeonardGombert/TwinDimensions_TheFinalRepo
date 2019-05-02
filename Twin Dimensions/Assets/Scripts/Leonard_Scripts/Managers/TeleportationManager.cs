@@ -31,6 +31,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     Vector3Int previousPortalSelected;
 
     int currentIndexNumber = 0;
+    int maxIndexNmber = 0;
 
     void Awake()
     {
@@ -53,20 +54,32 @@ public class TeleportationManager : SerializedMonoBehaviour
     {
         if(Teleportation.hasTeleported) CheckIfLayerContainsHook(hookTower);
        
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber <= portalExits.Count) currentIndexNumber += 1;
+        maxIndexNmber = portalExits.Count;
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber <= maxIndexNmber) currentIndexNumber += 1;
 
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
+
+        if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
 
         if(portalExits.Count != 0) SelectPortalExit();
     }
 
     private void GetAllPortals(GameObject touchedPortal)
     {
-        portalExits.Clear();
-        currentIndexNumber = 0;    
+        portalExits.Clear();  
 
         portalExits.AddRange(GameObject.FindGameObjectsWithTag("Portal"));
         portalExits.Remove(touchedPortal);                               
+    }
+
+    void SelectPortalExitWithScroll()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber < maxIndexNmber) currentIndexNumber += 1;
+
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
+
+        if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
     }
 
     private void SelectPortalExit()
