@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine.Rendering.PostProcessing;
 
-public class Teleportation : SerializedMonoBehaviour
+public class TeleportationManager : SerializedMonoBehaviour
 {
     #region Variable Declarations
 
@@ -29,24 +29,6 @@ public class Teleportation : SerializedMonoBehaviour
     public static bool hasTeleported = false; //avoids looping the Teleport to hook function
 
     Animator anim;
-    #endregion
-
-    #region //ENEMY SELECTION
-    [FoldoutGroup("Selected Enemies")][SerializeField]
-    List<GameObject> SelectedEnemies = new List<GameObject>();
-
-    GameObject targetedObject1;
-    GameObject targetedObject2;
-    GameObject targetedChildObject;
-
-    [FoldoutGroup("Selected Enemies")][SerializeField]
-    GameObject lightningPrefab;
-
-    bool isSelectingEnemies = false;
-    bool hasSelectedEnemies = false;
-
-    bool playerHasSelectedFirstEnemy = false;
-    bool playerHasSelectedSecondEnemy = false;
     #endregion
 
     #region //COUNTDOWN TIMER
@@ -105,8 +87,6 @@ public class Teleportation : SerializedMonoBehaviour
     private void Update()
     {
         CheckPlayerInputs();
-                
-        SelectEnemies(highlightTilemap);
 
         TeleportCountdownTimer();
 
@@ -118,87 +98,13 @@ public class Teleportation : SerializedMonoBehaviour
 
     private void CheckPlayerInputs()
     {
-        if (PlayerInputManager.instance.GetKeyDown("selectEnemies"))
-        {
-            isSelectingEnemies = true;
-            hasSelectedEnemies = true;
-        }
 
-        if (PlayerInputManager.instance.GetKeyDown("teleport") && hasSelectedEnemies == true)
+        if (PlayerInputManager.instance.GetKeyDown("teleport"))
         {
-            isSelectingEnemies = false;
             if (isOnLockedLayer == false) isTeleporting = true;
             else if (isOnLockedLayer == true) isTeleporting = false; Debug.Log("I am unable to Teleport");
         }
     }
-
-    #region //SELECT ENEMIES
-    public void SelectEnemies(Tilemap currentTilemap)
-    {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition = ExtensionMethods.getFlooredWorldPosition(mousePosition);
-
-        Vector3Int currentMousePositionInGrid = currentTilemap.WorldToCell(mousePosition);
-
-        if (isSelectingEnemies == true)
-        {
-            Time.timeScale = slowTimeMultiplier;
-
-            if (currentMousePositionInGrid != previous)
-            {
-                currentTilemap.SetTile(currentMousePositionInGrid, highlightTile);
-
-                currentTilemap.SetTile(previous, null);
-
-                previous = currentMousePositionInGrid;
-            }
-        }
-
-        else if (isSelectingEnemies == false)
-        {
-            Time.timeScale = 1.0f;
-
-            currentTilemap.SetTile(previous, null);
-            currentTilemap.SetTile(currentMousePositionInGrid, null);
-        }
-
-        if (Input.GetMouseButtonDown(0) && playerHasSelectedFirstEnemy == false) //Select Enemy1
-        {
-            RaycastHit2D firstMouseCollisionRay = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.zero);
-
-            if (firstMouseCollisionRay.collider != null)
-            {
-                Instantiate(lightningPrefab, mousePosition, Quaternion.identity);
-
-                targetedObject1 = firstMouseCollisionRay.collider.gameObject;
-
-                SelectedEnemies.Add(targetedObject1);
-
-                Debug.Log("Object no1 is: " + targetedObject1);
-
-                playerHasSelectedFirstEnemy = true;
-            }
-        }
-
-        if (Input.GetMouseButtonDown(1) && playerHasSelectedFirstEnemy == true) //Select Enemy2
-        {
-            RaycastHit2D secondMouseCollisionRay = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.zero);
-
-            if (secondMouseCollisionRay.collider != null)
-            {
-                Instantiate(lightningPrefab, mousePosition, Quaternion.identity);
-
-                targetedObject2 = secondMouseCollisionRay.collider.gameObject;
-                SelectedEnemies.Add(targetedObject2);
-                Debug.Log("Object no2 is: " + targetedObject2);
-
-                playerHasSelectedSecondEnemy = true;
-                isSelectingEnemies = false;
-            }
-        }
-        hasSelectedEnemies = true;
-    }
-    #endregion
 
     #region //TELEPORT TO OTHER WORLD
     private void TeleportCountdownTimer()
@@ -213,7 +119,7 @@ public class Teleportation : SerializedMonoBehaviour
 
                 if (teleportTimer <= 0)
                 {
-                    SwitchWorlds(SelectedEnemies);
+                    SwitchWorlds();
                     teleportTimer = baseCountdownTimerValue;
                 }
             }
@@ -222,7 +128,7 @@ public class Teleportation : SerializedMonoBehaviour
         else if (isTeleporting == false) anim.SetBool("isTeleporting", false); return;
     }
 
-    private void SwitchWorlds(List<GameObject> EnemiesToTeleport)
+    private void SwitchWorlds()
     {
         //PLAYER TELEPORTATION
         if (LayerManager.PlayerIsInRealWorld())
@@ -241,12 +147,6 @@ public class Teleportation : SerializedMonoBehaviour
 
             gameObject.layer = LayerMask.NameToLayer("Player Layer 1");
         }
-
-        //ENEMY TELEPORTATION
-        foreach (GameObject Enemy in EnemiesToTeleport)
-        MonsterClass.isBeingTeleported = true;
-
-        EnemiesToTeleport.Clear();
 
         isTeleporting = false;
     }

@@ -267,7 +267,8 @@ public class ElephantController : MonsterClass
             {
                 lookingForWall = true;
                 isCharging = true;
-                LookForWall(currentSelectedDirection);        
+                LookForWall(currentSelectedDirection);
+                isTriggered = false;    
             }
         }
         else return;

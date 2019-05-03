@@ -21,10 +21,10 @@ public class LockPriestController : MonsterClass
     void CheckPlayerLayer()
     {
         if(this.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1") 
-        && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 1")) Teleportation.isOnLockedLayer = true; //can switch = false
+        && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 1")) TeleportationManager.isOnLockedLayer = true; //can switch = false
 
         if(this.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2") 
-        && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 2")) Teleportation.isOnLockedLayer = true;  //can switch = false
+        && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 2")) TeleportationManager.isOnLockedLayer = true;  //can switch = false
         else return;
     }
 

@@ -5,9 +5,9 @@ using UnityEngine.Tilemaps;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class TeleportationManager : SerializedMonoBehaviour
+public class PortalManager : SerializedMonoBehaviour
 {
-    public static TeleportationManager instance;
+    public static PortalManager instance;
 
     [FoldoutGroup("Tilemap")][SerializeField]
     Tilemap generalTilemap;
@@ -52,7 +52,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Teleportation.hasTeleported) CheckIfLayerContainsHook(hookTower);
+        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(hookTower);
        
         maxIndexNmber = portalExits.Count;
 
@@ -129,6 +129,6 @@ public class TeleportationManager : SerializedMonoBehaviour
     {
         player.transform.position = towerPosition;
         
-        Teleportation.hasTeleported = false;
+        TeleportationManager.hasTeleported = false;
     }
 }

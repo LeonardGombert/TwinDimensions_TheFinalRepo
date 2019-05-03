@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ActivationTurret : MonoBehaviour
 {
+    bool isActive = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -13,7 +14,7 @@ public class ActivationTurret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0)) Shoot();
+        if(Input.GetMouseButton(0) && isActive) Shoot();
     }
 
     private void Shoot()
@@ -22,12 +23,33 @@ public class ActivationTurret : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //mousePosition = ExtensionMethods.getFlooredWorldPosition(mousePosition);
     
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, mousePosition);
-
-        if(hit.collider.tag == "Elephant")
+        if(LayerManager.EnemyIsInRealWorld(this.gameObject)) 
         {
-            hit.collider.gameObject.SendMessage("TriggerBehavior");
-            Debug.Log("Lulz 4 dayz, I have touched " + hit.collider.gameObject.name);
+            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, mousePosition, 50f, LayerMask.GetMask("Enemy Layer 1"));
+            
+            if(hit.collider)
+            {
+                hit.collider.gameObject.SendMessage("TriggerBehavior");
+                Debug.Log("I've hit " + hit.collider.gameObject.name);
+                isActive = false;
+            }
         }
+
+        if(!LayerManager.EnemyIsInRealWorld(this.gameObject)) 
+        {
+            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, mousePosition, 50f, LayerMask.GetMask("Enemy Layer 2"));
+            
+            if(hit.collider)
+            {
+                hit.collider.gameObject.SendMessage("TriggerBehavior");
+                Debug.Log("I've hit " + hit.collider.gameObject.name);
+                isActive = false;
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "Player") isActive = true;
     }
 }

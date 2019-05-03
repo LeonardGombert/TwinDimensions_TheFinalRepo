@@ -213,7 +213,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!1 &265081260
 GameObject:
-  m_ObjectHideFlags: 8
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -228,11 +228,11 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &265081261
 Animator:
   serializedVersion: 3
-  m_ObjectHideFlags: 8
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -250,7 +250,7 @@ Animator:
   m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &265081262
 SpriteRenderer:
-  m_ObjectHideFlags: 8
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -298,7 +298,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!4 &265081263
 Transform:
-  m_ObjectHideFlags: 8
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -914,9 +914,6 @@ MonoBehaviour:
   highlightTilemap: {fileID: 4791265082829101678}
   world1Cam: {fileID: 704179409}
   world2Cam: {fileID: 1033752297}
-  SelectedEnemies: []
-  lightningPrefab: {fileID: 4767137492104241193, guid: 071516b473590c548868ca76d60efbca,
-    type: 3}
   teleportTimer: 2
   baseCountdownTimerValue: 2
   slowTimeMultiplier: 0.5
@@ -966,7 +963,7 @@ Animator:
   m_GameObject: {fileID: 566941022}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a7bfca8f30737704c85cdeb3a41f964b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 96a31f1a5115323478d3a3ebf2b27d9d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1137,8 +1134,8 @@ MonoBehaviour:
   lookingForPlayer: 1
   lookingForWall: 0
   Up: {x: 0, y: 50, z: 0}
-  Down: {x: 0, y: -50, z: 0}
   Right: {x: 50, y: 0, z: 0}
+  Down: {x: 0, y: -50, z: 0}
   Left: {x: -50, y: 0, z: 0}
   isCharging: 0
   chargeSpeed: 3
@@ -1480,7 +1477,6 @@ MonoBehaviour:
   - {fileID: 4393450832285875160}
   - {fileID: 2137744416}
   - {fileID: 1230687573}
-  - {fileID: 265081260}
   editModeVisibileObjects: []
   editModeInvisibleObjects: []
   wireframeHiddenObjects: []
@@ -3180,15 +3176,20 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 3554014558855032658, guid: 027355a1fcb197448bb71ecef17dd7a8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3554014557781066439, guid: 027355a1fcb197448bb71ecef17dd7a8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3554014557781066439, guid: 027355a1fcb197448bb71ecef17dd7a8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3554014557781066439, guid: 027355a1fcb197448bb71ecef17dd7a8,
         type: 3}
@@ -3239,11 +3240,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3554014558855032658, guid: 027355a1fcb197448bb71ecef17dd7a8,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 027355a1fcb197448bb71ecef17dd7a8, type: 3}
@@ -3593,7 +3589,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4393450832678525775}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 3.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4393450832285875161}
@@ -3658,14 +3654,14 @@ MonoBehaviour:
   lookingForPlayer: 1
   lookingForWall: 0
   Up: {x: 0, y: 50, z: 0}
-  Down: {x: 0, y: -50, z: 0}
   Right: {x: 50, y: 0, z: 0}
+  Down: {x: 0, y: -50, z: 0}
   Left: {x: -50, y: 0, z: 0}
   isCharging: 0
   chargeSpeed: 3
   chargeRadiusInTiles: 4
-  highlightTile: {fileID: 0}
-  generalTilemap: {fileID: 0}
+  highlightTile: {fileID: 11400000, guid: 5fee537ac051f824b9aa3d05c75464ae, type: 2}
+  generalTilemap: {fileID: 4791265082829101678}
 --- !u!50 &4393450832678525764
 Rigidbody2D:
   serializedVersion: 4
