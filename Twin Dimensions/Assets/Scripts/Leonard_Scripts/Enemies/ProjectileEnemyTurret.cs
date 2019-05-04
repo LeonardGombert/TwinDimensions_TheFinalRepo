@@ -4,37 +4,36 @@ using UnityEngine;
 
 public class ProjectileEnemyTurret : MonoBehaviour
 {
-    public Rigidbody2D myBullet;
-    public List<Transform> TurretBarrels;
+    public float offset;
 
-    public Transform parentObject;
+    public GameObject projectile;
+
+    public List<Transform> shotPoints = new List<Transform>();
+    private float timeBtwShots;
+    public float startTimeBtwShots;
     Vector3 direction;
+    float bulletForce;
 
-    public int delayTime = 2;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
+        // Handles the weapon rotation
+        Shoot();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        StartCoroutine(Shoot());
-    }
-
-    IEnumerator Shoot()
-    {
-        foreach (Transform MuzzleEnd in TurretBarrels)
+    private void Shoot()
+    {  
+        foreach (Transform shotPosition in shotPoints)
         {
-            Instantiate(myBullet, MuzzleEnd.position, Quaternion.identity);
+            if (timeBtwShots <= 0)
+            {
+                Instantiate(projectile, shotPosition.position, transform.rotation);
+                timeBtwShots = startTimeBtwShots;
+            }
 
-            direction = (MuzzleEnd.position - parentObject.position).normalized;
-            myBullet.AddForce(direction * 4, ForceMode2D.Impulse);
-            Debug.Log("This is " + direction + "'s direction relative to center");
-        }     
-
-        yield return new WaitForSeconds(delayTime);
+            else 
+            {
+                timeBtwShots -= Time.deltaTime;
+            }
+        }
     }
 }
