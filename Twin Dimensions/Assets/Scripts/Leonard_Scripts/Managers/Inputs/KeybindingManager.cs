@@ -22,7 +22,10 @@ public class KeybindingManager : SerializedScriptableObject
     public KeyCode cameraZoomOut;
     public KeyCode previewOtherWorld;
     public KeyCode resetScene;
-    //public KeyCode ;
+
+    public KeyCode chargeElephant;
+
+    //public KeyCode ; 
 
 
     public KeyCode CheckKey(string key)
@@ -44,7 +47,10 @@ public class KeybindingManager : SerializedScriptableObject
 
             case "previewOtherWorld": return previewOtherWorld;
             case "resetScene": return resetScene;
-            //case "": return;
+            
+            case "chargeElephant": return chargeElephant;
+
+            //case"": return;
             default: return KeyCode.None;
         }
     }
