@@ -14,6 +14,8 @@ public class PriestClass : MonoBehaviour
     public SpriteRenderer sr;
     public Animator anim;
 
+    public bool activatedByTurret = false; 
+
     // Start is called before the first frame update
     public virtual void Awake()
     {
@@ -24,6 +26,11 @@ public class PriestClass : MonoBehaviour
 
     // Update is called once per frame
     public virtual void Update()
+    {
+        
+    }
+    
+    void IsBeingActivatedByTurret()
     {
         
     }

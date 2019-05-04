@@ -11,18 +11,20 @@ public class StatueBehavior : SerializedMonoBehaviour
     Vector3 currentPositionOnGrid;
     Vector3 kickDirection;
     public Rigidbody2D rb;
+    Animator anim;
     
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").transform;
+        anim = GameObject.FindWithTag("Player").GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckIfKickingStatue();
+        PunchStatue();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -33,21 +35,23 @@ public class StatueBehavior : SerializedMonoBehaviour
         }
     }   
 
-    private void CheckIfKickingStatue()
+    private void PunchStatue()
     {
-        if(StatueManager.isKickingStatue == true)
+        if(StatueManager.isPunchingStatue == true)
         {
-            Debug.Log("Is kicking statue");
-
             kickDirection = (transform.position - player.position).normalized;
 
-            //kickDirection = ExtensionMethods.RemoveDiagonalsForStatues(kickDirection);
-
-            if(PlayerInputManager.instance.GetKeyDown("kickStatue"))
+            if(PlayerInputManager.instance.GetKey("kickStatue"))
             {
-                Debug.Log("I'm working");
                 rb.AddForce(kickDirection * StatueManager.statueKickSpeed);
-                StatueManager.isKickingStatue = false;
+                               
+                anim.SetFloat("animTypeX", 1);
+                anim.SetFloat("animTypeY", 0);
+
+                anim.SetFloat("xDirection", kickDirection.x);
+                anim.SetFloat("yDirection", kickDirection.y);
+
+                StatueManager.isPunchingStatue = false;
             }
         }
     }

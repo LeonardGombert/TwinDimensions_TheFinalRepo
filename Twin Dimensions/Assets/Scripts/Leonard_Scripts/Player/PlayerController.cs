@@ -65,22 +65,30 @@ public class PlayerController : SerializedMonoBehaviour
         if(PlayerInputManager.instance.GetKey("down")) vertical = -1;
         if(PlayerInputManager.instance.GetKey("left")) horizontal = -1;
         if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
-
-        anim.SetFloat("Horizontal", horizontal);
-        anim.SetFloat("Vertical", vertical);
-
+              
         if (horizontal != 0) vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
         {
+            PlayerAnimationsManager.isMoving = true;
             playerHasMoved = true;
             microMovementCooldown(movementCooldown);
             MovementCalculations(horizontal, vertical);
+        }
+
+        if(horizontal == 0 && vertical == 0)
+        {
+            PlayerAnimationsManager.isMoving = false;
+            anim.SetFloat("xDirection", horizontal);
+            anim.SetFloat("yDirection", vertical);
         }
     }
 
     private void MovementCalculations(int xDirection, int yDirection)
     {
+        anim.SetFloat("xDirection", xDirection);
+        anim.SetFloat("yDirection", yDirection);
+
         currentPosition = movementTilemap.WorldToCell(transform.position);
 
         desiredPosition = movementTilemap.WorldToCell(new Vector3(currentPosition.x + xDirection, currentPosition.y + yDirection, 0));
