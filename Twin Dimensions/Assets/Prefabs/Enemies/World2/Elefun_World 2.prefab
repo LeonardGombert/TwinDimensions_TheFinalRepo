@@ -46,6 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3115d5fb5b4fe1e45afa139e2fc68846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   spiritWorldVisuals: {fileID: 2815914252922998327}
   realWorldVisuals: {fileID: 2815914252922998327}
   spriteList:
@@ -53,15 +62,23 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 521ce6e343e0a844e9a8b9615cde189c, type: 3}
   sr: {fileID: 0}
   anim: {fileID: 0}
+  player: {fileID: 0}
   lookingForPlayer: 1
   lookingForWall: 0
   Up: {x: 0, y: 50, z: 0}
-  Down: {x: 0, y: -50, z: 0}
   Right: {x: 50, y: 0, z: 0}
+  Down: {x: 0, y: -50, z: 0}
   Left: {x: -50, y: 0, z: 0}
   isCharging: 0
   chargeSpeed: 3
   chargeRadiusInTiles: 4
+  highlightTile: {fileID: 0}
+  world1Profile:
+    serializedVersion: 2
+    m_Bits: 1280
+  world2Profile:
+    serializedVersion: 2
+    m_Bits: 2560
   movementTilemap: {fileID: 0}
 --- !u!50 &2815914251523049652
 Rigidbody2D:

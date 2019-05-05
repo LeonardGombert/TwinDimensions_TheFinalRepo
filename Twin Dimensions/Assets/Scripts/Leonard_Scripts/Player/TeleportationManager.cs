@@ -15,7 +15,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     [FoldoutGroup("Base References")][SerializeField]
     Tile highlightTile;
     [FoldoutGroup("Base References")][SerializeField]
-    Tilemap highlightTilemap;
+    Tilemap movementTilemap;
 
     Vector3 mousePosition;
     Vector3Int previous;
@@ -82,6 +82,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
 
     private void Update()
