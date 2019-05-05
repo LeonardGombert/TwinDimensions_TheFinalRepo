@@ -10,7 +10,7 @@ public class PortalManager : SerializedMonoBehaviour
     public static PortalManager instance;
 
     [FoldoutGroup("Tilemap")][SerializeField]
-    Tilemap generalTilemap;
+    Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
     Tile highlightTile;
 
@@ -47,6 +47,7 @@ public class PortalManager : SerializedMonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         hookTower.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+        movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
@@ -84,13 +85,13 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void SelectPortalExit()
     {
-        currentPortalSelected = generalTilemap.WorldToCell(portalExits[currentIndexNumber].transform.position);
+        currentPortalSelected = movementTilemap.WorldToCell(portalExits[currentIndexNumber].transform.position);
 
         if (currentPortalSelected != previousPortalSelected)
         {
-            generalTilemap.SetTile(currentPortalSelected, highlightTile);
+            movementTilemap.SetTile(currentPortalSelected, highlightTile);
 
-            generalTilemap.SetTile(previousPortalSelected, null);
+            movementTilemap.SetTile(previousPortalSelected, null);
 
             previousPortalSelected = currentPortalSelected;
         } 

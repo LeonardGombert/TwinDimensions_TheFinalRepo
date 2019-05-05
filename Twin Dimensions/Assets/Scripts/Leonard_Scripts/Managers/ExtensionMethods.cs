@@ -7,9 +7,9 @@ using UnityEngine.Tilemaps;
 
 public class ExtensionMethods
 {   
-    public static void RecenterOnGrid(GameObject objectToCenter, Tilemap generalTilemap)
+    public static void RecenterOnGrid(GameObject objectToCenter, Tilemap movementTilemap)
     {
-        objectToCenter.transform.position = generalTilemap.WorldToCell(objectToCenter.transform.position);
+        objectToCenter.transform.position = movementTilemap.WorldToCell(objectToCenter.transform.position);
     }
 
     public static int ScrollWheelManager(int maxIndexNmber)

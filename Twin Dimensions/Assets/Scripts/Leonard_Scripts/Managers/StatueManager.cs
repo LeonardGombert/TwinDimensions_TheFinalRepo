@@ -10,7 +10,7 @@ public class StatueManager : SerializedMonoBehaviour
     public static StatueManager instance;
 
     [FoldoutGroup("Tilemap")][SerializeField]
-    Tilemap generalTilemap;
+    Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
     Tile highlightTile;
 
@@ -48,6 +48,8 @@ public class StatueManager : SerializedMonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         anim = GameObject.FindWithTag("Player").GetComponent<Animator>();
+        
+        movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
@@ -73,13 +75,13 @@ public class StatueManager : SerializedMonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition = ExtensionMethods.getFlooredWorldPosition(mousePosition);
 
-            Vector3Int currentMousePositionInGrid = generalTilemap.WorldToCell(mousePosition);
+            Vector3Int currentMousePositionInGrid = movementTilemap.WorldToCell(mousePosition);
 
             if (currentMousePositionInGrid != previous)
             {
-                generalTilemap.SetTile(currentMousePositionInGrid, highlightTile);
+                movementTilemap.SetTile(currentMousePositionInGrid, highlightTile);
 
-                generalTilemap.SetTile(previous, null);
+                movementTilemap.SetTile(previous, null);
 
                 previous = currentMousePositionInGrid;
             }
@@ -97,7 +99,7 @@ public class StatueManager : SerializedMonoBehaviour
                 
             worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            currentMousePositionInGrid = generalTilemap.WorldToCell(worldMousePosition);
+            currentMousePositionInGrid = movementTilemap.WorldToCell(worldMousePosition);
 
             Vector3 offSetGridPosition;
             
@@ -122,7 +124,7 @@ public class StatueManager : SerializedMonoBehaviour
         {
             worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            currentMousePositionInGrid = generalTilemap.WorldToCell(worldMousePosition);
+            currentMousePositionInGrid = movementTilemap.WorldToCell(worldMousePosition);
 
             Vector3 offSetGridPosition;
 

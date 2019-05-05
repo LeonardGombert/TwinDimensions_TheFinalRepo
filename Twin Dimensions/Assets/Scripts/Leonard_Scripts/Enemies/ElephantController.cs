@@ -17,7 +17,6 @@ public class ElephantController : MonsterClass
     bool secondaryWallDetection = false;
     bool isAnimatorFacingDirection = false;
     
-    [FoldoutGroup("Raycast Detection Vectors")][SerializeField]
     Vector3 Up = new Vector3(0, 1), Right = new Vector3(1, 0), Down = new Vector3(0, -1), Left = new Vector3(-1, 0);
     #endregion
 
@@ -39,14 +38,20 @@ public class ElephantController : MonsterClass
 
     Vector3Int currentSelectedDirection;
     Vector3Int previousSelectedDirection;
+
     public Tile highlightTile;
 
+    [FoldoutGroup("LayerMask Profiles")][SerializeField]
+    LayerMask world1Profile;
+    [FoldoutGroup("LayerMask Profiles")][SerializeField]
+    LayerMask world2Profile;
+
     [FoldoutGroup("Tilemap")][SerializeField]
-    Tilemap generalTilemap;
+    Tilemap movementTilemap;
 
     Transform target;
 
-    Rigidbody2D rb;
+    Rigidbody2D rb2D;
     Camera myCenteredCam;
 
     bool isActive;
@@ -63,9 +68,13 @@ public class ElephantController : MonsterClass
     {
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
+        rb2D = GetComponent<Rigidbody2D>();        
         myCenteredCam = GetComponentInChildren<Camera>();
+
+        movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
+
         target = GameObject.FindWithTag("Player").transform;
+
         CardinalDirections.AddRange(new Vector3[] { Up, Right, Down, Left });
     }
     
@@ -141,7 +150,7 @@ public class ElephantController : MonsterClass
             {
                 wallPointCoordinates = new Vector3(wallSeeker.point.x, wallSeeker.point.y);
                 
-                currentPositionOnGrid = generalTilemap.WorldToCell(wallPointCoordinates);
+                currentPositionOnGrid = movementTilemap.WorldToCell(wallPointCoordinates);
 
                 centeredPositionOnGrid = new Vector3(wallPointCoordinates.x + 0, wallPointCoordinates.y + 0, 0);
 
@@ -161,8 +170,8 @@ public class ElephantController : MonsterClass
         if (rayCastType == lookingForPlayer)
         {
             maxDirection = chargeRadiusInTiles;
-            if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")) mask = LayerMask.GetMask("Player Layer 1");
-            else if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")) mask = LayerMask.GetMask("Player Layer 2");
+            if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")) mask = world1Profile;
+            else if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")) mask = world2Profile;
         }
 
         if (rayCastType == lookingForWall)
@@ -199,15 +208,16 @@ public class ElephantController : MonsterClass
         float sqrRemainingDistanceToDestination = (transform.position - destination).sqrMagnitude;
         float inverseMoveTime = 1 / chargeSpeed;
 
-        RaycastHit2D chargeWallDetection = RaycastManager(destination, secondaryWallDetection);
-
         while (sqrRemainingDistanceToDestination > float.Epsilon)
         {
-            if (chargeWallDetection.collider)
+            /*RaycastHit2D chargeWallDetection = Physics2D.Raycast(transform.position, new Vector2(0,1f));
+            Debug.DrawRay(transform.position, new Vector2(0, .5f), Color.green, 5f);
+            
+            if (chargeWallDetection.collider.tag == "Obstacle")
             {
                 Debug.Log("I've detected a wall");
                 if (chargeWallDetection.collider.tag == "Obstacle") sqrRemainingDistanceToDestination = transform.position.sqrMagnitude;
-            }
+            }*/
 
             transform.position = Vector3.MoveTowards(transform.position, destination, chargeSpeed * Time.deltaTime);
             sqrRemainingDistanceToDestination = (transform.position - destination).sqrMagnitude;
@@ -252,13 +262,13 @@ public class ElephantController : MonsterClass
 
             //highlight 4 squares around, representing directions
             
-            currentSelectedDirection = generalTilemap.WorldToCell(CardinalDirections[currentIndexNumber]);
+            currentSelectedDirection = movementTilemap.WorldToCell(CardinalDirections[currentIndexNumber]);
 
             if (currentSelectedDirection != previousSelectedDirection)
             {
-                generalTilemap.SetTile(currentSelectedDirection, highlightTile);
+                movementTilemap.SetTile(currentSelectedDirection, highlightTile);
 
-                generalTilemap.SetTile(previousSelectedDirection, null);
+                movementTilemap.SetTile(previousSelectedDirection, null);
 
                 previousSelectedDirection = currentSelectedDirection;
             } 

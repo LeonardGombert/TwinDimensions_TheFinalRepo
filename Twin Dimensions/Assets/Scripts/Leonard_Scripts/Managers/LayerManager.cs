@@ -35,6 +35,27 @@ public class LayerManager : SerializedMonoBehaviour
         CompareEnemyToPlayerLayer(fillThisListWithEnemies);
     }
 
+    public static LayerMask PlayerRaycastLayerManager()
+    {
+        GameObject player;
+        player = GameObject.FindGameObjectWithTag("Player");
+        
+        LayerMask currentLayer = player.gameObject.layer;
+        LayerMask desiredRayLayer = new LayerMask();
+
+        if(currentLayer == LayerMask.NameToLayer("Player Layer 1"))
+        {
+            desiredRayLayer = LayerMask.NameToLayer("Ray Layer 1");
+        }
+
+        if(currentLayer == LayerMask.NameToLayer("Player Layer 2"))
+        {
+            LayerMask.NameToLayer("Ray Layer 2");
+        }
+
+        return desiredRayLayer;
+    }
+
     public static void LayerSwitchManager(GameObject gameObject, string layerName)
     {
         if (gameObject == null) return;

@@ -19,7 +19,14 @@ public class PlayerController : SerializedMonoBehaviour
 
     GameObject touchedObject;
     Animator anim;
-    Rigidbody2D rb;
+    Rigidbody2D rb2D;
+    LayerMask selectedLayerMask;
+    BoxCollider2D boxCol2D;
+
+    [FoldoutGroup("LayerMask Profiles")][SerializeField]
+    LayerMask world1Profile;
+    [FoldoutGroup("LayerMask Profiles")][SerializeField]
+    LayerMask world2Profile;
 
     [FoldoutGroup("Tilemap")][SerializeField]
     Tilemap movementTilemap;
@@ -40,13 +47,21 @@ public class PlayerController : SerializedMonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+        rb2D = GetComponent<Rigidbody2D>();
+        boxCol2D = GetComponent<BoxCollider2D>();
+
+        movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
+
+        Physics2D.queriesStartInColliders = false;
+        Physics2D.queriesHitTriggers = true;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        MonitorPlayerInpus();
+        if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
+        if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
+        MonitorPlayerInpus();        
     }
     #endregion
 
@@ -71,9 +86,26 @@ public class PlayerController : SerializedMonoBehaviour
         if (horizontal != 0 || vertical != 0)
         {
             PlayerAnimationsManager.isMoving = true;
-            playerHasMoved = true;
-            microMovementCooldown(movementCooldown);
-            MovementCalculations(horizontal, vertical);
+            
+            Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
+            Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
+
+            RaycastHit2D hit = Physics2D.Raycast(boxCol2D.bounds.center, destinationPosition2, 1, selectedLayerMask);
+            Debug.DrawRay(boxCol2D.bounds.center, destinationPosition2, Color.green, 800);
+
+            if(hit.collider)
+            {
+                Debug.Log("I've hit " + hit.collider.name);
+
+                if(hit.collider.tag == "Obstacle") return;
+            }
+
+            if(!hit.collider)
+            {
+                playerHasMoved = true;
+                microMovementCooldown(movementCooldown);
+                MovementCalculations(horizontal, vertical);                
+            }                        
         }
 
         if(horizontal == 0 && vertical == 0)
@@ -93,7 +125,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         desiredPosition = movementTilemap.WorldToCell(new Vector3(currentPosition.x + xDirection, currentPosition.y + yDirection, 0));
         desiredPosition = new Vector3(desiredPosition.x + 0.5f, desiredPosition.y, 0);
-
+        
         StartCoroutine(MoveTowards(currentPosition, desiredPosition));
     }
 
