@@ -87,10 +87,10 @@ public class PlayerController : SerializedMonoBehaviour
         {
             PlayerAnimationsManager.isMoving = true;
             
-            Vector2 destinationPosition = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
+            Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
 
-            RaycastHit2D hit = Physics2D.Raycast(boxCol2D.bounds.center, destinationPosition2, selectedLayerMask);
+            RaycastHit2D hit = Physics2D.Raycast(boxCol2D.bounds.center, destinationPosition2, 1, selectedLayerMask);
             Debug.DrawRay(boxCol2D.bounds.center, destinationPosition2, Color.green, 800);
 
             if(hit.collider)

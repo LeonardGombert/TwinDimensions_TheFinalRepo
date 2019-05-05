@@ -170,8 +170,8 @@ public class ElephantController : MonsterClass
         if (rayCastType == lookingForPlayer)
         {
             maxDirection = chargeRadiusInTiles;
-            if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")) mask = LayerMask.GetMask("Player Layer 1");
-            else if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")) mask = LayerMask.GetMask("Player Layer 2");
+            if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")) mask = world1Profile;
+            else if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")) mask = world2Profile;
         }
 
         if (rayCastType == lookingForWall)
