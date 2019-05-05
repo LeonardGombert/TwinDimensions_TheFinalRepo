@@ -40,6 +40,7 @@ public class PlayerController : SerializedMonoBehaviour
 
     bool playerHasMoved = false;
     bool movementIsCoolingDown = false;
+    public static bool isBeingCharged = false;
     #endregion
     #endregion
 
@@ -155,6 +156,20 @@ public class PlayerController : SerializedMonoBehaviour
         }
 
         movementIsCoolingDown = false;
+    }
+
+    void GuardStance()
+    {
+        if(isBeingCharged == true)
+        {
+            anim.SetFloat("animTypeX", 0);
+            anim.SetFloat("animTypeY", 1);
+
+            //Vector3 elephantDirection = (elephant.transform.position - transform.position).normalized;
+
+            //anim.SetFloat("xDirection", elephantDirection.x);
+            //anim.SetFloat("yDirection", elephantDirection.y);
+        }
     }
     #endregion
     #endregion

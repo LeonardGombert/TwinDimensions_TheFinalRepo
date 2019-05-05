@@ -13,6 +13,8 @@ public class ElephantController : MonsterClass
     bool lookingForPlayer = true;
     [FoldoutGroup("Raycast Detection Bools")][SerializeField]
     bool lookingForWall = false;
+    [FoldoutGroup("Raycast Detection Bools")][SerializeField]
+    public bool isRushingPlayer = false;
 
     bool secondaryWallDetection = false;
     bool isAnimatorFacingDirection = false;
@@ -53,6 +55,7 @@ public class ElephantController : MonsterClass
 
     Rigidbody2D rb2D;
     Camera myCenteredCam;
+    BoxCollider2D boxCol2D;
 
     bool isActive;
     bool isTriggered = false;
@@ -68,7 +71,8 @@ public class ElephantController : MonsterClass
     {
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
-        rb2D = GetComponent<Rigidbody2D>();        
+        rb2D = GetComponent<Rigidbody2D>();
+        boxCol2D = GetComponent<BoxCollider2D>();
         myCenteredCam = GetComponentInChildren<Camera>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
@@ -98,6 +102,7 @@ public class ElephantController : MonsterClass
 
         if(isTriggered) ConfirmDirection();
     }
+
     #endregion
 
     #region Elephant Functions
@@ -125,12 +130,19 @@ public class ElephantController : MonsterClass
 
                     if (rangeDetection.collider)
                     {
-                        if (rangeDetection.collider.tag == "Player" || rangeDetection.collider.tag == "Statue")
+                        if(rangeDetection.collider.tag == "Player")
+                        {
+                            lookingForWall = true;
+                            isRushingPlayer = true;
+                            LookForWall(direction); 
+                        }
+                        
+                        else if (rangeDetection.collider.tag == "Statue")
                         {
                             lookingForWall = true;
                             LookForWall(direction);
+                            break;
                         }
-                        break;
                     }
                 }
             }
@@ -156,7 +168,7 @@ public class ElephantController : MonsterClass
 
                 isCharging = true;
                 lookingForWall = false;
-                StartCoroutine(Charging(centeredPositionOnGrid));
+                StartCoroutine(Charging(centeredPositionOnGrid, direction));
             }
         }
     }
@@ -188,7 +200,7 @@ public class ElephantController : MonsterClass
 
         if (rayCastType == secondaryWallDetection)
         {
-            maxDirection = 0.5f;
+            maxDirection = .5f;
             if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")) mask = LayerMask.GetMask("World Obstacle Detection 1");
             else if (gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2")) mask = LayerMask.GetMask("World Obstacle Detection 2");
         }
@@ -198,7 +210,7 @@ public class ElephantController : MonsterClass
     #endregion
 
     #region  //CHARGE
-    private IEnumerator Charging(Vector3 destination)
+    private IEnumerator Charging(Vector3 destination, Vector3 direction)
     {
         playerDirection = (target.position - transform.position).normalized;
 
@@ -208,16 +220,19 @@ public class ElephantController : MonsterClass
         float sqrRemainingDistanceToDestination = (transform.position - destination).sqrMagnitude;
         float inverseMoveTime = 1 / chargeSpeed;
 
+        
+        Vector2 destinationPosition = new Vector2(direction.x, direction.y);
+
+        RaycastHit2D chargeWallDetection = RaycastManager(destinationPosition, secondaryWallDetection);
+        Debug.DrawRay(boxCol2D.bounds.center, destinationPosition, Color.green, 800);
+
         while (sqrRemainingDistanceToDestination > float.Epsilon)
         {
-            /*RaycastHit2D chargeWallDetection = Physics2D.Raycast(transform.position, new Vector2(0,1f));
-            Debug.DrawRay(transform.position, new Vector2(0, .5f), Color.green, 5f);
-            
             if (chargeWallDetection.collider.tag == "Obstacle")
             {
                 Debug.Log("I've detected a wall");
                 if (chargeWallDetection.collider.tag == "Obstacle") sqrRemainingDistanceToDestination = transform.position.sqrMagnitude;
-            }*/
+            }
 
             transform.position = Vector3.MoveTowards(transform.position, destination, chargeSpeed * Time.deltaTime);
             sqrRemainingDistanceToDestination = (transform.position - destination).sqrMagnitude;
