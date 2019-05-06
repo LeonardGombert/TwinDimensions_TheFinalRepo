@@ -86,7 +86,7 @@ public class StatueManager : SerializedMonoBehaviour
                 previous = currentMousePositionInGrid;
             }
 
-            if(Input.GetMouseButtonDown(0)){ isPlacingStatue = true; isSelectingStatueLocation = false;}
+            if(Input.GetMouseButtonDown(0)){isPlacingStatue = true; isSelectingStatueLocation = false;}
         }
         
     }
@@ -100,23 +100,26 @@ public class StatueManager : SerializedMonoBehaviour
             worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             currentMousePositionInGrid = movementTilemap.WorldToCell(worldMousePosition);
-
-            Vector3 offSetGridPosition;
             
-            offSetGridPosition = new Vector3(currentMousePositionInGrid.x + 0.5f, currentMousePositionInGrid.y + 1, 0f);
+            Vector3 offSetGridPosition = new Vector3(currentMousePositionInGrid.x + 0.5f, currentMousePositionInGrid.y + 1, 0f);
 
-            if(Input.GetMouseButtonDown(0))
-            {
+            if(Input.GetMouseButton(0))
+            {                
+                anim.SetFloat("animTypeX", 0);
+                anim.SetFloat("animTypeY", -1);
+
+                GameObject previousStatue = GameObject.FindGameObjectWithTag("Statue");
+                Destroy(previousStatue);
+
                 Instantiate(world1Statue[0], offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
                 Vector3 statueDirection;
+                
                 statueDirection = (world1Statue[0].transform.position - transform.position).normalized;
                 
                 anim.SetFloat("xDirection", statueDirection.x);
                 anim.SetFloat("yDirection", statueDirection.y);
 
-                anim.SetFloat("animTypeX", 0);
-                anim.SetFloat("animTypeY", -1);
             }
         }
 
@@ -132,6 +135,9 @@ public class StatueManager : SerializedMonoBehaviour
 
             if(Input.GetMouseButtonDown(0))
             {
+                GameObject previousStatue = GameObject.FindGameObjectWithTag("Statue");
+                Destroy(previousStatue);
+
                 Instantiate(world2Statue[0], offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
 
