@@ -27,6 +27,8 @@ public class LayerManager : SerializedMonoBehaviour
         DontDestroyOnLoad(this);
 
         player = GameObject.FindGameObjectWithTag("Player");
+        fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Elephant"));
     }
 
     // Update is called once per frame
