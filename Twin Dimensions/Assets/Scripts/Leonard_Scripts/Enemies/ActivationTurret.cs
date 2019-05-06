@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using Cinemachine.Editor;
 
 public class ActivationTurret : MonoBehaviour
 {
@@ -19,14 +21,15 @@ public class ActivationTurret : MonoBehaviour
 
     private void Shoot()
     {
+        Debug.Log("I'm shooting");
+
         Vector3 mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //mousePosition = ExtensionMethods.getFlooredWorldPosition(mousePosition);
     
         if(LayerManager.EnemyIsInRealWorld(this.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, mousePosition, 50f, LayerMask.GetMask("Enemy Layer 1"));
-            
+            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 1") << LayerMask.GetMask("World Obstacle Detection 1"));
+            Debug.DrawLine(this.transform.position, mousePosition, Color.white, 80f); 
             if(hit.collider)
             {
                 hit.collider.gameObject.SendMessage("ActivateTriggerBehavior");
@@ -37,7 +40,8 @@ public class ActivationTurret : MonoBehaviour
 
         if(!LayerManager.EnemyIsInRealWorld(this.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, mousePosition, 50f, LayerMask.GetMask("Enemy Layer 2"));
+            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 2") << LayerMask.GetMask("World Obstacle Detection 2"));
+            Debug.DrawLine(this.transform.position, mousePosition, Color.green, 80f);            
             
             if(hit.collider)
             {
