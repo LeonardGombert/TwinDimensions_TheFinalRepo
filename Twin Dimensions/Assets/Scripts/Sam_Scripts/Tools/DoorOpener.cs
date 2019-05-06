@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class DoorOpener : MonoBehaviour
 {
+    [SerializeField]
+    public List<Sprite> spriteList = new List<Sprite>();
+
     BoxCollider2D colider;
-    SpriteRenderer sprite;
+    SpriteRenderer sr;
 
     void Awake()
     {
         colider = gameObject.GetComponent<BoxCollider2D>();
-        sprite = GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
+
+        if(colider.enabled)
+        {
+            sr.sprite = spriteList[1];
+        }
+        else
+        {
+            sr.sprite = spriteList[0];
+        }
     }
 
     /*void OnEnable()
@@ -25,28 +37,28 @@ public class DoorOpener : MonoBehaviour
         EventManager.StopListening("InteractableReleased", CloseDoor);
     }*/
 
-    void OpenDoor()
+    void Activated()
     {
         if(colider.enabled)
-        {sprite.color = Color.blue;
+        {sr.sprite = spriteList[0];
         colider.enabled = false;}
 
         else
         {
-        sprite.color = Color.red;
+        sr.sprite = spriteList[1];
         colider.enabled = true;
         }
     }
 
-    void CloseDoor()
+    void Released()
     {
         if(colider.enabled)
-        {sprite.color = Color.blue;
+        {sr.sprite = spriteList[0];
         colider.enabled = false;}
 
         else
         {
-        sprite.color = Color.red;
+        sr.sprite = spriteList[1];
         colider.enabled = true;
         }
     }
