@@ -8,6 +8,24 @@ public class SandManager : SerializedMonoBehaviour
 {
     public static SandManager instance;
 
+    [FoldoutGroup("SandHolder Lists")][SerializeField]
+    List<GameObject> littleSand = new List<GameObject>();
+    [FoldoutGroup("SandHolder Lists")][SerializeField]
+    List<GameObject> mediumSand = new List<GameObject>();
+    [FoldoutGroup("SandHolder Lists")][SerializeField]
+    List<GameObject> highSand = new List<GameObject>();
+    [FoldoutGroup("SandHolder Lists")][SerializeField]
+    List<GameObject> extremeSand = new List<GameObject>();
+
+    [FoldoutGroup("Sand Amounts")][SerializeField]
+    int littleAmount;
+    [FoldoutGroup("Sand Amounts")][SerializeField]
+    int mediumAmount;
+    [FoldoutGroup("Sand Amounts")][SerializeField]
+    int highAmount;
+    [FoldoutGroup("Sand Amounts")][SerializeField]
+    int extremeAmount;
+
     void Awake()
     {
         if(instance == null)
@@ -43,5 +61,10 @@ public class SandManager : SerializedMonoBehaviour
             myKeys += 1;
             Debug.Log("I've currently got " + myKeys + " keys");
         }
+    }
+
+    private void SandHeldByEntity()
+    {
+
     }
 }
