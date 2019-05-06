@@ -29,7 +29,7 @@ public class ActivationTurret : MonoBehaviour
             
             if(hit.collider)
             {
-                hit.collider.gameObject.SendMessage("TriggerBehavior");
+                hit.collider.gameObject.SendMessage("ActivateTriggerBehavior");
                 Debug.Log("I've hit " + hit.collider.gameObject.name);
                 isActive = false;
             }
@@ -41,7 +41,7 @@ public class ActivationTurret : MonoBehaviour
             
             if(hit.collider)
             {
-                hit.collider.gameObject.SendMessage("TriggerBehavior");
+                hit.collider.gameObject.SendMessage("ActivateTriggerBehavior");
                 Debug.Log("I've hit " + hit.collider.gameObject.name);
                 isActive = false;
             }

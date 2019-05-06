@@ -4,12 +4,12 @@ using UnityEngine;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
-public class CowardlyCorey : MonsterClass
+public class CowardlyCorey : PriestClass
 {
     // Start is called before the first frame update
     public override void Awake()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player"); 
     }
 
     // Update is called once per frame

@@ -51,4 +51,9 @@ public class PriestClass : MonoBehaviour
         
         else return false;
     }
+
+    void DropSand(int sandAmount)
+    {
+        Debug.Log("I'm " + gameObject.name + ", and I have " + sandAmount + " sand");
+    }
 }

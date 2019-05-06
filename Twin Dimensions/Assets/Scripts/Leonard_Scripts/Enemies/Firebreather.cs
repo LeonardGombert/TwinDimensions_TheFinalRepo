@@ -15,4 +15,9 @@ public class Firebreather : MonsterClass
     {
         
     }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        
+    }
 }
