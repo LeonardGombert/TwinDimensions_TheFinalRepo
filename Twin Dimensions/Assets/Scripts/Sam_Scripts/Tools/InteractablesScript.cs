@@ -5,13 +5,11 @@ using UnityEngine;
 public class InteractablesScript : MonoBehaviour
 
 {
-
     [SerializeField]
     public class CaughtObject
     {
         public Rigidbody2D rigidbody;
         public Collider2D collider;
-        public bool inContact;
     }
 
     [SerializeField]
@@ -27,31 +25,16 @@ public class InteractablesScript : MonoBehaviour
     public float requiredMass = 1f;
     public float requiredSand = 0f;
 
-    //public BoxCollider2D boxCollider;
-
-    public void OnTriggerStay2D(Collider2D collider)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
 
         if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass)
         {
-            //if (collider.attachedRigidbody.mass >= requiredMass)
-            //{
                 foreach (GameObject door in doorObjects)
                 {
-                    EventManager.TriggerEvent("InteractableActivated");
+                    door.SendMessage("OpenDoor");
                 }
-            //}
 
-        }
-
-    }
-
-    public void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand)
-        {
-                EventManager.TriggerEvent("InteractableActivated");
-                SandTextScript.sandAmount -= (int)requiredSand;
         }
     }
 
@@ -59,9 +42,19 @@ public class InteractablesScript : MonoBehaviour
     {
         if (activationType == ActivationType.Plate)
         {
+            foreach (GameObject door in doorObjects)
+            {
             Debug.Log("Pressure Plate released");
-            EventManager.TriggerEvent("InteractableReleased");
+            door.SendMessage("CloseDoor");
+            }
         }
     }
 
+        /*public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand)
+        {
+                EventManager.TriggerEvent("InteractableActivated");
+        }
+    }*/
 }
