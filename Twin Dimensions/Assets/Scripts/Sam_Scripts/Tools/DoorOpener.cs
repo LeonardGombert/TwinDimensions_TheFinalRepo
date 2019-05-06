@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class DoorOpener : MonoBehaviour
 {
-    void OnEnable()
+    BoxCollider2D colider;
+    SpriteRenderer sprite;
+
+    void Awake()
+    {
+        colider = gameObject.GetComponent<BoxCollider2D>();
+        sprite = GetComponent<SpriteRenderer>();
+    }
+
+    /*void OnEnable()
     {
         EventManager.StartListening("InteractableActivated", OpenDoor);
         EventManager.StartListening("InteractableReleased", CloseDoor);
@@ -14,23 +23,31 @@ public class DoorOpener : MonoBehaviour
     {
         EventManager.StopListening("InteractableActivated", OpenDoor);
         EventManager.StopListening("InteractableReleased", CloseDoor);
-    }
+    }*/
 
     void OpenDoor()
     {
-        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        if(colider.enabled)
+        {sprite.color = Color.blue;
+        colider.enabled = false;}
+
+        else
+        {
         sprite.color = Color.red;
-        BoxCollider2D colider = GetComponent<BoxCollider2D>();
-        colider.enabled = !colider.enabled;
-        Debug.Log("OpenDoor Function was called!");
+        colider.enabled = true;
+        }
     }
 
     void CloseDoor()
     {
-        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
-        sprite.color = Color.blue;
-        BoxCollider2D colider = GetComponent<BoxCollider2D>();
-        colider.enabled = colider.enabled;
-        Debug.Log("CloseDoor Function was called!");
+        if(colider.enabled)
+        {sprite.color = Color.blue;
+        colider.enabled = false;}
+
+        else
+        {
+        sprite.color = Color.red;
+        colider.enabled = true;
+        }
     }
 }
