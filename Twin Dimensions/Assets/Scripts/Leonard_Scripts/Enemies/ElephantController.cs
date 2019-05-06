@@ -228,18 +228,7 @@ public class ElephantController : MonsterClass
         while (sqrRemainingDistanceToDestination > float.Epsilon)
         {      
             transform.position = Vector3.MoveTowards(transform.position, destination, chargeSpeed * Time.deltaTime);
-            sqrRemainingDistanceToDestination = (transform.position - destination).sqrMagnitude;
-            
-            RaycastHit2D chargeWallDetection = RaycastManager(destinationPosition, secondaryWallDetection);
-            Debug.DrawRay(boxCol2D.bounds.center, destinationPosition, Color.green, 800);
-            
-            //if (chargeWallDetection.collider.tag == "Obstacle")
-            //{
-                //yield break;
-                //Debug.Log("I've detected a wall");
-                //if (chargeWallDetection.collider.tag == "Obstacle") sqrRemainingDistanceToDestination = transform.position.sqrMagnitude;
-            //}
-                     
+            sqrRemainingDistanceToDestination = (transform.position - destination).sqrMagnitude;    
 
             yield return null;
         }
