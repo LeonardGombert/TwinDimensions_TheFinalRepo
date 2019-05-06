@@ -4,26 +4,16 @@ using UnityEngine;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
-public class LockPriestController : MonoBehaviour
+public class LockPriestController : MonsterClass
 {
-    public static bool isOnMyLayer = false;
-
-    [FoldoutGroup("References")][SerializeField]
-    public GameObject player;
-    
-    public SpriteRenderer sr;
-    public Animator anim;
-
     // Start is called before the first frame update
-    public virtual void Awake()
+    public override void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
-        sr = GetComponentInChildren<SpriteRenderer>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");        
     }
 
     // Update is called once per frame
-    public void Update()
+    public override void Update()
     {
         CheckPlayerLayer();
     }
@@ -31,11 +21,15 @@ public class LockPriestController : MonoBehaviour
     void CheckPlayerLayer()
     {
         if(this.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1") 
-        && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 1")) Teleportation.isOnLockedLayer = true; //can switch = false
+        && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 1")) TeleportationManager.isOnLockedLayer = true; //can switch = false
 
         if(this.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 2") 
-        && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 2")) Teleportation.isOnLockedLayer = true;  //can switch = false
+        && player.gameObject.layer == LayerMask.NameToLayer("Player Layer 2")) TeleportationManager.isOnLockedLayer = true;  //can switch = false
         else return;
     }
 
+    public override void TriggerBehavior()
+    {
+
+    }
 }

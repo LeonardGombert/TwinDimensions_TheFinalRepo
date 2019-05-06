@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
-public class ActivationPriestController : PriestClass
+public class ActivationPriestController : MonsterClass
 {
     List<GameObject> hitEnemies = new List<GameObject>();
     private GameObject hitEnemy;

@@ -10,7 +10,7 @@ public class StatueManager : SerializedMonoBehaviour
     public static StatueManager instance;
 
     [FoldoutGroup("Tilemap")][SerializeField]
-    Tilemap generalTilemap;
+    Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
     Tile highlightTile;
 
@@ -27,10 +27,11 @@ public class StatueManager : SerializedMonoBehaviour
     List<GameObject> world2Statue = new List<GameObject>();
 
     public static float statueKickSpeed = 800;
+    Animator anim;
 
     bool isPlacingStatue = false;
     bool isSelectingStatueLocation = false;
-    public static bool isKickingStatue = false;
+    public static bool isPunchingStatue = false;
     public static bool isInRange = false;
 
     void Awake()
@@ -46,6 +47,9 @@ public class StatueManager : SerializedMonoBehaviour
         DontDestroyOnLoad(this);
 
         player = GameObject.FindWithTag("Player");
+        anim = GameObject.FindWithTag("Player").GetComponent<Animator>();
+        
+        movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
@@ -61,7 +65,7 @@ public class StatueManager : SerializedMonoBehaviour
         //Check if player is placing or kicking statues
         if(PlayerInputManager.instance.GetKeyDown("placeStatue")) isSelectingStatueLocation = true;
        
-        if(PlayerInputManager.instance.GetKeyDown("kickStatue")) isKickingStatue = true;
+        if(PlayerInputManager.instance.GetKeyDown("kickStatue")) isPunchingStatue = true;
     }
 
     private void SelectStatuePlacement()
@@ -71,13 +75,13 @@ public class StatueManager : SerializedMonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition = ExtensionMethods.getFlooredWorldPosition(mousePosition);
 
-            Vector3Int currentMousePositionInGrid = generalTilemap.WorldToCell(mousePosition);
+            Vector3Int currentMousePositionInGrid = movementTilemap.WorldToCell(mousePosition);
 
             if (currentMousePositionInGrid != previous)
             {
-                generalTilemap.SetTile(currentMousePositionInGrid, highlightTile);
+                movementTilemap.SetTile(currentMousePositionInGrid, highlightTile);
 
-                generalTilemap.SetTile(previous, null);
+                movementTilemap.SetTile(previous, null);
 
                 previous = currentMousePositionInGrid;
             }
@@ -95,7 +99,7 @@ public class StatueManager : SerializedMonoBehaviour
                 
             worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            currentMousePositionInGrid = generalTilemap.WorldToCell(worldMousePosition);
+            currentMousePositionInGrid = movementTilemap.WorldToCell(worldMousePosition);
 
             Vector3 offSetGridPosition;
             
@@ -105,16 +109,22 @@ public class StatueManager : SerializedMonoBehaviour
             {
                 Instantiate(world1Statue[0], offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
+                Vector3 statueDirection;
+                statueDirection = (world1Statue[0].transform.position - transform.position).normalized;
+                
+                anim.SetFloat("xDirection", statueDirection.x);
+                anim.SetFloat("yDirection", statueDirection.y);
+
+                anim.SetFloat("animTypeX", 0);
+                anim.SetFloat("animTypeY", -1);
             }
         }
 
         if(isPlacingStatue == true && !LayerManager.PlayerIsInRealWorld())
-        {            
-            Debug.Log("Is placing statue on Layer 2");
-                
+        {
             worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            currentMousePositionInGrid = generalTilemap.WorldToCell(worldMousePosition);
+            currentMousePositionInGrid = movementTilemap.WorldToCell(worldMousePosition);
 
             Vector3 offSetGridPosition;
 
@@ -124,6 +134,15 @@ public class StatueManager : SerializedMonoBehaviour
             {
                 Instantiate(world2Statue[0], offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
+
+                Vector3 statueDirection;
+                statueDirection = (world1Statue[0].transform.position - transform.position).normalized;
+
+                anim.SetFloat("xDirection", statueDirection.x);
+                anim.SetFloat("yDirection", statueDirection.y);
+
+                anim.SetFloat("animTypeX", 0);
+                anim.SetFloat("animTypeY", -1);
             }
         }
     }

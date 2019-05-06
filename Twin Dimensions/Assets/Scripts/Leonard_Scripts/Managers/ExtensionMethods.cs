@@ -7,10 +7,30 @@ using UnityEngine.Tilemaps;
 
 public class ExtensionMethods
 {   
-    public static void RecenterOnGrid(GameObject objectToCenter, Tilemap generalTilemap)
+    public static void RecenterOnGrid(GameObject objectToCenter, Tilemap movementTilemap)
     {
-        objectToCenter.transform.position = generalTilemap.WorldToCell(objectToCenter.transform.position);
+        objectToCenter.transform.position = movementTilemap.WorldToCell(objectToCenter.transform.position);
     }
+
+    public static int ScrollWheelManager(int maxIndexNmber)
+    {
+        int currentIndexNumber = 0;
+
+        if (currentIndexNumber <maxIndexNmber)
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber < maxIndexNmber) currentIndexNumber += 1;
+
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
+
+            if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
+
+            return currentIndexNumber;
+        }
+
+        else return 0;
+    }
+
+    
     
     #region //USED BY ABILITY1, ABILITY2 and MOVEMENT
     //Get World Position
