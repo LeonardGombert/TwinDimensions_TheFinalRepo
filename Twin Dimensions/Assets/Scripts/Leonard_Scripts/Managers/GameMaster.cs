@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameMaster : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameMaster instance;
 
     public static bool playerIsDead = false;
 
