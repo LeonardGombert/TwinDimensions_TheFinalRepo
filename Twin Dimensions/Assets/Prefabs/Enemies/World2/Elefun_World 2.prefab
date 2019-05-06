@@ -65,14 +65,11 @@ MonoBehaviour:
   player: {fileID: 0}
   lookingForPlayer: 1
   lookingForWall: 0
-  Up: {x: 0, y: 50, z: 0}
-  Right: {x: 50, y: 0, z: 0}
-  Down: {x: 0, y: -50, z: 0}
-  Left: {x: -50, y: 0, z: 0}
+  isRushingPlayer: 0
   isCharging: 0
   chargeSpeed: 3
   chargeRadiusInTiles: 4
-  highlightTile: {fileID: 0}
+  highlightTile: {fileID: 11400000, guid: 5fee537ac051f824b9aa3d05c75464ae, type: 2}
   world1Profile:
     serializedVersion: 2
     m_Bits: 1280
@@ -140,7 +137,7 @@ GameObject:
   - component: {fileID: 2815914252922998324}
   m_Layer: 13
   m_Name: Elephant_Visuals
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

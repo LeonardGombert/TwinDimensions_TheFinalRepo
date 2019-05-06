@@ -122,15 +122,21 @@ public class MonsterClass : SerializedMonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            Debug.Log("I've hit the Player");
+            GameMaster.playerIsDead = true;
         }
 
         if(collision.tag == "ActivationPriest")
         {
-            Debug.Log("The Priest has activated me" + this.gameObject.name);
+            Debug.Log("The Priest has activated " + this.gameObject.name);
             isBeingSwitchedByPriest = true;
         }
-        
+
+        if(collision.tag == "Firebreather")        
+        {
+            Debug.Log("The Firebreather hit " + gameObject.name);
+            Destroy(gameObject);
+        }
+
         if(collision.tag == "Elephant")
         {
             Debug.Log("The Elephant hit " + gameObject.name);
@@ -139,7 +145,13 @@ public class MonsterClass : SerializedMonoBehaviour
 
         if(collision.tag == "Trap")
         {
+            Debug.Log("The Elephant hit " + collision.gameObject.name);
             Destroy(gameObject);
         }
+    }
+
+    void DropSand(int sandAmount)
+    {
+        Debug.Log("I'm " + gameObject.name + ", and I have " + sandAmount + " sand");
     }
 }

@@ -99,11 +99,10 @@ public class TeleportationManager : SerializedMonoBehaviour
 
     private void CheckPlayerInputs()
     {
-
         if (PlayerInputManager.instance.GetKeyDown("teleport"))
         {
             if (isOnLockedLayer == false) isTeleporting = true;
-            else if (isOnLockedLayer == true) isTeleporting = false; Debug.Log("I am unable to Teleport");
+            else if (isOnLockedLayer == true) {isTeleporting = false; Debug.Log("I am unable to Teleport");}
         }
     }
 
@@ -122,6 +121,7 @@ public class TeleportationManager : SerializedMonoBehaviour
                 {
                     SwitchWorlds();
                     teleportTimer = baseCountdownTimerValue;
+                    isTeleporting = false;
                 }
             }
         }
@@ -147,6 +147,7 @@ public class TeleportationManager : SerializedMonoBehaviour
             world2Cam.gameObject.SetActive(false);
 
             gameObject.layer = LayerMask.NameToLayer("Player Layer 1");
+            hasTeleported = true;
         }
 
         isTeleporting = false;
