@@ -125,6 +125,11 @@ public class MonsterClass : SerializedMonoBehaviour
             GameMaster.playerIsDead = true;
         }
 
+        if(collision.tag == "Statue")
+        {
+            Destroy(collision.gameObject);
+        }
+
         if(collision.tag == "ActivationPriest")
         {
             Debug.Log("The Priest has activated " + this.gameObject.name);

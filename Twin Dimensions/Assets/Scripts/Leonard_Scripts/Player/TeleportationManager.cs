@@ -6,6 +6,8 @@ using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine.Rendering.PostProcessing;
+using Cinemachine;
+using Cinemachine.Editor;
 
 public class TeleportationManager : SerializedMonoBehaviour
 {
@@ -23,7 +25,11 @@ public class TeleportationManager : SerializedMonoBehaviour
     [FoldoutGroup("Cameras")][SerializeField]
     Camera world1Cam;
     [FoldoutGroup("Cameras")][SerializeField]
+    CinemachineVirtualCamera world1VirtualCam;
+    [FoldoutGroup("Cameras")][SerializeField]
     Camera world2Cam;
+    [FoldoutGroup("Cameras")][SerializeField]
+    CinemachineVirtualCamera world2VirtualCam;
 
     bool isTeleporting = false;
     public static bool hasTeleported = false; //avoids looping the Teleport to hook function
@@ -138,15 +144,23 @@ public class TeleportationManager : SerializedMonoBehaviour
             world2Cam.gameObject.SetActive(true);
 
             gameObject.layer = LayerMask.NameToLayer("Player Layer 2");
+
+            CameraTransitions.ChangingWorldsBack(world1VirtualCam, world2VirtualCam);
+            CameraTransitions.ChangingWorlds(world2VirtualCam);
+            
             hasTeleported = true;
         }
 
         else if (!LayerManager.PlayerIsInRealWorld())
         {
-            world1Cam.gameObject.SetActive(true);
+            world1Cam.gameObject.SetActive(true);        
             world2Cam.gameObject.SetActive(false);
 
             gameObject.layer = LayerMask.NameToLayer("Player Layer 1");
+
+            CameraTransitions.ChangingWorldsBack(world2VirtualCam, world1VirtualCam);
+            CameraTransitions.ChangingWorlds(world1VirtualCam);
+
             hasTeleported = true;
         }
 

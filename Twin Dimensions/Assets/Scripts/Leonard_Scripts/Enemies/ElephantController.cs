@@ -65,7 +65,9 @@ public class ElephantController : MonsterClass
 
     List<Vector3> CardinalDirections = new List<Vector3>();
 
-    CameraTransitions cam;
+    public GameObject camera1;
+    public GameObject camera2;
+
     #endregion
 
     #region Monobehavior Callbacks
@@ -76,7 +78,6 @@ public class ElephantController : MonsterClass
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
         myCenteredCam = GetComponentInChildren<Camera>();
-        cam = GameObject.FindGameObjectWithTag("Manager").GetComponent<CameraTransitions>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
 
@@ -105,7 +106,8 @@ public class ElephantController : MonsterClass
 
         if(isTriggered) TriggerBehavior();
 
-        if(Input.GetKeyDown(KeyCode.E)) cam.ChangeCamera();
+        if(Input.GetKeyDown(KeyCode.E)) CameraTransitions.ChangeCameraOnce(camera1, camera2);
+        if(Input.GetKeyDown(KeyCode.F)) CameraTransitions.ChangeCameraBack(camera1, camera2);
     }
     #endregion
 
