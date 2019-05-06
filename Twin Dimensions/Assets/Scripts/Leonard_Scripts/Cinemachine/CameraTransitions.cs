@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTransitionos : MonoBehaviour
+public class CameraTransitions : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject cam1 = default;
+    [SerializeField] GameObject cam2 = default;
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeCamera()
     {
-        
+        cam2.SetActive(true);
+        cam1.SetActive(false);
     }
 }
