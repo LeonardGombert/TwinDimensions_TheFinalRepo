@@ -8,16 +8,15 @@ using UnityEngine.SceneManagement;
 
 public class MonsterClass : SerializedMonoBehaviour
 {
-    [FoldoutGroup("World Switching")][SerializeField]
+    [HideInInspector]
     public SpriteRenderer spiritWorldVisuals;
-    [FoldoutGroup("World Switching")][SerializeField]
+    [HideInInspector]
     public SpriteRenderer realWorldVisuals;        
-    [FoldoutGroup("Sprite Switching")][SerializeField]
+    [HideInInspector]
     public List<Sprite> spriteList = new List<Sprite>();
-
-    [FoldoutGroup("Visual Component References")]
+    [HideInInspector]
     public SpriteRenderer sr;
-    [FoldoutGroup("Visual Component References")]
+    [HideInInspector]
     public Animator anim;
 
     [HideInInspector]

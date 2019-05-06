@@ -25,9 +25,9 @@ public class TeleportationManager : SerializedMonoBehaviour
     [FoldoutGroup("Cameras")][SerializeField]
     Camera world1Cam;
     [FoldoutGroup("Cameras")][SerializeField]
-    CinemachineVirtualCamera world1VirtualCam;
-    [FoldoutGroup("Cameras")][SerializeField]
     Camera world2Cam;
+    [FoldoutGroup("Cameras")][SerializeField]
+    CinemachineVirtualCamera world1VirtualCam;
     [FoldoutGroup("Cameras")][SerializeField]
     CinemachineVirtualCamera world2VirtualCam;
 
@@ -143,10 +143,13 @@ public class TeleportationManager : SerializedMonoBehaviour
             world1Cam.gameObject.SetActive(false);
             world2Cam.gameObject.SetActive(true);
 
+            world1VirtualCam.gameObject.SetActive(false);
+            world2VirtualCam.gameObject.SetActive(true);
+
             gameObject.layer = LayerMask.NameToLayer("Player Layer 2");
 
-            CameraTransitions.ChangingWorldsBack(world1VirtualCam, world2VirtualCam);
-            CameraTransitions.ChangingWorlds(world2VirtualCam);
+            //CameraTransitions.ChangingWorldsBack(world1VirtualCam);
+            //CameraTransitions.ChangingWorlds(world2VirtualCam);
             
             hasTeleported = true;
         }
@@ -156,10 +159,13 @@ public class TeleportationManager : SerializedMonoBehaviour
             world1Cam.gameObject.SetActive(true);        
             world2Cam.gameObject.SetActive(false);
 
+            world1VirtualCam.gameObject.SetActive(true);
+            world2VirtualCam.gameObject.SetActive(false);
+
             gameObject.layer = LayerMask.NameToLayer("Player Layer 1");
 
-            CameraTransitions.ChangingWorldsBack(world2VirtualCam, world1VirtualCam);
-            CameraTransitions.ChangingWorlds(world1VirtualCam);
+            //CameraTransitions.ChangingWorldsBack(world2VirtualCam);
+            //CameraTransitions.ChangingWorlds(world1VirtualCam);
 
             hasTeleported = true;
         }
