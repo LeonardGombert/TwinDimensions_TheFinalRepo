@@ -32,9 +32,17 @@ public class InteractablesScript : MonoBehaviour
         {
                 foreach (GameObject door in doorObjects)
                 {
-                    door.SendMessage("OpenDoor");
+                    door.SendMessage("Activated");
                 }
 
+        }
+
+        if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand)
+        {
+            foreach (GameObject door in doorObjects)
+                {
+                    door.SendMessage("Activated");
+                }
         }
     }
 
@@ -45,7 +53,7 @@ public class InteractablesScript : MonoBehaviour
             foreach (GameObject door in doorObjects)
             {
             Debug.Log("Pressure Plate released");
-            door.SendMessage("CloseDoor");
+            door.SendMessage("Released");
             }
         }
     }
