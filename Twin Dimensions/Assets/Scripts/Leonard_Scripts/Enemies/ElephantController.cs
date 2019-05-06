@@ -64,16 +64,19 @@ public class ElephantController : MonsterClass
     int maxIndexNmber = 0;
 
     List<Vector3> CardinalDirections = new List<Vector3>();
+
+    CameraTransitions cam;
     #endregion
 
     #region Monobehavior Callbacks
-    public override void  Awake()
+    public override void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
         myCenteredCam = GetComponentInChildren<Camera>();
+        cam = GameObject.FindGameObjectWithTag("Manager").GetComponent<CameraTransitions>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
 
@@ -101,6 +104,8 @@ public class ElephantController : MonsterClass
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
 
         if(isTriggered) TriggerBehavior();
+
+        if(Input.GetKeyDown(KeyCode.E)) cam.ChangeCamera();
     }
     #endregion
 
@@ -264,7 +269,7 @@ public class ElephantController : MonsterClass
     void TriggerBehavior()
     {
         if(isTriggered)
-        {            
+        {
             anim.SetFloat("MoveX", CardinalDirections[currentIndexNumber].x);
             anim.SetFloat("MoveY", CardinalDirections[currentIndexNumber].y);
 
