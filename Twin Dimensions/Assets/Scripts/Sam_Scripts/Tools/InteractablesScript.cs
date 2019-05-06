@@ -14,30 +14,33 @@ public class InteractablesScript : MonoBehaviour
         public bool inContact;
     }
 
-    List<CaughtObject> caughtObjects;
+    [SerializeField]
+    List<GameObject> doorObjects = new List<GameObject>();
 
 
     public enum ActivationType
     {
-        Plate, Button
+        Plate, Lever
     }
 
     public ActivationType activationType;
     public float requiredMass = 1f;
-    public float requiredSand = 1f;
-    public Sprite activatedPadSprite;
-    public Sprite releasedPadSprite;
+    public float requiredSand = 0f;
+
     //public BoxCollider2D boxCollider;
 
     public void OnTriggerStay2D(Collider2D collider)
     {
 
-        if (activationType == ActivationType.Plate)
+        if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass)
         {
-            if (collider.attachedRigidbody.mass >= requiredMass)
-            {
+            //if (collider.attachedRigidbody.mass >= requiredMass)
+            //{
+                foreach (GameObject door in doorObjects)
+                {
                     EventManager.TriggerEvent("InteractableActivated");
-            }
+                }
+            //}
 
         }
 
@@ -45,15 +48,10 @@ public class InteractablesScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log(SandTextScript.sandAmount);
-        if (activationType == ActivationType.Button && SandTextScript.sandAmount >= requiredSand)
+        if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand)
         {
-            //if (Input.GetKeyDown("e") && sandNumber >= requiredSand)
-            //{
                 EventManager.TriggerEvent("InteractableActivated");
                 SandTextScript.sandAmount -= (int)requiredSand;
-                
-            //}
         }
     }
 
