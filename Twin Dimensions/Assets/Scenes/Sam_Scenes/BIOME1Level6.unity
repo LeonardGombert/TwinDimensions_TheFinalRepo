@@ -281,7 +281,7 @@ PrefabInstance:
     - target: {fileID: 2810543179635708971, guid: 29330ad6ee4c0ee44828c07d2c81538d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 2810543179635708971, guid: 29330ad6ee4c0ee44828c07d2c81538d,
         type: 3}
@@ -456,7 +456,7 @@ PrefabInstance:
     - target: {fileID: 4502306294457724101, guid: 633502c34c3b8ad429adbb9d31a8f572,
         type: 3}
       propertyPath: fillThisListWithEnemies.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4502306294457724101, guid: 633502c34c3b8ad429adbb9d31a8f572,
         type: 3}
@@ -468,12 +468,12 @@ PrefabInstance:
         type: 3}
       propertyPath: fillThisListWithEnemies.Array.data[0]
       value: 
-      objectReference: {fileID: 981668273}
+      objectReference: {fileID: 279117702}
     - target: {fileID: 4502306294457724101, guid: 633502c34c3b8ad429adbb9d31a8f572,
         type: 3}
       propertyPath: fillThisListWithEnemies.Array.data[1]
       value: 
-      objectReference: {fileID: 1156922172}
+      objectReference: {fileID: 279117702}
     - target: {fileID: 4502306294457724101, guid: 633502c34c3b8ad429adbb9d31a8f572,
         type: 3}
       propertyPath: fillThisListWithEnemies.Array.data[2]
@@ -496,10 +496,59 @@ PrefabInstance:
       objectReference: {fileID: 4791265082820151538}
     - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
         type: 3}
+      propertyPath: littleSand.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
+      propertyPath: mediumSand.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
+      propertyPath: extremeSand.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
         type: 3}
+      propertyPath: littleSand.Array.data[0]
+      value: 
+      objectReference: {fileID: 981668273}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
+      propertyPath: mediumSand.Array.data[0]
+      value: 
+      objectReference: {fileID: 1156922172}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
+      propertyPath: extremeSand.Array.data[0]
+      value: 
+      objectReference: {fileID: 279117702}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
+      propertyPath: extremeAmount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
+      propertyPath: littleAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
+      propertyPath: mediumAmount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502306294457724100, guid: 633502c34c3b8ad429adbb9d31a8f572,
+        type: 3}
+      propertyPath: highAmount
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3389086957837939609, guid: 633502c34c3b8ad429adbb9d31a8f572,
         type: 3}
       propertyPath: m_Name
@@ -1068,6 +1117,12 @@ PrefabInstance:
       propertyPath: movementTilemap
       value: 
       objectReference: {fileID: 4791265082820151538}
+    - target: {fileID: 2815914251523049653, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 2815914251523049653, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc, type: 3}
 --- !u!4 &1406096838 stripped
@@ -1162,6 +1217,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Elefun_World 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2815914251523049654, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2815914251523049650, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1232,6 +1292,12 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
+      objectReference: {fileID: 2815914251523049653, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc,
+        type: 3}
+    - target: {fileID: 2815914252922998326, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc, type: 3}
@@ -1355,7 +1421,7 @@ PrefabInstance:
     - target: {fileID: 5094032209228012086, guid: 66bc20999b7c9a24e961ab0b949b95c1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.5
+      value: -17.5
       objectReference: {fileID: 0}
     - target: {fileID: 5094032209228012086, guid: 66bc20999b7c9a24e961ab0b949b95c1,
         type: 3}

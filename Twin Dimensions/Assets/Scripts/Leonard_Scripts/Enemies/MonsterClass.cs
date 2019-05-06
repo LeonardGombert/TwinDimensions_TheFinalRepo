@@ -122,7 +122,7 @@ public class MonsterClass : SerializedMonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            Debug.Log("I've hit the Player");
+            GameManager.playerIsDead = true;
         }
 
         if(collision.tag == "ActivationPriest")
@@ -141,5 +141,10 @@ public class MonsterClass : SerializedMonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void DropSand(int sandAmount)
+    {
+        Debug.Log("I'm " + gameObject.name + ", and I have " + sandAmount + " sand");
     }
 }
