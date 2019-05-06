@@ -119,7 +119,6 @@ public class StatueManager : SerializedMonoBehaviour
                 
                 anim.SetFloat("xDirection", statueDirection.x);
                 anim.SetFloat("yDirection", statueDirection.y);
-
             }
         }
 

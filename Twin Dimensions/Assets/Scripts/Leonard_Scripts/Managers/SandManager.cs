@@ -8,6 +8,7 @@ public class SandManager : SerializedMonoBehaviour
 {
     public static SandManager instance;
 
+    List<List<GameObject>> BigList = new List<List<GameObject>>();
     [FoldoutGroup("SandHolder Lists")][SerializeField]
     List<GameObject> littleSand = new List<GameObject>();
     [FoldoutGroup("SandHolder Lists")][SerializeField]
@@ -25,6 +26,8 @@ public class SandManager : SerializedMonoBehaviour
     int highAmount;
     [FoldoutGroup("Sand Amounts")][SerializeField]
     int extremeAmount;
+    
+    int sandAmount;
 
     void Awake()
     {
@@ -37,12 +40,14 @@ public class SandManager : SerializedMonoBehaviour
             Destroy(this);
         }
         DontDestroyOnLoad(this);
+
+        BigList.AddRange(new List<GameObject>[] { littleSand, mediumSand, highSand, extremeSand });
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       SandHeldByEntity();
     }
 
     public static void AddNewSandShard(int sandGained)
@@ -65,6 +70,17 @@ public class SandManager : SerializedMonoBehaviour
 
     private void SandHeldByEntity()
     {
-
+        foreach (List<GameObject> list in BigList)
+        {
+            if(list == littleSand) sandAmount = littleAmount;
+            if(list == mediumSand) sandAmount = mediumAmount; 
+            if(list == highSand) sandAmount = highAmount;
+            if(list == extremeSand) sandAmount = extremeAmount;
+            
+            foreach (GameObject Entity in list)
+            {
+                Entity.SendMessage("DropSand", sandAmount);
+            }
+        }
     }
 }

@@ -142,4 +142,9 @@ public class MonsterClass : SerializedMonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void DropSand(int sandAmount)
+    {
+        Debug.Log("I'm " + gameObject.name + ", and I have " + sandAmount + " sand");
+    }
 }
