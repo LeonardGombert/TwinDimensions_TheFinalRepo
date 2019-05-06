@@ -8,16 +8,15 @@ using UnityEngine.SceneManagement;
 
 public class MonsterClass : SerializedMonoBehaviour
 {
-    [FoldoutGroup("World Switching")][SerializeField]
+    [HideInInspector]
     public SpriteRenderer spiritWorldVisuals;
-    [FoldoutGroup("World Switching")][SerializeField]
+    [HideInInspector]
     public SpriteRenderer realWorldVisuals;        
-    [FoldoutGroup("Sprite Switching")][SerializeField]
+    [HideInInspector]
     public List<Sprite> spriteList = new List<Sprite>();
-
-    [FoldoutGroup("Visual Component References")]
+    [HideInInspector]
     public SpriteRenderer sr;
-    [FoldoutGroup("Visual Component References")]
+    [HideInInspector]
     public Animator anim;
 
     [HideInInspector]
@@ -123,6 +122,11 @@ public class MonsterClass : SerializedMonoBehaviour
         if(collision.tag == "Player")
         {
             GameMaster.playerIsDead = true;
+        }
+
+        if(collision.tag == "Statue")
+        {
+            Destroy(collision.gameObject);
         }
 
         if(collision.tag == "ActivationPriest")

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
+using Cinemachine;
+using Cinemachine.Editor;
 
 public class ElephantController : MonsterClass
 {
@@ -43,6 +45,11 @@ public class ElephantController : MonsterClass
 
     public Tile highlightTile;
 
+    [FoldoutGroup("Cinemachine Virtual Cameras")][SerializeField]
+    CinemachineVirtualCamera elephantCamera = new CinemachineVirtualCamera();
+    [FoldoutGroup("Cinemachine Virtual Cameras")][SerializeField]
+    CinemachineVirtualCamera playerCamera = new CinemachineVirtualCamera();
+
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
     LayerMask world1Profile;
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
@@ -54,7 +61,6 @@ public class ElephantController : MonsterClass
     Transform target;
 
     Rigidbody2D rb2D;
-    Camera myCenteredCam;
     BoxCollider2D boxCol2D;
 
     bool isActive;
@@ -64,8 +70,6 @@ public class ElephantController : MonsterClass
     int maxIndexNmber = 0;
 
     List<Vector3> CardinalDirections = new List<Vector3>();
-
-    CameraTransitions cam;
     #endregion
 
     #region Monobehavior Callbacks
@@ -75,8 +79,7 @@ public class ElephantController : MonsterClass
         sr = GetComponentInChildren<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
-        myCenteredCam = GetComponentInChildren<Camera>();
-        cam = GameObject.FindGameObjectWithTag("Manager").GetComponent<CameraTransitions>();
+        //myCenteredCam = GetComponentInChildren<CinemachineVirtualCamera>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
 
@@ -104,8 +107,6 @@ public class ElephantController : MonsterClass
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
 
         if(isTriggered) TriggerBehavior();
-
-        if(Input.GetKeyDown(KeyCode.E)) cam.ChangeCamera();
     }
     #endregion
 
@@ -269,7 +270,10 @@ public class ElephantController : MonsterClass
     void TriggerBehavior()
     {
         if(isTriggered)
-        {
+        { 
+            playerCamera.gameObject.SetActive(false);
+            elephantCamera.gameObject.SetActive(true);
+            
             anim.SetFloat("MoveX", CardinalDirections[currentIndexNumber].x);
             anim.SetFloat("MoveY", CardinalDirections[currentIndexNumber].y);
 
@@ -291,7 +295,9 @@ public class ElephantController : MonsterClass
                 lookingForWall = true;
                 isCharging = true;
                 LookForWall(currentSelectedDirection);
-                isTriggered = false;    
+                isTriggered = false;
+                elephantCamera.gameObject.SetActive(false);
+                playerCamera.gameObject.SetActive(true);
             }
         }
         else return;
