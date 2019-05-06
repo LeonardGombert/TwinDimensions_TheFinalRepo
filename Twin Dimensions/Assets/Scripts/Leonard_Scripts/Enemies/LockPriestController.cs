@@ -28,7 +28,7 @@ public class LockPriestController : MonsterClass
         else return;
     }
 
-    public override void TriggerBehavior()
+    public override void ActivateTriggerBehavior()
     {
 
     }

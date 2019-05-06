@@ -43,7 +43,7 @@ public class MonsterClass : SerializedMonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if(isActivatedByTurret()) TriggerBehavior();
+        if(isActivatedByTurret()) ActivateTriggerBehavior();
     }
 
     public void MyLayerChecker(bool isOnSameLayer)
@@ -110,7 +110,7 @@ public class MonsterClass : SerializedMonoBehaviour
         }        
     }
 
-    public virtual void TriggerBehavior(){}
+    public virtual void ActivateTriggerBehavior(){}
 
     private bool isActivatedByTurret(bool messageListener = false)
     {
