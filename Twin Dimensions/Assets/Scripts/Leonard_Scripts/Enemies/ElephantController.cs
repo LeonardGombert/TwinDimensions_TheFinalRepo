@@ -100,9 +100,8 @@ public class ElephantController : MonsterClass
 
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
 
-        if(isTriggered) ConfirmDirection();
+        if(isTriggered) TriggerBehavior();
     }
-
     #endregion
 
     #region Elephant Functions
@@ -147,7 +146,6 @@ public class ElephantController : MonsterClass
                 }
             }
         }
-
         else return;
     }
 
@@ -162,9 +160,14 @@ public class ElephantController : MonsterClass
             {
                 wallPointCoordinates = new Vector3(wallSeeker.point.x, wallSeeker.point.y);
                 
-                currentPositionOnGrid = movementTilemap.WorldToCell(wallPointCoordinates);
+                //currentPositionOnGrid = movementTilemap.WorldToCell(wallPointCoordinates);
 
-                centeredPositionOnGrid = new Vector3(wallPointCoordinates.x + 0, wallPointCoordinates.y + 0, 0);
+                centeredPositionOnGrid = new Vector3(wallPointCoordinates.x, wallPointCoordinates.y, 0);
+
+                if(direction == Right) centeredPositionOnGrid = new Vector3(centeredPositionOnGrid.x -.5f, centeredPositionOnGrid.y);
+                if(direction == Left) centeredPositionOnGrid = new Vector3(centeredPositionOnGrid.x +.5f, centeredPositionOnGrid.y);
+                if(direction == Up) centeredPositionOnGrid = new Vector3(centeredPositionOnGrid.x, centeredPositionOnGrid.y -.5f);
+                if(direction == Down) centeredPositionOnGrid = new Vector3(centeredPositionOnGrid.x, centeredPositionOnGrid.y +.5f);
 
                 isCharging = true;
                 lookingForWall = false;
@@ -219,23 +222,24 @@ public class ElephantController : MonsterClass
 
         float sqrRemainingDistanceToDestination = (transform.position - destination).sqrMagnitude;
         float inverseMoveTime = 1 / chargeSpeed;
-
         
         Vector2 destinationPosition = new Vector2(direction.x, direction.y);
 
-        RaycastHit2D chargeWallDetection = RaycastManager(destinationPosition, secondaryWallDetection);
-        Debug.DrawRay(boxCol2D.bounds.center, destinationPosition, Color.green, 800);
-
         while (sqrRemainingDistanceToDestination > float.Epsilon)
-        {
-            if (chargeWallDetection.collider.tag == "Obstacle")
-            {
-                Debug.Log("I've detected a wall");
-                if (chargeWallDetection.collider.tag == "Obstacle") sqrRemainingDistanceToDestination = transform.position.sqrMagnitude;
-            }
-
+        {      
             transform.position = Vector3.MoveTowards(transform.position, destination, chargeSpeed * Time.deltaTime);
             sqrRemainingDistanceToDestination = (transform.position - destination).sqrMagnitude;
+            
+            RaycastHit2D chargeWallDetection = RaycastManager(destinationPosition, secondaryWallDetection);
+            Debug.DrawRay(boxCol2D.bounds.center, destinationPosition, Color.green, 800);
+            
+            //if (chargeWallDetection.collider.tag == "Obstacle")
+            //{
+                //yield break;
+                //Debug.Log("I've detected a wall");
+                //if (chargeWallDetection.collider.tag == "Obstacle") sqrRemainingDistanceToDestination = transform.position.sqrMagnitude;
+            //}
+                     
 
             yield return null;
         }
@@ -262,13 +266,13 @@ public class ElephantController : MonsterClass
     }
     #endregion    
     
-    public override void TriggerBehavior()
+    public override void ActivateTriggerBehavior()
     {
         Debug.Log("I'm triggered");
         isTriggered = true;           
     }
     
-    void ConfirmDirection()
+    void TriggerBehavior()
     {
         if(isTriggered)
         {            
