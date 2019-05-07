@@ -6,7 +6,8 @@ using Cinemachine.Editor;
 
 public class ActivationTurret : MonoBehaviour
 {
-    bool isActive = false;
+    bool isActive = false;    
+    Vector3 mousePosition = new Vector3();
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,9 +22,6 @@ public class ActivationTurret : MonoBehaviour
 
     private void Shoot()
     {
-        Debug.Log("I'm shooting");
-
-        Vector3 mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     
         if(LayerManager.EnemyIsInRealWorld(this.gameObject)) 
@@ -54,6 +52,10 @@ public class ActivationTurret : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.tag == "Player") isActive = true;
+        if(collider.tag == "Player")        
+        {
+            isActive = true;
+            Debug.Log("I've hit the player");
+        }
     }
 }
