@@ -19,6 +19,12 @@ public class PortalManager : SerializedMonoBehaviour
 
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     List <GameObject> hookTower;
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    GameObject baseActiveTower;
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    GameObject activeHookTower;
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    List<GameObject> inactiveTowers = new List<GameObject>();
 
     GameObject player;
     GameObject portalEntrance;
@@ -48,6 +54,10 @@ public class PortalManager : SerializedMonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         hookTower.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
+        
+        activeHookTower = baseActiveTower;
+        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));    
+        inactiveTowers.Remove(activeHookTower);
     }
 
     // Update is called once per frame
@@ -72,6 +82,22 @@ public class PortalManager : SerializedMonoBehaviour
 
         portalExits.AddRange(GameObject.FindGameObjectsWithTag("Portal"));
         portalExits.Remove(touchedPortal);                               
+    }
+
+    private void GetAllHooks (GameObject newHookTower)
+    {
+        activeHookTower = newHookTower;
+
+        inactiveTowers.Clear();
+
+        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));
+        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+        inactiveTowers.Remove(activeHookTower);
+
+        foreach (GameObject tower in inactiveTowers)
+        {
+            tower.tag = "Inactive Hook Tower";
+        }
     }
 
     void SelectPortalExitWithScroll()
@@ -128,8 +154,7 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void TeleportToHook(Vector3 towerPosition)
     {
-        player.transform.position = towerPosition;
-        
+        player.transform.position = towerPosition;        
         TeleportationManager.hasTeleported = false;
     }
 }

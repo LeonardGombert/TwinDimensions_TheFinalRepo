@@ -24,6 +24,7 @@ public class KeybindingManager : SerializedScriptableObject
     public KeyCode resetScene;
 
     public KeyCode chargeElephant;
+    public KeyCode interaction;
 
     //public KeyCode ; 
 
@@ -49,6 +50,7 @@ public class KeybindingManager : SerializedScriptableObject
             case "resetScene": return resetScene;
             
             case "chargeElephant": return chargeElephant;
+            case "interaction": return interaction;
 
             //case"": return;
             default: return KeyCode.None;
