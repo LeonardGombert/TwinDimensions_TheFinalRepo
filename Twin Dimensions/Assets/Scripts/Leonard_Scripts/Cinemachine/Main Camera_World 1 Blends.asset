@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Main Camera_World 1 Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: CM1 Player
-    m_To: CM2 Player
+  - m_From: CM PlayerWorld1
+    m_To: CM PLayerWorld2
     m_Blend:
       m_Style: 0
       m_Time: 2
@@ -24,8 +24,8 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: CM1 Player
-    m_To: CM1 Level Cam
+  - m_From: CM PlayerWorld1
+    m_To: CM World1
     m_Blend:
       m_Style: 1
       m_Time: 2
@@ -35,8 +35,8 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: CM1 Level Cam
-    m_To: CM1 Level Cam
+  - m_From: CM World1
+    m_To: CM PlayerWorld1
     m_Blend:
       m_Style: 1
       m_Time: 2
