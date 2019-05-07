@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5712992961003877381}
   m_Layer: 0
   m_Name: Manager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,9 @@ MonoBehaviour:
   highlightTile: {fileID: 11400000, guid: 5fee537ac051f824b9aa3d05c75464ae, type: 2}
   portalExits: []
   hookTower: []
+  baseActiveTower: {fileID: 0}
+  activeHookTower: {fileID: 0}
+  inactiveTowers: []
 --- !u!114 &5712992961003877383
 MonoBehaviour:
   m_ObjectHideFlags: 0
