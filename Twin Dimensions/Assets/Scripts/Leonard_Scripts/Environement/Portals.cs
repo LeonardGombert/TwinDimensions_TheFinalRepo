@@ -6,7 +6,7 @@ using Sirenix.Serialization;
 
 public class Portals : MonoBehaviour
 {
-    public static bool hasInteracted = false;
+    public static bool hasUsedPortal = false;
 
     void OnTriggerStay2D(Collider2D collider)
     {
@@ -14,9 +14,26 @@ public class Portals : MonoBehaviour
         {
             if(PlayerInputManager.instance.GetKeyDown("interaction"))
             {
+                hasUsedPortal = true;
                 GameObject manager;
                 manager = GameObject.FindGameObjectWithTag("Manager");
-                if(!hasInteracted) manager.SendMessage("GetAllPortals", this.gameObject);
+                manager.SendMessage("UpdatePortals", this.gameObject);
+                PlayerController.canMove = false;
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.gameObject.tag == "Player")
+        {
+            if(hasUsedPortal == true)
+            {
+                Debug.Log("yes");
+                GameObject manager;
+                manager = GameObject.FindGameObjectWithTag("Manager");
+                manager.SendMessage("UpdatePortals", this.gameObject);
+                PlayerController.canMove = false;
             }
         }
     }
