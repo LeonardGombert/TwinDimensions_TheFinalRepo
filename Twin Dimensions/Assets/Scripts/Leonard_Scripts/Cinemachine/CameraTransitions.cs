@@ -33,11 +33,6 @@ public class CameraTransitions : MonoBehaviour
             Destroy(this);
         }
         DontDestroyOnLoad(this);
-
-        player1Camera = GameObject.FindGameObjectWithTag("Player Virtual Camera 1").GetComponent<CinemachineVirtualCamera>();
-        level1Camera = GameObject.FindGameObjectWithTag("Level Virtual Camera 1").GetComponent<Camera>();
-        player2Camera = GameObject.FindGameObjectWithTag("Player Virtual Camera 2").GetComponent<CinemachineVirtualCamera>();
-        level2Camera = GameObject.FindGameObjectWithTag("Level Virtual Camera 2").GetComponent<Camera>();
     }
 
     // Update is called once per frame
