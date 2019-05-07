@@ -10,15 +10,15 @@ public class CameraTransitions : MonoBehaviour
 {
     public static CameraTransitions instance;
 
-    CinemachineVirtualCamera playerCamera; 
+    Camera playerCamera; 
     Camera levelCamera;
 
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
-    CinemachineVirtualCamera player1Camera;
+    Camera player1Camera;
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     Camera level1Camera;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    CinemachineVirtualCamera player2Camera;
+    Camera player2Camera;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     Camera level2Camera;
 
