@@ -13,7 +13,7 @@ public class InteractablesScript : MonoBehaviour
     }
 
     [SerializeField]
-    List<GameObject> doorObjects = new List<GameObject>();
+    List<GameObject> interactableObjects = new List<GameObject>();
 
 
     public enum ActivationType
@@ -30,18 +30,18 @@ public class InteractablesScript : MonoBehaviour
 
         if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass)
         {
-                foreach (GameObject door in doorObjects)
+                foreach (GameObject interactable in interactableObjects)
                 {
-                    door.SendMessage("Activated");
+                    interactable.SendMessage("Activated");
                 }
 
         }
 
         if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand)
         {
-            foreach (GameObject door in doorObjects)
+            foreach (GameObject interactable in interactableObjects)
                 {
-                    door.SendMessage("Activated");
+                    interactable.SendMessage("Activated");
                 }
         }
     }
@@ -50,19 +50,10 @@ public class InteractablesScript : MonoBehaviour
     {
         if (activationType == ActivationType.Plate)
         {
-            foreach (GameObject door in doorObjects)
+            foreach (GameObject interactable in interactableObjects)
             {
-            Debug.Log("Pressure Plate released");
-            door.SendMessage("Released");
+            interactable.SendMessage("Released");
             }
         }
     }
-
-        /*public void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand)
-        {
-                EventManager.TriggerEvent("InteractableActivated");
-        }
-    }*/
 }
