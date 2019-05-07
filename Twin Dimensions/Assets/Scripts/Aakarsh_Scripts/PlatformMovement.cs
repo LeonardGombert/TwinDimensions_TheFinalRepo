@@ -15,7 +15,7 @@ public class PlatformMovement : MonoBehaviour
 		[SerializeField]
 		private Transform childTransform;
 
-	[SerializeField]
+		[SerializeField]
 		private Transform transformB;
 
 	// Use this for initialization
