@@ -110,7 +110,9 @@ public class PortalManager : SerializedMonoBehaviour
     }
 
     private void SelectPortalExit()
-    {
+    {        
+        PlayerController.canMove = false;
+
         currentPortalSelected = movementTilemap.WorldToCell(portalExits[currentIndexNumber].transform.position);
 
         if (currentPortalSelected != previousPortalSelected)
@@ -122,14 +124,19 @@ public class PortalManager : SerializedMonoBehaviour
             previousPortalSelected = currentPortalSelected;
         } 
 
-        if(PlayerInputManager.instance.GetKeyDown("selectedPortalExit")) TeleportToExit(currentIndexNumber);
+        if(PlayerInputManager.instance.GetKeyDown("selectedPortalExit"))
+        {
+            movementTilemap.SetTile(currentPortalSelected, null);
+            TeleportToExit(currentIndexNumber);
+        }
     }
 
     private void TeleportToExit(int exitIndexNumber)
     {
+        Portals.hasInteracted = true;
         exitPosition = portalExits[exitIndexNumber].transform.position;
-
-        player.transform.position = exitPosition;
+        player.transform.position = exitPosition; 
+        PlayerController.canMove = true;       
     }
 
     private void CheckIfLayerContainsHook(List<GameObject> hookTowerList)

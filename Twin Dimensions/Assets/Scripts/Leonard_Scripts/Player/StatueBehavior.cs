@@ -41,7 +41,7 @@ public class StatueBehavior : SerializedMonoBehaviour
         {
             kickDirection = (transform.position - player.position).normalized;
 
-            if(PlayerInputManager.instance.GetKey("kickStatue"))
+            if(PlayerInputManager.instance.GetKeyDown("kickStatue"))
             {
                 rb.AddForce(kickDirection * StatueManager.statueKickSpeed);
                                
