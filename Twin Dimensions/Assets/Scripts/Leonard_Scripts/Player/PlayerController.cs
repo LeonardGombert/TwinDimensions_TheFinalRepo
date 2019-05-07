@@ -41,6 +41,7 @@ public class PlayerController : SerializedMonoBehaviour
     bool playerHasMoved = false;
     bool movementIsCoolingDown = false;
     public static bool isBeingCharged = false;
+    public static bool canMove = true;
     #endregion
     #endregion
 
@@ -58,11 +59,11 @@ public class PlayerController : SerializedMonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
-        MonitorPlayerInpus();        
+        if(canMove == true) MonitorPlayerInpus();
     }
     #endregion
 

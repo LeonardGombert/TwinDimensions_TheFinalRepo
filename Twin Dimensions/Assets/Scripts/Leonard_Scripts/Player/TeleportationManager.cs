@@ -117,6 +117,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     {
         if (isTeleporting == true)
         {
+            PlayerController.canMove = false;
             anim.SetBool("isTeleporting", true);
 
             if (teleportTimer > 0)
@@ -128,6 +129,7 @@ public class TeleportationManager : SerializedMonoBehaviour
                     SwitchWorlds();
                     teleportTimer = baseCountdownTimerValue;
                     isTeleporting = false;
+                    PlayerController.canMove = true;
                 }
             }
         }

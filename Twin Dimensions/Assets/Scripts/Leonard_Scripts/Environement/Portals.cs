@@ -6,13 +6,18 @@ using Sirenix.Serialization;
 
 public class Portals : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D collider)
+    public static bool hasInteracted = false;
+
+    void OnTriggerStay2D(Collider2D collider)
     {
         if(collider.gameObject.tag == "Player")
         {
-            GameObject manager;
-            manager = GameObject.FindGameObjectWithTag("Manager");
-            manager.SendMessage("GetAllPortals", this.gameObject);        
+            if(PlayerInputManager.instance.GetKeyDown("interaction"))
+            {
+                GameObject manager;
+                manager = GameObject.FindGameObjectWithTag("Manager");
+                if(!hasInteracted) manager.SendMessage("GetAllPortals", this.gameObject);
+            }
         }
     }
 }
