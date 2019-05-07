@@ -6,18 +6,33 @@ using Sirenix.Serialization;
 
 public class Portals : MonoBehaviour
 {
-    public static bool hasUsedPortal = false;
+    bool secondPortalUseAvailable = false;
+    
+    GameObject manager;
+
+    void Awake()
+    {
+        manager = GameObject.FindGameObjectWithTag("Manager");
+    }
+
+    void Update()
+    {
+        if(PlayerInputManager.instance.GetKeyDown("back"))
+        {
+            PlayerController.canMove = true;
+            PortalManager.hasUsedPortal = false;
+            manager.SendMessage("PlayerLeftPortalRange");
+        }
+    }
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Player")
+        if(collider.gameObject.tag == "Player"&& PortalManager.hasUsedPortal == false)
         {
             if(PlayerInputManager.instance.GetKeyDown("interaction"))
             {
-                hasUsedPortal = true;
-                GameObject manager;
-                manager = GameObject.FindGameObjectWithTag("Manager");
                 manager.SendMessage("UpdatePortals", this.gameObject);
+                PortalManager.hasUsedPortal = true;
                 PlayerController.canMove = false;
             }
         }
@@ -25,16 +40,10 @@ public class Portals : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Player")
+        if(collider.gameObject.tag == "Player" && PortalManager.hasUsedPortal == true)
         {
-            if(hasUsedPortal == true)
-            {
-                Debug.Log("yes");
-                GameObject manager;
-                manager = GameObject.FindGameObjectWithTag("Manager");
-                manager.SendMessage("UpdatePortals", this.gameObject);
-                PlayerController.canMove = false;
-            }
+            manager.SendMessage("UpdatePortals", this.gameObject);
+            PlayerController.canMove = false;
         }
     }
 }

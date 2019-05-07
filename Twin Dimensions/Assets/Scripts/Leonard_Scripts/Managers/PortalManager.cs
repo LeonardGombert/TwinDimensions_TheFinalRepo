@@ -38,6 +38,8 @@ public class PortalManager : SerializedMonoBehaviour
 
     int currentIndexNumber = 0;
     int maxIndexNmber = 0;
+    
+    public static bool hasUsedPortal = false;
 
     void Awake()
     {
@@ -122,10 +124,16 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void TeleportToExit(int exitIndexNumber)
     {
-        Portals.hasUsedPortal = false;
+        hasUsedPortal = true;
         exitPosition = portalExits[exitIndexNumber].transform.position;
         player.transform.position = exitPosition;
         PlayerController.canMove = true;
+    }
+
+    private void PlayerLeftPortalRange()
+    {
+        portalExits.Clear();
+        movementTilemap.SetTile(currentPortalSelected, null);
     }
 
     private void CheckIfLayerContainsHook(List<GameObject> hookTowerList)
