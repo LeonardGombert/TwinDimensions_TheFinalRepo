@@ -6,18 +6,44 @@ using Sirenix.Serialization;
 
 public class Portals : MonoBehaviour
 {
-    public static bool hasInteracted = false;
+    bool secondPortalUseAvailable = false;
+    
+    GameObject manager;
+
+    void Awake()
+    {
+        manager = GameObject.FindGameObjectWithTag("Manager");
+    }
+
+    void Update()
+    {
+        if(PlayerInputManager.instance.GetKeyDown("back"))
+        {
+            PlayerController.canMove = true;
+            PortalManager.hasUsedPortal = false;
+            manager.SendMessage("PlayerLeftPortalRange");
+        }
+    }
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Player")
+        if(collider.gameObject.tag == "Player"&& PortalManager.hasUsedPortal == false)
         {
             if(PlayerInputManager.instance.GetKeyDown("interaction"))
             {
-                GameObject manager;
-                manager = GameObject.FindGameObjectWithTag("Manager");
-                if(!hasInteracted) manager.SendMessage("GetAllPortals", this.gameObject);
+                manager.SendMessage("UpdatePortals", this.gameObject);
+                PortalManager.hasUsedPortal = true;
+                PlayerController.canMove = false;
             }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.gameObject.tag == "Player" && PortalManager.hasUsedPortal == true)
+        {
+            manager.SendMessage("UpdatePortals", this.gameObject);
+            PlayerController.canMove = false;
         }
     }
 }
