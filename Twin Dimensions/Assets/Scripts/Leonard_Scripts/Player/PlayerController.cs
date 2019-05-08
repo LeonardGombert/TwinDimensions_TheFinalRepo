@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
@@ -42,6 +43,17 @@ public class PlayerController : SerializedMonoBehaviour
     bool movementIsCoolingDown = false;
     public static bool isBeingCharged = false;
     public static bool canMove = true;
+
+    [FoldoutGroup("Player Movement")][SerializeField]
+    float resetTime;
+    [FoldoutGroup("Player Movement")][SerializeField]
+    float holdTime;
+
+
+    public float downTime, upTime, pressTime = 0;
+    public float countDown = 2.0f;
+    public bool ready = false;
+
     #endregion
     #endregion
 
@@ -53,9 +65,6 @@ public class PlayerController : SerializedMonoBehaviour
         boxCol2D = GetComponent<BoxCollider2D>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
-
-        Physics2D.queriesStartInColliders = false;
-        Physics2D.queriesHitTriggers = true;
     }
 
     // Update is called once per frame
@@ -64,11 +73,22 @@ public class PlayerController : SerializedMonoBehaviour
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
+        if(holdTime >= 0) Debug.Log("Yeet");
+
+        if(PlayerInputManager.instance.GetKey("resetScene"))
+        {
+            holdTime = Time.time;
+        }
+         
+        if(PlayerInputManager.instance.GetKeyUp("resetScene"))
+        {
+            //holdTime = 0;
+            Debug.Log("Pressed for : " + holdTime + " Seconds");
+        } 
     }
     #endregion
 
     #region Player Functions
-
     #region BASIC MOVEMENT ON A GRID
     private void MonitorPlayerInpus()
     {
@@ -82,6 +102,12 @@ public class PlayerController : SerializedMonoBehaviour
         if(PlayerInputManager.instance.GetKey("down")) vertical = -1;
         if(PlayerInputManager.instance.GetKey("left")) horizontal = -1;
         if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
+
+        if (PlayerInputManager.instance.GetKey("resetScene"))
+        {
+            holdTime -= Time.deltaTime;
+            if(holdTime >= 0) Debug.Log("Yeet");
+        }
               
         if (horizontal != 0) vertical = 0;
 
@@ -171,6 +197,13 @@ public class PlayerController : SerializedMonoBehaviour
             //anim.SetFloat("xDirection", elephantDirection.x);
             //anim.SetFloat("yDirection", elephantDirection.y);
         }
+    }
+
+    void ResetScene()
+    {
+        Scene activeScene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(activeScene.name);
+         
     }
     #endregion
     #endregion
