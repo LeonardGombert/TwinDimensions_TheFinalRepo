@@ -26,7 +26,7 @@ public class ActivationTurret : MonoBehaviour
     
         if(LayerManager.EnemyIsInRealWorld(this.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 1") << LayerMask.GetMask("World Obstacle Detection 1"));
+            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 1"));
             Debug.DrawLine(this.transform.position, mousePosition, Color.white, 80f); 
             if(hit.collider)
             {
@@ -38,7 +38,7 @@ public class ActivationTurret : MonoBehaviour
 
         if(!LayerManager.EnemyIsInRealWorld(this.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 2") << LayerMask.GetMask("World Obstacle Detection 2"));
+            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 2"));
             Debug.DrawLine(this.transform.position, mousePosition, Color.green, 80f);            
             
             if(hit.collider)

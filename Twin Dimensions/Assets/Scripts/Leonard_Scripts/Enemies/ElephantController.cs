@@ -79,7 +79,6 @@ public class ElephantController : MonsterClass
         sr = GetComponentInChildren<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
-        //myCenteredCam = GetComponentInChildren<CinemachineVirtualCamera>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
 
