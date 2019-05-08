@@ -81,6 +81,7 @@ public class DoorOpener : MonoBehaviour
 
     void Update()
     {
+        /*
         if(Input.GetKeyDown(KeyCode.E)) 
         {
             anim.Play(animName);
@@ -93,6 +94,7 @@ public class DoorOpener : MonoBehaviour
 			anim.Play (animName, -1, float.NegativeInfinity);
             anim.Update(0f);
         }
+        */
     }
 
     void Activated()
