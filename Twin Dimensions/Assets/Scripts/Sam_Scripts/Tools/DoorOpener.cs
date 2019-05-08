@@ -101,15 +101,15 @@ public class DoorOpener : MonoBehaviour
     {
         if(boxcol2D.enabled)
         {   
-            anim.Play(animName);
+            //anim.Play(animName);
             sr.sprite = spriteList[0];
             boxcol2D.enabled = false;            
         }
 
         else
         {
-            anim.SetFloat ("Direction", -1);
-			anim.Play(animName, -1, float.NegativeInfinity);
+            /*anim.SetFloat ("Direction", -1);
+			anim.Play(animName, -1, float.NegativeInfinity);*/
 
             sr.sprite = spriteList[1];
             boxcol2D.enabled = true;
@@ -120,15 +120,15 @@ public class DoorOpener : MonoBehaviour
     {
         if(boxcol2D.enabled)
         {      
-            anim.Play(animName);
+            //anim.Play(animName);
             sr.sprite = spriteList[0];
             boxcol2D.enabled = false;
         }
 
         else
         {
-            anim.SetFloat ("Direction", -1);
-			anim.Play (animName, -1, float.NegativeInfinity);
+            /*anim.SetFloat ("Direction", -1);
+			anim.Play (animName, -1, float.NegativeInfinity);*/
 
             sr.sprite = spriteList[1];
             boxcol2D.enabled = true;
