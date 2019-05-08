@@ -31,3 +31,5 @@ public class NumOfHourglasses : MonoBehaviour
         }
     }
 }
+
+// Avec gestion passant par l'UI, a voir si conservé (DontDestroyOnLoad a récupérer)
