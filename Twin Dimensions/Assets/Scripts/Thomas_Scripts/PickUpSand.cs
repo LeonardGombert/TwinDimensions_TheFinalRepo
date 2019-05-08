@@ -6,9 +6,7 @@ public class PickUpSand : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D col)
     {
-        GetComponent<HourglassSystem.hourglasses>();
-    
+        NumOfHourglasses.numOfHourglasses ++;
         Destroy(gameObject);
-
     }
 }
