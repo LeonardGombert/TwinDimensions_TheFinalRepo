@@ -27,8 +27,9 @@ public class ActivationTurret : MonoBehaviour
         if(LayerManager.EnemyIsInRealWorld(this.gameObject)) 
         {
             RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 1"));
-            Debug.DrawLine(this.transform.position, mousePosition, Color.white, 80f); 
-            if(hit.collider)
+            Debug.DrawLine(this.transform.position, mousePosition, Color.white, 80f);
+            
+            if(hit.collider.tag == "Elephant" || hit.collider.tag == "Enemy")
             {
                 hit.collider.gameObject.SendMessage("ActivateTriggerBehavior");
                 Debug.Log("I've hit " + hit.collider.gameObject.name);
@@ -41,7 +42,7 @@ public class ActivationTurret : MonoBehaviour
             RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 2"));
             Debug.DrawLine(this.transform.position, mousePosition, Color.green, 80f);            
             
-            if(hit.collider)
+            if(hit.collider.tag == "Elephant" || hit.collider.tag == "Enemy")
             {
                 hit.collider.gameObject.SendMessage("ActivateTriggerBehavior");
                 Debug.Log("I've hit " + hit.collider.gameObject.name);
