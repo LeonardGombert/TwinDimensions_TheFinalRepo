@@ -49,11 +49,7 @@ public class PlayerController : SerializedMonoBehaviour
     [FoldoutGroup("Player Movement")][SerializeField]
     float holdTime;
 
-
-    public float downTime, upTime, pressTime = 0;
-    public float countDown = 2.0f;
-    public bool ready = false;
-
+    bool hasResetScene;
     #endregion
     #endregion
 
@@ -68,23 +64,17 @@ public class PlayerController : SerializedMonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
-        if(holdTime >= 0) Debug.Log("Yeet");
-
-        if(PlayerInputManager.instance.GetKey("resetScene"))
+        if(holdTime <= 0 && !hasResetScene) 
         {
-            holdTime = Time.time;
+            hasResetScene = true;
+            holdTime = 0;
+            ResetScene();
         }
-         
-        if(PlayerInputManager.instance.GetKeyUp("resetScene"))
-        {
-            //holdTime = 0;
-            Debug.Log("Pressed for : " + holdTime + " Seconds");
-        } 
     }
     #endregion
 
@@ -103,11 +93,10 @@ public class PlayerController : SerializedMonoBehaviour
         if(PlayerInputManager.instance.GetKey("left")) horizontal = -1;
         if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
 
-        if (PlayerInputManager.instance.GetKey("resetScene"))
-        {
-            holdTime -= Time.deltaTime;
-            if(holdTime >= 0) Debug.Log("Yeet");
-        }
+        if (PlayerInputManager.instance.GetKey("resetScene")) holdTime -= Time.deltaTime;
+        if (PlayerInputManager.instance.GetKeyUp("resetScene")) holdTime = 0f;
+
+
               
         if (horizontal != 0) vertical = 0;
 
