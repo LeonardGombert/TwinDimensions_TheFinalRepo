@@ -44,4 +44,16 @@ public class PlayerInputManager : MonoBehaviour
             return false;
         }
     }
+
+    public bool GetKeyUp(string key)
+    {
+        if(Input.GetKeyUp(keybindingManager.CheckKey(key)))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

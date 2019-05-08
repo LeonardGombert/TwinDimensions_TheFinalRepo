@@ -118,6 +118,7 @@ public class ElephantController : MonsterClass
         {
             foreach (Vector3 direction in CardinalDirections)
             {
+                Debug.DrawRay(transform.position, direction, Color.green, 80f);
                 if (lookingForPlayer == true && isCharging == false)
                 {
                     RaycastHit2D rangeDetection = RaycastManager(direction, lookingForPlayer);
