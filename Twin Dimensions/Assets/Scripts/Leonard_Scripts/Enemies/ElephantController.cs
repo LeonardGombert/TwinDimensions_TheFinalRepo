@@ -105,8 +105,8 @@ public class ElephantController : MonsterClass
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
 
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
-
-        if(isTriggered) TriggerBehavior();
+        
+        TriggerBehavior();
     }
     #endregion
 

@@ -38,6 +38,8 @@ public class PortalManager : SerializedMonoBehaviour
 
     int currentIndexNumber = 0;
     int maxIndexNmber = 0;
+    
+    public static bool hasUsedPortal = false;
 
     void Awake()
     {
@@ -76,12 +78,12 @@ public class PortalManager : SerializedMonoBehaviour
         if(portalExits.Count != 0) SelectPortalExit();
     }
 
-    private void GetAllPortals(GameObject touchedPortal)
+    private void UpdatePortals(GameObject touchedPortal = default)
     {
         portalExits.Clear();  
 
         portalExits.AddRange(GameObject.FindGameObjectsWithTag("Portal"));
-        portalExits.Remove(touchedPortal);                               
+        portalExits.Remove(touchedPortal);                 
     }
 
     private void GetAllHooks (GameObject newHookTower)
@@ -100,19 +102,8 @@ public class PortalManager : SerializedMonoBehaviour
         }
     }
 
-    void SelectPortalExitWithScroll()
-    {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber < maxIndexNmber) currentIndexNumber += 1;
-
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
-
-        if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
-    }
-
     private void SelectPortalExit()
-    {        
-        PlayerController.canMove = false;
-
+    {
         currentPortalSelected = movementTilemap.WorldToCell(portalExits[currentIndexNumber].transform.position);
 
         if (currentPortalSelected != previousPortalSelected)
@@ -133,10 +124,16 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void TeleportToExit(int exitIndexNumber)
     {
-        Portals.hasInteracted = true;
+        hasUsedPortal = true;
         exitPosition = portalExits[exitIndexNumber].transform.position;
-        player.transform.position = exitPosition; 
-        PlayerController.canMove = true;       
+        player.transform.position = exitPosition;
+        PlayerController.canMove = true;
+    }
+
+    private void PlayerLeftPortalRange()
+    {
+        portalExits.Clear();
+        movementTilemap.SetTile(currentPortalSelected, null);
     }
 
     private void CheckIfLayerContainsHook(List<GameObject> hookTowerList)

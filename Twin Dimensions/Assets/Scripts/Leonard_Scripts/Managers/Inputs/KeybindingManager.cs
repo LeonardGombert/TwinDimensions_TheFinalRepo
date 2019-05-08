@@ -25,9 +25,7 @@ public class KeybindingManager : SerializedScriptableObject
 
     public KeyCode chargeElephant;
     public KeyCode interaction;
-
-    //public KeyCode ; 
-
+    public KeyCode back;
 
     public KeyCode CheckKey(string key)
     {
@@ -51,6 +49,7 @@ public class KeybindingManager : SerializedScriptableObject
             
             case "chargeElephant": return chargeElephant;
             case "interaction": return interaction;
+            case "back": return back;
 
             //case"": return;
             default: return KeyCode.None;

@@ -9,11 +9,8 @@ public class HookTower : MonoBehaviour
     {
         if(collider.gameObject.tag == "Player")
         {
-            Debug.Log("I hit the player");
-
             if(PlayerInputManager.instance.GetKey("interaction"))
             {
-                Debug.Log("I'm interacting");
                 GameObject manager;
                 manager = GameObject.FindGameObjectWithTag("Manager");
                 manager.SendMessage("GetAllHooks", this.gameObject); 
