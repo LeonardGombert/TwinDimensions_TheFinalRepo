@@ -409,13 +409,14 @@ GameObject:
   - component: {fileID: 1333374350}
   - component: {fileID: 1333374352}
   - component: {fileID: 1333374351}
+  - component: {fileID: 1333374353}
   m_Layer: 0
   m_Name: Kali
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1333374349
 Transform:
   m_ObjectHideFlags: 0
@@ -442,6 +443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f685ebc7ef88f448871a2a575fb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackState: 0
+  gameTimer: 0
+  seconds: 0
 --- !u!95 &1333374351
 Animator:
   serializedVersion: 3
@@ -509,6 +513,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1333374353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333374348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f685ebc7ef88f448871a2a575fb809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackState: 0
+  gameTimer: 0
+  seconds: 0
 --- !u!1001 &1960771743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -590,6 +609,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4962161745965440716, guid: 2e17b141e285b98409e96041ca950b14,
+        type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4962161745290556452, guid: 2e17b141e285b98409e96041ca950b14,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -667,16 +691,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4962161745965440716, guid: 2e17b141e285b98409e96041ca950b14,
-        type: 3}
-      propertyPath: orthographic size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962161745965440720, guid: 2e17b141e285b98409e96041ca950b14,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4962161745572863812, guid: 2e17b141e285b98409e96041ca950b14,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -688,6 +702,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4962161745901638943, guid: 2e17b141e285b98409e96041ca950b14,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962161745965440720, guid: 2e17b141e285b98409e96041ca950b14,
         type: 3}
       propertyPath: m_Enabled
       value: 0

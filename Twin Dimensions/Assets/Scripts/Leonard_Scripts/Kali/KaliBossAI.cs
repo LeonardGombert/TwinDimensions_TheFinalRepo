@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StateData;
 
-public class KaliStateManager : MonoBehaviour
+public class KaliBossAI : MonoBehaviour
 {
     BossStates defautState = BossStates.Idle;
     BossStates currentState;
-
+    
     Animator anim;
+    
+    public StateMachine<KaliBossAI> stateMachine { get; set; }
+    public bool attackState = false;
+    public float gameTimer;
+    public int seconds = 0;
 
     public enum BossStates
     {
@@ -17,11 +23,14 @@ public class KaliStateManager : MonoBehaviour
         Attacking,
         Transitioning        
     }
-
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animator>();
+
+        stateMachine = new StateMachine<KaliBossAI>(this);
+        stateMachine.ChangeState(S1IdleState.Instance);
+        gameTimer = Time.time;
     }
 
     // Update is called once per frame
@@ -32,7 +41,22 @@ public class KaliStateManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Z)) currentState = BossStates.Laughing;
         if(Input.GetKeyDown(KeyCode.E)) currentState = BossStates.Attacking;
         if(Input.GetKeyDown(KeyCode.R)) currentState = BossStates.Transitioning;
-        CheckCurrentState();
+        //CheckCurrentState();
+
+        if(Time.time > gameTimer + 1)
+        {
+            gameTimer = Time.time;
+            seconds++;
+            Debug.Log(seconds);
+        }
+
+        if(seconds == 5)
+        {
+            seconds = 0;
+            attackState = !attackState;
+        }
+
+        stateMachine.Update();
     }
 
     void CheckCurrentState()
