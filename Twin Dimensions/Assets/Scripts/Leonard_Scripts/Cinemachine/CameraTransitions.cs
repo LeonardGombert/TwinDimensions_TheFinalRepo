@@ -48,18 +48,19 @@ public class CameraTransitions : MonoBehaviour
             playerCamera = player1Camera;
             levelCamera = level1Camera;
         }
+        
         else if(!LayerManager.PlayerIsInRealWorld())
         {
             playerCamera = player2Camera;
             levelCamera = level2Camera;     
         }
-        
+
         if(PlayerInputManager.instance.GetKey("cameraZoomOut"))
         {
             playerCamera.gameObject.SetActive(false);
             levelCamera.gameObject.SetActive(true);
         }
-        
+
         else 
         {
             playerCamera.gameObject.SetActive(true);
@@ -97,6 +98,4 @@ public class CameraTransitions : MonoBehaviour
         cam1.gameObject.SetActive(true);
         cam2.gameObject.SetActive(false);        
     }
-
-
 }
