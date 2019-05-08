@@ -40,9 +40,14 @@ public class S1IdleState : State<KaliBossAI>
 
     public override void UpdateState(KaliBossAI _owner)
     {
-        if(!_owner.attackState)
+        if(_owner.attackState)
         {
             _owner.stateMachine.ChangeState(S1AttackState.Instance);
+        }
+
+        if(_owner.deathState)
+        {
+            _owner.stateMachine.ChangeState(S1DeathState.Instance);
         }
     }
 }
