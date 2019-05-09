@@ -305,6 +305,8 @@ MonoBehaviour:
   movementTilemap: {fileID: 0}
   movementCooldown: 0.3
   moveTime: 0.3
+  resetTime: 0
+  holdTime: 0
 --- !u!114 &4962161745290556451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +394,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.75, y: 0.75}
   m_EdgeRadius: 0
 --- !u!1 &4962161745522382028
 GameObject:
