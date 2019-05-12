@@ -11,7 +11,7 @@ public class Portals : MonoBehaviour
 
     void Awake()
     {
-
+        manager = GameObject.FindGameObjectWithTag("Manager");
     }
 
     void Update()

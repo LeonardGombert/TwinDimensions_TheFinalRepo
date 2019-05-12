@@ -796,6 +796,55 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 298706001}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &333502957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 333502959}
+  - component: {fileID: 333502958}
+  m_Layer: 0
+  m_Name: QHierarchyObjectList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &333502958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333502957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845e8bd83609e3549af5a311ad811681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedObjects: []
+  editModeVisibileObjects: []
+  editModeInvisibleObjects: []
+  wireframeHiddenObjects: []
+  gameObjectColorKeys: []
+  gameObjectColorValues: []
+--- !u!4 &333502959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333502957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &361473232 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7725499528973875982, guid: c77c50ed663fa9d498261cb80468549d,
@@ -1685,91 +1734,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 751342812}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &758071710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962161745379598156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325a6a3050a061e4b8aa51386c30e8e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ExcludedPropertiesInInspector:
-  - m_Script
-  m_LockStageInInspector: 
-  m_StreamingVersion: 20170927
-  m_Priority: 10
-  m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
-  m_AnimatedTarget: {fileID: 4962161746048202168}
-  m_LayerIndex: 0
-  m_ShowDebugText: 0
-  m_ChildCameras:
-  - {fileID: 4962161746529079636}
-  - {fileID: 2868051162819245589}
-  - {fileID: 1107691674}
-  m_Instructions:
-  - m_FullHash: 0
-    m_VirtualCamera: {fileID: 0}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: 0
-    m_VirtualCamera: {fileID: 0}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  - m_FullHash: 0
-    m_VirtualCamera: {fileID: 0}
-    m_ActivateAfter: 0
-    m_MinDuration: 0
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 0.5
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_ParentHash:
-  - m_Hash: -1725385216
-    m_ParentHash: 756556552
-  - m_Hash: -1539148816
-    m_ParentHash: -1725385216
-  - m_Hash: 1500236795
-    m_ParentHash: -1725385216
-  - m_Hash: -1671709179
-    m_ParentHash: -1725385216
-  - m_Hash: -1886642429
-    m_ParentHash: -1725385216
-  - m_Hash: -384538544
-    m_ParentHash: -1725385216
-  - m_Hash: -1439414079
-    m_ParentHash: -1725385216
-  - m_Hash: -1207134228
-    m_ParentHash: -1725385216
-  - m_Hash: -560668481
-    m_ParentHash: -1725385216
-  - m_Hash: 977978284
-    m_ParentHash: -1725385216
-  - m_Hash: 1897405445
-    m_ParentHash: -1725385216
-  - m_Hash: 1957511043
-    m_ParentHash: -1725385216
-  - m_Hash: 305481936
-    m_ParentHash: -1725385216
-  - m_Hash: 1649329936
-    m_ParentHash: -1725385216
-  - m_Hash: -564323788
-    m_ParentHash: -1725385216
-  - m_Hash: 1001407018
-    m_ParentHash: -1725385216
-  - m_Hash: 1562916217
-    m_ParentHash: -1725385216
 --- !u!1001 &762572092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2229,22 +2193,27 @@ PrefabInstance:
         type: 3}
       propertyPath: player1Camera
       value: 
-      objectReference: {fileID: 4962161745379598165}
+      objectReference: {fileID: 4962161746529079636}
     - target: {fileID: 5712992961003877379, guid: b6e6eb6dfd250e24392317779229ade1,
         type: 3}
       propertyPath: player2Camera
       value: 
-      objectReference: {fileID: 4962161745445557378}
+      objectReference: {fileID: 4962161745822803179}
     - target: {fileID: 5712992961003877379, guid: b6e6eb6dfd250e24392317779229ade1,
         type: 3}
       propertyPath: level1Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2868051162819245589}
     - target: {fileID: 5712992961003877379, guid: b6e6eb6dfd250e24392317779229ade1,
         type: 3}
       propertyPath: level2Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4282888616000653237}
+    - target: {fileID: 5712992961003877379, guid: b6e6eb6dfd250e24392317779229ade1,
+        type: 3}
+      propertyPath: exitCamera
+      value: 
+      objectReference: {fileID: 1107691674}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6e6eb6dfd250e24392317779229ade1, type: 3}
 --- !u!4 &1034775662 stripped
@@ -2446,7 +2415,7 @@ GameObject:
   - component: {fileID: 1107691673}
   - component: {fileID: 1107691674}
   m_Layer: 0
-  m_Name: CM vcam1
+  m_Name: CM1 Exit Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2483,7 +2452,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 499
+  m_Priority: 500
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 201232172}
@@ -5171,6 +5140,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PressurePlate (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5831,7 +5805,7 @@ MonoBehaviour:
   m_Priority: 500
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 2424314865544654494}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 13
@@ -25637,7 +25611,7 @@ GameObject:
   - component: {fileID: 4962161746529079636}
   - component: {fileID: 4962161745252081372}
   m_Layer: 0
-  m_Name: CM1 PlayerWorld
+  m_Name: CM1 PlayerCam
   m_TagString: Player Virtual Camera 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25667,7 +25641,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4962161745379598156}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
   m_Name: 
@@ -25706,7 +25680,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
+  m_CustomBlends: {fileID: 11400000, guid: 1a5a97456a1e5df4da06bbd2c3a56bcc, type: 2}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -25749,7 +25723,6 @@ GameObject:
   - component: {fileID: 4962161745379598152}
   - component: {fileID: 4962161745379598153}
   - component: {fileID: 4962161745379598154}
-  - component: {fileID: 758071710}
   m_Layer: 8
   m_Name: Main Camera_World 1
   m_TagString: MainCamera
@@ -25874,7 +25847,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4962161745445557369}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -26078,7 +26051,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 11400000, guid: 0c308d871b3509f44aaafebccf29dae7, type: 2}
+  m_CustomBlends: {fileID: 0}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -26340,7 +26313,7 @@ GameObject:
   - component: {fileID: 4962161745822803179}
   - component: {fileID: 4962161745839494483}
   m_Layer: 0
-  m_Name: CM2 PLayerWorld
+  m_Name: CM2 PLayerCam
   m_TagString: Player Virtual Camera 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
