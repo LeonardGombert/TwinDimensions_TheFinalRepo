@@ -9,7 +9,7 @@ public class StatueManager : SerializedMonoBehaviour
 {
     public static StatueManager instance;
 
-    [FoldoutGroup("Tilemap")][SerializeField]
+    [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
     Tile highlightTile;
