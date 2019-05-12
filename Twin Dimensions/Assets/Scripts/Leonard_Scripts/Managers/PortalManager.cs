@@ -9,23 +9,23 @@ public class PortalManager : SerializedMonoBehaviour
 {
     public static PortalManager instance;
 
-    [FoldoutGroup("Tilemap")][SerializeField]
+    [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
     Tile highlightTile;
 
-    [FoldoutGroup("Portal Exits")][SerializeField]
+    [FoldoutGroup("Portal Exits")]
     List<GameObject> portalExits = new List<GameObject>();
 
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    [FoldoutGroup("Checkpoint Teleporter")]
     List <GameObject> hookTower;
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     GameObject baseActiveTower;
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    [FoldoutGroup("Checkpoint Teleporter")]
     GameObject currentActiveTower;
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    [FoldoutGroup("Checkpoint Teleporter")]
     List<GameObject> activeHookTowers = new List<GameObject>();
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    [FoldoutGroup("Checkpoint Teleporter")]
     List<GameObject> inactiveTowers = new List<GameObject>();
 
     GameObject player;

@@ -31,6 +31,11 @@ public class MonsterClass : SerializedMonoBehaviour
 
     public static bool isOnMyLayer = false;
 
+    [FoldoutGroup("Sand")][SerializeField] 
+    GameObject sandToDrop;
+    
+    int amountOfSandToDrop;
+
     // Start is called before the first frame update
     public virtual void Awake()
     {
@@ -138,24 +143,35 @@ public class MonsterClass : SerializedMonoBehaviour
         if(collision.tag == "Firebreather")        
         {
             Debug.Log("The Firebreather hit " + gameObject.name);
+            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
 
         if(collision.tag == "Elephant")
         {
             Debug.Log("The Elephant hit " + gameObject.name);
+            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
 
         if(collision.tag == "Trap")
         {
             Debug.Log("The Elephant hit " + collision.gameObject.name);
+            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
     }
 
     void DropSand(int sandAmount)
     {
-        Debug.Log("I'm " + gameObject.name + ", and I have " + sandAmount + " sand");
+        amountOfSandToDrop = sandAmount;
+    }
+
+    void GenerateSand(int amountOfSandToDrop)
+    {
+        for (int i = 0; i < amountOfSandToDrop; ++i)
+        {
+            Instantiate(sandToDrop, transform.position, Quaternion.identity);
+        }
     }
 }

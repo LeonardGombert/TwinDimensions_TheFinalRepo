@@ -43,7 +43,7 @@ public class ElephantController : MonsterClass
     Vector3Int currentSelectedDirection;
     Vector3Int previousSelectedDirection;
 
-    public Tile highlightTile;
+    [FoldoutGroup("Tilemap")][SerializeField] Tile highlightTile;
 
     [FoldoutGroup("Cinemachine Virtual Cameras")][SerializeField]
     CinemachineVirtualCamera elephantCamera = new CinemachineVirtualCamera();
@@ -66,8 +66,8 @@ public class ElephantController : MonsterClass
     bool isActive;
     bool isTriggered = false;
 
-    int currentIndexNumber = 0;
-    int maxIndexNmber = 0;
+    int currentIndexNumber;
+    int maxIndexNumber;
 
     List<Vector3> CardinalDirections = new List<Vector3>();
     #endregion
