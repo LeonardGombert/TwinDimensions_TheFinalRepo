@@ -24,6 +24,8 @@ public class PlayerController : SerializedMonoBehaviour
     LayerMask selectedLayerMask;
     BoxCollider2D boxCol2D;
 
+    GameObject manager;
+
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
     LayerMask world1Profile;
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
@@ -60,6 +62,8 @@ public class PlayerController : SerializedMonoBehaviour
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
+
+        manager = GameObject.FindGameObjectWithTag("Manager");
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
@@ -192,6 +196,15 @@ public class PlayerController : SerializedMonoBehaviour
     {
         Scene activeScene = SceneManager.GetActiveScene(); 
         SceneManager.LoadScene(activeScene.name);         
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "Sand")
+        {
+            manager.gameObject.SendMessage("AddNewSandShard", 1);
+            Destroy(collider.gameObject);
+        }
     }
     #endregion
     #endregion

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8432475591768976135}
   - component: {fileID: 8432475591768976377}
   - component: {fileID: 6149065039317856036}
+  - component: {fileID: 189748146527536765}
   m_Layer: 19
   m_Name: Sand_World 2
   m_TagString: Sand
@@ -113,6 +114,27 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15, y: -0.12}
+  m_Offset: {x: -0.18, y: -0.12}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.2
+--- !u!50 &189748146527536765
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8432475591768976378}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4

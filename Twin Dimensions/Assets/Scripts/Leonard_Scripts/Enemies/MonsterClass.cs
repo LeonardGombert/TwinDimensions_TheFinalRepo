@@ -169,6 +169,9 @@ public class MonsterClass : SerializedMonoBehaviour
 
     void GenerateSand(int amountOfSandToDrop)
     {
-        Instantiate(sandToDrop, transform.position, Quaternion.identity);
+        for (int i = 0; i < amountOfSandToDrop; ++i)
+        {
+            Instantiate(sandToDrop, transform.position, Quaternion.identity);
+        }
     }
 }
