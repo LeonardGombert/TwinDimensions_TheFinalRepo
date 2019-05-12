@@ -26,8 +26,12 @@ public class SandManager : SerializedMonoBehaviour
     int highAmount;
     [FoldoutGroup("Sand Amounts")][SerializeField]
     int extremeAmount;
-    
+
     int sandAmount;
+
+    int mySandAmount = 0;
+    int sandRequiredForKey = 5;
+    int myKeys = 0;
 
     void Awake()
     {
@@ -50,17 +54,13 @@ public class SandManager : SerializedMonoBehaviour
        SandHeldByEntity();
     }
 
-    public static void AddNewSandShard(int sandGained)
-    { 
-        int mySandAmount = 0;
-        int sandRequieredForKey = 5;
-        int myKeys = 0;
-
-        mySandAmount += sandGained;
+    void AddNewSandShard(int sandGained)
+    {
+        mySandAmount = mySandAmount + sandGained;
 
         Debug.Log("I've currently got " + mySandAmount + " sand shards");
 
-        if(mySandAmount == sandRequieredForKey)
+        if(mySandAmount == sandRequiredForKey)
         {
             mySandAmount = 0;
             myKeys += 1;

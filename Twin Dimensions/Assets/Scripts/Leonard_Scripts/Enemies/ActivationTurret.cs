@@ -53,7 +53,15 @@ public class ActivationTurret : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.tag == "Player")        
+        if(collider.tag == "Player" && PlayerInputManager.instance.GetKeyDown("interactionKey"))        
+        {isActive = true;
+            Debug.Log("I've hit the player");
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.tag == "Player" && PlayerInputManager.instance.GetKeyDown("interactionKey"))        
         {
             isActive = true;
             Debug.Log("I've hit the player");

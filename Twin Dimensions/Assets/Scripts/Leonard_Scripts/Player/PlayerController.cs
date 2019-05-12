@@ -24,6 +24,8 @@ public class PlayerController : SerializedMonoBehaviour
     LayerMask selectedLayerMask;
     BoxCollider2D boxCol2D;
 
+    GameObject manager;
+
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
     LayerMask world1Profile;
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
@@ -43,6 +45,7 @@ public class PlayerController : SerializedMonoBehaviour
     bool movementIsCoolingDown = false;
     public static bool isBeingCharged = false;
     public static bool canMove = true;
+    public static bool isMoving = false;
 
     [FoldoutGroup("Player Movement")][SerializeField]
     float resetTime;
@@ -60,6 +63,8 @@ public class PlayerController : SerializedMonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
 
+        manager = GameObject.FindGameObjectWithTag("Manager");
+
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
 
@@ -69,6 +74,7 @@ public class PlayerController : SerializedMonoBehaviour
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
+        
         if(holdTime <= 0 && !hasResetScene) 
         {
             hasResetScene = true;
@@ -95,14 +101,12 @@ public class PlayerController : SerializedMonoBehaviour
 
         if (PlayerInputManager.instance.GetKey("resetScene")) holdTime -= Time.deltaTime;
         if (PlayerInputManager.instance.GetKeyUp("resetScene")) holdTime = 0f;
-
-
               
         if (horizontal != 0) vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
         {
-            PlayerAnimationsManager.isMoving = true;
+            isMoving = true;
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
@@ -127,7 +131,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(horizontal == 0 && vertical == 0)
         {
-            PlayerAnimationsManager.isMoving = false;
+            isMoving = false;
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
         }
@@ -192,6 +196,15 @@ public class PlayerController : SerializedMonoBehaviour
     {
         Scene activeScene = SceneManager.GetActiveScene(); 
         SceneManager.LoadScene(activeScene.name);         
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "Sand")
+        {
+            manager.gameObject.SendMessage("AddNewSandShard", 1);
+            Destroy(collider.gameObject);
+        }
     }
     #endregion
     #endregion

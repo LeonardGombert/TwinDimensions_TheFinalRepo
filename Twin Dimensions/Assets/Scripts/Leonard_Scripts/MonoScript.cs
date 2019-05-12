@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MonoScript : MonoBehaviour
 {
-    void Start()
+    void Update()
     {
-        //StateData nonMonoScript = new StateData();
+        //S1AttackState nonMonoScript = new S1AttackState();
         //Pass MonoBehaviour to non MonoBehaviour class
         //nonMonoScript.monoParser(this);
     }

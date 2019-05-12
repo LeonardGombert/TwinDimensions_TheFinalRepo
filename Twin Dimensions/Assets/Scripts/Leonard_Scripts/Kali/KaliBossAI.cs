@@ -84,6 +84,11 @@ public class KaliBossAI : MonoBehaviour
 
         yield return null;
     }
+
+    public void StartChildCoroutine(IEnumerator coroutineMethod)
+    {
+        StartCoroutine(coroutineMethod);
+    }
     
     void CheckCurrentState()
     {
