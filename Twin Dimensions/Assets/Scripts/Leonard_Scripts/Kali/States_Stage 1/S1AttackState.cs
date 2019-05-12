@@ -7,18 +7,10 @@ using StateData;
 
 public class S1AttackState : State<KaliBossAI>
 {
-    /*
-        Different Attacks:
-
-        STAGE 1: Slam attack, sweep attack (?)
-
-    */
-
     private static S1AttackState _instance;
 
     private enum SlamAttackDirections {Right, Left}
 
-    
     KaliBossAI _owner;
     SlamAttackDirections direction;
 
@@ -26,8 +18,13 @@ public class S1AttackState : State<KaliBossAI>
     BoxCollider2D rightAttackBoxCol2D;
     BoxCollider2D leftAttackBoxCol2D;
     KaliBossAI.BossStates currentState;
+    KaliBossAI.BossStates idleState;
     float timeBeforeAttack;
     float runTime;
+    int attackSide;
+
+    bool yes = false;
+    bool no = false;
 
     private S1AttackState()
     {
@@ -71,8 +68,11 @@ public class S1AttackState : State<KaliBossAI>
 
     public override void UpdateState(KaliBossAI _owner)
     {
-        if(_owner.idleState)
+        Debug.Log("Updating Attack State");
+
+        if(yes == true)
         {
+            Debug.Log("Switching to Idle");
             _owner.stateMachine.ChangeState(S1IdleState.Instance);
         }
         
@@ -80,14 +80,22 @@ public class S1AttackState : State<KaliBossAI>
         {
             _owner.stateMachine.ChangeState(S1DeathState.Instance);
         }
-        
-        //StartCoroutine(SlamAttack());
-        SlamAttack();
+
+        if(no == false) 
+        {
+            _owner.StartChildCoroutine(SlamAttack(attackSide));
+        }
     }
 
-    private IEnumerator SlamAttack()
+    public void SlamAttackCoroutine()
     {
-        int attackSide = Random.Range(0, 2);
+        _owner.StartChildCoroutine(SlamAttack(attackSide));
+    }
+
+    private IEnumerator SlamAttack(float attackSide)
+    {
+        attackSide = Random.Range(0, 2);
+        Debug.Log(attackSide);
 
         if(attackSide == 0) activeAttackBoxCol2D = leftAttackBoxCol2D;
         else if(attackSide == 1) activeAttackBoxCol2D = rightAttackBoxCol2D;
@@ -96,21 +104,13 @@ public class S1AttackState : State<KaliBossAI>
         {
             activeAttackBoxCol2D.enabled = true;
             Debug.Log("I'm slamming");
-
-            runTime = 0;
             activeAttackBoxCol2D = null;
-            currentState = KaliBossAI.BossStates.S1Idle; //switch back to idle after an attack
-            yield return null;
+            yield return new WaitForSeconds(3);
+            no = true;
+            yes = true; //switch back to idle after an attack
+            yield break;
         }
+
         else runTime += Time.fixedUnscaledDeltaTime;
-    }
-
-    public void monoParser(MonoBehaviour mono)
-    {
-        //We can now use StartCoroutine from MonoBehaviour in a non MonoBehaviour script
-        mono.StartCoroutine(SlamAttack());
-
-       //And also use StopCoroutine function
-        mono.StopCoroutine(SlamAttack());
     }
 }

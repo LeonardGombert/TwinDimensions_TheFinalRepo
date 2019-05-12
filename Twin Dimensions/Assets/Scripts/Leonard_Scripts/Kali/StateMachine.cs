@@ -1,12 +1,16 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using StateData;
+﻿using UnityEngine;
 
 namespace StateData
 {
+    public abstract class State<T>
+    {
+        public abstract void EnterState(T _owner); //runs once on state entry
+
+        public abstract void ExitState(T _owner); //run once on state change
+
+        public abstract void UpdateState(T _owner); //runs every frame
+    }
+
     public class StateMachine<T>
     {
         public State<T> currentState { get; private set; }
@@ -33,14 +37,4 @@ namespace StateData
                 currentState.UpdateState(Owner); //play Update State
         }
     }
-
-    public abstract class State<T>
-    {
-        public abstract void EnterState(T _owner); //runs once on state entry
-
-        public abstract void ExitState(T _owner); //run once on state change
-
-        public abstract void UpdateState(T _owner); //runs every frame
-    }
-
 }

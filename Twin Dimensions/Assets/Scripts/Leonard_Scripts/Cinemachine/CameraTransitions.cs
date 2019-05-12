@@ -74,41 +74,52 @@ public class CameraTransitions : MonoBehaviour
 
     private void PlayerLevelView()
     {
-        if(PlayerInputManager.instance.GetKey("relativeZoom"))
-        {
-            if(timeHeldDown >= minTimeToHoldDown && !PlayerController.isMoving)
+        if(Input.GetKey(KeyCode.LeftControl))
+        {            
+            if(PlayerInputManager.instance.GetKey("relativeZoom"))
             {
-                relativeZoomCamera.gameObject.SetActive(false);
-                exitCamera.gameObject.SetActive(true);
+                if(timeHeldDown >= minTimeToHoldDown && !PlayerController.isMoving)
+                {
+                    relativeZoomCamera.gameObject.SetActive(false);
+                    exitCamera.gameObject.SetActive(true);
+                }
+
+                else
+                {
+                    playerCamera.gameObject.SetActive(false);
+                    exitCamera.gameObject.SetActive(false);
+                    relativeZoomCamera.gameObject.SetActive(true);
+
+                    timeHeldDown += Time.fixedUnscaledDeltaTime;
+                }       
             }
 
-            else
+            if(PlayerInputManager.instance.GetKeyUp("relativeZoom"))
+            {
+                playerCamera.gameObject.SetActive(true);
+                relativeZoomCamera.gameObject.SetActive(false);
+                timeHeldDown = 0;
+            }
+
+            if(PlayerInputManager.instance.GetKey("generalZoom"))
             {
                 playerCamera.gameObject.SetActive(false);
-                exitCamera.gameObject.SetActive(false);
-                relativeZoomCamera.gameObject.SetActive(true);
+                generalZoomCamera.gameObject.SetActive(true);
+            }
 
-                timeHeldDown += Time.fixedUnscaledDeltaTime;
-            }       
+            if(PlayerInputManager.instance.GetKeyUp("generalZoom"))
+            {
+                playerCamera.gameObject.SetActive(true);
+                generalZoomCamera.gameObject.SetActive(false);
+            }
         }
 
-        if(PlayerInputManager.instance.GetKeyUp("relativeZoom"))
-        {
-            playerCamera.gameObject.SetActive(true);
-            relativeZoomCamera.gameObject.SetActive(false);
-            timeHeldDown = 0;
-        }
-
-        if(PlayerInputManager.instance.GetKey("generalZoom"))
-        {
-            playerCamera.gameObject.SetActive(false);
-            generalZoomCamera.gameObject.SetActive(true);
-        }
-
-        if(PlayerInputManager.instance.GetKeyUp("generalZoom"))
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             playerCamera.gameObject.SetActive(true);
             generalZoomCamera.gameObject.SetActive(false);
+            relativeZoomCamera.gameObject.SetActive(false);
+            timeHeldDown = 0;
         }
     }    
 
