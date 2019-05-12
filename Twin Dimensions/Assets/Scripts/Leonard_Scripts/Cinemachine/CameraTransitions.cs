@@ -10,17 +10,20 @@ public class CameraTransitions : MonoBehaviour
 {
     public static CameraTransitions instance;
 
-    Camera playerCamera; 
-    Camera levelCamera;
+    CinemachineVirtualCamera playerCamera; 
+    CinemachineVirtualCamera levelCamera;
+    CinemachineVirtualCamera otherWorldCam;
 
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
-    Camera player1Camera;
+    CinemachineVirtualCamera player1Camera;
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
-    Camera level1Camera;
+    CinemachineVirtualCamera level1Camera;
+    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
+    CinemachineVirtualCamera exitCamera;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    Camera player2Camera;
+    CinemachineVirtualCamera player2Camera;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    Camera level2Camera;
+    CinemachineVirtualCamera level2Camera;
 
     void Awake()
     {
@@ -39,6 +42,7 @@ public class CameraTransitions : MonoBehaviour
     void Update()
     {
         PlayerLevelView();
+        //PlayerLookAtOtherWorld();
     }
 
     private void PlayerLevelView()
@@ -52,7 +56,7 @@ public class CameraTransitions : MonoBehaviour
         else if(!LayerManager.PlayerIsInRealWorld())
         {
             playerCamera = player2Camera;
-            levelCamera = level2Camera;     
+            levelCamera = level2Camera;
         }
 
         if(PlayerInputManager.instance.GetKey("cameraZoomOut"))
@@ -61,10 +65,23 @@ public class CameraTransitions : MonoBehaviour
             levelCamera.gameObject.SetActive(true);
         }
 
-        else 
+        if(PlayerInputManager.instance.GetKeyUp("cameraZoomOut"))
         {
             playerCamera.gameObject.SetActive(true);
             levelCamera.gameObject.SetActive(false);
+            exitCamera.gameObject.SetActive(false);
+        }
+
+        if(PlayerInputManager.instance.GetKey("previewOtherWorld"))
+        {
+            playerCamera.gameObject.SetActive(false);
+            exitCamera.gameObject.SetActive(true);
+        }
+
+        if(PlayerInputManager.instance.GetKeyUp("previewOtherWorld"))
+        {
+            playerCamera.gameObject.SetActive(true);
+            exitCamera.gameObject.SetActive(false);
         }
     }
 
@@ -74,9 +91,9 @@ public class CameraTransitions : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         cam.m_Follow = player;
 
-        cam.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 20;
-        cam.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 20;
-        cam.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 20;
+        cam.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0;
+        cam.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0;
+        cam.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0;
     }
 
     public static void ChangingWorldsBack(CinemachineVirtualCamera cam)
