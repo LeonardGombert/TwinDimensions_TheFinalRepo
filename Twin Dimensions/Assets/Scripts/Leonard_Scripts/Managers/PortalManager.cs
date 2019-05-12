@@ -17,15 +17,15 @@ public class PortalManager : SerializedMonoBehaviour
     [FoldoutGroup("Portal Exits")][SerializeField]
     List<GameObject> portalExits = new List<GameObject>();
 
-    [FoldoutGroup("Checkpoint Teleporter")]
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     List <GameObject> hookTower;
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     GameObject baseActiveTower;
-    [FoldoutGroup("Checkpoint Teleporter")]
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     GameObject currentActiveTower;
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     List<GameObject> activeHookTowers = new List<GameObject>();
-    [FoldoutGroup("Checkpoint Teleporter")]
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     List<GameObject> inactiveTowers = new List<GameObject>();
 
     GameObject player;
