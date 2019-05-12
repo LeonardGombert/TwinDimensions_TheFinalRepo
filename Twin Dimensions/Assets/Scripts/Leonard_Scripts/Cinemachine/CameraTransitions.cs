@@ -11,19 +11,29 @@ public class CameraTransitions : MonoBehaviour
     public static CameraTransitions instance;
 
     CinemachineVirtualCamera playerCamera; 
-    CinemachineVirtualCamera levelCamera;
+    CinemachineVirtualCamera generalZoomCamera;
+    CinemachineVirtualCamera relativeZoomCamera;
     CinemachineVirtualCamera otherWorldCam;
 
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
-    CinemachineVirtualCamera player1Camera;
+    CinemachineVirtualCamera world1PlayerCamera;
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
-    CinemachineVirtualCamera level1Camera;
+    CinemachineVirtualCamera world1RelativeZoom;
+    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
+    CinemachineVirtualCamera world1GeneralZoom;
+
+    [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
+    CinemachineVirtualCamera world2Player2Camera;    
+    [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
+    CinemachineVirtualCamera world2RelativeZoom;
+    [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
+    CinemachineVirtualCamera world2GeneralZoom;
+    
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera exitCamera;
-    [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    CinemachineVirtualCamera player2Camera;
-    [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    CinemachineVirtualCamera level2Camera;
+
+    float timeHeldDown;
+    float minTimeToHoldDown = 7f;
 
     void Awake()
     {
@@ -41,49 +51,66 @@ public class CameraTransitions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerLevelView();
-        //PlayerLookAtOtherWorld();
+        UpdateCameras();
+        PlayerLevelView();        
     }
 
-    private void PlayerLevelView()
-    {
+    void UpdateCameras()
+    {        
         if(LayerManager.PlayerIsInRealWorld())
         {
-            playerCamera = player1Camera;
-            levelCamera = level1Camera;
+            playerCamera = world1PlayerCamera;
+            relativeZoomCamera = world1RelativeZoom;
+            generalZoomCamera = world1GeneralZoom;
         }
         
         else if(!LayerManager.PlayerIsInRealWorld())
         {
-            playerCamera = player2Camera;
-            levelCamera = level2Camera;
-        }
-
-        if(PlayerInputManager.instance.GetKey("cameraZoomOut"))
-        {
-            playerCamera.gameObject.SetActive(false);
-            levelCamera.gameObject.SetActive(true);
-        }
-
-        if(PlayerInputManager.instance.GetKeyUp("cameraZoomOut"))
-        {
-            playerCamera.gameObject.SetActive(true);
-            levelCamera.gameObject.SetActive(false);
-            exitCamera.gameObject.SetActive(false);
-        }
-
-        if(PlayerInputManager.instance.GetKey("previewOtherWorld"))
-        {
-            playerCamera.gameObject.SetActive(false);
-            exitCamera.gameObject.SetActive(true);
-        }
-
-        if(PlayerInputManager.instance.GetKeyUp("previewOtherWorld"))
-        {
-            playerCamera.gameObject.SetActive(true);
-            exitCamera.gameObject.SetActive(false);
+            playerCamera = world2Player2Camera;
+            relativeZoomCamera = world2RelativeZoom;
+            generalZoomCamera = world2GeneralZoom;
         }
     }
+
+    private void PlayerLevelView()
+    {
+        if(PlayerInputManager.instance.GetKey("relativeZoom"))
+        {
+            if(timeHeldDown >= minTimeToHoldDown && !PlayerController.isMoving)
+            {
+                relativeZoomCamera.gameObject.SetActive(false);
+                exitCamera.gameObject.SetActive(true);
+            }
+
+            else
+            {
+                playerCamera.gameObject.SetActive(false);
+                exitCamera.gameObject.SetActive(false);
+                relativeZoomCamera.gameObject.SetActive(true);
+
+                timeHeldDown += Time.fixedUnscaledDeltaTime;
+            }       
+        }
+
+        if(PlayerInputManager.instance.GetKeyUp("relativeZoom"))
+        {
+            playerCamera.gameObject.SetActive(true);
+            relativeZoomCamera.gameObject.SetActive(false);
+            timeHeldDown = 0;
+        }
+
+        if(PlayerInputManager.instance.GetKey("generalZoom"))
+        {
+            playerCamera.gameObject.SetActive(false);
+            generalZoomCamera.gameObject.SetActive(true);
+        }
+
+        if(PlayerInputManager.instance.GetKeyUp("generalZoom"))
+        {
+            playerCamera.gameObject.SetActive(true);
+            generalZoomCamera.gameObject.SetActive(false);
+        }
+    }    
 
     public static void ChangingWorlds(CinemachineVirtualCamera cam)
     {

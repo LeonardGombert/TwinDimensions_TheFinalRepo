@@ -19,12 +19,12 @@ public class KeybindingManager : SerializedScriptableObject
 
     public KeyCode selectedPortalExit;
 
-    public KeyCode cameraZoomOut;
-    public KeyCode previewOtherWorld;
+    public KeyCode relativeZoom;
+    public KeyCode generalZoom;
     public KeyCode resetScene;
 
     public KeyCode chargeElephant;
-    public KeyCode interaction;
+    public KeyCode interactionKey;
     public KeyCode back;
 
     public KeyCode CheckKey(string key)
@@ -42,13 +42,14 @@ public class KeybindingManager : SerializedScriptableObject
             case "kickStatue": return kickStatue;
 
             case "selectedPortalExit": return selectedPortalExit;
-            case "cameraZoomOut" : return cameraZoomOut;
+            
+            case "relativeZoom" : return relativeZoom;
+            case "generalZoom": return generalZoom;
 
-            case "previewOtherWorld": return previewOtherWorld;
             case "resetScene": return resetScene;
             
             case "chargeElephant": return chargeElephant;
-            case "interaction": return interaction;
+            case "interactionKey": return interactionKey;
             case "back": return back;
 
             //case"": return;

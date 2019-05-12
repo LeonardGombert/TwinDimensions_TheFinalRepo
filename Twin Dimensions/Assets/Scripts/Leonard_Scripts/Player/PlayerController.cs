@@ -43,6 +43,7 @@ public class PlayerController : SerializedMonoBehaviour
     bool movementIsCoolingDown = false;
     public static bool isBeingCharged = false;
     public static bool canMove = true;
+    public static bool isMoving = false;
 
     [FoldoutGroup("Player Movement")][SerializeField]
     float resetTime;
@@ -95,14 +96,12 @@ public class PlayerController : SerializedMonoBehaviour
 
         if (PlayerInputManager.instance.GetKey("resetScene")) holdTime -= Time.deltaTime;
         if (PlayerInputManager.instance.GetKeyUp("resetScene")) holdTime = 0f;
-
-
               
         if (horizontal != 0) vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
         {
-            PlayerAnimationsManager.isMoving = true;
+            isMoving = true;
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
@@ -127,7 +126,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(horizontal == 0 && vertical == 0)
         {
-            PlayerAnimationsManager.isMoving = false;
+            isMoving = false;
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
         }

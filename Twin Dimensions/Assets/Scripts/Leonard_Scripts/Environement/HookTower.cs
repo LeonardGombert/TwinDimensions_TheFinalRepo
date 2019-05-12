@@ -9,7 +9,7 @@ public class HookTower : MonoBehaviour
     {
         if(collider.gameObject.tag == "Player")
         {
-            if(PlayerInputManager.instance.GetKey("interaction"))
+            if(PlayerInputManager.instance.GetKey("interactionKey"))
             {
                 GameObject manager;
                 manager = GameObject.FindGameObjectWithTag("Manager");
