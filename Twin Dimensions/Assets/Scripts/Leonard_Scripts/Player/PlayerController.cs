@@ -191,8 +191,7 @@ public class PlayerController : SerializedMonoBehaviour
     void ResetScene()
     {
         Scene activeScene = SceneManager.GetActiveScene(); 
-        SceneManager.LoadScene(activeScene.name);
-         
+        SceneManager.LoadScene(activeScene.name);         
     }
     #endregion
     #endregion
