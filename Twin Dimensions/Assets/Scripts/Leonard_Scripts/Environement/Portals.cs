@@ -16,7 +16,7 @@ public class Portals : MonoBehaviour
 
     void Update()
     {
-        if(PlayerInputManager.instance.GetKey("interaction"))
+        if(PlayerInputManager.instance.GetKey("interactionKey"))
         { 
             isInteracting = true;
         }
