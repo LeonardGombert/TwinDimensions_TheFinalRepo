@@ -6,8 +6,8 @@ public class MonoScript : MonoBehaviour
 {
     void Start()
     {
-        StateData nonMonoScript = new StateData();
+        //StateData nonMonoScript = new StateData();
         //Pass MonoBehaviour to non MonoBehaviour class
-        nonMonoScript.monoParser(this);
+        //nonMonoScript.monoParser(this);
     }
 }

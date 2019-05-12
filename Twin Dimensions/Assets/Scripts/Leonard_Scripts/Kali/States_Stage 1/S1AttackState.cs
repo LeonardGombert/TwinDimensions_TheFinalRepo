@@ -81,8 +81,8 @@ public class S1AttackState : State<KaliBossAI>
             _owner.stateMachine.ChangeState(S1DeathState.Instance);
         }
         
-        StartCoroutine(SlamAttack());
-        //SlamAttack();
+        //StartCoroutine(SlamAttack());
+        SlamAttack();
     }
 
     private IEnumerator SlamAttack()
