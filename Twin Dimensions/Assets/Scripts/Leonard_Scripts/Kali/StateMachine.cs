@@ -1,4 +1,11 @@
-﻿namespace StateData
+﻿using Sirenix.OdinInspector;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using StateData;
+
+namespace StateData
 {
     public class StateMachine<T>
     {

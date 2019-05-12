@@ -83,9 +83,9 @@ public class PortalManager : SerializedMonoBehaviour
         portalExits.Clear();  
 
         portalExits.AddRange(GameObject.FindGameObjectsWithTag("Portal"));
-        portalExits.Remove(touchedPortal);                 
+        portalExits.Remove(touchedPortal);
     }
-
+    
     private void GetAllHooks (GameObject newHookTower)
     {
         activeHookTower = newHookTower;
