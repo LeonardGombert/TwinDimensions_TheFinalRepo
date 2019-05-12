@@ -11,8 +11,7 @@ public class LayerManager : SerializedMonoBehaviour
     [FoldoutGroup("Enemies in Scene")][SerializeField]
     List <GameObject> fillThisListWithEnemies;
     
-    GameObject player;
-    
+    GameObject player;    
 
     void Awake()
     {
