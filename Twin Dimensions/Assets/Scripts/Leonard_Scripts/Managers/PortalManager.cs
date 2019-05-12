@@ -22,7 +22,9 @@ public class PortalManager : SerializedMonoBehaviour
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     GameObject baseActiveTower;
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
-    GameObject activeHookTower;
+    GameObject currentActiveTower;
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    List<GameObject> activeHookTowers = new List<GameObject>();
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     List<GameObject> inactiveTowers = new List<GameObject>();
 
@@ -57,15 +59,15 @@ public class PortalManager : SerializedMonoBehaviour
         hookTower.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
         
-        activeHookTower = baseActiveTower;
+        currentActiveTower = baseActiveTower;
         inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));    
-        inactiveTowers.Remove(activeHookTower);
+        inactiveTowers.Remove(currentActiveTower);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(hookTower);
+        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(activeHookTowers);
        
         maxIndexNmber = portalExits.Count;
 
@@ -88,13 +90,16 @@ public class PortalManager : SerializedMonoBehaviour
     
     private void GetAllHooks (GameObject newHookTower)
     {
-        activeHookTower = newHookTower;
+        currentActiveTower = newHookTower;
 
         inactiveTowers.Clear();
+        activeHookTowers.Clear();
 
         inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));
         inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
-        inactiveTowers.Remove(activeHookTower);
+        inactiveTowers.Remove(currentActiveTower);
+
+        activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
 
         foreach (GameObject tower in inactiveTowers)
         {
