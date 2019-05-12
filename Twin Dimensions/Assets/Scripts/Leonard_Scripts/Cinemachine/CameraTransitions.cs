@@ -25,9 +25,9 @@ public class CameraTransitions : MonoBehaviour
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     CinemachineVirtualCamera world2Player2Camera;    
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    CinemachineVirtualCamera wrld2RelativeZoom;
+    CinemachineVirtualCamera world2RelativeZoom;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    CinemachineVirtualCamera wrld2GeneralZoom;
+    CinemachineVirtualCamera world2GeneralZoom;
     
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera exitCamera;
@@ -51,12 +51,12 @@ public class CameraTransitions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerLevelView();
-        //PlayerLookAtOtherWorld();
+        UpdateCameras();
+        PlayerLevelView();        
     }
 
-    private void PlayerLevelView()
-    {
+    void UpdateCameras()
+    {        
         if(LayerManager.PlayerIsInRealWorld())
         {
             playerCamera = world1PlayerCamera;
@@ -67,10 +67,13 @@ public class CameraTransitions : MonoBehaviour
         else if(!LayerManager.PlayerIsInRealWorld())
         {
             playerCamera = world2Player2Camera;
-            relativeZoomCamera = wrld2RelativeZoom;
-            generalZoomCamera = wrld2GeneralZoom;
+            relativeZoomCamera = world2RelativeZoom;
+            generalZoomCamera = world2GeneralZoom;
         }
+    }
 
+    private void PlayerLevelView()
+    {
         if(PlayerInputManager.instance.GetKey("relativeZoom"))
         {
             if(timeHeldDown >= minTimeToHoldDown && !PlayerController.isMoving)
@@ -107,7 +110,7 @@ public class CameraTransitions : MonoBehaviour
             playerCamera.gameObject.SetActive(true);
             generalZoomCamera.gameObject.SetActive(false);
         }
-    }
+    }    
 
     public static void ChangingWorlds(CinemachineVirtualCamera cam)
     {
