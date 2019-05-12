@@ -50,6 +50,8 @@ public class S1IdleState : State<KaliBossAI>
 
     public override void UpdateState(KaliBossAI _owner)
     {
+        Debug.Log("Updating Idle State");
+
         if(_owner.attackState)
         {
             _owner.stateMachine.ChangeState(S1AttackState.Instance);
