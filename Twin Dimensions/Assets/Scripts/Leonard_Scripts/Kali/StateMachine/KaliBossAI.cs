@@ -22,9 +22,9 @@ public class KaliBossAI : MonoBehaviour
     [SerializeField] float previousLifepoints;
     
     #region //SLAM ATTACK
-    [FoldoutGroup("Slam Attack")] public BoxCollider2D rightAttackBoxCol2D;
-    [FoldoutGroup("Slam Attack")] public BoxCollider2D leftAttackBoxCol2D;
-    [FoldoutGroup("Slam Attack")] public BoxCollider2D activeAttackBoxCol2D;
+    [FoldoutGroup("Slam Attack")] public GameObject rightAttackBoxCol2D;
+    [FoldoutGroup("Slam Attack")] public GameObject leftAttackBoxCol2D;
+    [FoldoutGroup("Slam Attack")] public GameObject activeAttackBoxCol2D;
 
     [FoldoutGroup("Slam Attack")] public int maxRandom;
     [FoldoutGroup("Slam Attack")] public int minAttackValue;
@@ -87,6 +87,7 @@ public class KaliBossAI : MonoBehaviour
     private void WhichSide(GameObject side)
     {
         Debug.Log("Player is on " + side.gameObject.name);
+        activeAttackBoxCol2D = side.gameObject;
     }
     
     void CheckCurrentState()

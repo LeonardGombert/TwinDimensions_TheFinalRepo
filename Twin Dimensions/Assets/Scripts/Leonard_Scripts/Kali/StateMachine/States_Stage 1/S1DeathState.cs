@@ -5,9 +5,9 @@ public class S1DeathState : State<KaliBossAI>
 {
     private static S1DeathState _instance;
 
-    BoxCollider2D activeAttackBoxCol2D;
-    BoxCollider2D rightAttackBoxCol2D;
-    BoxCollider2D leftAttackBoxCol2D;
+    GameObject activeAttackBoxCol2D;
+    GameObject rightAttackBoxCol2D;
+    GameObject leftAttackBoxCol2D;
 
     private S1DeathState()
     {
@@ -39,8 +39,8 @@ public class S1DeathState : State<KaliBossAI>
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
         
-        rightAttackBoxCol2D.enabled = false;
-        leftAttackBoxCol2D.enabled = false;
+        rightAttackBoxCol2D.SetActive(false);
+        leftAttackBoxCol2D.SetActive(false);
     }
 
     public override void ExitState(KaliBossAI _owner)
