@@ -11,8 +11,8 @@ public class KaliBossAI : MonoBehaviour
 
     public BossStages bossStage;
 
-    public S1BossStates S1currentState;
-    public S2BossStates S2currentState;
+    public S1BossStates Stage1CurrentState;
+    public S2BossStates Stage2CurrentState;
     
     public Animator anim;
     
@@ -97,13 +97,13 @@ public class KaliBossAI : MonoBehaviour
         if(bossStage == BossStages.Stage1)
         {
             if(randAttackValue >= minAttackValue) minAttackValue += attackProbabilityBooster; //does not attack, raise probability nothing happens
-            else if(randAttackValue <= minAttackValue) S1currentState = S1BossStates.S1Attacking; //attacks, repeat
+            else if(randAttackValue <= minAttackValue) Stage1CurrentState = S1BossStates.S1Attacking; //attacks, repeat
         }
 
         if(bossStage == BossStages.Stage2)
         {
             if(randAttackValue >= minAttackValue) minAttackValue += attackProbabilityBooster; //does not attack, raise probability nothing happens
-            else if(randAttackValue <= minAttackValue) S2currentState = S2BossStates.S2Attacking; //attacks, repeat
+            else if(randAttackValue <= minAttackValue) Stage2CurrentState = S2BossStates.S2Attacking; //attacks, repeat
         }
         
         yield return null;
@@ -136,7 +136,7 @@ public class KaliBossAI : MonoBehaviour
     {
         if(bossStage == BossStages.Stage1)
         {
-            switch(S1currentState)
+            switch(Stage1CurrentState)
             {
                 case S1BossStates.S1Idle :
                 attackState = false;
@@ -164,7 +164,7 @@ public class KaliBossAI : MonoBehaviour
 
         if(bossStage == BossStages.Stage2)
         {
-            switch(S2currentState)
+            switch(Stage2CurrentState)
             {            
                 case S2BossStates.S2Idle :
                 attackState = false;

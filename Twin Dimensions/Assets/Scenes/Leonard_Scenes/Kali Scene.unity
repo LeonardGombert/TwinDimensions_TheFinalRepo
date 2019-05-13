@@ -333,13 +333,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defautState: 0
-  currentState: 0
+  bossStage: 0
+  Stage1CurrentState: 0
+  Stage2CurrentState: 0
   anim: {fileID: 0}
   attackState: 0
   idleState: 0
   deathState: 0
   isSlamming: 0
   lifePoints: 1000
+  lifepointsToChangeState: 750
   damageValue: 10
   previousLifepoints: 0
   rightAttackBoxCol2D: {fileID: 269928215}
@@ -514,6 +517,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83cb38e2a3f684d4e9decc5441e44025, type: 3}
