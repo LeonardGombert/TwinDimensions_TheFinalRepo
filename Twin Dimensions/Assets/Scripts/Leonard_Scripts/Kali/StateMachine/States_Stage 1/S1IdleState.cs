@@ -5,9 +5,13 @@ public class S1IdleState : State<KaliBossAI>
 {
     private static S1IdleState _instance;
 
-    BoxCollider2D activeAttackBoxCol2D;
-    BoxCollider2D rightAttackBoxCol2D;
-    BoxCollider2D leftAttackBoxCol2D;
+    GameObject activeAttackBoxCol2D;
+    GameObject rightAttackBoxCol2D;
+    GameObject leftAttackBoxCol2D;
+    GameObject yeet;
+    
+    float timePassedSinceLastAttack = 0;
+    float timeToReachForAttack = 5;
 
     private S1IdleState()
     {
@@ -48,6 +52,17 @@ public class S1IdleState : State<KaliBossAI>
     public override void UpdateState(KaliBossAI _owner)
     {
         Debug.Log("Updating Idle State");
+
+        if(timePassedSinceLastAttack >= timeToReachForAttack)
+        {
+            activeAttackBoxCol2D = yeet;
+            
+            Debug.Log("yeet");
+            yeet.SendMessage("Slamming");
+            timePassedSinceLastAttack = 0;
+        }
+
+        else timePassedSinceLastAttack += Time.deltaTime;
 
         if(_owner.attackState)
         {

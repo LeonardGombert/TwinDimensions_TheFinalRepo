@@ -6,6 +6,8 @@ public class SlamAttack : MonoBehaviour
 {
     public GameObject Kali;
 
+    bool isSlamming = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +24,14 @@ public class SlamAttack : MonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            Debug.Log("I hit the player");
+            //Debug.Log("I hit the player");
 
             Kali.gameObject.SendMessage("WhichSide", this.gameObject);
+
+            if(isSlamming == true)
+            {
+                Debug.Log(this.gameObject.name + " just smashed the player");
+            }
         }
     }
 
@@ -32,9 +39,20 @@ public class SlamAttack : MonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            Debug.Log("I hit the player");
+            //Debug.Log("I hit the player");
 
             Kali.gameObject.SendMessage("WhichSide", this.gameObject);
+            
+
+            if(isSlamming == true)
+            {
+                Debug.Log(this.gameObject.name + " just smashed the player");
+            }
         }
+    }
+
+    void Slamming()
+    {
+        isSlamming = true;
     }
 }

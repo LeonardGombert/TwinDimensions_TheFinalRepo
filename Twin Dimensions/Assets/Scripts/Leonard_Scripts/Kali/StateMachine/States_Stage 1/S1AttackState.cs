@@ -15,9 +15,10 @@ public class S1AttackState : State<KaliBossAI>
     SlamAttackDirections direction;
     Animator anim;
 
-    BoxCollider2D activeAttackBoxCol2D;
-    BoxCollider2D rightAttackBoxCol2D;
-    BoxCollider2D leftAttackBoxCol2D;
+    GameObject activeAttackBoxCol2D;
+    GameObject rightAttackBoxCol2D;
+    GameObject leftAttackBoxCol2D;
+    
     KaliBossAI.BossStates currentState;
     KaliBossAI.BossStates idleState;
 
