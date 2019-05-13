@@ -37,7 +37,7 @@ public class InteractablesScript : MonoBehaviour
 
         }
 
-        if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
+        else if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
                 {
