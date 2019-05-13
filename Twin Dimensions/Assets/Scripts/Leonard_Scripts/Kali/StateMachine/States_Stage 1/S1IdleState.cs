@@ -38,9 +38,6 @@ public class S1IdleState : State<KaliBossAI>
         activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
-        
-        rightAttackBoxCol2D.enabled = false;
-        leftAttackBoxCol2D.enabled = false;
     }
 
     public override void ExitState(KaliBossAI _owner)

@@ -25,8 +25,6 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("Slam Attack")] public BoxCollider2D rightAttackBoxCol2D;
     [FoldoutGroup("Slam Attack")] public BoxCollider2D leftAttackBoxCol2D;
     [FoldoutGroup("Slam Attack")] public BoxCollider2D activeAttackBoxCol2D;
-    [FoldoutGroup("Slam Attack")] public float timeBeforeAttack;
-    [FoldoutGroup("Slam Attack")] public float runTime;
 
     [FoldoutGroup("Slam Attack")] public int maxRandom;
     [FoldoutGroup("Slam Attack")] public int minAttackValue;
@@ -52,10 +50,6 @@ public class KaliBossAI : MonoBehaviour
 
         stateMachine = new StateMachine<KaliBossAI>(this);
         stateMachine.ChangeState(S1IdleState.Instance);
-
-        rightAttackBoxCol2D.enabled = false;
-        leftAttackBoxCol2D.enabled = false;
-        activeAttackBoxCol2D.enabled = false;
     }
 
     // Update is called once per frame
@@ -88,6 +82,11 @@ public class KaliBossAI : MonoBehaviour
     public void StartChildCoroutine(IEnumerator coroutineMethod)
     {
         StartCoroutine(coroutineMethod);
+    }
+
+    private void WhichSide(GameObject side)
+    {
+        Debug.Log("Player is on " + side.gameObject.name);
     }
     
     void CheckCurrentState()

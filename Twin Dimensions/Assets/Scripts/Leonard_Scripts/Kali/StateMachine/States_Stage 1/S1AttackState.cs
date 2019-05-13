@@ -20,12 +20,6 @@ public class S1AttackState : State<KaliBossAI>
     BoxCollider2D leftAttackBoxCol2D;
     KaliBossAI.BossStates currentState;
     KaliBossAI.BossStates idleState;
-    float timeBeforeAttack;
-    float runTime;
-    int attackSide;
-
-    bool yes = false;
-    bool no = false;
 
     private S1AttackState()
     {
@@ -56,9 +50,6 @@ public class S1AttackState : State<KaliBossAI>
         activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
-
-        timeBeforeAttack = _owner.timeBeforeAttack;        
-        runTime = _owner.runTime;
         currentState = _owner.currentState;
 
         _owner.anim = anim;
@@ -73,33 +64,21 @@ public class S1AttackState : State<KaliBossAI>
     {
         Debug.Log("Updating Attack State");
 
-        if(yes == true)
+        SlamAttack();
+
+        if(_owner.idleState)
         {
-            Debug.Log("Switching to Idle");
             _owner.stateMachine.ChangeState(S1IdleState.Instance);
         }
         
         if(_owner.deathState)
         {
             _owner.stateMachine.ChangeState(S1DeathState.Instance);
-        }
-
-        if(no == false) 
-        {
-            _owner.StartChildCoroutine(SlamAttack());
-        }
+        }        
     }
 
-    public void SlamAttackCoroutine()
+    private void SlamAttack()
     {
-        _owner.StartChildCoroutine(SlamAttack());
-    }
-
-    private IEnumerator SlamAttack()
-    {
-        attackSide = Random.Range(0, 2);
-
-        anim.SetTrigger("S1SlamAttack");
-        yield return null;
+        
     }
 }
