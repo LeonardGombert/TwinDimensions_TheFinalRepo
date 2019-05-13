@@ -9,24 +9,24 @@ public class PortalManager : SerializedMonoBehaviour
 {
     public static PortalManager instance;
 
-    [FoldoutGroup("Tilemap")][SerializeField]
+    [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
     Tile highlightTile;
 
     [FoldoutGroup("Portal Exits")][SerializeField]
     List<GameObject> portalExits = new List<GameObject>();
-
+    
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
-    List <GameObject> hookTower;
+    GameObject insertBaseActiveTower;
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
-    GameObject baseActiveTower;
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    List<GameObject> fillWithActiveHookTowers = new List<GameObject>();
+    [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
     GameObject currentActiveTower;
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
-    List<GameObject> activeHookTowers = new List<GameObject>();
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
     List<GameObject> inactiveTowers = new List<GameObject>();
+    [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
+    List <GameObject> hookTowers;
 
     GameObject player;
     GameObject portalEntrance;
@@ -56,10 +56,10 @@ public class PortalManager : SerializedMonoBehaviour
         DontDestroyOnLoad(this);
 
         player = GameObject.FindGameObjectWithTag("Player");
-        hookTower.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+        hookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
         
-        currentActiveTower = baseActiveTower;
+        currentActiveTower = insertBaseActiveTower;
         inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));    
         inactiveTowers.Remove(currentActiveTower);
     }
@@ -67,7 +67,7 @@ public class PortalManager : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(activeHookTowers);
+        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(fillWithActiveHookTowers);
        
         maxIndexNmber = portalExits.Count;
 
@@ -93,13 +93,13 @@ public class PortalManager : SerializedMonoBehaviour
         currentActiveTower = newHookTower;
 
         inactiveTowers.Clear();
-        activeHookTowers.Clear();
+        fillWithActiveHookTowers.Clear();
 
         inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));
         inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
         inactiveTowers.Remove(currentActiveTower);
 
-        activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+        fillWithActiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
 
         foreach (GameObject tower in inactiveTowers)
         {
