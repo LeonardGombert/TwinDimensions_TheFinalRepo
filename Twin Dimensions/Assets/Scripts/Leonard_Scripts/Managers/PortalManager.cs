@@ -19,6 +19,14 @@ public class PortalManager : SerializedMonoBehaviour
 
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     List <GameObject> hookTower;
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    GameObject baseActiveTower;
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    GameObject currentActiveTower;
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    List<GameObject> activeHookTowers = new List<GameObject>();
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    List<GameObject> inactiveTowers = new List<GameObject>();
 
     GameObject player;
     GameObject portalEntrance;
@@ -32,6 +40,8 @@ public class PortalManager : SerializedMonoBehaviour
 
     int currentIndexNumber = 0;
     int maxIndexNmber = 0;
+    
+    public static bool hasUsedPortal = false;
 
     void Awake()
     {
@@ -48,12 +58,16 @@ public class PortalManager : SerializedMonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         hookTower.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
+        
+        currentActiveTower = baseActiveTower;
+        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));    
+        inactiveTowers.Remove(currentActiveTower);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(hookTower);
+        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(activeHookTowers);
        
         maxIndexNmber = portalExits.Count;
 
@@ -66,21 +80,31 @@ public class PortalManager : SerializedMonoBehaviour
         if(portalExits.Count != 0) SelectPortalExit();
     }
 
-    private void GetAllPortals(GameObject touchedPortal)
+    private void UpdatePortals(GameObject touchedPortal = default)
     {
         portalExits.Clear();  
 
         portalExits.AddRange(GameObject.FindGameObjectsWithTag("Portal"));
-        portalExits.Remove(touchedPortal);                               
+        portalExits.Remove(touchedPortal);
     }
-
-    void SelectPortalExitWithScroll()
+    
+    private void GetAllHooks (GameObject newHookTower)
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber < maxIndexNmber) currentIndexNumber += 1;
+        currentActiveTower = newHookTower;
 
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
+        inactiveTowers.Clear();
+        activeHookTowers.Clear();
 
-        if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
+        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));
+        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+        inactiveTowers.Remove(currentActiveTower);
+
+        activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+
+        foreach (GameObject tower in inactiveTowers)
+        {
+            tower.tag = "Inactive Hook Tower";
+        }
     }
 
     private void SelectPortalExit()
@@ -96,14 +120,25 @@ public class PortalManager : SerializedMonoBehaviour
             previousPortalSelected = currentPortalSelected;
         } 
 
-        if(PlayerInputManager.instance.GetKeyDown("selectedPortalExit")) TeleportToExit(currentIndexNumber);
+        if(PlayerInputManager.instance.GetKeyDown("selectedPortalExit"))
+        {
+            movementTilemap.SetTile(currentPortalSelected, null);
+            TeleportToExit(currentIndexNumber);
+        }
     }
 
     private void TeleportToExit(int exitIndexNumber)
     {
+        hasUsedPortal = true;
         exitPosition = portalExits[exitIndexNumber].transform.position;
-
         player.transform.position = exitPosition;
+        PlayerController.canMove = true;
+    }
+
+    private void PlayerLeftPortalRange()
+    {
+        portalExits.Clear();
+        movementTilemap.SetTile(currentPortalSelected, null);
     }
 
     private void CheckIfLayerContainsHook(List<GameObject> hookTowerList)
@@ -128,8 +163,7 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void TeleportToHook(Vector3 towerPosition)
     {
-        player.transform.position = towerPosition;
-        
+        player.transform.position = towerPosition;        
         TeleportationManager.hasTeleported = false;
     }
 }

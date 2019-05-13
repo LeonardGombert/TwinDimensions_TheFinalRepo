@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
@@ -23,6 +24,8 @@ public class PlayerController : SerializedMonoBehaviour
     LayerMask selectedLayerMask;
     BoxCollider2D boxCol2D;
 
+    GameObject manager;
+
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
     LayerMask world1Profile;
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
@@ -41,6 +44,15 @@ public class PlayerController : SerializedMonoBehaviour
     bool playerHasMoved = false;
     bool movementIsCoolingDown = false;
     public static bool isBeingCharged = false;
+    public static bool canMove = true;
+    public static bool isMoving = false;
+
+    [FoldoutGroup("Player Movement")][SerializeField]
+    float resetTime;
+    [FoldoutGroup("Player Movement")][SerializeField]
+    float holdTime;
+
+    bool hasResetScene;
     #endregion
     #endregion
 
@@ -51,10 +63,9 @@ public class PlayerController : SerializedMonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
 
-        movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
+        manager = GameObject.FindGameObjectWithTag("Manager");
 
-        Physics2D.queriesStartInColliders = false;
-        Physics2D.queriesHitTriggers = true;
+        movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
@@ -62,12 +73,18 @@ public class PlayerController : SerializedMonoBehaviour
     {
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
-        MonitorPlayerInpus();        
+        if(canMove == true) MonitorPlayerInpus();
+        
+        if(holdTime <= 0 && !hasResetScene) 
+        {
+            hasResetScene = true;
+            holdTime = 0;
+            ResetScene();
+        }
     }
     #endregion
 
     #region Player Functions
-
     #region BASIC MOVEMENT ON A GRID
     private void MonitorPlayerInpus()
     {
@@ -81,12 +98,15 @@ public class PlayerController : SerializedMonoBehaviour
         if(PlayerInputManager.instance.GetKey("down")) vertical = -1;
         if(PlayerInputManager.instance.GetKey("left")) horizontal = -1;
         if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
+
+        if (PlayerInputManager.instance.GetKey("resetScene")) holdTime -= Time.deltaTime;
+        if (PlayerInputManager.instance.GetKeyUp("resetScene")) holdTime = 0f;
               
         if (horizontal != 0) vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
         {
-            PlayerAnimationsManager.isMoving = true;
+            isMoving = true;
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
@@ -111,7 +131,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(horizontal == 0 && vertical == 0)
         {
-            PlayerAnimationsManager.isMoving = false;
+            isMoving = false;
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
         }
@@ -169,6 +189,21 @@ public class PlayerController : SerializedMonoBehaviour
 
             //anim.SetFloat("xDirection", elephantDirection.x);
             //anim.SetFloat("yDirection", elephantDirection.y);
+        }
+    }
+
+    void ResetScene()
+    {
+        Scene activeScene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(activeScene.name);         
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "Sand")
+        {
+            manager.gameObject.SendMessage("AddNewSandShard", 1);
+            Destroy(collider.gameObject);
         }
     }
     #endregion

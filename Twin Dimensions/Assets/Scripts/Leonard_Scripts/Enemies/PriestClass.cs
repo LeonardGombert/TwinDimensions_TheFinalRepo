@@ -14,7 +14,12 @@ public class PriestClass : MonoBehaviour
     public SpriteRenderer sr;
     public Animator anim;
 
-    public bool activatedByTurret = false; 
+    public bool activatedByTurret = false;
+
+    [FoldoutGroup("Sand")][SerializeField] 
+    GameObject sandToDrop;
+    
+    int amountOfSandToDrop;
 
     // Start is called before the first frame update
     public virtual void Awake()
@@ -50,5 +55,18 @@ public class PriestClass : MonoBehaviour
         }
         
         else return false;
+    }
+
+    void DropSand(int sandAmount)
+    {
+        amountOfSandToDrop = sandAmount;
+    }
+
+    void GenerateSand(int amountOfSandToDrop)
+    {
+        for (int i = 0; i < amountOfSandToDrop; ++i)
+        {
+            Instantiate(sandToDrop, transform.position, Quaternion.identity);
+        }
     }
 }

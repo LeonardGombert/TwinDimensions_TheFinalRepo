@@ -5,17 +5,15 @@ using UnityEngine;
 public class InteractablesScript : MonoBehaviour
 
 {
-
     [SerializeField]
     public class CaughtObject
     {
         public Rigidbody2D rigidbody;
         public Collider2D collider;
-        public bool inContact;
     }
 
     [SerializeField]
-    List<GameObject> doorObjects = new List<GameObject>();
+    List<GameObject> interactableObjects = new List<GameObject>();
 
 
     public enum ActivationType
@@ -27,41 +25,35 @@ public class InteractablesScript : MonoBehaviour
     public float requiredMass = 1f;
     public float requiredSand = 0f;
 
-    //public BoxCollider2D boxCollider;
-
-    public void OnTriggerStay2D(Collider2D collider)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
 
-        if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass)
+        if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
-            //if (collider.attachedRigidbody.mass >= requiredMass)
-            //{
-                foreach (GameObject door in doorObjects)
+                foreach (GameObject interactable in interactableObjects)
                 {
-                    EventManager.TriggerEvent("InteractableActivated");
+                    interactable.SendMessage("Activated");
                 }
-            //}
 
         }
 
-    }
-
-    public void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand)
+        if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
-                EventManager.TriggerEvent("InteractableActivated");
-                SandTextScript.sandAmount -= (int)requiredSand;
+            foreach (GameObject interactable in interactableObjects)
+                {
+                    interactable.SendMessage("Activated");
+                }
         }
     }
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (activationType == ActivationType.Plate)
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
-            Debug.Log("Pressure Plate released");
-            EventManager.TriggerEvent("InteractableReleased");
+            foreach (GameObject interactable in interactableObjects)
+            {
+            interactable.SendMessage("Released");
+            }
         }
     }
-
 }
