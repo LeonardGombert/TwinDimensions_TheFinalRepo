@@ -9,6 +9,9 @@ public class PlatformScript : MonoBehaviour
 
     public Transform objectPositionA;
     public Transform objectPositionB;
+    
+    public bool posA = true;
+    public bool posB = false;
 
     void Awake()
     {
@@ -20,11 +23,33 @@ public class PlatformScript : MonoBehaviour
 
     void Activated()
     {
-        gameObject.transform.position = positionB;
+        if(posA == true)
+        {
+            gameObject.transform.position = positionB;
+            posA = false;
+            posB = true;
+        }
+        else
+        {
+            gameObject.transform.position = positionA;
+            posA = true;
+            posB = false;
+        }
     }
 
     void Released()
     {
-        gameObject.transform.position = positionA;
+        if(posA == true)
+        {
+            gameObject.transform.position = positionB;
+            posA = false;
+            posB = true;
+        }
+        else
+        {
+            gameObject.transform.position = positionA;
+            posA = true;
+            posB = false;
+        }
     }
 }
