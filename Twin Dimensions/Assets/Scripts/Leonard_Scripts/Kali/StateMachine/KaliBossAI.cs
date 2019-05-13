@@ -7,8 +7,12 @@ using StateData;
 
 public class KaliBossAI : MonoBehaviour
 {
-    public BossStates defautState = BossStates.S1Idle;
-    public BossStates currentState;
+    public S1BossStates defautState = S1BossStates.S1Idle;
+
+    public BossStages bossStage;
+
+    public S1BossStates S1currentState;
+    public S2BossStates S2currentState;
     
     public Animator anim;
     
@@ -21,6 +25,7 @@ public class KaliBossAI : MonoBehaviour
     public static bool isTrackingPlayerSide = false;
 
     [SerializeField] float lifePoints = 1000;
+    [SerializeField] float lifepointsToChangeState = 750;
     [SerializeField] float damageValue = 10;
     [SerializeField] float previousLifepoints;
     
@@ -35,15 +40,24 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("Slam Attack")] public int attackProbabilityBooster;
     #endregion
 
-    public enum BossStates
+    public enum BossStages
+    {
+        Stage1,
+        Stage2,
+    }
+
+    public enum S1BossStates
     {
         S1Idle,
-        S1Dead,
         S1Attacking,
+        S1Dead,
+    }
 
+    public enum S2BossStates
+    {
         S2Idle,
-        S2Dead,
-        S2Attacking,  
+        S2Attacking, 
+        S2Dead, 
     }
 
     // Start is called before the first frame update
@@ -58,6 +72,7 @@ public class KaliBossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debugging, used to test attacking Kali
         if(Input.GetKeyDown(KeyCode.F))
         {
             previousLifepoints = lifePoints;
@@ -65,9 +80,12 @@ public class KaliBossAI : MonoBehaviour
             StartCoroutine(StateSwitch());
         }
 
-        CheckCurrentState();
-
         stateMachine.Update();
+
+        WatchForStageChange();
+
+        UpdateCurrentState();
+
     }
 
     IEnumerator StateSwitch()
@@ -76,9 +94,18 @@ public class KaliBossAI : MonoBehaviour
 
         Debug.Log(randAttackValue);
 
-        if(randAttackValue >= minAttackValue) minAttackValue += attackProbabilityBooster; //does not attack, raise probability nothing happens
-        else if(randAttackValue <= minAttackValue) currentState = BossStates.S1Attacking; //attacks, repeat
+        if(bossStage == BossStages.Stage1)
+        {
+            if(randAttackValue >= minAttackValue) minAttackValue += attackProbabilityBooster; //does not attack, raise probability nothing happens
+            else if(randAttackValue <= minAttackValue) S1currentState = S1BossStates.S1Attacking; //attacks, repeat
+        }
 
+        if(bossStage == BossStages.Stage2)
+        {
+            if(randAttackValue >= minAttackValue) minAttackValue += attackProbabilityBooster; //does not attack, raise probability nothing happens
+            else if(randAttackValue <= minAttackValue) S2currentState = S2BossStates.S2Attacking; //attacks, repeat
+        }
+        
         yield return null;
     }
 
@@ -93,41 +120,74 @@ public class KaliBossAI : MonoBehaviour
         Debug.Log("Player is on " + side.gameObject.name);        
         activeAttackBoxCol2D = side.gameObject;
     }
-    
-    void CheckCurrentState()
+
+    void WatchForStageChange()
     {
-        switch(currentState)
+        if(lifePoints <= lifepointsToChangeState)
         {
-            case BossStates.S1Idle :
-            attackState = false;
-            idleState = true;
-            deathState = false;
-            break;
-            
-            case BossStates.S1Dead :
-            attackState = false;
-            idleState = false;
-            deathState = true;
-            break;
-
-            case BossStates.S1Attacking :
-            attackState = true;
-            idleState = false;
-            deathState = false;
-            break;
-
-            case BossStates.S2Idle :
-            break;
-
-            case BossStates.S2Dead :
-            break;
-
-            case BossStates.S2Attacking :
-            break;
-
-            default :
-            Debug.Log("null");
-            break;
+            bossStage = BossStages.Stage2;
+            stateMachine.ChangeState(S2IdleState.Instance);
         }
+
+        else return;
+    }
+    
+    void UpdateCurrentState()
+    {
+        if(bossStage == BossStages.Stage1)
+        {
+            switch(S1currentState)
+            {
+                case S1BossStates.S1Idle :
+                attackState = false;
+                idleState = true;
+                deathState = false;
+                break;
+                
+                case S1BossStates.S1Dead :
+                attackState = false;
+                idleState = false;
+                deathState = true;
+                break;
+
+                case S1BossStates.S1Attacking :
+                attackState = true;
+                idleState = false;
+                deathState = false;
+                break;
+
+                default :
+                Debug.Log("null");
+                break;
+            } 
+        }
+
+        if(bossStage == BossStages.Stage2)
+        {
+            switch(S2currentState)
+            {            
+                case S2BossStates.S2Idle :
+                attackState = false;
+                idleState = true;
+                deathState = false;
+                break;
+
+                case S2BossStates.S2Dead :
+                attackState = false;
+                idleState = false;
+                deathState = true;
+                break;
+
+                case S2BossStates.S2Attacking :
+                attackState = true;
+                idleState = false;
+                deathState = false;
+                break;
+
+                default :
+                Debug.Log("null");
+                break;
+            }
+        }        
     }
 }

@@ -22,8 +22,8 @@ public class S1AttackState : State<KaliBossAI>
     float timePassedSinceLastAttack = 0;
     float timeToReachForAttack = 2f;
     
-    KaliBossAI.BossStates currentState;
-    KaliBossAI.BossStates idleState;
+    KaliBossAI.S1BossStates currentState;
+    KaliBossAI.S1BossStates idleState;
 
     private S1AttackState()
     {
@@ -54,7 +54,7 @@ public class S1AttackState : State<KaliBossAI>
         activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
-        currentState = _owner.currentState;
+        currentState = _owner.S1currentState;
         anim = _owner.anim;
 
         _owner.isSlamming = true;
@@ -87,7 +87,7 @@ public class S1AttackState : State<KaliBossAI>
         {
             activeAttackBoxCol2D.SendMessage("Slamming");
             timePassedSinceLastAttack = 0;
-            _owner.currentState = KaliBossAI.BossStates.S1Idle;
+            _owner.S1currentState = KaliBossAI.S1BossStates.S1Idle;
         }
 
         else timePassedSinceLastAttack += Time.deltaTime;
