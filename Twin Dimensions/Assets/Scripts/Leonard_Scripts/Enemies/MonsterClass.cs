@@ -8,16 +8,15 @@ using UnityEngine.SceneManagement;
 
 public class MonsterClass : SerializedMonoBehaviour
 {
-    [FoldoutGroup("World Switching")][SerializeField]
+    [HideInInspector]
     public SpriteRenderer spiritWorldVisuals;
-    [FoldoutGroup("World Switching")][SerializeField]
+    [HideInInspector]
     public SpriteRenderer realWorldVisuals;        
-    [FoldoutGroup("Sprite Switching")][SerializeField]
+    [HideInInspector]
     public List<Sprite> spriteList = new List<Sprite>();
-
-    [FoldoutGroup("Visual Component References")]
+    [HideInInspector]
     public SpriteRenderer sr;
-    [FoldoutGroup("Visual Component References")]
+    [HideInInspector]
     public Animator anim;
 
     [HideInInspector]
@@ -31,6 +30,11 @@ public class MonsterClass : SerializedMonoBehaviour
     public static bool isInActiveMode = false;
 
     public static bool isOnMyLayer = false;
+
+    [FoldoutGroup("Sand")][SerializeField] 
+    GameObject sandToDrop;
+    
+    int amountOfSandToDrop;
 
     // Start is called before the first frame update
     public virtual void Awake()
@@ -122,29 +126,52 @@ public class MonsterClass : SerializedMonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            GameManager.playerIsDead = true;
+            GameMaster.playerIsDead = true;
+        }
+
+        if(collision.tag == "Statue")
+        {
+            Destroy(collision.gameObject);
         }
 
         if(collision.tag == "ActivationPriest")
         {
-            Debug.Log("The Priest has activated me" + this.gameObject.name);
+            Debug.Log("The Priest has activated " + this.gameObject.name);
             isBeingSwitchedByPriest = true;
         }
-        
+
+        if(collision.tag == "Firebreather")        
+        {
+            Debug.Log("The Firebreather hit " + gameObject.name);
+            GenerateSand(amountOfSandToDrop);
+            Destroy(gameObject);
+        }
+
         if(collision.tag == "Elephant")
         {
             Debug.Log("The Elephant hit " + gameObject.name);
+            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
 
         if(collision.tag == "Trap")
         {
+            Debug.Log("The Elephant hit " + collision.gameObject.name);
+            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
     }
 
     void DropSand(int sandAmount)
     {
-        Debug.Log("I'm " + gameObject.name + ", and I have " + sandAmount + " sand");
+        amountOfSandToDrop = sandAmount;
+    }
+
+    void GenerateSand(int amountOfSandToDrop)
+    {
+        for (int i = 0; i < amountOfSandToDrop; ++i)
+        {
+            Instantiate(sandToDrop, transform.position, Quaternion.identity);
+        }
     }
 }

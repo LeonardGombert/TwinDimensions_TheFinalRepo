@@ -25,14 +25,13 @@ public class LevelExit : SerializedMonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            doorOpenAnim.playAutomatically = true;
-            new WaitForEndOfFrame();
-            PlayerIsExiting();
+            Scene scene = SceneManager.GetActiveScene(); 
+            SceneManager.LoadScene(scene.name);            
         }
     }
 
     void PlayerIsExiting()
     {
-        //SceneManager.LoadScene();
+        
     }
 }

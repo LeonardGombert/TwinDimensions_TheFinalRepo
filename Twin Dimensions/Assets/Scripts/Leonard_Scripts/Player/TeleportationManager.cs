@@ -6,6 +6,8 @@ using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine.Rendering.PostProcessing;
+using Cinemachine;
+using Cinemachine.Editor;
 
 public class TeleportationManager : SerializedMonoBehaviour
 {
@@ -24,6 +26,10 @@ public class TeleportationManager : SerializedMonoBehaviour
     Camera world1Cam;
     [FoldoutGroup("Cameras")][SerializeField]
     Camera world2Cam;
+    [FoldoutGroup("Cameras")][SerializeField]
+    CinemachineVirtualCamera world1VirtualCam;
+    [FoldoutGroup("Cameras")][SerializeField]
+    CinemachineVirtualCamera world2VirtualCam;
 
     bool isTeleporting = false;
     public static bool hasTeleported = false; //avoids looping the Teleport to hook function
@@ -99,11 +105,10 @@ public class TeleportationManager : SerializedMonoBehaviour
 
     private void CheckPlayerInputs()
     {
-
         if (PlayerInputManager.instance.GetKeyDown("teleport"))
         {
             if (isOnLockedLayer == false) isTeleporting = true;
-            else if (isOnLockedLayer == true) isTeleporting = false; Debug.Log("I am unable to Teleport");
+            else if (isOnLockedLayer == true) {isTeleporting = false; Debug.Log("I am unable to Teleport");}
         }
     }
 
@@ -112,7 +117,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     {
         if (isTeleporting == true)
         {
-            anim.SetBool("isTeleporting", true);
+            PlayerController.canMove = false;
 
             if (teleportTimer > 0)
             {
@@ -122,11 +127,11 @@ public class TeleportationManager : SerializedMonoBehaviour
                 {
                     SwitchWorlds();
                     teleportTimer = baseCountdownTimerValue;
+                    isTeleporting = false;
+                    PlayerController.canMove = true;
                 }
             }
         }
-
-        else if (isTeleporting == false) anim.SetBool("isTeleporting", false); return;
     }
 
     private void SwitchWorlds()
@@ -137,16 +142,31 @@ public class TeleportationManager : SerializedMonoBehaviour
             world1Cam.gameObject.SetActive(false);
             world2Cam.gameObject.SetActive(true);
 
+            world1VirtualCam.gameObject.SetActive(false);
+            world2VirtualCam.gameObject.SetActive(true);
+
             gameObject.layer = LayerMask.NameToLayer("Player Layer 2");
+
+            //CameraTransitions.ChangingWorldsBack(world1VirtualCam);
+            //CameraTransitions.ChangingWorlds(world2VirtualCam);
+            
             hasTeleported = true;
         }
 
         else if (!LayerManager.PlayerIsInRealWorld())
         {
-            world1Cam.gameObject.SetActive(true);
+            world1Cam.gameObject.SetActive(true);        
             world2Cam.gameObject.SetActive(false);
 
+            world1VirtualCam.gameObject.SetActive(true);
+            world2VirtualCam.gameObject.SetActive(false);
+
             gameObject.layer = LayerMask.NameToLayer("Player Layer 1");
+
+            //CameraTransitions.ChangingWorldsBack(world2VirtualCam);
+            //CameraTransitions.ChangingWorlds(world1VirtualCam);
+
+            hasTeleported = true;
         }
 
         isTeleporting = false;

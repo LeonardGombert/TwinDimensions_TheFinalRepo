@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
+using Cinemachine;
+using Cinemachine.Editor;
 
 public class ElephantController : MonsterClass
 {
@@ -41,7 +43,12 @@ public class ElephantController : MonsterClass
     Vector3Int currentSelectedDirection;
     Vector3Int previousSelectedDirection;
 
-    public Tile highlightTile;
+    [FoldoutGroup("Tilemap")][SerializeField] Tile highlightTile;
+
+    [FoldoutGroup("Cinemachine Virtual Cameras")][SerializeField]
+    CinemachineVirtualCamera elephantCamera = new CinemachineVirtualCamera();
+    [FoldoutGroup("Cinemachine Virtual Cameras")][SerializeField]
+    CinemachineVirtualCamera playerCamera = new CinemachineVirtualCamera();
 
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
     LayerMask world1Profile;
@@ -54,26 +61,24 @@ public class ElephantController : MonsterClass
     Transform target;
 
     Rigidbody2D rb2D;
-    Camera myCenteredCam;
     BoxCollider2D boxCol2D;
 
     bool isActive;
     bool isTriggered = false;
 
-    int currentIndexNumber = 0;
-    int maxIndexNmber = 0;
+    int currentIndexNumber;
+    int maxIndexNumber;
 
     List<Vector3> CardinalDirections = new List<Vector3>();
     #endregion
 
     #region Monobehavior Callbacks
-    public override void  Awake()
+    public override void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
-        myCenteredCam = GetComponentInChildren<Camera>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
 
@@ -99,8 +104,8 @@ public class ElephantController : MonsterClass
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
 
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
-
-        if(isTriggered) TriggerBehavior();
+        
+        TriggerBehavior();
     }
     #endregion
 
@@ -113,6 +118,7 @@ public class ElephantController : MonsterClass
         {
             foreach (Vector3 direction in CardinalDirections)
             {
+                Debug.DrawRay(transform.position, direction, Color.green, 80f);
                 if (lookingForPlayer == true && isCharging == false)
                 {
                     RaycastHit2D rangeDetection = RaycastManager(direction, lookingForPlayer);
@@ -264,7 +270,10 @@ public class ElephantController : MonsterClass
     void TriggerBehavior()
     {
         if(isTriggered)
-        {            
+        { 
+            playerCamera.gameObject.SetActive(false);
+            elephantCamera.gameObject.SetActive(true);
+            
             anim.SetFloat("MoveX", CardinalDirections[currentIndexNumber].x);
             anim.SetFloat("MoveY", CardinalDirections[currentIndexNumber].y);
 
@@ -286,7 +295,9 @@ public class ElephantController : MonsterClass
                 lookingForWall = true;
                 isCharging = true;
                 LookForWall(currentSelectedDirection);
-                isTriggered = false;    
+                isTriggered = false;
+                elephantCamera.gameObject.SetActive(false);
+                playerCamera.gameObject.SetActive(true);
             }
         }
         else return;
