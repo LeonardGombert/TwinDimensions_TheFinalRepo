@@ -19,6 +19,9 @@ public class S1AttackState : State<KaliBossAI>
     GameObject rightAttackBoxCol2D;
     GameObject leftAttackBoxCol2D;
     
+    float timePassedSinceLastAttack = 0;
+    float timeToReachForAttack = 2f;
+    
     KaliBossAI.BossStates currentState;
     KaliBossAI.BossStates idleState;
 
@@ -52,8 +55,16 @@ public class S1AttackState : State<KaliBossAI>
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
         currentState = _owner.currentState;
+        anim = _owner.anim;
 
-        _owner.anim = anim;
+        _owner.isSlamming = true;
+
+        KaliBossAI.isTrackingPlayerSide = false;
+        
+        //this allow player to "dodge" the attack
+        leftAttackBoxCol2D.SetActive(false);
+        rightAttackBoxCol2D.SetActive(false);
+        activeAttackBoxCol2D.SetActive(true);
     }
 
     public override void ExitState(KaliBossAI _owner)
@@ -63,9 +74,23 @@ public class S1AttackState : State<KaliBossAI>
 
     public override void UpdateState(KaliBossAI _owner)
     {
-        Debug.Log("Updating Attack State");
+        Debug.Log("Updating Attack State");        
+        
+        anim.SetBool("S1SlamAttack", true);
 
-        SlamAttack();
+        activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
+        rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
+        leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
+
+
+        if(timePassedSinceLastAttack >= timeToReachForAttack)
+        {
+            activeAttackBoxCol2D.SendMessage("Slamming");
+            timePassedSinceLastAttack = 0;
+            _owner.currentState = KaliBossAI.BossStates.S1Idle;
+        }
+
+        else timePassedSinceLastAttack += Time.deltaTime;
 
         if(_owner.idleState)
         {
@@ -76,10 +101,5 @@ public class S1AttackState : State<KaliBossAI>
         {
             _owner.stateMachine.ChangeState(S1DeathState.Instance);
         }        
-    }
-
-    private void SlamAttack()
-    {
-        
     }
 }

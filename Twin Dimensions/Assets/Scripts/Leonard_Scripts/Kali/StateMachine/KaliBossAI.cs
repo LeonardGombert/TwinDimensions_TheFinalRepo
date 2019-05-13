@@ -17,6 +17,9 @@ public class KaliBossAI : MonoBehaviour
     public bool idleState = false;
     public bool deathState = false;
 
+    public bool isSlamming = false;
+    public static bool isTrackingPlayerSide = false;
+
     [SerializeField] float lifePoints = 1000;
     [SerializeField] float damageValue = 10;
     [SerializeField] float previousLifepoints;
@@ -25,7 +28,7 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("Slam Attack")] public GameObject rightAttackBoxCol2D;
     [FoldoutGroup("Slam Attack")] public GameObject leftAttackBoxCol2D;
     [FoldoutGroup("Slam Attack")] public GameObject activeAttackBoxCol2D;
-
+   
     [FoldoutGroup("Slam Attack")] public int maxRandom;
     [FoldoutGroup("Slam Attack")] public int minAttackValue;
     [FoldoutGroup("Slam Attack")] public int randAttackValue;
@@ -84,9 +87,10 @@ public class KaliBossAI : MonoBehaviour
         StartCoroutine(coroutineMethod);
     }
 
-    private void WhichSide(GameObject side)
-    {
-        Debug.Log("Player is on " + side.gameObject.name);
+    //runs every frame and sets the player-occupied zone as the "active" slam zone
+    private void SlamOnPlayerSide(GameObject side) 
+    {        
+        Debug.Log("Player is on " + side.gameObject.name);        
         activeAttackBoxCol2D = side.gameObject;
     }
     

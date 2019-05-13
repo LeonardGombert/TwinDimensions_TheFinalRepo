@@ -4,14 +4,12 @@ using StateData;
 public class S1IdleState : State<KaliBossAI>
 {
     private static S1IdleState _instance;
-
+                   
     GameObject activeAttackBoxCol2D;
     GameObject rightAttackBoxCol2D;
     GameObject leftAttackBoxCol2D;
-    GameObject yeet;
-    
-    float timePassedSinceLastAttack = 0;
-    float timeToReachForAttack = 5;
+
+    Animator anim;
 
     private S1IdleState()
     {
@@ -42,6 +40,12 @@ public class S1IdleState : State<KaliBossAI>
         activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
+        anim = _owner.anim;
+
+        KaliBossAI.isTrackingPlayerSide = true;
+
+        leftAttackBoxCol2D.SetActive(true);
+        rightAttackBoxCol2D.SetActive(true);
     }
 
     public override void ExitState(KaliBossAI _owner)
@@ -52,17 +56,9 @@ public class S1IdleState : State<KaliBossAI>
     public override void UpdateState(KaliBossAI _owner)
     {
         Debug.Log("Updating Idle State");
-
-        if(timePassedSinceLastAttack >= timeToReachForAttack)
-        {
-            activeAttackBoxCol2D = yeet;
-            
-            Debug.Log("yeet");
-            yeet.SendMessage("Slamming");
-            timePassedSinceLastAttack = 0;
-        }
-
-        else timePassedSinceLastAttack += Time.deltaTime;
+        
+        anim.SetBool("S1SlamAttack", false);
+        anim.SetBool("S1Idle", true);
 
         if(_owner.attackState)
         {

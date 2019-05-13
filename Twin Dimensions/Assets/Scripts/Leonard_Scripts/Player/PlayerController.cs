@@ -53,6 +53,12 @@ public class PlayerController : SerializedMonoBehaviour
     float holdTime;
 
     bool hasResetScene;
+
+
+
+
+    public static bool isInSlamRange;
+
     #endregion
     #endregion
 

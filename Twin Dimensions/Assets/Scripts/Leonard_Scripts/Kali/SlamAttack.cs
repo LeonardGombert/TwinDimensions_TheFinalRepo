@@ -7,6 +7,7 @@ public class SlamAttack : MonoBehaviour
     public GameObject Kali;
 
     bool isSlamming = false;
+    bool hasSentMessage = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,21 +18,20 @@ public class SlamAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(PlayerController.isInSlamRange);
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.tag == "Player")
         {
-            //Debug.Log("I hit the player");
+            PlayerController.isInSlamRange = true;
 
-            Kali.gameObject.SendMessage("WhichSide", this.gameObject);
-
-            if(isSlamming == true)
+            if(KaliBossAI.isTrackingPlayerSide)
             {
-                Debug.Log(this.gameObject.name + " just smashed the player");
+                Kali.gameObject.SendMessage("SlamOnPlayerSide", this.gameObject);
             }
+            else return;            
         }
     }
 
@@ -39,20 +39,28 @@ public class SlamAttack : MonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            //Debug.Log("I hit the player");
+            PlayerController.isInSlamRange = true;
 
-            Kali.gameObject.SendMessage("WhichSide", this.gameObject);
-            
-
-            if(isSlamming == true)
+            if(KaliBossAI.isTrackingPlayerSide)
             {
-                Debug.Log(this.gameObject.name + " just smashed the player");
+                Kali.gameObject.SendMessage("SlamOnPlayerSide", this.gameObject);
             }
+            else return; 
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.tag == "Player")
+        {
+            PlayerController.isInSlamRange = false;
         }
     }
 
     void Slamming()
     {
-        isSlamming = true;
+        if(PlayerController.isInSlamRange == true) Debug.Log(this.gameObject.name + " just smashed the player");
+
+        if(PlayerController.isInSlamRange == false) Debug.Log("I missed");
     }
 }
