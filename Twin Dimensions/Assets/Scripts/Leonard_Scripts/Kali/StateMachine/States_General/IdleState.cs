@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using StateData;
 
-public class S1DeathState : State<KaliBossAI>
+public class IdleState : State<KaliBossAI>
 {
-    private static S1DeathState _instance;
-
+    private static IdleState _instance;
+                   
     GameObject activeAttackBoxCol2D;
     GameObject rightAttackBoxCol2D;
     GameObject leftAttackBoxCol2D;
 
-    private S1DeathState()
+    Animator anim;
+
+    private IdleState()
     {
         if(_instance != null)
         {
@@ -19,13 +21,13 @@ public class S1DeathState : State<KaliBossAI>
         _instance = this;
     }
 
-    public static S1DeathState Instance
+    public static IdleState Instance
     {
         get
         {
             if(_instance == null)
             {
-                new S1DeathState();
+                new IdleState();
             }
 
             return _instance;
@@ -38,9 +40,12 @@ public class S1DeathState : State<KaliBossAI>
         activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
-        
-        rightAttackBoxCol2D.SetActive(false);
-        leftAttackBoxCol2D.SetActive(false);
+        anim = _owner.anim;
+
+        KaliBossAI.isTrackingPlayerSide = true;
+
+        leftAttackBoxCol2D.SetActive(true);
+        rightAttackBoxCol2D.SetActive(true);
     }
 
     public override void ExitState(KaliBossAI _owner)
@@ -50,14 +55,19 @@ public class S1DeathState : State<KaliBossAI>
 
     public override void UpdateState(KaliBossAI _owner)
     {
+        Debug.Log("Updating Idle State");
+        
+        anim.SetBool("S1SlamAttack", false);
+        anim.SetBool("S1Idle", true);
+
         if(_owner.attackState)
         {
-            _owner.stateMachine.ChangeState(S1AttackState.Instance);
+            _owner.stateMachine.ChangeState(SlamAttackState.Instance);
         }
 
-        if(_owner.idleState)
+        if(_owner.deathState)
         {
-            _owner.stateMachine.ChangeState(S1IdleState.Instance);
+            _owner.stateMachine.ChangeState(DeathState.Instance);
         }
     }
 }

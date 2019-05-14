@@ -1,19 +1,15 @@
 ﻿using UnityEngine;
 using StateData;
 
-public class S1IdleState : State<KaliBossAI>
+public class DeathState : State<KaliBossAI>
 {
-    private static S1IdleState _instance;
+    private static DeathState _instance;
 
     GameObject activeAttackBoxCol2D;
     GameObject rightAttackBoxCol2D;
     GameObject leftAttackBoxCol2D;
-    GameObject yeet;
-    
-    float timePassedSinceLastAttack = 0;
-    float timeToReachForAttack = 5;
 
-    private S1IdleState()
+    private DeathState()
     {
         if(_instance != null)
         {
@@ -23,13 +19,13 @@ public class S1IdleState : State<KaliBossAI>
         _instance = this;
     }
 
-    public static S1IdleState Instance
+    public static DeathState Instance
     {
         get
         {
             if(_instance == null)
             {
-                new S1IdleState();
+                new DeathState();
             }
 
             return _instance;
@@ -42,6 +38,9 @@ public class S1IdleState : State<KaliBossAI>
         activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
+        
+        rightAttackBoxCol2D.SetActive(false);
+        leftAttackBoxCol2D.SetActive(false);
     }
 
     public override void ExitState(KaliBossAI _owner)
@@ -51,27 +50,14 @@ public class S1IdleState : State<KaliBossAI>
 
     public override void UpdateState(KaliBossAI _owner)
     {
-        Debug.Log("Updating Idle State");
-
-        if(timePassedSinceLastAttack >= timeToReachForAttack)
-        {
-            activeAttackBoxCol2D = yeet;
-            
-            Debug.Log("yeet");
-            yeet.SendMessage("Slamming");
-            timePassedSinceLastAttack = 0;
-        }
-
-        else timePassedSinceLastAttack += Time.deltaTime;
-
         if(_owner.attackState)
         {
-            _owner.stateMachine.ChangeState(S1AttackState.Instance);
+            _owner.stateMachine.ChangeState(SlamAttackState.Instance);
         }
 
-        if(_owner.deathState)
+        if(_owner.idleState)
         {
-            _owner.stateMachine.ChangeState(S1DeathState.Instance);
+            _owner.stateMachine.ChangeState(IdleState.Instance);
         }
     }
 }
