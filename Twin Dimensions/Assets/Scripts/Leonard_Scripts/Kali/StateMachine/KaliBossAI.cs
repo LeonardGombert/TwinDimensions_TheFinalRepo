@@ -7,39 +7,49 @@ using StateData;
 
 public class KaliBossAI : MonoBehaviour
 {
-    public S1BossStates defautState = S1BossStates.S1Idle;
-
-    public BossStages bossStage;
-
-    public S1BossStates Stage1CurrentState;
-    public S2BossStates Stage2CurrentState;
-    
-    public Animator anim;
-    
     public StateMachine<KaliBossAI> stateMachine { get; set; }
-    public bool attackState = false;
-    public bool idleState = false;
-    public bool deathState = false;
-
-    public bool isSlamming = false;
-    public static bool isTrackingPlayerSide = false;
-
-    [SerializeField] float lifePoints = 1000;
-    [SerializeField] float lifepointsToChangeState = 750;
-    [SerializeField] float damageValue = 10;
-    [SerializeField] float previousLifepoints;
     
-    #region //SLAM ATTACK
-    [FoldoutGroup("Slam Attack")] public GameObject rightAttackBoxCol2D;
-    [FoldoutGroup("Slam Attack")] public GameObject leftAttackBoxCol2D;
-    [FoldoutGroup("Slam Attack")] public GameObject activeAttackBoxCol2D;
-   
-    [FoldoutGroup("Slam Attack")] public int maxRandom;
-    [FoldoutGroup("Slam Attack")] public int minAttackValue;
-    [FoldoutGroup("Slam Attack")] public int randAttackValue;
-    [FoldoutGroup("Slam Attack")] public int attackProbabilityBooster;
+    #region //GENERAL VARIABLES
+    [FoldoutGroup("General")] public Animator anim;
     #endregion
 
+    #region //BOSS STATES AND STAGES
+    [HideInInspector] public S1BossStates defautState = S1BossStates.S1Idle;
+    [FoldoutGroup("KaliStats")] public BossStages bossStage;
+    [FoldoutGroup("KaliStats")] public S1BossStates Stage1CurrentState;
+    [FoldoutGroup("KaliStats")] public S2BossStates Stage2CurrentState;
+    [FoldoutGroup("KaliDebug")] public bool attackState = false;
+    [FoldoutGroup("KaliDebug")] public bool idleState = false;
+    [FoldoutGroup("KaliDebug")] public bool deathState = false;
+    #endregion
+    
+    #region //KALI STATS
+    [FoldoutGroup("KaliStats")] [SerializeField] float lifePoints;
+    [FoldoutGroup("KaliStats")] [SerializeField] float lifepointsToChangeState;
+    [FoldoutGroup("KaliStats")] [SerializeField] float damageValue;
+    #endregion
+    
+    #region //SLAM ATTACK VARIABLES
+    [FoldoutGroup("SlamAttack")] public GameObject rightAttackBoxCol2D;
+    [FoldoutGroup("SlamAttack")] public GameObject leftAttackBoxCol2D;
+    [FoldoutGroup("SlamAttack")] public GameObject activeAttackBoxCol2D;
+   
+    [FoldoutGroup("SlamAttack")] public int maxRandom;
+    [FoldoutGroup("SlamAttack")] public int minAttackValue;
+    [FoldoutGroup("SlamAttack")] public int randAttackValue;
+    [FoldoutGroup("SlamAttack")] public int attackProbabilityBooster;
+    [FoldoutGroup("SlamAttackDebug")] public bool isSlamming = false;
+    [FoldoutGroup("SlamAttackDebug")][ShowInInspector] public static bool isTrackingPlayerSide = false;
+    #endregion
+
+    #region //LASER BEAM VARIABLES
+    [FoldoutGroup("LaserBeamAttack")] public LineRenderer laserBeam;
+    [FoldoutGroup("LaserBeamAttack")] public Transform laserSpawn;
+    [FoldoutGroup("LaserBeamAttack")] public Transform laserTarget;
+    [FoldoutGroup("LaserBeamAttack")] public List<Transform> laserPointList = new List<Transform>();
+    #endregion
+
+    #region //KALI ENUM STATES
     public enum BossStages
     {
         Stage1,
@@ -59,6 +69,7 @@ public class KaliBossAI : MonoBehaviour
         S2Attacking, 
         S2Dead, 
     }
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -66,7 +77,7 @@ public class KaliBossAI : MonoBehaviour
         anim = GetComponent<Animator>();
 
         stateMachine = new StateMachine<KaliBossAI>(this);
-        stateMachine.ChangeState(S1IdleState.Instance);
+        stateMachine.ChangeState(IdleState.Instance);
     }
 
     // Update is called once per frame
@@ -75,7 +86,6 @@ public class KaliBossAI : MonoBehaviour
         //Debugging, used to test attacking Kali
         if(Input.GetKeyDown(KeyCode.F))
         {
-            previousLifepoints = lifePoints;
             lifePoints -= damageValue;
             StartCoroutine(StateSwitch());
         }
@@ -126,7 +136,7 @@ public class KaliBossAI : MonoBehaviour
         if(lifePoints <= lifepointsToChangeState)
         {
             bossStage = BossStages.Stage2;
-            stateMachine.ChangeState(S2IdleState.Instance);
+            stateMachine.ChangeState(GeneralAttackStateManager.Instance);
         }
 
         else return;

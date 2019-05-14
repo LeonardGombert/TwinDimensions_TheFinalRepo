@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using StateData;
 
-public class S1DeathState : State<KaliBossAI>
+public class DeathState : State<KaliBossAI>
 {
-    private static S1DeathState _instance;
+    private static DeathState _instance;
 
     GameObject activeAttackBoxCol2D;
     GameObject rightAttackBoxCol2D;
     GameObject leftAttackBoxCol2D;
 
-    private S1DeathState()
+    private DeathState()
     {
         if(_instance != null)
         {
@@ -19,13 +19,13 @@ public class S1DeathState : State<KaliBossAI>
         _instance = this;
     }
 
-    public static S1DeathState Instance
+    public static DeathState Instance
     {
         get
         {
             if(_instance == null)
             {
-                new S1DeathState();
+                new DeathState();
             }
 
             return _instance;
@@ -52,12 +52,12 @@ public class S1DeathState : State<KaliBossAI>
     {
         if(_owner.attackState)
         {
-            _owner.stateMachine.ChangeState(S1AttackState.Instance);
+            _owner.stateMachine.ChangeState(SlamAttackState.Instance);
         }
 
         if(_owner.idleState)
         {
-            _owner.stateMachine.ChangeState(S1IdleState.Instance);
+            _owner.stateMachine.ChangeState(IdleState.Instance);
         }
     }
 }

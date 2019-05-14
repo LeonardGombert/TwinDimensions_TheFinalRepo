@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateData;
 
-public class S2IdleState : State<KaliBossAI>
+public class GeneralAttackStateManager : State<KaliBossAI>
 {
-    private static S2IdleState _instance;
+    private static GeneralAttackStateManager _instance;
 
-    GameObject activeAttackBoxCol2D;
-    GameObject rightAttackBoxCol2D;
-    GameObject leftAttackBoxCol2D;
-
-    private S2IdleState()
+    private GeneralAttackStateManager()
     {
         if(_instance != null)
         {
@@ -21,13 +17,13 @@ public class S2IdleState : State<KaliBossAI>
         _instance = this;
     }
 
-    public static S2IdleState Instance
+    public static GeneralAttackStateManager Instance
     {
         get
         {
             if(_instance == null)
             {
-                new S2IdleState();
+                new GeneralAttackStateManager();
             }
 
             return _instance;
@@ -37,12 +33,6 @@ public class S2IdleState : State<KaliBossAI>
     public override void EnterState(KaliBossAI _owner)
     {
         Debug.Log("Entering Idle State");
-        activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
-        rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
-        leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
-        
-        rightAttackBoxCol2D.SetActive(false);
-        leftAttackBoxCol2D.SetActive(false);
     }
 
     public override void ExitState(KaliBossAI _owner)
@@ -54,12 +44,12 @@ public class S2IdleState : State<KaliBossAI>
     {
         if(_owner.attackState)
         {
-            _owner.stateMachine.ChangeState(S1AttackState.Instance);
+            _owner.stateMachine.ChangeState(SlamAttackState.Instance);
         }
 
         if(_owner.idleState)
         {
-            _owner.stateMachine.ChangeState(S1IdleState.Instance);
+            _owner.stateMachine.ChangeState(IdleState.Instance);
         }
     }
 }

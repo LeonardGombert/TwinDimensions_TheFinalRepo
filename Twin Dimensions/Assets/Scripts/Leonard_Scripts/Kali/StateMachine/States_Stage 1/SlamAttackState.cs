@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using StateData;
 
-public class S2AttackState : State<KaliBossAI>
+public class SlamAttackState : State<KaliBossAI>
 {
-    private static S2AttackState _instance;
+    private static SlamAttackState _instance;
 
     private enum SlamAttackDirections {Right, Left}
 
@@ -23,7 +25,7 @@ public class S2AttackState : State<KaliBossAI>
     KaliBossAI.S1BossStates currentState;
     KaliBossAI.S1BossStates idleState;
 
-    private S2AttackState()
+    private SlamAttackState()
     {
         if(_instance != null)
         {
@@ -33,13 +35,13 @@ public class S2AttackState : State<KaliBossAI>
         _instance = this;
     }
 
-    public static S2AttackState Instance
+    public static SlamAttackState Instance
     {
         get
         {
             if(_instance == null)
             {
-                new S2AttackState();
+                new SlamAttackState();
             }
 
             return _instance;
@@ -72,14 +74,17 @@ public class S2AttackState : State<KaliBossAI>
 
     public override void UpdateState(KaliBossAI _owner)
     {
-        Debug.Log("Updating Attack State");        
-        
+        Debug.Log("Updating Attack State");
+        S1SlamAttack(_owner);       
+    }
+
+    void S1SlamAttack(KaliBossAI _owner)
+    {
         anim.SetBool("S1SlamAttack", true);
 
         activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
-
 
         if(timePassedSinceLastAttack >= timeToReachForAttack)
         {
@@ -92,12 +97,12 @@ public class S2AttackState : State<KaliBossAI>
 
         if(_owner.idleState)
         {
-            _owner.stateMachine.ChangeState(S1IdleState.Instance);
+            _owner.stateMachine.ChangeState(IdleState.Instance);
         }
         
         if(_owner.deathState)
         {
-            _owner.stateMachine.ChangeState(S1DeathState.Instance);
-        }        
+            _owner.stateMachine.ChangeState(DeathState.Instance);
+        }
     }
 }
