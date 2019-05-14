@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1452998247321029631}
   - component: {fileID: 1452998247321029625}
-  - component: {fileID: 1452998247321029626}
-  - component: {fileID: 1452998247321029627}
-  - component: {fileID: 1452998247321029628}
-  - component: {fileID: 1452998247321029629}
-  - component: {fileID: 1452998247321029624}
   - component: {fileID: 1452998247321029630}
+  - component: {fileID: 1452998247321029626}
+  - component: {fileID: 1452998247321029629}
+  - component: {fileID: 1452998247321029628}
+  - component: {fileID: 1452998247321029627}
+  - component: {fileID: 1452998247321029624}
+  - component: {fileID: 1426669362}
   m_Layer: 0
   m_Name: _Manager
   m_TagString: Manager
@@ -50,6 +51,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keybindingManager: {fileID: 11400000, guid: 48ed44d25bf97894ba956556df3a0972, type: 2}
+--- !u!114 &1452998247321029630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452998247321029600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3fced2d006fcb44832f9d2e3b217fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1452998247321029626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,8 +84,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  fillThisListWithEnemies: []
---- !u!114 &1452998247321029627
+--- !u!114 &1452998247321029629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,7 +93,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452998247321029600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 970a856c3c3234049b63119d1907a86f, type: 3}
+  m_Script: {fileID: 11500000, guid: ad6174410da7ce3489ac81cc18e79d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -93,13 +105,11 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  movementTilemap: {fileID: 0}
   highlightTile: {fileID: 11400000, guid: 5fee537ac051f824b9aa3d05c75464ae, type: 2}
-  portalExits: []
-  hookTower: []
-  baseActiveTower: {fileID: 0}
-  activeHookTower: {fileID: 0}
-  inactiveTowers: []
+  world1Statue:
+  - {fileID: 3699419212462434927, guid: 408653c7ffd59db47a25faccb358d8fd, type: 3}
+  world2Statue:
+  - {fileID: 4287817259120952189, guid: 4ddbfe574d6ba7b4abde61744596ea32, type: 3}
 --- !u!114 &1452998247321029628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +139,7 @@ MonoBehaviour:
   mediumAmount: 0
   highAmount: 0
   extremeAmount: 0
---- !u!114 &1452998247321029629
+--- !u!114 &1452998247321029627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +148,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452998247321029600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad6174410da7ce3489ac81cc18e79d44, type: 3}
+  m_Script: {fileID: 11500000, guid: 970a856c3c3234049b63119d1907a86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -150,12 +160,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  movementTilemap: {fileID: 0}
   highlightTile: {fileID: 11400000, guid: 5fee537ac051f824b9aa3d05c75464ae, type: 2}
-  world1Statue:
-  - {fileID: 3699419212462434927, guid: 408653c7ffd59db47a25faccb358d8fd, type: 3}
-  world2Statue:
-  - {fileID: 4287817259120952189, guid: 4ddbfe574d6ba7b4abde61744596ea32, type: 3}
+  portalExits: []
+  insertBaseActiveTower: {fileID: 0}
+  fillWithActiveHookTowers: []
+  currentActiveTower: {fileID: 0}
+  inactiveTowers: []
+  hookTowers: []
 --- !u!114 &1452998247321029624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +186,7 @@ MonoBehaviour:
   world2RelativeZoom: {fileID: 0}
   world2GeneralZoom: {fileID: 0}
   exitCamera: {fileID: 0}
---- !u!114 &1452998247321029630
+--- !u!114 &1426669362
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,6 +195,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1452998247321029600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b3fced2d006fcb44832f9d2e3b217fe, type: 3}
+  m_Script: {fileID: 11500000, guid: ecbcfd7427743f049bcd46425e360360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  efxSource: {fileID: 0}
+  musicSource: {fileID: 0}
+  lowPitchRange: 0.95
+  highPitchRange: 1.05

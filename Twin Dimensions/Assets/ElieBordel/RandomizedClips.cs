@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName="New Sound Set", menuName="Audio/Sound Set")]
+[CreateAssetMenu(fileName="New Randomized clips", menuName="Audio/Randomized Set")]
 public class RandomizedClips : SoundSetting
 {
     public AudioClip[] clips;
