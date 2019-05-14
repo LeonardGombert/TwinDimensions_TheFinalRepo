@@ -51,14 +51,14 @@ public class SlamAttackState : State<KaliBossAI>
     public override void EnterState(KaliBossAI _owner)
     {
         Debug.Log("Entering Attacking State");
+        anim = _owner.anim;
+
         activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
         rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
         leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
         currentState = _owner.Stage1CurrentState;
-        anim = _owner.anim;
-
+        
         _owner.isSlamming = true;
-
         KaliBossAI.isTrackingPlayerSide = false;
         
         //this allow player to "dodge" the attack

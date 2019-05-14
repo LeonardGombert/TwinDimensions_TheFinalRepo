@@ -42,6 +42,8 @@ public class LaserEyeBeamAttackState : State<KaliBossAI>
     public override void EnterState(KaliBossAI _owner)
     {
         Debug.Log("Entering Attacking State");
+        currentState = _owner.Stage2CurrentState;
+        anim = _owner.anim;
 
         //LASER EYE BEAM VARIABLES
         laserBeam = _owner.laserBeam;
@@ -61,10 +63,10 @@ public class LaserEyeBeamAttackState : State<KaliBossAI>
         
         anim.SetBool("S2SlamAttack", true);
 
-        S2SlamAttack(_owner);           
+        LaserEyeBeam(_owner);           
     }
 
-    void S2SlamAttack(KaliBossAI _owner)
+    void LaserEyeBeam(KaliBossAI _owner)
     {
 
     }
