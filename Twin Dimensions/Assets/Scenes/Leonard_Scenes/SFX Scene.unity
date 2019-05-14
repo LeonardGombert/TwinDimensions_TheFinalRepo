@@ -182,11 +182,16 @@ PrefabInstance:
     - target: {fileID: 7776813077787256850, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7776813077787256850, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077787256850, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: walkingSounds.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7776813077787256850, guid: 83cb38e2a3f684d4e9decc5441e44025,
@@ -534,6 +539,7 @@ GameObject:
   - component: {fileID: 1949501439}
   - component: {fileID: 1949501440}
   - component: {fileID: 1949501438}
+  - component: {fileID: 1949501441}
   m_Layer: 0
   m_Name: Sound Manager
   m_TagString: Untagged
@@ -571,7 +577,6 @@ MonoBehaviour:
   musicSource: {fileID: 1949501440}
   lowPitchRange: 0.95
   highPitchRange: 1.05
-  walkingAudio: []
 --- !u!82 &1949501439
 AudioSource:
   m_ObjectHideFlags: 0
@@ -764,3 +769,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1949501441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949501436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a227c0c92a30b4cbb75968e0bf1b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
