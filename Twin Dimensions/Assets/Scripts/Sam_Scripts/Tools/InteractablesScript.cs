@@ -6,11 +6,7 @@ public class InteractablesScript : MonoBehaviour
 
 {
     [SerializeField]
-    public class CaughtObject
-    {
-        public Rigidbody2D rigidbody;
-        public Collider2D collider;
-    }
+    List<Sprite> activationTypeSprite = new List<Sprite>();
 
     [SerializeField]
     List<GameObject> interactableObjects = new List<GameObject>();
@@ -24,6 +20,18 @@ public class InteractablesScript : MonoBehaviour
     public ActivationType activationType;
     public float requiredMass = 1f;
     public float requiredSand = 0f;
+    SpriteRenderer sr;
+
+    void Awake ()
+    {
+        sr = GetComponent<SpriteRenderer>();
+
+        if (activationType == ActivationType.Plate)
+        {
+            sr.sprite = activationTypeSprite[0];
+        }
+        else sr.sprite = activationTypeSprite[1];
+    }
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
