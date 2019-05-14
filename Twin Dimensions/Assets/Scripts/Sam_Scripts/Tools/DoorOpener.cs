@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DoorOpener : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class DoorOpener : MonoBehaviour
         Real_Vert,
     };
 
-    enum spriteNamesList // your custom enumeration
+    public enum spriteNamesList // your custom enumeration
     {
         Kali_Bleu, 
         Kali_Jaune, 
@@ -44,21 +45,19 @@ public class DoorOpener : MonoBehaviour
         Real_Vert,
     };
 
-    [SerializeField]
-    animNamesList animDropdown;
-    [SerializeField]
-    spriteNamesList spriteDropdown;
+    public animNamesList animDropdown;
+    
+    public spriteNamesList spriteDropdown;
 
     [SerializeField]
-    public List<Sprite> spriteList = new List<Sprite>();
-
-    [SerializeField]
-    List<AnimationClip> animList = new List<AnimationClip>();
+    List<Sprite> spriteList = new List<Sprite>();
     
     string animName;
     string animName2;
     string spriteName;
     string spriteName2;
+
+    int spriteInt;
 
     Animator anim;
     BoxCollider2D boxcol2D;
@@ -71,38 +70,20 @@ public class DoorOpener : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         animName = animDropdown.ToString();
-        //animName2 = dropdown2.ToString();
         Debug.Log("I've selected " + animName);
 
-        //spriteName = dropdown.ToString();
-        spriteName = spriteDropdown.ToString();
+        string[] spriteNames = Enum.GetNames(typeof(spriteNamesList));
+        List<string> names = new List<string>(spriteNames);
+
 
         if(boxcol2D.enabled)
         {
-            sr.sprite = spriteList[0];
+            sr.sprite = spriteList[spriteInt];
         }
         else
         {
-            sr.sprite = spriteList[1];
+            sr.sprite = spriteList[spriteInt];
         }
-    }
-
-    void Update()
-    {
-        /*
-        if(Input.GetKeyDown(KeyCode.E)) 
-        {
-            anim.Play(animName);
-            anim.Update(0f);
-        }
-
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            anim.SetFloat ("Direction", -1);
-			anim.Play (animName, -1, float.NegativeInfinity);
-            anim.Update(0f);
-        }
-        */
     }
 
     void Activated()
@@ -110,7 +91,7 @@ public class DoorOpener : MonoBehaviour
         if(boxcol2D.enabled)
         {   
             anim.Play(animName);
-            //sr.sprite = spriteList[1];
+            sr.sprite = spriteList[1];
             boxcol2D.enabled = false;            
         }
 
@@ -119,7 +100,7 @@ public class DoorOpener : MonoBehaviour
             /*anim.SetFloat ("Direction", -1);
 			anim.Play(animName, -1, float.NegativeInfinity);*/
 
-            sr.sprite = spriteList[0];
+            //sr.sprite = spriteList[0];
             boxcol2D.enabled = true;
         }
     }
@@ -129,7 +110,7 @@ public class DoorOpener : MonoBehaviour
         if(boxcol2D.enabled)
         {      
             //anim.Play(animName);
-            sr.sprite = spriteList[1];
+            //sr.sprite = spriteList[1];
             boxcol2D.enabled = false;
         }
 
@@ -138,7 +119,7 @@ public class DoorOpener : MonoBehaviour
             /*anim.SetFloat ("Direction", -1);
 			anim.Play (animName, -1, float.NegativeInfinity);*/
 
-            sr.sprite = spriteList[0];
+            //sr.sprite = spriteList[0];
             boxcol2D.enabled = true;
         }
     }

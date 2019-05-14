@@ -42,9 +42,9 @@ public class SoundManager : MonoBehaviour
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
 
-        if(playerSoundEffects2.ContainsValue((PlayerSoundEffects.walking))
+        //if(playerSoundEffects2.ContainsValue((PlayerSoundEffects.walking))
         {
-            walkingAudio.Add(playerSoundEffects)
+        //    walkingAudio.Add(playerSoundEffects);
         }
     }
 

@@ -102,7 +102,7 @@ public class PlayerController : SerializedMonoBehaviour
 
 
 
-        SoundManager.instance.RandomizeSfx();
+//        SoundManager.instance.RandomizeSfx();
 
 
     }
