@@ -6,9 +6,7 @@ public abstract class SoundSetting : ScriptableObject
 {
     public PlayerSFX type;
 
-    public abstract void Play(AudioSource _source);
-
-    
+    public abstract void Play(AudioSource _source);    
 }
 
 public enum PlayerSFX {Walking, Punching, Summoning}

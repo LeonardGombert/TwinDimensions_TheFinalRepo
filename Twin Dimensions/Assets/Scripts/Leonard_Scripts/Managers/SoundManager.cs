@@ -8,26 +8,12 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource efxSource;                   //Drag a reference to the audio source which will play the sound effects.
     public AudioSource musicSource;                 //Drag a reference to the audio source which will play the music.
+    public AudioClip testClip;
 
     public static SoundManager instance = null;     //Allows other scripts to call functions from SoundManager.             
 
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
-
-    public enum PlayerSoundEffects
-    {
-        walking,
-        punching,
-        invocation,
-    }
-
-    [ShowInInspector] public Dictionary<AudioClip, PlayerSoundEffects> playerSoundEffects = new Dictionary<AudioClip, PlayerSoundEffects>();
-    [ShowInInspector] public Dictionary<string, Dictionary<PlayerSoundEffects, AudioClip>> playerSoundEffects2 = new Dictionary<string, Dictionary<PlayerSoundEffects, AudioClip>>();
-    [ShowInInspector] public Dictionary<GameObject, PlayerSoundEffects> testDictionary = new Dictionary<GameObject, PlayerSoundEffects>();
-
-    [SerializeField] private List<SoundSetting> test = new List<SoundSetting>();
-    [SerializeField] private List<SoundSetting> testWalking;
-    [ShowInInspector] public List<AudioClip> walkingAudio = new List<AudioClip>();
 
     void Awake()
     {
@@ -42,15 +28,6 @@ public class SoundManager : MonoBehaviour
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
-
-        // if(playerSoundEffects2.ContainsValue()
-        // {
-        //     walkingAudio.Add(playerSoundEffects)
-        // }
-
-        // if(playerSoundEffects2.ContainsValue())
-
-        testWalking = test.GetSSOfType(PlayerSFX.Walking);
     }
 
 
