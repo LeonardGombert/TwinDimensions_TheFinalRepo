@@ -613,9 +613,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5712992961003877376, guid: b6e6eb6dfd250e24392317779229ade1,
         type: 3}
+      propertyPath: fillWithActiveHookTowers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712992961003877376, guid: b6e6eb6dfd250e24392317779229ade1,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5712992961003877376, guid: b6e6eb6dfd250e24392317779229ade1,
+        type: 3}
     - target: {fileID: 5712992961003877376, guid: b6e6eb6dfd250e24392317779229ade1,
         type: 3}
       propertyPath: movementTilemap
@@ -636,6 +642,21 @@ PrefabInstance:
       propertyPath: baseActiveTower
       value: 
       objectReference: {fileID: 1157815626}
+    - target: {fileID: 5712992961003877376, guid: b6e6eb6dfd250e24392317779229ade1,
+        type: 3}
+      propertyPath: insertBaseActiveTower
+      value: 
+      objectReference: {fileID: 1157815626}
+    - target: {fileID: 5712992961003877376, guid: b6e6eb6dfd250e24392317779229ade1,
+        type: 3}
+      propertyPath: fillWithActiveHookTowers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1157815626}
+    - target: {fileID: 5712992961003877376, guid: b6e6eb6dfd250e24392317779229ade1,
+        type: 3}
+      propertyPath: fillWithActiveHookTowers.Array.data[1]
+      value: 
+      objectReference: {fileID: 977124875}
     - target: {fileID: 5712992961003877383, guid: b6e6eb6dfd250e24392317779229ade1,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -1770,6 +1791,71 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386942, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386942, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386942, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386942, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_AssetsPPU
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_RefResolutionX
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_RefResolutionY
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_UpscaleRT
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_CropFrameY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_CropFrameX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386914, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_PixelSnapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077323024685, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83cb38e2a3f684d4e9decc5441e44025, type: 3}
