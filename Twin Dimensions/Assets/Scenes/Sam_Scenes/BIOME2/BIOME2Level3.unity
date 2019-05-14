@@ -244,7 +244,7 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate (1)
+      value: InteractablePrefab (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -732,7 +732,7 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate (4)
+      value: InteractablePrefab (4)
       objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -1046,7 +1046,7 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate (6)
+      value: InteractablePrefab (6)
       objectReference: {fileID: 0}
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -1543,7 +1543,7 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate (5)
+      value: InteractablePrefab (5)
       objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -1724,6 +1724,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 505763883}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &524481998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7725499528973875982, guid: c77c50ed663fa9d498261cb80468549d,
+    type: 3}
+  m_PrefabInstance: {fileID: 297341059}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &551936138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8592445144723000723, guid: 0747cf3083ea24546963d98fec376b28,
@@ -1735,6 +1741,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8592445144723000430, guid: 0747cf3083ea24546963d98fec376b28,
     type: 3}
   m_PrefabInstance: {fileID: 1310461072}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &560553622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7725499528973875982, guid: c77c50ed663fa9d498261cb80468549d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1010201309}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &583682024
 PrefabInstance:
@@ -2086,7 +2098,7 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate
+      value: InteractablePrefab
       objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -2966,7 +2978,12 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate
+      value: InteractablePrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -3026,13 +3043,13 @@ PrefabInstance:
     - target: {fileID: 7021364158345146595, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: interactableObjects.Array.size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7021364158345146595, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: interactableObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1288463475}
     - target: {fileID: 7021364158345146595, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: activationType
@@ -3043,6 +3060,26 @@ PrefabInstance:
       propertyPath: requiredSand
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7021364158345146595, guid: dc01edaca17875745a1ab43ca9743d6a,
+        type: 3}
+      propertyPath: interactableObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 1734367038}
+    - target: {fileID: 7021364158345146595, guid: dc01edaca17875745a1ab43ca9743d6a,
+        type: 3}
+      propertyPath: interactableObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 560553622}
+    - target: {fileID: 7021364158345146595, guid: dc01edaca17875745a1ab43ca9743d6a,
+        type: 3}
+      propertyPath: interactableObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 1075739661}
+    - target: {fileID: 7021364158345146595, guid: dc01edaca17875745a1ab43ca9743d6a,
+        type: 3}
+      propertyPath: interactableObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 524481998}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc01edaca17875745a1ab43ca9743d6a, type: 3}
 --- !u!4 &1035592107 stripped
@@ -3136,6 +3173,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5246709705572611953, guid: c77c50ed663fa9d498261cb80468549d,
     type: 3}
   m_PrefabInstance: {fileID: 1056016819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1075739661 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7725499528973875982, guid: c77c50ed663fa9d498261cb80468549d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1508778853}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1131530586
 PrefabInstance:
@@ -3621,6 +3664,12 @@ PrefabInstance:
       objectReference: {fileID: 1131530589}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12ae8334d335f1548b9544788433ff2a, type: 3}
+--- !u!1 &1288463475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7725499528973875982, guid: c77c50ed663fa9d498261cb80468549d,
+    type: 3}
+  m_PrefabInstance: {fileID: 391808813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1310461072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3705,7 +3754,7 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate (7)
+      value: InteractablePrefab (7)
       objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -3935,7 +3984,7 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate (3)
+      value: InteractablePrefab (3)
       objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -4703,7 +4752,7 @@ PrefabInstance:
     - target: {fileID: 8240864195428220054, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
       propertyPath: m_Name
-      value: PressurePlate (2)
+      value: InteractablePrefab (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
         type: 3}
@@ -4813,6 +4862,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1712329295452914319, guid: dc01edaca17875745a1ab43ca9743d6a,
     type: 3}
   m_PrefabInstance: {fileID: 1730822425}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1734367038 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7725499528973875982, guid: c77c50ed663fa9d498261cb80468549d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1863288274}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1766243334
 GameObject:
