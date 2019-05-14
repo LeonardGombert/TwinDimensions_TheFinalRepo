@@ -24,6 +24,12 @@ public class PlayerController : SerializedMonoBehaviour
     LayerMask selectedLayerMask;
     BoxCollider2D boxCol2D;
 
+    SpriteRenderer sr;
+
+    private const string OVER_LAYER_NAME = "Player_overProps_underEnemy";
+    private const string UNDER_LAYER_NAME = "Player_underProps";
+
+
     GameObject manager;
 
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
@@ -54,9 +60,6 @@ public class PlayerController : SerializedMonoBehaviour
 
     bool hasResetScene;
 
-
-
-
     public static bool isInSlamRange;
 
     #endregion
@@ -68,6 +71,7 @@ public class PlayerController : SerializedMonoBehaviour
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
 
         manager = GameObject.FindGameObjectWithTag("Manager");
 
@@ -211,6 +215,28 @@ public class PlayerController : SerializedMonoBehaviour
             manager.gameObject.SendMessage("AddNewSandShard", 1);
             Destroy(collider.gameObject);
         }
+
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
+
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.tag == "Sand")
+        {
+            manager.gameObject.SendMessage("AddNewSandShard", 1);
+            Destroy(collider.gameObject);
+        }
+
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
+
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
     }
     #endregion
     #endregion
