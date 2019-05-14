@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
@@ -17,7 +18,8 @@ public class PlayerController : SerializedMonoBehaviour
 
     Vector3 currentPosition;
     Vector3 desiredPosition;
-
+    #endregion
+    #region A TRIER
     GameObject touchedObject;
     Animator anim;
     Rigidbody2D rb2D;
@@ -28,7 +30,6 @@ public class PlayerController : SerializedMonoBehaviour
 
     private const string OVER_LAYER_NAME = "Player_overProps_underEnemy";
     private const string UNDER_LAYER_NAME = "Player_underProps";
-
 
     GameObject manager;
 
@@ -65,6 +66,13 @@ public class PlayerController : SerializedMonoBehaviour
     #endregion
     #endregion
 
+    public enum SoundEffects
+    {
+        walking,
+        punching,
+        invocation,
+    }
+
     #region Monobehavior Callbacks
     private void Awake()
     {
@@ -79,7 +87,7 @@ public class PlayerController : SerializedMonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
@@ -91,6 +99,12 @@ public class PlayerController : SerializedMonoBehaviour
             holdTime = 0;
             ResetScene();
         }
+
+
+
+        SoundManager.instance.RandomizeSfx();
+
+
     }
     #endregion
 
@@ -187,7 +201,9 @@ public class PlayerController : SerializedMonoBehaviour
 
         movementIsCoolingDown = false;
     }
+    #endregion
 
+    #region //OTHER
     void GuardStance()
     {
         if(isBeingCharged == true)
@@ -207,7 +223,9 @@ public class PlayerController : SerializedMonoBehaviour
         Scene activeScene = SceneManager.GetActiveScene(); 
         SceneManager.LoadScene(activeScene.name);         
     }
+    #endregion
 
+    #region //COLLISION DETECTION
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.tag == "Sand")
