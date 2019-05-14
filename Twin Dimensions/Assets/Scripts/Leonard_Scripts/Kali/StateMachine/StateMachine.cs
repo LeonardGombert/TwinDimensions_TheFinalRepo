@@ -2,15 +2,6 @@
 
 namespace StateData
 {
-    public abstract class State<T>
-    {
-        public abstract void EnterState(T _owner); //runs once on state entry
-
-        public abstract void ExitState(T _owner); //run once on state change
-
-        public abstract void UpdateState(T _owner); //runs every frame
-    }
-
     public class StateMachine<T>
     {
         public State<T> currentState { get; private set; }
@@ -24,17 +15,23 @@ namespace StateData
 
         public void ChangeState(State<T> _newstate)
         {
-            if(currentState != null) //if current state exists
-                currentState.ExitState(Owner); //play exit state
-
-            currentState = _newstate; //change to new state
-            currentState.EnterState(Owner); //play new state entry state
+            if(currentState != null)
+                currentState.ExitState(Owner);
+            currentState = _newstate;
+            currentState.EnterState(Owner);
         }
 
         public void Update()
         {
-            if (currentState != null) //if current state exists
-                currentState.UpdateState(Owner); //play Update State
+            if (currentState != null)
+                currentState.UpdateState(Owner);
         }
+    }
+
+    public abstract class State<T>
+    {
+        public abstract void EnterState(T _owner);
+        public abstract void ExitState(T _owner);
+        public abstract void UpdateState(T _owner);
     }
 }
