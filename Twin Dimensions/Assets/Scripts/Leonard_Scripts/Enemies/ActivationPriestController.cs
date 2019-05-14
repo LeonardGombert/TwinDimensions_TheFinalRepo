@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 public class ActivationPriestController : MonsterClass
 {
-    List<GameObject> hitEnemies = new List<GameObject>();
+    [SerializeField]List<GameObject> hitEnemies = new List<GameObject>();
     private GameObject hitEnemy;
 
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class ActivationPriestController : MonsterClass
 
         foreach (GameObject Enemy in hitEnemies)
         {
-            MonsterClass.isBeingSwitchedByPriest = true;
+            isBeingSwitchedByPriest = true;
         }
     }
 }
