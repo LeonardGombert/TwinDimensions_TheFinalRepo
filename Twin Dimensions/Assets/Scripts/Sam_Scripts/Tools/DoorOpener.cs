@@ -5,7 +5,7 @@ using System;
 
 public class DoorOpener : MonoBehaviour
 {
-    public enum animNamesList // your custom enumeration
+    /*public enum animNamesList // your custom enumeration
     {
         Kali_Bleu, 
         Kali_Jaune, 
@@ -43,9 +43,9 @@ public class DoorOpener : MonoBehaviour
         Real_Rouge,
         Real_Turquoise,
         Real_Vert,
-    };
+    };*/
 
-    public animNamesList animDropdown;
+    //public animNamesList animDropdown;
     
     //public spriteNamesList spriteDropdown;
 
@@ -60,27 +60,40 @@ public class DoorOpener : MonoBehaviour
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         boxcol2D = GetComponent<BoxCollider2D>();
         sr = GetComponent<SpriteRenderer>();
 
-        animName = animDropdown.ToString();
-        Debug.Log("I've selected " + animName);
+        //animName = animDropdown.ToString();
+        //Debug.Log("I've selected " + animName);
+
+        if(boxcol2D.enabled)
+        {
+            sr.sprite = spriteList[1];
+        }
+        else
+        {
+            sr.sprite = spriteList[0];
+        }
     }
 
     void Activated()
     {
         if(boxcol2D.enabled)
-        {
-            anim.SetFloat ("Direction", 1);
-            anim.Play(animName);
+        {   
+            //anim.SetFloat ("Direction", 1);
+            //anim.Play(animName);
+            sr.sprite = spriteList[0];
             boxcol2D.enabled = false;            
         }
 
         else
         {
-            anim.SetFloat ("Direction", -1);
-			anim.Play(animName, -1, float.NegativeInfinity);
+            //anim.SetFloat ("Direction", -1);
+			//anim.Play(animName, -1, float.NegativeInfinity);
+
+
+            sr.sprite = spriteList[1];
             boxcol2D.enabled = true;
         }
     }
@@ -89,15 +102,18 @@ public class DoorOpener : MonoBehaviour
     {
         if(boxcol2D.enabled)
         {   
-            anim.SetFloat ("Direction", 1);
-            anim.Play(animName);
+            //anim.SetFloat ("Direction", 1);
+            //anim.Play(animName);
+            sr.sprite = spriteList[0];
             boxcol2D.enabled = false;
         }
 
         else
         {
-            anim.SetFloat ("Direction", -1);
-			anim.Play (animName, -1, float.NegativeInfinity);
+            //anim.SetFloat ("Direction", -1);
+			//anim.Play (animName, -1, float.NegativeInfinity);
+
+            sr.sprite = spriteList[1];
             boxcol2D.enabled = true;
         }
     }
