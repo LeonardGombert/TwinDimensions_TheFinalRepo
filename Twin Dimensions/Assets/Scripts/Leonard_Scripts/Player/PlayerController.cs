@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
@@ -8,7 +9,7 @@ using Sirenix.OdinInspector;
 
 public class PlayerController : SerializedMonoBehaviour
 {
-    #region Variable Decarations    
+    #region Variable Decarations
     #region //BASIC MOVEMENT
     Vector3 originTile;
     Vector3 destinationTile;
@@ -17,23 +18,8 @@ public class PlayerController : SerializedMonoBehaviour
 
     Vector3 currentPosition;
     Vector3 desiredPosition;
-
-    GameObject touchedObject;
-    Animator anim;
-    Rigidbody2D rb2D;
-    LayerMask selectedLayerMask;
-    BoxCollider2D boxCol2D;
-
-    GameObject manager;
-
-    [FoldoutGroup("LayerMask Profiles")][SerializeField]
-    LayerMask world1Profile;
-    [FoldoutGroup("LayerMask Profiles")][SerializeField]
-    LayerMask world2Profile;
-
-    [FoldoutGroup("Tilemap")][SerializeField]
-    Tilemap movementTilemap;
-
+    
+    
     [FoldoutGroup("Player Movement")][SerializeField]
     float movementCooldown = 0.3f;
     [FoldoutGroup("Player Movement")][SerializeField]
@@ -41,18 +27,51 @@ public class PlayerController : SerializedMonoBehaviour
     [FoldoutGroup("Player Movement")][SerializeField]
     public static float playerMovementSpeed;
 
-    bool playerHasMoved = false;
-    bool movementIsCoolingDown = false;
-    public static bool isBeingCharged = false;
     public static bool canMove = true;
     public static bool isMoving = false;
+    bool playerHasMoved = false;
+    bool movementIsCoolingDown = false;
+    #endregion
 
-    [FoldoutGroup("Player Movement")][SerializeField]
+    #region //GENERAL VARIABLES
+    [FoldoutGroup("General Stats")][SerializeField]
     float resetTime;
-    [FoldoutGroup("Player Movement")][SerializeField]
+    [FoldoutGroup("General Stats")][SerializeField]
     float holdTime;
+    
+    GameObject touchedObject;
+    Animator anim;
+    Rigidbody2D rb2D;
+    LayerMask selectedLayerMask;
+    BoxCollider2D boxCol2D;
+    SpriteRenderer sr;
+    GameObject manager;
+    public static bool isBeingCharged = false;
+    public static bool isInSlamRange;
+    bool hasResetScene;    
+    #endregion
 
-    bool hasResetScene;
+    #region //LAYERS
+    [FoldoutGroup("LayerMask Profiles")][SerializeField]
+    LayerMask world1Profile;
+    [FoldoutGroup("LayerMask Profiles")][SerializeField]
+    LayerMask world2Profile;
+
+    private const string OVER_LAYER_NAME = "Player_overProps_underEnemy";
+    private const string UNDER_LAYER_NAME = "Player_underProps";
+    #endregion
+
+    #region //TILEMAP
+    [FoldoutGroup("Tilemap")][SerializeField]
+    Tilemap movementTilemap;
+    #endregion
+    
+    #region //SOUND EFFECTS
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkingSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] punchingSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] summoningSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] teleportationSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] deathSounds;
     #endregion
     #endregion
 
@@ -62,18 +81,19 @@ public class PlayerController : SerializedMonoBehaviour
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
 
         manager = GameObject.FindGameObjectWithTag("Manager");
-
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
+        MonitorSFX();
         
         if(holdTime <= 0 && !hasResetScene) 
         {
@@ -177,7 +197,9 @@ public class PlayerController : SerializedMonoBehaviour
 
         movementIsCoolingDown = false;
     }
+    #endregion
 
+    #region //OTHER
     void GuardStance()
     {
         if(isBeingCharged == true)
@@ -197,7 +219,9 @@ public class PlayerController : SerializedMonoBehaviour
         Scene activeScene = SceneManager.GetActiveScene(); 
         SceneManager.LoadScene(activeScene.name);         
     }
+    #endregion
 
+    #region //COLLISION DETECTION
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.tag == "Sand")
@@ -205,7 +229,39 @@ public class PlayerController : SerializedMonoBehaviour
             manager.gameObject.SendMessage("AddNewSandShard", 1);
             Destroy(collider.gameObject);
         }
+
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
+
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.tag == "Sand")
+        {
+            manager.gameObject.SendMessage("AddNewSandShard", 1);
+            Destroy(collider.gameObject);
+        }
+
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
+
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
     }
     #endregion
     #endregion
+
+    void MonitorSFX()
+    {
+        if(TeleportationManager.isTeleporting == true) SoundManager.instance.RandomizeSfx(teleportationSounds);
+        if(isMoving == true) SoundManager.instance.RandomizeSfx(walkingSounds);
+        //if(isPunching == true) SoundManager.instance.RandomizeSfx(punchingSounds);
+        //if(isSummoning == true) SoundManager.instance.RandomizeSfx(summoningSounds);
+        if(GameMaster.playerIsDead == true) SoundManager.instance.RandomizeSfx(deathSounds);
+        else return;
+    }
 }

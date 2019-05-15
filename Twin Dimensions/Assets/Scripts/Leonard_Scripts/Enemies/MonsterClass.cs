@@ -22,7 +22,7 @@ public class MonsterClass : SerializedMonoBehaviour
     [HideInInspector]
     public GameObject player;
 
-    public static bool isBeingSwitchedByPriest;
+    bool isBeingSwitchedByPriest;
     public static bool isBeingCharged;
     public static bool isBeingTeleported;
 
@@ -115,6 +115,7 @@ public class MonsterClass : SerializedMonoBehaviour
     }
 
     public virtual void ActivateTriggerBehavior(){}
+    public virtual void MonitorSFX(){}
 
     private bool isActivatedByTurret(bool messageListener = false)
     {
@@ -173,5 +174,13 @@ public class MonsterClass : SerializedMonoBehaviour
         {
             Instantiate(sandToDrop, transform.position, Quaternion.identity);
         }
+    }
+
+    bool SwitchedByPriest(bool isBeingSwitched)
+    {
+        if(isBeingSwitched == true) isBeingSwitched = true;
+        if(isBeingSwitched == false) isBeingSwitched = false;
+
+        return isBeingSwitched;
     }
 }

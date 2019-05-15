@@ -27,7 +27,7 @@ public class ActivationPriestController : MonsterClass
 
         foreach (GameObject Enemy in hitEnemies)
         {
-            isBeingSwitchedByPriest = true;
+            Enemy.gameObject.SendMessage("SwitchedByPriest", true);
         }
     }
 }
