@@ -6,69 +6,59 @@ using UnityEngine;
 using StateData;
 
 public class KaliBossAI : MonoBehaviour
-{
-    public StateMachine<KaliBossAI> stateMachine { get; set; }
-    
+{    
     #region //GENERAL VARIABLES
     [FoldoutGroup("General")] public Animator anim;
+    public GameObject player;
     #endregion
 
     #region //BOSS STATES AND STAGES
-    [HideInInspector] public S1BossStates defautState = S1BossStates.S1Idle;
-    [FoldoutGroup("KaliStats")] public BossStages bossStage;
-    [FoldoutGroup("KaliStats")] public S1BossStates Stage1CurrentState;
-    [FoldoutGroup("KaliStats")] public S2BossStates Stage2CurrentState;
-    [FoldoutGroup("KaliDebug")] public bool attackState = false;
-    [FoldoutGroup("KaliDebug")] public bool idleState = false;
-    [FoldoutGroup("KaliDebug")] public bool deathState = false;
+    S1BossStates defautState = S1BossStates.S1Idle;
+    [FoldoutGroup("KaliStats")][SerializeField] BossStages bossStage;
+    [FoldoutGroup("KaliStats")][SerializeField] S1BossStates Stage1CurrentState;
+    [FoldoutGroup("KaliStats")][SerializeField] S2BossStates Stage2CurrentState;
+    [FoldoutGroup("KaliDebug")][SerializeField] bool attackState = false;
+    [FoldoutGroup("KaliDebug")][SerializeField] bool idleState = false;
+    [FoldoutGroup("KaliDebug")][SerializeField] bool deathState = false;
     #endregion
     
     #region //KALI STATS
-    [FoldoutGroup("KaliStats")] [SerializeField] float lifePoints;
-    [FoldoutGroup("KaliStats")] [SerializeField] float lifepointsToChangeState;
-    [FoldoutGroup("KaliStats")] [SerializeField] float damageValue;
+    [FoldoutGroup("KaliStats")][SerializeField] float lifePoints;
+    [FoldoutGroup("KaliStats")][SerializeField] float lifepointsToChangeState;
+    [FoldoutGroup("KaliStats")][SerializeField] float damageValue;
     #endregion
     
     #region //SLAM ATTACK VARIABLES
-    [FoldoutGroup("SlamAttack")] public GameObject rightAttackBoxCol2D;
-    [FoldoutGroup("SlamAttack")] public GameObject leftAttackBoxCol2D;
-    [FoldoutGroup("SlamAttack")] public GameObject activeAttackBoxCol2D;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject rightAttackBoxCol2D;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject leftAttackBoxCol2D;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject activeAttackBoxCol2D;
    
-    [FoldoutGroup("SlamAttack")] public int maxRandom;
-    [FoldoutGroup("SlamAttack")] public int minAttackValue;
-    [FoldoutGroup("SlamAttack")] public int randAttackValue;
-    [FoldoutGroup("SlamAttack")] public int attackProbabilityBooster;
-    [FoldoutGroup("SlamAttackDebug")] public bool isSlamming = false;
+    [FoldoutGroup("SlamAttack")][SerializeField] int maxRandom;
+    [FoldoutGroup("SlamAttack")][SerializeField] int minAttackValue;
+    [FoldoutGroup("SlamAttack")][SerializeField] int randAttackValue;
+    [FoldoutGroup("SlamAttack")][SerializeField] int attackProbabilityBooster;
+    [FoldoutGroup("SlamAttack")][SerializeField] float timeHeld = 0;
+    [FoldoutGroup("SlamAttack")][SerializeField] float timeToHold = 2f;
+    [FoldoutGroup("SlamAttackDebug")][SerializeField]  bool isSlamming = false;
     [FoldoutGroup("SlamAttackDebug")][ShowInInspector] public static bool isTrackingPlayerSide = false;
+
     #endregion
 
     #region //LASER BEAM VARIABLES
-    [FoldoutGroup("LaserBeamAttack")] public LineRenderer laserBeam;
-    [FoldoutGroup("LaserBeamAttack")] public Transform laserSpawn;
-    [FoldoutGroup("LaserBeamAttack")] public Transform laserTarget;
-    [FoldoutGroup("LaserBeamAttack")] public List<Transform> laserPointList = new List<Transform>();
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] LineRenderer laserBeam;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] Transform laserSpawn;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] Vector3 laserStartPosition;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] Vector3 laserTargetPosition;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] Vector3 laserCurrentPosition;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] float laserMoveTime;
     #endregion
 
     #region //KALI ENUM STATES
-    public enum BossStages
-    {
-        Stage1,
-        Stage2,
-    }
+    public enum BossStages {Stage1,Stage2,}
 
-    public enum S1BossStates
-    {
-        S1Idle,
-        S1Attacking,
-        S1Dead,
-    }
+    public enum S1BossStates {S1Idle,S1Attacking,S1Dead,}
 
-    public enum S2BossStates
-    {
-        S2Idle,
-        S2Attacking, 
-        S2Dead, 
-    }
+    public enum S2BossStates {S2Idle,S2Attacking,S2Dead,}
     #endregion
 
     // Start is called before the first frame update
@@ -76,8 +66,8 @@ public class KaliBossAI : MonoBehaviour
     {
         anim = GetComponent<Animator>();
 
-        stateMachine = new StateMachine<KaliBossAI>(this);
-        stateMachine.ChangeState(IdleState.Instance);
+        //stateMachine = new StateMachine<KaliBossAI>(this);
+        //stateMachine.ChangeState(IdleState.Instance);
     }
 
     // Update is called once per frame
@@ -90,12 +80,13 @@ public class KaliBossAI : MonoBehaviour
             StartCoroutine(StateSwitch());
         }
 
-        stateMachine.Update();
+        //stateMachine.Update();
 
         WatchForStageChange();
 
         UpdateCurrentState();
 
+        StartCoroutine(LaserEyeBeam());
     }
 
     IEnumerator StateSwitch()
@@ -136,17 +127,6 @@ public class KaliBossAI : MonoBehaviour
         Debug.Log("Player is on " + side.gameObject.name);        
         activeAttackBoxCol2D = side.gameObject;
     }
-
-    void WatchForStageChange()
-    {
-        if(lifePoints <= lifepointsToChangeState)
-        {
-            bossStage = BossStages.Stage2;
-            stateMachine.ChangeState(GeneralAttackStateManager.Instance);
-        }
-
-        else return;
-    }
     
     void UpdateCurrentState()
     {
@@ -167,7 +147,7 @@ public class KaliBossAI : MonoBehaviour
                 break;
 
                 case S1BossStates.S1Attacking :
-                attackState = true;
+                attackState = true;  StartCoroutine(SlamAttack());// SlamAttack();
                 idleState = false;
                 deathState = false;
                 break;
@@ -178,7 +158,7 @@ public class KaliBossAI : MonoBehaviour
             } 
         }
 
-        if(bossStage == BossStages.Stage2)
+        else if(bossStage == BossStages.Stage2)
         {
             switch(Stage2CurrentState)
             {            
@@ -205,5 +185,71 @@ public class KaliBossAI : MonoBehaviour
                 break;
             }
         }        
+    }
+
+    IEnumerator SlamAttack()
+    {
+        //anim.SetBool("S1SlamAttack", true);
+
+        if(timeHeld >= timeToHold)
+        {
+            activeAttackBoxCol2D.SendMessage("Slamming");
+            timeHeld = 0;
+            Debug.Log("swtiching states");
+            Stage1CurrentState = S1BossStates.S1Idle;            
+            Stage2CurrentState = S2BossStates.S2Idle;
+            yield break;
+        }
+
+        else timeHeld += Time.deltaTime;
+        yield return null;   
+    }
+
+    IEnumerator SweepAttack()
+    {
+        
+        yield break;
+    }
+
+    IEnumerator LaserEyeBeam()
+    {
+        laserTargetPosition = player.transform.position;
+
+        RaycastHit2D hit = Physics2D.Linecast(laserStartPosition, laserTargetPosition);
+
+        if(hit.collider){
+            if(hit.collider.tag == "Obstacle")
+            {
+                laserTargetPosition = new Vector3(hit.point.x, hit.point.y);
+                yield break;
+            }}
+
+        Debug.DrawLine(laserStartPosition, laserTargetPosition, Color.white);
+
+        laserBeam.SetPosition(0, laserStartPosition); //defines 1st ("start") point
+        laserBeam.SetPosition(1, laserTargetPosition); //defines 2nd (or "end") point
+    }
+
+    void AttackManager()
+    {
+        StartCoroutine(SlamAttack());
+        StartCoroutine(SweepAttack());
+        StartCoroutine(LaserEyeBeam());
+    }
+
+    void RandomizeAttacks()
+    {
+
+    }
+
+    void WatchForStateChange()
+    {
+        
+    }
+
+    void WatchForStageChange()
+    {
+        if(lifePoints <= lifepointsToChangeState) bossStage = BossStages.Stage2;
+        else return;
     }
 }

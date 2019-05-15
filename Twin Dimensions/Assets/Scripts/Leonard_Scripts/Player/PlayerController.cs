@@ -177,7 +177,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         while (sqrRemainingDistanceToDestination > float.Epsilon)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinationPosition, inverseMoveTime * Time.unscaledDeltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, destinationPosition, inverseMoveTime * Time.deltaTime);
             sqrRemainingDistanceToDestination = (transform.position - destinationPosition).sqrMagnitude;
 
             yield return null;
