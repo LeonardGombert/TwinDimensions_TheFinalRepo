@@ -28,53 +28,55 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("KaliStats")][SerializeField] float lifePoints;
     [FoldoutGroup("KaliStats")][SerializeField] float lifepointsToChangeState;
     [FoldoutGroup("KaliStats")][SerializeField] float damageValue;
+    [FoldoutGroup("KaliDebug")][SerializeField] bool damageDealt = false;
     #endregion
     
     #region //SLAM ATTACK VARIABLES
+    [FoldoutGroup("AttackDebug")][ShowInInspector]  public static bool isSlamming = false;
+    [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isTrackingForSlam = true;
     [FoldoutGroup("SlamAttack")][SerializeField] GameObject rightSlamAttackBoxCol2D;
     [FoldoutGroup("SlamAttack")][SerializeField] GameObject leftSlamAttackBoxCol2D;
-    [FoldoutGroup("SlamAttack")][SerializeField] GameObject activeSlamAttackBoxCol2D;   
-    [FoldoutGroup("SlamAttack")][SerializeField] int maxRandom;
-    [FoldoutGroup("SlamAttack")][SerializeField] int minAttackValue;
-    [FoldoutGroup("SlamAttack")][SerializeField] int randAttackValue;
-    [FoldoutGroup("SlamAttack")][SerializeField] int attackProbabilityBooster;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject activeSlamAttackBoxCol2D;
     [FoldoutGroup("SlamAttack")][SerializeField] float timeHoldingSlam = 0;
     [FoldoutGroup("SlamAttack")][SerializeField] float timeToHoldSlam = 2f;
-    [FoldoutGroup("SlamAttackDebug")][SerializeField]  public static bool isSlamming = false;
-    [FoldoutGroup("SlamAttackDebug")][ShowInInspector] public static bool isTrackingForSlam = true;
 
     #endregion
 
     #region //LASER BEAM VARIABLES
+    [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool usingLaser = false;
+    [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isTrackingForLaser = true;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] LineRenderer laserBeam;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserSpawnPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserStartPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserEndPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserHitPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] float laserMoveTime;
-    [FoldoutGroup("LaserBeamAttackDebug")][SerializeField] bool usingLaser = false;
     #endregion
 
     #region //SWEEP ATTACK VARIABLES
+    [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isSweeping = false;
+    [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool trackPlayerForSweep = true;
     [FoldoutGroup("SweepAttack")] List<GameObject> playerSideDetectionColliders = new List<GameObject>();
     [FoldoutGroup("SweepAttack")][SerializeField] GameObject rightSweepAttackBoxCol2D;
     [FoldoutGroup("SweepAttack")][SerializeField] GameObject leftSweepAttackBoxCol2D;
     [FoldoutGroup("SweepAttack")][SerializeField] GameObject activeSweepAttackBoxCol2D;
-    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepStartPosition;
+    [FoldoutGroup("SweepAttack")][SerializeField] Transform kaliBasePosition;
+    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepPosition1;
     [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepCurrentPosition;
-    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepDestinationPosition;
-    [FoldoutGroup("SweepAttack")][SerializeField] float timeHoldingSweep = 0;
-    [FoldoutGroup("SweepAttack")][SerializeField] float timeToHoldSweep = 2f;
-    [FoldoutGroup("SweepAttackDebug")][SerializeField] public static bool isSweeping = false;
-    [FoldoutGroup("SweepAttackDebug")][SerializeField] public static bool trackPlayerForSweep = true;
+    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepPosition2;
     #endregion
 
     #region //STATE CHANGE VARIABLES
-    [FoldoutGroup("ChangeStateVariables")][SerializeField] float minWaitTime;
-    [FoldoutGroup("ChangeStateVariables")][SerializeField] float maxWaitTime;
-    [FoldoutGroup("ChangeStateVariables")][SerializeField] float currentRunTime;
-    [FoldoutGroup("ChangeStateVariables")][SerializeField] float timeTillNextAttack;
-    [FoldoutGroup("ChangeStateVariables")][SerializeField] float probabilityBooster;
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float maxTimeBetweenStates;
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float minAttackValue;
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float timeTillStateChange;
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float attackProbabilityBooster;
+    
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float minWaitTime;
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float maxWaitTime;
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float currentRunTime;
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float timeTillNextAttack;
+    [FoldoutGroup("ChangeStateDebug")][SerializeField] float probabilityBooster;
     #endregion
 
     #region //KALI ENUM STATES
@@ -106,10 +108,10 @@ public class KaliBossAI : MonoBehaviour
         {
             lifePoints -= damageValue;
             //StartCoroutine(StateSwitch());
-            Stage2CurrentState = S2BossStates.S2Attacking;
         }
 
         //stateMachine.Update();
+        StateSwitching();
 
         WatchForStageChange();
         
@@ -145,45 +147,39 @@ public class KaliBossAI : MonoBehaviour
         else return;
     }
 
-    IEnumerator Stage1StateManager()
+    void Stage1StateManager()
     {
         timeTillNextAttack = Random.Range (minWaitTime, maxWaitTime);
 
-        while (Stage1CurrentState == S1BossStates.S1Attacking)
+        if (Stage1CurrentState == S1BossStates.S1Attacking)
         {
-            if (currentRunTime == timeTillNextAttack)
+            if (currentRunTime >= timeTillNextAttack)
             {
                 StartCoroutine(SlamAttack());
                 currentRunTime = 0;
             }
             else currentRunTime += Time.deltaTime;
-            yield break;
         }
-
-        yield return null;
 
         //if(Stage1CurrentState == S1BossStates.S1Idle) StartCoroutine(IdleState());
         //if(Stage1CurrentState == S1BossStates.S1Dead) StartCoroutine(DeathState()); 
     }
 
-    IEnumerator Stage2StateManager()
+    void Stage2StateManager()
     {
         timeTillNextAttack = Random.Range (minWaitTime, maxWaitTime);
 
-        while (Stage2CurrentState == S2BossStates.S2Attacking)
+        if (Stage2CurrentState == S2BossStates.S2Attacking)
         {
-            if (currentRunTime == timeTillNextAttack)
+            if (currentRunTime >= timeTillNextAttack)
             {
                 RandomizeAttacks();
                 currentRunTime = 0;
             }
             else currentRunTime += Time.deltaTime;
-            yield break;
         }
 
-        yield return null;
-
-        //if(Stage2CurrentState == S2BossStates.S2Idle) StartCoroutine(IdleState());
+        if(Stage2CurrentState == S2BossStates.S2Idle) StartCoroutine(IdleState());
         //if(Stage2CurrentState == S2BossStates.S2Dead) StartCoroutine(DeathState());
     }
 
@@ -194,28 +190,51 @@ public class KaliBossAI : MonoBehaviour
         Debug.Log("I'm attacking with " + whichAttack);
 
         if(whichAttack == 0) StartCoroutine(SlamAttack());
-        if(whichAttack == 1) StartCoroutine(SweepAttack());
+        if(whichAttack == 1) StartCoroutine(MoveToSweepAttackLocation());
         if(whichAttack == 2) StartCoroutine(LaserEyeBeam());
+
+        Stage2CurrentState = S2BossStates.S2Idle;
     }
     #endregion
 
     #region //STATE CHANGING
-    IEnumerator StateSwitch()
-    {
-        randAttackValue = Random.Range(0, maxRandom);
 
-        Debug.Log(randAttackValue);
+    void StateSwitching()
+    {
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            if(bossStage == BossStages.Stage1)Stage1CurrentState = S1BossStates.S1Attacking;
+            else if(bossStage == BossStages.Stage2)Stage2CurrentState = S2BossStates.S2Attacking;
+        }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            if(bossStage == BossStages.Stage1)Stage1CurrentState = S1BossStates.S1Idle;
+            else if(bossStage == BossStages.Stage2)Stage2CurrentState = S2BossStates.S2Idle;
+        }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            if(bossStage == BossStages.Stage1)Stage1CurrentState = S1BossStates.S1Dead;
+            else if(bossStage == BossStages.Stage2)Stage2CurrentState = S2BossStates.S2Dead;
+        }
+    }
+
+    IEnumerator StateSwitch(float timeTillStateChange)
+    {
+        timeTillStateChange = Random.Range(0, maxTimeBetweenStates);
+        currentRunTime += Time.deltaTime;
 
         if(bossStage == BossStages.Stage1)
         {
-            if(randAttackValue >= minAttackValue) minAttackValue += attackProbabilityBooster; //does not attack, raise probability nothing happens
-            else if(randAttackValue <= minAttackValue) Stage1CurrentState = S1BossStates.S1Attacking; //attacks, repeat
+            if(currentRunTime <= timeTillStateChange && damageDealt) currentRunTime += attackProbabilityBooster; //does not attack, raise probability nothing happens
+            else if(currentRunTime >= timeTillStateChange) Stage1CurrentState = S1BossStates.S1Attacking; //attacks, repeat
         }
 
-        if(bossStage == BossStages.Stage2)
+        else if(bossStage == BossStages.Stage2)
         {
-            if(randAttackValue >= minAttackValue) minAttackValue += attackProbabilityBooster; //does not attack, raise probability nothing happens
-            else if(randAttackValue <= minAttackValue) Stage2CurrentState = S2BossStates.S2Attacking; //attacks, repeat
+            if(currentRunTime <= timeTillStateChange && damageDealt) currentRunTime += attackProbabilityBooster; //does not attack, raise probability nothing happens
+            else if(timeTillStateChange >= currentRunTime) Stage2CurrentState = S2BossStates.S2Attacking; //attacks, repeat
         }
         
         yield return null;
@@ -278,8 +297,7 @@ public class KaliBossAI : MonoBehaviour
                 break;
             }
         }        
-    }    
-    
+    }
     #endregion
 
     #region //ATTACK STATES
@@ -312,7 +330,20 @@ public class KaliBossAI : MonoBehaviour
     
     IEnumerator MoveToSweepAttackLocation()
     {
-        yield break; //exit the coroutine
+        float timeSinceStarted = 0f;
+
+        while (true)
+        {
+            timeSinceStarted += Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, sweepPosition1.position, timeSinceStarted);
+
+            if (transform.position == sweepPosition1.position) // If the object has arrived...
+            {
+                StartCoroutine(SweepAttack());
+                yield break; //...stop the coroutine
+            }           
+            yield return null; // Otherwise, continue next frame
+        }
     }
 
     IEnumerator SweepAttack()
@@ -320,7 +351,6 @@ public class KaliBossAI : MonoBehaviour
         isSweeping = true;
         trackPlayerForSweep = false;
 
-        float sqrRemainingDistanceToDestination = (transform.position - sweepDestinationPosition.position).sqrMagnitude;
         float timeSinceStarted = 0f;
 
         while (true)
@@ -328,15 +358,17 @@ public class KaliBossAI : MonoBehaviour
             anim.SetBool("S2SweepAttack", true);
 
             timeSinceStarted += Time.deltaTime;
-            transform.position = Vector3.Lerp(sweepStartPosition.position, sweepDestinationPosition.position, timeSinceStarted);
+            transform.position = Vector3.Lerp(sweepPosition1.position, sweepPosition2.position, timeSinceStarted);
 
-            if (sqrRemainingDistanceToDestination <= float.Epsilon) // If the object has arrived...
+            if (transform.position == sweepPosition2.position) // If the object has arrived...
             {
+                transform.position = Vector3.Lerp(transform.position, kaliBasePosition.position, timeSinceStarted);
                 anim.SetBool("S2SweepAttack", false);
                 activeSlamAttackBoxCol2D.SendMessage("Sweeping");   
                 Stage2CurrentState = S2BossStates.S2Idle;
                 trackPlayerForSweep = true;
                 isSweeping = false;
+                
                 yield break; //...stop the coroutine
             }
            
@@ -348,8 +380,6 @@ public class KaliBossAI : MonoBehaviour
     {
         usingLaser = true;
 
-        laserHitPosition.transform.position = laserStartPosition.transform.position;
-
         float sqrRemainingDistanceToDestination = (laserHitPosition.transform.position - laserEndPosition.transform.position).sqrMagnitude;
         float timeSinceStarted = 0f;
 
@@ -358,7 +388,6 @@ public class KaliBossAI : MonoBehaviour
             anim.SetBool("S2LaserEyeBeam", true);
 
             timeSinceStarted += Time.deltaTime;
-            laserHitPosition.transform.position = Vector3.Lerp(laserStartPosition.transform.position, laserEndPosition.transform.position, timeSinceStarted);
 
             RaycastHit2D hit = Physics2D.Raycast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
 
@@ -370,11 +399,15 @@ public class KaliBossAI : MonoBehaviour
 
             laserBeam.SetPosition(0, laserSpawnPosition.transform.position); //defines 1st ("start") point
             laserBeam.SetPosition(1, laserHitPosition.transform.position); //defines 2nd (or "end") point
+            
+            laserHitPosition.transform.position = laserStartPosition.transform.position;
+            laserHitPosition.transform.position = Vector3.Lerp(laserStartPosition.transform.position, laserEndPosition.transform.position, timeSinceStarted);
 
-            if (sqrRemainingDistanceToDestination <= float.Epsilon) // If the object has arrived...
+            if (laserHitPosition.transform.position == laserEndPosition.transform.position) // If the object has arrived...
             {
                 anim.SetBool("S2LaserEyeBeam", false);
                 usingLaser = false;  
+                laserBeam.enabled = false;
                 Stage2CurrentState = S2BossStates.S2Idle;
                 yield break; //...stop the coroutine
             }
@@ -385,5 +418,10 @@ public class KaliBossAI : MonoBehaviour
     #endregion
 
     #region //IDLE_OTHER STATES
+
+    IEnumerator IdleState()
+    {
+        yield return null;
+    }
     #endregion
 }

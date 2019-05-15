@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 101936989}
   m_Layer: 0
-  m_Name: SweepDestinationPosition
+  m_Name: SweepPosition2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &799792601
 GameObject:
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 799792602}
   m_Layer: 0
-  m_Name: SweepStartPosition
+  m_Name: SweepPosition1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,6 +167,36 @@ Transform:
   m_GameObject: {fileID: 799792601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.124399, y: -9.734131, z: -0.1418285}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &946381959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 946381960}
+  m_Layer: 12
+  m_Name: SweepBasePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &946381960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946381959}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -9.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -187,7 +217,7 @@ PrefabInstance:
     - target: {fileID: 7776813077787256854, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7776813077787256854, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
@@ -403,7 +433,7 @@ PrefabInstance:
     - target: {fileID: 4791265082690008730, guid: e711568c87e7e784d964d609aabdbae4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4791265082690008730, guid: e711568c87e7e784d964d609aabdbae4,
         type: 3}
@@ -13669,6 +13699,36 @@ PrefabInstance:
         type: 3}
       propertyPath: probabilityBooster
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093411064153633870, guid: a2d8eb4233703ff40930c5af3a4182bd,
+        type: 3}
+      propertyPath: kaliBasePosition
+      value: 
+      objectReference: {fileID: 946381960}
+    - target: {fileID: 4093411064153633870, guid: a2d8eb4233703ff40930c5af3a4182bd,
+        type: 3}
+      propertyPath: sweepPosition1
+      value: 
+      objectReference: {fileID: 799792602}
+    - target: {fileID: 4093411064153633870, guid: a2d8eb4233703ff40930c5af3a4182bd,
+        type: 3}
+      propertyPath: sweepPosition2
+      value: 
+      objectReference: {fileID: 101936989}
+    - target: {fileID: 4093411064153633870, guid: a2d8eb4233703ff40930c5af3a4182bd,
+        type: 3}
+      propertyPath: bossStage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093411064153633870, guid: a2d8eb4233703ff40930c5af3a4182bd,
+        type: 3}
+      propertyPath: Stage2CurrentState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4093411064153633870, guid: a2d8eb4233703ff40930c5af3a4182bd,
+        type: 3}
+      propertyPath: damageDealt
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2d8eb4233703ff40930c5af3a4182bd, type: 3}
