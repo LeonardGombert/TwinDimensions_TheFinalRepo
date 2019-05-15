@@ -22,7 +22,7 @@ public class MonsterClass : SerializedMonoBehaviour
     [HideInInspector]
     public GameObject player;
 
-    public static bool isBeingSwitchedByPriest;
+    bool isBeingSwitchedByPriest;
     public static bool isBeingCharged;
     public static bool isBeingTeleported;
 
@@ -30,6 +30,11 @@ public class MonsterClass : SerializedMonoBehaviour
     public static bool isInActiveMode = false;
 
     public static bool isOnMyLayer = false;
+
+    [FoldoutGroup("Sand")][SerializeField] 
+    GameObject sandToDrop;
+    
+    int amountOfSandToDrop;
 
     // Start is called before the first frame update
     public virtual void Awake()
@@ -110,6 +115,7 @@ public class MonsterClass : SerializedMonoBehaviour
     }
 
     public virtual void ActivateTriggerBehavior(){}
+    public virtual void MonitorSFX(){}
 
     private bool isActivatedByTurret(bool messageListener = false)
     {
@@ -138,24 +144,43 @@ public class MonsterClass : SerializedMonoBehaviour
         if(collision.tag == "Firebreather")        
         {
             Debug.Log("The Firebreather hit " + gameObject.name);
+            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
 
         if(collision.tag == "Elephant")
         {
             Debug.Log("The Elephant hit " + gameObject.name);
+            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
 
         if(collision.tag == "Trap")
         {
             Debug.Log("The Elephant hit " + collision.gameObject.name);
+            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
     }
 
     void DropSand(int sandAmount)
     {
-        Debug.Log("I'm " + gameObject.name + ", and I have " + sandAmount + " sand");
+        amountOfSandToDrop = sandAmount;
+    }
+
+    void GenerateSand(int amountOfSandToDrop)
+    {
+        for (int i = 0; i < amountOfSandToDrop; ++i)
+        {
+            Instantiate(sandToDrop, transform.position, Quaternion.identity);
+        }
+    }
+
+    bool SwitchedByPriest(bool isBeingSwitched)
+    {
+        if(isBeingSwitched == true) isBeingSwitched = true;
+        if(isBeingSwitched == false) isBeingSwitched = false;
+
+        return isBeingSwitched;
     }
 }

@@ -3,20 +3,14 @@ using System.Collections;
 
 public class PlatformMovement : MonoBehaviour 
 {
-		private Vector3 posA;
+		Vector3 posA;
+		Vector3 posB;
+		Vector3 nexPos;
 
-		private Vector3 posB;
+		[SerializeField] float speed;
 
-		private Vector3 nexPos;
-
-		[SerializeField]
-		private float speed;
-
-		[SerializeField]
-		private Transform childTransform;
-
-		[SerializeField]
-		private Transform transformB;
+		[SerializeField] Transform childTransform = default;
+		[SerializeField] Transform transformB = default;
 
 	// Use this for initialization
 	void Start () {

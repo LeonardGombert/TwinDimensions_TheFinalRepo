@@ -30,9 +30,10 @@ public class ElephantController : MonsterClass
     [FoldoutGroup("Charge Variables")][SerializeField]
     float chargeSpeed = 0.25f;
     [FoldoutGroup("Charge Variables")][SerializeField]
-    float chargeRadiusInTiles;
+    float chargeRadiusInTiles;    
     #endregion
 
+    #region //POSITIONS
     Vector3 playerDirection;
     Vector3 wallPosition;
     Vector3 wallPointCoordinates;
@@ -42,34 +43,49 @@ public class ElephantController : MonsterClass
 
     Vector3Int currentSelectedDirection;
     Vector3Int previousSelectedDirection;
+    List<Vector3> CardinalDirections = new List<Vector3>();
+    #endregion
 
-    public Tile highlightTile;
+    #region //TILEMAP
+    [FoldoutGroup("Tilemap")][SerializeField] 
+    Tile highlightTile;
+    [FoldoutGroup("Tilemap")][SerializeField]
+    Tilemap movementTilemap;
+    #endregion
 
+    #region //CAMERAS
     [FoldoutGroup("Cinemachine Virtual Cameras")][SerializeField]
     CinemachineVirtualCamera elephantCamera = new CinemachineVirtualCamera();
     [FoldoutGroup("Cinemachine Virtual Cameras")][SerializeField]
     CinemachineVirtualCamera playerCamera = new CinemachineVirtualCamera();
+    #endregion
 
+    #region //LAYERS
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
     LayerMask world1Profile;
     [FoldoutGroup("LayerMask Profiles")][SerializeField]
     LayerMask world2Profile;
+    #endregion
 
-    [FoldoutGroup("Tilemap")][SerializeField]
-    Tilemap movementTilemap;
-
+    #region //GENERAL VARIABLES
     Transform target;
-
     Rigidbody2D rb2D;
     BoxCollider2D boxCol2D;
+    #endregion     
 
+    #region //TURRET ACTIVATION
     bool isActive;
     bool isTriggered = false;
+    int currentIndexNumber;
+    int maxIndexNumber;
+    #endregion
 
-    int currentIndexNumber = 0;
-    int maxIndexNmber = 0;
-
-    List<Vector3> CardinalDirections = new List<Vector3>();
+    #region //SOUND EFFECTS
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] startCharging;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] chargeSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] collisionSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] deathSounds;
+    #endregion
     #endregion
 
     #region Monobehavior Callbacks
@@ -79,7 +95,6 @@ public class ElephantController : MonsterClass
         sr = GetComponentInChildren<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
-        //myCenteredCam = GetComponentInChildren<CinemachineVirtualCamera>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
 
@@ -105,8 +120,10 @@ public class ElephantController : MonsterClass
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f && currentIndexNumber > 0) currentIndexNumber -= 1;
 
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
+        
+        TriggerBehavior();
 
-        if(isTriggered) TriggerBehavior();
+        MonitorSFX();
     }
     #endregion
 
@@ -119,6 +136,7 @@ public class ElephantController : MonsterClass
         {
             foreach (Vector3 direction in CardinalDirections)
             {
+                Debug.DrawRay(transform.position, direction, Color.green, 80f);
                 if (lookingForPlayer == true && isCharging == false)
                 {
                     RaycastHit2D rangeDetection = RaycastManager(direction, lookingForPlayer);
@@ -303,4 +321,13 @@ public class ElephantController : MonsterClass
         else return;
     }
     #endregion
+
+    public override void MonitorSFX()
+    {
+        if(lookingForWall == true) SoundManager.instance.RandomizeSfx(startCharging);
+        if(isCharging == true) SoundManager.instance.RandomizeSfx(chargeSounds);
+        //if(hasTouchedWall == true) SoundManager.instance.RandomizeSfx(collisionSounds);
+        //if(isDead== true) SoundManager.instance.RandomizeSfx(deathSounds);
+        else return;
+    }
 }

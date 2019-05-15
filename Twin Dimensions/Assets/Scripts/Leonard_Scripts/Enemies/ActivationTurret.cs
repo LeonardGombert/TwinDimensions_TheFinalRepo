@@ -6,7 +6,8 @@ using Cinemachine.Editor;
 
 public class ActivationTurret : MonoBehaviour
 {
-    bool isActive = false;
+    bool isActive = false;    
+    Vector3 mousePosition = new Vector3();
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,16 +22,14 @@ public class ActivationTurret : MonoBehaviour
 
     private void Shoot()
     {
-        Debug.Log("I'm shooting");
-
-        Vector3 mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     
         if(LayerManager.EnemyIsInRealWorld(this.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 1") << LayerMask.GetMask("World Obstacle Detection 1"));
-            Debug.DrawLine(this.transform.position, mousePosition, Color.white, 80f); 
-            if(hit.collider)
+            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 1"));
+            Debug.DrawLine(this.transform.position, mousePosition, Color.white, 80f);
+            
+            if(hit.collider.tag == "Elephant" || hit.collider.tag == "Enemy")
             {
                 hit.collider.gameObject.SendMessage("ActivateTriggerBehavior");
                 Debug.Log("I've hit " + hit.collider.gameObject.name);
@@ -40,10 +39,10 @@ public class ActivationTurret : MonoBehaviour
 
         if(!LayerManager.EnemyIsInRealWorld(this.gameObject)) 
         {
-            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 2") << LayerMask.GetMask("World Obstacle Detection 2"));
+            RaycastHit2D hit = Physics2D.Linecast(this.transform.position, mousePosition, LayerMask.GetMask("Enemy Layer 2"));
             Debug.DrawLine(this.transform.position, mousePosition, Color.green, 80f);            
             
-            if(hit.collider)
+            if(hit.collider.tag == "Elephant" || hit.collider.tag == "Enemy")
             {
                 hit.collider.gameObject.SendMessage("ActivateTriggerBehavior");
                 Debug.Log("I've hit " + hit.collider.gameObject.name);
@@ -54,6 +53,18 @@ public class ActivationTurret : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.tag == "Player") isActive = true;
+        if(collider.tag == "Player" && PlayerInputManager.instance.GetKeyDown("interactionKey"))        
+        {isActive = true;
+            Debug.Log("I've hit the player");
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.tag == "Player" && PlayerInputManager.instance.GetKeyDown("interactionKey"))        
+        {
+            isActive = true;
+            Debug.Log("I've hit the player");
+        }
     }
 }

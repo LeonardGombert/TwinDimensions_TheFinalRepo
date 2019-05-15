@@ -31,7 +31,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     [FoldoutGroup("Cameras")][SerializeField]
     CinemachineVirtualCamera world2VirtualCam;
 
-    bool isTeleporting = false;
+    public static bool isTeleporting = false;
     public static bool hasTeleported = false; //avoids looping the Teleport to hook function
 
     Animator anim;
@@ -118,7 +118,6 @@ public class TeleportationManager : SerializedMonoBehaviour
         if (isTeleporting == true)
         {
             PlayerController.canMove = false;
-            anim.SetBool("isTeleporting", true);
 
             if (teleportTimer > 0)
             {
@@ -133,8 +132,6 @@ public class TeleportationManager : SerializedMonoBehaviour
                 }
             }
         }
-
-        else if (isTeleporting == false) anim.SetBool("isTeleporting", false); return;
     }
 
     private void SwitchWorlds()

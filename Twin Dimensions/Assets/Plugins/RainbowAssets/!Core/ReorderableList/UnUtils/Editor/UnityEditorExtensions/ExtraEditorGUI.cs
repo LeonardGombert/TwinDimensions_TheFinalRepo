@@ -394,7 +394,7 @@ namespace Borodar.RainbowAssets.Core.Games.UnityEditorExtensions
         private static int s_AnchorMousePosition;
 
         /// <summary>
-        /// Handles interaction with a vertical splitter in a user interface. This control
+        /// Handles interactionKey with a vertical splitter in a user interface. This control
         /// does not paint a visual representation of the vertical splitter; consider using
         /// <see cref="Separator(Rect)"/> for that.
         /// </summary>

@@ -8,11 +8,10 @@ public class LayerManager : SerializedMonoBehaviour
 {
     public static LayerManager instance;
 
-    [FoldoutGroup("Enemies in Scene")][SerializeField]
-    List <GameObject> fillThisListWithEnemies;
+    //[FoldoutGroup("Enemies in Scene")][SerializeField]
+    //List <GameObject> fillThisListWithEnemies;
     
-    GameObject player;
-    
+    GameObject player;    
 
     void Awake()
     {
@@ -28,40 +27,19 @@ public class LayerManager : SerializedMonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         
-        fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-        fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Elephant"));
-        fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Firebreather"));
-        fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("ActivationPriest"));
+        //fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        //fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Elephant"));
+        //fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Firebreather"));
+        //fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("ActivationPriest"));
     }
 
     // Update is called once per frame
     void Update()
     {
-        CompareEnemyToPlayerLayer(fillThisListWithEnemies);
+        //CompareEnemyToPlayerLayer(fillThisListWithEnemies);
     }
 
-    public static LayerMask PlayerRaycastLayerManager()
-    {
-        GameObject player;
-        player = GameObject.FindGameObjectWithTag("Player");
-        
-        LayerMask currentLayer = player.gameObject.layer;
-        LayerMask desiredRayLayer = new LayerMask();
-
-        if(currentLayer == LayerMask.NameToLayer("Player Layer 1"))
-        {
-            desiredRayLayer = LayerMask.NameToLayer("Ray Layer 1");
-        }
-
-        if(currentLayer == LayerMask.NameToLayer("Player Layer 2"))
-        {
-            LayerMask.NameToLayer("Ray Layer 2");
-        }
-
-        return desiredRayLayer;
-    }
-
-    public static void LayerSwitchManager(GameObject gameObject, string layerName)
+    public static void LayerSwitchManager(GameObject gameObject, string layerName) //changes all children objects to same layer as parent
     {
         if (gameObject == null) return;
 
@@ -73,7 +51,7 @@ public class LayerManager : SerializedMonoBehaviour
         }
     }
 
-    public static bool PlayerIsInRealWorld()
+    public static bool PlayerIsInRealWorld() //checks if player is on level 1
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
@@ -84,7 +62,7 @@ public class LayerManager : SerializedMonoBehaviour
         else return false;
     }
 
-    public static bool EnemyIsInRealWorld(GameObject enemy)
+    public static bool EnemyIsInRealWorld(GameObject enemy) //checks if enemy is on level 1
     {
         if(enemy.gameObject.layer == LayerMask.NameToLayer("Enemy Layer 1")) return true;
 
@@ -93,7 +71,7 @@ public class LayerManager : SerializedMonoBehaviour
         else return false;
     }
 
-    private void CompareEnemyToPlayerLayer(List<GameObject> EnemyEntities)
+    private void CompareEnemyToPlayerLayer(List<GameObject> EnemyEntities) //sends message to each enemy to notify them if they share the same layer as the player
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         

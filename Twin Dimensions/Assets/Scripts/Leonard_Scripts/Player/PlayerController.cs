@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
 public class PlayerController : SerializedMonoBehaviour
 {
-    #region Variable Decarations    
+    #region Variable Decarations
     #region //BASIC MOVEMENT
     Vector3 originTile;
     Vector3 destinationTile;
@@ -16,21 +18,8 @@ public class PlayerController : SerializedMonoBehaviour
 
     Vector3 currentPosition;
     Vector3 desiredPosition;
-
-    GameObject touchedObject;
-    Animator anim;
-    Rigidbody2D rb2D;
-    LayerMask selectedLayerMask;
-    BoxCollider2D boxCol2D;
-
-    [FoldoutGroup("LayerMask Profiles")][SerializeField]
-    LayerMask world1Profile;
-    [FoldoutGroup("LayerMask Profiles")][SerializeField]
-    LayerMask world2Profile;
-
-    [FoldoutGroup("Tilemap")][SerializeField]
-    Tilemap movementTilemap;
-
+    
+    
     [FoldoutGroup("Player Movement")][SerializeField]
     float movementCooldown = 0.3f;
     [FoldoutGroup("Player Movement")][SerializeField]
@@ -38,10 +27,51 @@ public class PlayerController : SerializedMonoBehaviour
     [FoldoutGroup("Player Movement")][SerializeField]
     public static float playerMovementSpeed;
 
+    public static bool canMove = true;
+    public static bool isMoving = false;
     bool playerHasMoved = false;
     bool movementIsCoolingDown = false;
+    #endregion
+
+    #region //GENERAL VARIABLES
+    [FoldoutGroup("General Stats")][SerializeField]
+    float resetTime;
+    [FoldoutGroup("General Stats")][SerializeField]
+    float holdTime;
+    
+    GameObject touchedObject;
+    Animator anim;
+    Rigidbody2D rb2D;
+    LayerMask selectedLayerMask;
+    BoxCollider2D boxCol2D;
+    SpriteRenderer sr;
+    GameObject manager;
     public static bool isBeingCharged = false;
-    public static bool canMove = true;
+    public static bool isInSlamRange;
+    bool hasResetScene;    
+    #endregion
+
+    #region //LAYERS
+    [FoldoutGroup("LayerMask Profiles")][SerializeField]
+    LayerMask world1Profile;
+    [FoldoutGroup("LayerMask Profiles")][SerializeField]
+    LayerMask world2Profile;
+
+    private const string OVER_LAYER_NAME = "Player_overProps_underEnemy";
+    private const string UNDER_LAYER_NAME = "Player_underProps";
+    #endregion
+
+    #region //TILEMAP
+    [FoldoutGroup("Tilemap")][SerializeField]
+    Tilemap movementTilemap;
+    #endregion
+    
+    #region //SOUND EFFECTS
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkingSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] punchingSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] summoningSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] teleportationSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] deathSounds;
     #endregion
     #endregion
 
@@ -51,11 +81,10 @@ public class PlayerController : SerializedMonoBehaviour
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
 
+        manager = GameObject.FindGameObjectWithTag("Manager");
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
-
-        Physics2D.queriesStartInColliders = false;
-        Physics2D.queriesHitTriggers = true;
     }
 
     // Update is called once per frame
@@ -64,11 +93,18 @@ public class PlayerController : SerializedMonoBehaviour
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
+        MonitorSFX();
+        
+        if(holdTime <= 0 && !hasResetScene) 
+        {
+            hasResetScene = true;
+            holdTime = 0;
+            ResetScene();
+        }
     }
     #endregion
 
     #region Player Functions
-
     #region BASIC MOVEMENT ON A GRID
     private void MonitorPlayerInpus()
     {
@@ -82,12 +118,15 @@ public class PlayerController : SerializedMonoBehaviour
         if(PlayerInputManager.instance.GetKey("down")) vertical = -1;
         if(PlayerInputManager.instance.GetKey("left")) horizontal = -1;
         if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
+
+        if (PlayerInputManager.instance.GetKey("resetScene")) holdTime -= Time.deltaTime;
+        if (PlayerInputManager.instance.GetKeyUp("resetScene")) holdTime = 0f;
               
         if (horizontal != 0) vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
         {
-            PlayerAnimationsManager.isMoving = true;
+            isMoving = true;
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
@@ -112,7 +151,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(horizontal == 0 && vertical == 0)
         {
-            PlayerAnimationsManager.isMoving = false;
+            isMoving = false;
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
         }
@@ -158,7 +197,9 @@ public class PlayerController : SerializedMonoBehaviour
 
         movementIsCoolingDown = false;
     }
+    #endregion
 
+    #region //OTHER
     void GuardStance()
     {
         if(isBeingCharged == true)
@@ -172,6 +213,55 @@ public class PlayerController : SerializedMonoBehaviour
             //anim.SetFloat("yDirection", elephantDirection.y);
         }
     }
+
+    void ResetScene()
+    {
+        Scene activeScene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(activeScene.name);         
+    }
+    #endregion
+
+    #region //COLLISION DETECTION
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "Sand")
+        {
+            manager.gameObject.SendMessage("AddNewSandShard", 1);
+            Destroy(collider.gameObject);
+        }
+
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
+
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.tag == "Sand")
+        {
+            manager.gameObject.SendMessage("AddNewSandShard", 1);
+            Destroy(collider.gameObject);
+        }
+
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
+
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+    }
     #endregion
     #endregion
+
+    void MonitorSFX()
+    {
+        if(TeleportationManager.isTeleporting == true) SoundManager.instance.RandomizeSfx(teleportationSounds);
+        if(isMoving == true) SoundManager.instance.RandomizeSfx(walkingSounds);
+        //if(isPunching == true) SoundManager.instance.RandomizeSfx(punchingSounds);
+        //if(isSummoning == true) SoundManager.instance.RandomizeSfx(summoningSounds);
+        if(GameMaster.playerIsDead == true) SoundManager.instance.RandomizeSfx(deathSounds);
+        else return;
+    }
 }

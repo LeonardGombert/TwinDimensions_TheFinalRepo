@@ -13,19 +13,8 @@ MonoBehaviour:
   m_Name: Main Camera_World 2 Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: CM PLayerWorld2
-    m_To: CM PlayerWorld1
-    m_Blend:
-      m_Style: 0
-      m_Time: 2
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - m_From: CM PLayerWorld2
-    m_To: CM World2
+  - m_From: CM2 PlayerCam
+    m_To: CM2 Elephant Cam
     m_Blend:
       m_Style: 1
       m_Time: 2
@@ -35,8 +24,19 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: CM World2
-    m_To: CM PLayerWorld2
+  - m_From: CM2 PlayerCam
+    m_To: CM2 Relative World Overview
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: CM2 PlayerCam
+    m_To: CM2 General World View
     m_Blend:
       m_Style: 1
       m_Time: 2
