@@ -115,6 +115,7 @@ public class MonsterClass : SerializedMonoBehaviour
     }
 
     public virtual void ActivateTriggerBehavior(){}
+    public virtual void MonitorSFX(){}
 
     private bool isActivatedByTurret(bool messageListener = false)
     {
