@@ -12,7 +12,7 @@ public class SlamAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Kali = GameObject.FindGameObjectWithTag("Kali").GetComponent<GameObject>();
+        
     }
 
     // Update is called once per frame
@@ -62,5 +62,10 @@ public class SlamAttack : MonoBehaviour
         if(PlayerController.isInSlamRange == true) Debug.Log(this.gameObject.name + " just smashed the player");
 
         if(PlayerController.isInSlamRange == false) Debug.Log("I missed");
+    }
+
+    void Sweeping()
+    {
+
     }
 }

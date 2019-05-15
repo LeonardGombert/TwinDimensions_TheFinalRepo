@@ -121,7 +121,7 @@ public class TeleportationManager : SerializedMonoBehaviour
 
             if (teleportTimer > 0)
             {
-                teleportTimer -= Time.fixedUnscaledDeltaTime;
+                teleportTimer -= Time.deltaTime;
 
                 if (teleportTimer <= 0)
                 {

@@ -131,6 +131,12 @@ public class KaliBossAI : MonoBehaviour
         activeAttackBoxCol2D = side.gameObject;
     }
 
+    private void SweepOnPlayerSide(GameObject side) 
+    {        
+        Debug.Log("Player is on " + side.gameObject.name);        
+        activeAttackBoxCol2D = side.gameObject;
+    }
+
     void WatchForStageChange()
     {
         if(lifePoints <= lifepointsToChangeState)

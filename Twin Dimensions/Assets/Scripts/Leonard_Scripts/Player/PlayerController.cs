@@ -95,12 +95,12 @@ public class PlayerController : SerializedMonoBehaviour
         if(canMove == true) MonitorPlayerInpus();
         MonitorSFX();
         
-        if(holdTime <= 0 && !hasResetScene) 
-        {
-            hasResetScene = true;
-            holdTime = 0;
-            ResetScene();
-        }
+        // if(holdTime <= 0 && !hasResetScene) 
+        // {
+        //     hasResetScene = true;
+        //     holdTime = 0;
+        //     ResetScene();
+        // }
     }
     #endregion
 
