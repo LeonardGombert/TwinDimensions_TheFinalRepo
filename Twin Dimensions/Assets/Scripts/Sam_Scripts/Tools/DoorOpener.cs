@@ -47,17 +47,12 @@ public class DoorOpener : MonoBehaviour
 
     public animNamesList animDropdown;
     
-    public spriteNamesList spriteDropdown;
+    //public spriteNamesList spriteDropdown;
 
     [SerializeField]
     List<Sprite> spriteList = new List<Sprite>();
     
     string animName;
-    string animName2;
-    string spriteName;
-    string spriteName2;
-
-    int spriteInt;
 
     Animator anim;
     BoxCollider2D boxcol2D;
@@ -71,36 +66,21 @@ public class DoorOpener : MonoBehaviour
 
         animName = animDropdown.ToString();
         Debug.Log("I've selected " + animName);
-
-        string[] spriteNames = Enum.GetNames(typeof(spriteNamesList));
-        List<string> names = new List<string>(spriteNames);
-
-
-        if(boxcol2D.enabled)
-        {
-            sr.sprite = spriteList[spriteInt];
-        }
-        else
-        {
-            sr.sprite = spriteList[spriteInt];
-        }
     }
 
     void Activated()
     {
         if(boxcol2D.enabled)
-        {   
+        {
+            anim.SetFloat ("Direction", 1);
             anim.Play(animName);
-            sr.sprite = spriteList[1];
             boxcol2D.enabled = false;            
         }
 
         else
         {
-            /*anim.SetFloat ("Direction", -1);
-			anim.Play(animName, -1, float.NegativeInfinity);*/
-
-            //sr.sprite = spriteList[0];
+            anim.SetFloat ("Direction", -1);
+			anim.Play(animName, -1, float.NegativeInfinity);
             boxcol2D.enabled = true;
         }
     }
@@ -108,18 +88,16 @@ public class DoorOpener : MonoBehaviour
     void Released()
     {
         if(boxcol2D.enabled)
-        {      
-            //anim.Play(animName);
-            //sr.sprite = spriteList[1];
+        {   
+            anim.SetFloat ("Direction", 1);
+            anim.Play(animName);
             boxcol2D.enabled = false;
         }
 
         else
         {
-            /*anim.SetFloat ("Direction", -1);
-			anim.Play (animName, -1, float.NegativeInfinity);*/
-
-            //sr.sprite = spriteList[0];
+            anim.SetFloat ("Direction", -1);
+			anim.Play (animName, -1, float.NegativeInfinity);
             boxcol2D.enabled = true;
         }
     }
