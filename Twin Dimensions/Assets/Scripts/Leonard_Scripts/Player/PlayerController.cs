@@ -134,12 +134,7 @@ public class PlayerController : SerializedMonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(boxCol2D.bounds.center, destinationPosition2, 1, selectedLayerMask);
             Debug.DrawRay(boxCol2D.bounds.center, destinationPosition2, Color.green, 800);
 
-            if(hit.collider)
-            {
-                Debug.Log("I've hit " + hit.collider.name);
-
-                if(hit.collider.tag == "Obstacle") return;
-            }
+            if(hit.collider) if(hit.collider.tag == "Obstacle") return;
 
             if(!hit.collider)
             {

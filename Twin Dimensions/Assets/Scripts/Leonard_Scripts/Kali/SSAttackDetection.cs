@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlamAttack : MonoBehaviour
+public class SSAttackDetection : MonoBehaviour
 {
     public GameObject Kali;
-
-    bool isSlamming = false;
-    bool hasSentMessage = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +24,8 @@ public class SlamAttack : MonoBehaviour
         {
             PlayerController.isInSlamRange = true;
 
-            if(KaliBossAI.isTrackingPlayerSide)
-            {
-                Kali.gameObject.SendMessage("SlamOnPlayerSide", this.gameObject);
-            }
+            if(KaliBossAI.isTrackingForSlam) Kali.gameObject.SendMessage("SlamOnPlayerSide", this.gameObject);
+            if(KaliBossAI.trackPlayerForSweep) Kali.gameObject.SendMessage("SweepOnPlayerSide", this.gameObject);
             else return;            
         }
     }
@@ -41,10 +36,8 @@ public class SlamAttack : MonoBehaviour
         {
             PlayerController.isInSlamRange = true;
 
-            if(KaliBossAI.isTrackingPlayerSide)
-            {
-                Kali.gameObject.SendMessage("SlamOnPlayerSide", this.gameObject);
-            }
+            if(KaliBossAI.isTrackingForSlam) Kali.gameObject.SendMessage("SlamOnPlayerSide", this.gameObject);
+            if(KaliBossAI.trackPlayerForSweep) Kali.gameObject.SendMessage("SweepOnPlayerSide", this.gameObject);
             else return; 
         }
     }
@@ -66,6 +59,8 @@ public class SlamAttack : MonoBehaviour
 
     void Sweeping()
     {
+        //if(PlayerController.isInSlamRange == true) Debug.Log(this.gameObject.name + " just smashed the player");
 
+        //if(PlayerController.isInSlamRange == false) Debug.Log("I missed");
     }
 }
