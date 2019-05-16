@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+﻿/*using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -106,3 +106,4 @@ public class SlamAttackState : State<KaliBossAI>
         }
     }
 }
+*/

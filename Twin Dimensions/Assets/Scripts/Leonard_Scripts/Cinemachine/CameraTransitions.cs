@@ -90,7 +90,7 @@ public class CameraTransitions : MonoBehaviour
                     exitCamera.gameObject.SetActive(false);
                     relativeZoomCamera.gameObject.SetActive(true);
 
-                    timeHeldDown += Time.fixedUnscaledDeltaTime;
+                    timeHeldDown += Time.deltaTime;
                 }       
             }
 
