@@ -28,7 +28,7 @@ public class PlayerController : SerializedMonoBehaviour
     public static float playerMovementSpeed;
 
     public static bool canMove = true;
-    public static bool isMoving = false;
+    public static bool playerIsMoving = false;
     bool playerHasMoved = false;
     bool movementIsCoolingDown = false;
     #endregion
@@ -126,7 +126,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if (horizontal != 0 || vertical != 0)
         {
-            isMoving = true;
+            playerIsMoving = true;
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
@@ -146,7 +146,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(horizontal == 0 && vertical == 0)
         {
-            isMoving = false;
+            playerIsMoving = false;
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
         }
@@ -253,7 +253,7 @@ public class PlayerController : SerializedMonoBehaviour
     void MonitorSFX()
     {
         if(TeleportationManager.isTeleporting == true) SoundManager.instance.RandomizeSfx(teleportationSounds);
-        if(isMoving == true) SoundManager.instance.RandomizeSfx(walkingSounds);
+        if(playerIsMoving == true) SoundManager.instance.RandomizeSfx(walkingSounds);
         //if(isPunching == true) SoundManager.instance.RandomizeSfx(punchingSounds);
         //if(isSummoning == true) SoundManager.instance.RandomizeSfx(summoningSounds);
         if(GameMaster.playerIsDead == true) SoundManager.instance.RandomizeSfx(deathSounds);

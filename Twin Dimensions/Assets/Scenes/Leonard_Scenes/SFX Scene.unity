@@ -538,7 +538,6 @@ GameObject:
   - component: {fileID: 1949501437}
   - component: {fileID: 1949501439}
   - component: {fileID: 1949501440}
-  - component: {fileID: 1949501438}
   - component: {fileID: 1949501441}
   m_Layer: 0
   m_Name: Sound Manager
@@ -561,22 +560,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1949501438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949501436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecbcfd7427743f049bcd46425e360360, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  efxSource: {fileID: 1949501439}
-  musicSource: {fileID: 1949501440}
-  lowPitchRange: 0.95
-  highPitchRange: 1.05
 --- !u!82 &1949501439
 AudioSource:
   m_ObjectHideFlags: 0
@@ -781,3 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a227c0c92a30b4cbb75968e0bf1b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  efxSource: {fileID: 0}
+  musicSource: {fileID: 0}
+  lowPitchRange: 0.95
+  highPitchRange: 1.05
