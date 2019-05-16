@@ -37,8 +37,8 @@ public class KaliBossAI : MonoBehaviour
     #region //SLAM ATTACK VARIABLES
     [FoldoutGroup("AttackDebug")][ShowInInspector]  public static bool isSlamming = false;
     [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isTrackingForSlam = true;
-    [FoldoutGroup("SlamAttack")][SerializeField] float timeHoldingSlam = 0;
-    [FoldoutGroup("SlamAttack")][SerializeField] float timeToHoldSlam = 2f;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingSlam = 0;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSlam = 2f;
 
     #endregion
 
@@ -53,8 +53,8 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserStartPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserEndPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] float laserMoveTime;
-    [FoldoutGroup("LaserBeamAttack")][SerializeField] float timeHoldingLaser = 0f;
-    [FoldoutGroup("LaserBeamAttack")][SerializeField] float timeToHoldLaser = 1.75f;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingLaser = 0f;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldLaser = 1.75f;
     #endregion
 
     #region //SWEEP ATTACK VARIABLES
@@ -66,6 +66,8 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepStartPosition;
     [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepEndPosition;
     [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepCurrentPosition;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingSweep = 0f;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSweep = 2f;
     #endregion
 
     #region //STATE CHANGE VARIABLES
@@ -324,13 +326,13 @@ public class KaliBossAI : MonoBehaviour
 
         while(true)
         {
-            anim.SetBool("S1SlamAttack", true);
+            anim.SetBool("SlamAttack", true);
             
             timeHoldingSlam += Time.deltaTime;
 
             if(timeHoldingSlam >= timeToHoldSlam) // If Kali has held long enough...
             {
-                anim.SetBool("S1SlamAttack", false);
+                anim.SetBool("SlamAttack", false);
                 currentPlayerActiveSideCollider.SendMessage("Slamming");
                 Stage1CurrentState = S1BossStates.S1Idle;
                 Stage2CurrentState = S2BossStates.S2Idle;
@@ -365,29 +367,36 @@ public class KaliBossAI : MonoBehaviour
     IEnumerator SweepAttack()
     {
         isSweeping = true;
+        timeHoldingSweep = 0f;
 
         float timeSinceStarted = 0f;
 
         while (true)
         {
-            anim.SetBool("S2SweepAttack", true);
+            timeHoldingSweep += Time.deltaTime;
+            anim.SetBool("SweepAttack", true);
 
-            timeSinceStarted += Time.deltaTime;
-            transform.position = Vector3.Lerp(sweepLeftPosition.position, sweepEndPosition.position, timeSinceStarted);
-
-            if (transform.position == sweepEndPosition.position) // If the object has arrived...
+            if (timeHoldingSweep >= timeToHoldSweep)
             {
-                transform.position = Vector3.Lerp(transform.position, kaliBasePosition.position, timeSinceStarted);
-                anim.SetBool("S2SweepAttack", false);
-                currentPlayerActiveSideCollider.SendMessage("Sweeping");   
-                Stage2CurrentState = S2BossStates.S2Idle;
-                trackPlayerForSweep = true;
-                isSweeping = false;
-                
-                yield break; //...stop the coroutine
+                timeSinceStarted += Time.deltaTime;
+                transform.position = Vector3.Lerp(sweepLeftPosition.position, sweepEndPosition.position, timeSinceStarted);
+
+                if (transform.position == sweepEndPosition.position) // If the object has arrived...
+                {
+                    transform.position = Vector3.Lerp(transform.position, kaliBasePosition.position, timeSinceStarted);
+                    anim.SetBool("SweepAttack", false);
+                    currentPlayerActiveSideCollider.SendMessage("Sweeping");
+                    Stage2CurrentState = S2BossStates.S2Idle;
+                    trackPlayerForSweep = true;
+                    isSweeping = false;
+                    timeHoldingSweep = 0f;
+                    yield break; //...stop the coroutine
+                }
+
+                yield return null; // Otherwise, continue next frame
             }
-           
-            yield return null; // Otherwise, continue next frame
+
+            yield return null;
         }
     }
 
@@ -403,7 +412,7 @@ public class KaliBossAI : MonoBehaviour
         while (true)
         {
             timeHoldingLaser += Time.deltaTime;
-            anim.SetBool("S2Laser", true);
+            anim.SetBool("LaserAttack", true);
 
             if (timeHoldingLaser >= timeToHoldLaser)
             {
@@ -430,7 +439,7 @@ public class KaliBossAI : MonoBehaviour
 
                 if (laserHitPosition.transform.position == laserEndPosition.transform.position) // If the object has arrived...
                 {
-                    anim.SetBool("S2Laser", false);
+                    anim.SetBool("LaserAttack", false);
                     usingLaser = false;
                     laserBeam.enabled = false;
                     Stage2CurrentState = S2BossStates.S2Idle;
