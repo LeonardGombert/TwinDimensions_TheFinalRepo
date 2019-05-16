@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 public class SoundBank : MonoBehaviour
 {
     [ShowInInspector] public static AudioClip[] playerWalking;
-    [ShowInInspector] public static GameObject[] playerPunching;
+    [ShowInInspector] public static AudioClip[] playerPunching;
     [ShowInInspector] public static AudioClip[] playerSummoning;
     [ShowInInspector] public static AudioClip[] playerTeleporting;
     [ShowInInspector] public static AudioClip[] playerDeath;   

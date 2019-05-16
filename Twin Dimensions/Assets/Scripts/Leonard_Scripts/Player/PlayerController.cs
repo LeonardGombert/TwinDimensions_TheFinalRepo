@@ -95,12 +95,12 @@ public class PlayerController : SerializedMonoBehaviour
         if(canMove == true) MonitorPlayerInpus();
         MonitorSFX();
         
-        if(holdTime <= 0 && !hasResetScene) 
-        {
-            hasResetScene = true;
-            holdTime = 0;
-            ResetScene();
-        }
+        // if(holdTime <= 0 && !hasResetScene) 
+        // {
+        //     hasResetScene = true;
+        //     holdTime = 0;
+        //     ResetScene();
+        // }
     }
     #endregion
 
@@ -134,12 +134,7 @@ public class PlayerController : SerializedMonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(boxCol2D.bounds.center, destinationPosition2, 1, selectedLayerMask);
             Debug.DrawRay(boxCol2D.bounds.center, destinationPosition2, Color.green, 800);
 
-            if(hit.collider)
-            {
-                Debug.Log("I've hit " + hit.collider.name);
-
-                if(hit.collider.tag == "Obstacle") return;
-            }
+            if(hit.collider) if(hit.collider.tag == "Obstacle") return;
 
             if(!hit.collider)
             {
@@ -177,7 +172,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         while (sqrRemainingDistanceToDestination > float.Epsilon)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinationPosition, inverseMoveTime * Time.unscaledDeltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, destinationPosition, inverseMoveTime * Time.deltaTime);
             sqrRemainingDistanceToDestination = (transform.position - destinationPosition).sqrMagnitude;
 
             yield return null;
