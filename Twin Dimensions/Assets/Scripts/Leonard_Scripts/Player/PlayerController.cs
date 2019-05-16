@@ -227,7 +227,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
-        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+        //if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
     }
 
     void OnTriggerStay2D(Collider2D collider)
@@ -240,7 +240,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
-        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+        //if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
     }
 
     void OnTriggerExit2D(Collider2D collider)

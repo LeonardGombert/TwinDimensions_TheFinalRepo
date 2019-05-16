@@ -53,6 +53,8 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserStartPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserEndPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] float laserMoveTime;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] float timeHoldingLaser = 0f;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] float timeToHoldLaser = 1.75f;
     #endregion
 
     #region //SWEEP ATTACK VARIABLES
@@ -135,7 +137,7 @@ public class KaliBossAI : MonoBehaviour
 
         else if(currentPlayerActiveSideCollider == leftMapDetectionCollider)
         {
-            laserStartPosition = laserRightPosition;//if player is on the left, sweep from right
+            laserStartPosition = laserRightPosition; //if player is on the left, sweep from right
             laserEndPosition = laserLeftPosition;
         }
 
@@ -147,7 +149,7 @@ public class KaliBossAI : MonoBehaviour
 
         else if(currentPlayerActiveSideCollider == leftMapDetectionCollider)
         {
-            sweepStartPosition = sweepLeftPosition;//if player is on the left, sweep from right
+            sweepStartPosition = sweepLeftPosition; //if player is on the left, sweep from right
             sweepEndPosition = sweepRightPosition;
         }
     }
@@ -393,43 +395,52 @@ public class KaliBossAI : MonoBehaviour
     {
         laserBeam.enabled = true;
         usingLaser = true;
+        timeHoldingLaser = 0;
 
         float sqrRemainingDistanceToDestination = (laserHitPosition.transform.position - laserEndPosition.transform.position).sqrMagnitude;
         float timeSinceStarted = 0f;
 
         while (true)
         {
+            timeHoldingLaser += Time.deltaTime;
             anim.SetBool("S2Laser", true);
 
-            timeSinceStarted += Time.deltaTime;
-
-            RaycastHit2D hit = Physics2D.Raycast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
-            Debug.DrawLine(laserSpawnPosition.transform.position, laserHitPosition.transform.position, Color.green);
-            if(hit.collider){
-                Debug.Log("I hit " + hit.collider.name);
-
-                if(hit.collider.gameObject.tag == "Player")
-                {
-                    Debug.Log("Have touched the player");
-                    //laserHitPosition.transform.position = new Vector3(hit.point.x, hit.point.y);
-                }}
-                
-            laserHitPosition.transform.position = laserStartPosition.transform.position;
-            laserHitPosition.transform.position = Vector3.Lerp(laserStartPosition.transform.position, laserEndPosition.transform.position, timeSinceStarted);
-
-            laserBeam.SetPosition(0, laserSpawnPosition.transform.position); //defines 1st ("start") point
-            laserBeam.SetPosition(1, laserHitPosition.transform.position); //defines 2nd (or "end") point
-
-            if (laserHitPosition.transform.position == laserEndPosition.transform.position) // If the object has arrived...
+            if (timeHoldingLaser >= timeToHoldLaser)
             {
-                anim.SetBool("S2Laser", false);
-                usingLaser = false;  
-                laserBeam.enabled = false;
-                Stage2CurrentState = S2BossStates.S2Idle;
-                yield break; //...stop the coroutine
+                timeSinceStarted += Time.deltaTime;
+
+                RaycastHit2D hit = Physics2D.Raycast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
+                Debug.DrawLine(laserSpawnPosition.transform.position, laserHitPosition.transform.position, Color.green);
+                if (hit.collider)
+                {
+                    Debug.Log("I hit " + hit.collider.name);
+
+                    if (hit.collider.gameObject.tag == "Player")
+                    {
+                        Debug.Log("Have touched the player");
+                        //laserHitPosition.transform.position = new Vector3(hit.point.x, hit.point.y);
+                    }
+                }
+
+                laserHitPosition.transform.position = laserStartPosition.transform.position;
+                laserHitPosition.transform.position = Vector3.Lerp(laserStartPosition.transform.position, laserEndPosition.transform.position, timeSinceStarted);
+
+                laserBeam.SetPosition(0, laserSpawnPosition.transform.position); //defines 1st ("start") point
+                laserBeam.SetPosition(1, laserHitPosition.transform.position); //defines 2nd (or "end") point
+
+                if (laserHitPosition.transform.position == laserEndPosition.transform.position) // If the object has arrived...
+                {
+                    anim.SetBool("S2Laser", false);
+                    usingLaser = false;
+                    laserBeam.enabled = false;
+                    Stage2CurrentState = S2BossStates.S2Idle;
+                    yield break; //...stop the coroutine
+                }
+
+                yield return null; // Otherwise, continue next frame
             }
-           
-            yield return null; // Otherwise, continue next frame
+
+            yield return null;
         }
     }
     #endregion
