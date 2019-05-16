@@ -2117,6 +2117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81d599c842efc645a21dc8d4f9a50d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationTypeSprite: []
   interactableObjects:
   - {fileID: 983341685}
   - {fileID: 1458194986}
@@ -2485,6 +2486,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7776813077787256849, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7776813077787256849, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+    - target: {fileID: 7776813077787256850, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7776813077787256850, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
     - target: {fileID: 7776813077787256854, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2540,18 +2553,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7776813077787256850, guid: 83cb38e2a3f684d4e9decc5441e44025,
-        type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7776813077787256850, guid: 83cb38e2a3f684d4e9decc5441e44025,
-        type: 3}
-    - target: {fileID: 7776813077787256849, guid: 83cb38e2a3f684d4e9decc5441e44025,
-        type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7776813077787256849, guid: 83cb38e2a3f684d4e9decc5441e44025,
-        type: 3}
     - target: {fileID: 7776813077118386912, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2748,11 +2749,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2
       objectReference: {fileID: 0}
-    - target: {fileID: 3717591250632320155, guid: ab5af06cff62937428c11e1132e77b95,
-        type: 3}
-      propertyPath: posB
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3717591250632320152, guid: ab5af06cff62937428c11e1132e77b95,
         type: 3}
       propertyPath: m_Sprite
@@ -2768,6 +2764,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3717591250632320155, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: posB
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95, type: 3}
@@ -2797,7 +2798,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.33, y: -2}
+  m_Offset: {x: 1, y: -6}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2808,7 +2809,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.33, y: 1}
+  m_Size: {x: 1, y: 3}
   m_EdgeRadius: 0
 --- !u!1 &1458194986 stripped
 GameObject:
@@ -3211,26 +3212,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2
       objectReference: {fileID: 0}
-    - target: {fileID: 3717591250632320155, guid: ab5af06cff62937428c11e1132e77b95,
-        type: 3}
-      propertyPath: posB
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -2
-      objectReference: {fileID: 0}
     - target: {fileID: 3717591250632320152, guid: ab5af06cff62937428c11e1132e77b95,
         type: 3}
       propertyPath: m_Sprite
@@ -3245,6 +3226,31 @@ PrefabInstance:
     - target: {fileID: 3717591250632320152, guid: ab5af06cff62937428c11e1132e77b95,
         type: 3}
       propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3717591250632320155, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: posB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: m_Size.y
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3286,6 +3292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81d599c842efc645a21dc8d4f9a50d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationTypeSprite: []
   interactableObjects:
   - {fileID: 816506934}
   - {fileID: 673134375}
@@ -3765,21 +3772,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.2
       objectReference: {fileID: 0}
-    - target: {fileID: 3717591250632320155, guid: ab5af06cff62937428c11e1132e77b95,
-        type: 3}
-      propertyPath: posB
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 3717591251756921096, guid: ab5af06cff62937428c11e1132e77b95,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -3800,6 +3792,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3717591250632320155, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: posB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250303884976425353, guid: ab5af06cff62937428c11e1132e77b95,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab5af06cff62937428c11e1132e77b95, type: 3}
@@ -31188,6 +31205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81d599c842efc645a21dc8d4f9a50d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationTypeSprite: []
   interactableObjects:
   - {fileID: 1645230126}
   - {fileID: 1265157985}
