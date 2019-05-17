@@ -29,7 +29,7 @@ public class StatueManager : SerializedMonoBehaviour
     public static float statueKickSpeed = 800;
     Animator anim;
 
-    bool isPlacingStatue = false;
+    public static bool isPlacingStatue = false;
     bool isSelectingStatueLocation = false;
     public static bool isPunchingStatue = false;
     public static bool isInRange = false;
@@ -111,14 +111,13 @@ public class StatueManager : SerializedMonoBehaviour
                 Instantiate(world1Statue[0], offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
 
-                Vector3 statueDirection;
-                statueDirection = (world1Statue[0].transform.position - transform.position).normalized;
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePosition = (mousePosition - transform.position).normalized;
+                Debug.Log(mousePosition);
 
-                anim.SetFloat("xDirection", statueDirection.x);
-                anim.SetFloat("yDirection", statueDirection.y);
-
-                anim.SetFloat("animTypeX", 0);
-                anim.SetFloat("animTypeY", -1);
+                anim.SetFloat("xDirection", mousePosition.x);
+                anim.SetFloat("yDirection", mousePosition.y);
+                anim.SetTrigger("isInvoking");
             }
         }
 
@@ -140,14 +139,13 @@ public class StatueManager : SerializedMonoBehaviour
                 Instantiate(world2Statue[0], offSetGridPosition, Quaternion.identity);
                 isPlacingStatue = false;
 
-                Vector3 statueDirection;
-                statueDirection = (world1Statue[0].transform.position - transform.position).normalized;
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePosition = (mousePosition - transform.position).normalized;
+                Debug.Log(mousePosition);
 
-                anim.SetFloat("xDirection", statueDirection.x);
-                anim.SetFloat("yDirection", statueDirection.y);
-
-                anim.SetFloat("animTypeX", 0);
-                anim.SetFloat("animTypeY", -1);
+                anim.SetFloat("xDirection", mousePosition.x);
+                anim.SetFloat("yDirection", mousePosition.y);
+                anim.SetTrigger("isInvoking");
             }
         }
     }
