@@ -29,7 +29,7 @@ public class StatueManager : SerializedMonoBehaviour
     public static float statueKickSpeed = 800;
     Animator anim;
 
-    bool isPlacingStatue = false;
+    public static bool isPlacingStatue = false;
     bool isSelectingStatueLocation = false;
     public static bool isPunchingStatue = false;
     public static bool isInRange = false;

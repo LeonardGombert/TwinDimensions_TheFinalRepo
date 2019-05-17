@@ -15,7 +15,7 @@ public class SSAttackDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(PlayerController.isInSlamRange);
+
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -23,9 +23,7 @@ public class SSAttackDetection : MonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = true;
-
-            if(KaliBossAI.isTrackingForSlam) Kali.gameObject.SendMessage("SlamOnPlayerSide", this.gameObject);
-            if(KaliBossAI.trackPlayerForSweep) Kali.gameObject.SendMessage("SweepOnPlayerSide", this.gameObject);
+            if(KaliBossAI.isTrackingPlayerPosition) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
             else return;            
         }
     }
@@ -35,9 +33,7 @@ public class SSAttackDetection : MonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = true;
-
-            if(KaliBossAI.isTrackingForSlam) Kali.gameObject.SendMessage("SlamOnPlayerSide", this.gameObject);
-            if(KaliBossAI.trackPlayerForSweep) Kali.gameObject.SendMessage("SweepOnPlayerSide", this.gameObject);
+            if(KaliBossAI.isTrackingPlayerPosition) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
             else return; 
         }
     }

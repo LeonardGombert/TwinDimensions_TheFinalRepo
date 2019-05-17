@@ -8,7 +8,7 @@ using StateData;
 public class KaliBossAI : MonoBehaviour
 { 
     #region Variable Declarations
-    #region //GENERAL VARIABLES
+    #region //GENERAL
     [FoldoutGroup("General")][SerializeField] Animator anim;
     [FoldoutGroup("General")][SerializeField] GameObject player;
     //public StateMachine<KaliBossAI> stateMachine { get; set; }
@@ -29,44 +29,48 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("KaliStats")][SerializeField] float lifepointsToChangeState;
     [FoldoutGroup("KaliStats")][SerializeField] float damageValue;
     [FoldoutGroup("KaliDebug")][SerializeField] bool damageDealt = false;
+    [FoldoutGroup("PlayerTrackingDebug")][SerializeField] GameObject leftMapDetectionCollider;
+    [FoldoutGroup("PlayerTrackingDebug")][SerializeField] GameObject rightMapDetectionCollider;
+    [FoldoutGroup("PlayerTrackingDebug")][SerializeField] GameObject currentPlayerActiveSideCollider;
+    [FoldoutGroup("PlayerTrackingDebug")][ShowInInspector] public static bool isTrackingPlayerPosition = true;
     #endregion
     
-    #region //SLAM ATTACK VARIABLES
+    #region //SLAM ATTACK
     [FoldoutGroup("AttackDebug")][ShowInInspector]  public static bool isSlamming = false;
-    [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isTrackingForSlam = true;
-    [FoldoutGroup("SlamAttack")][SerializeField] GameObject rightSlamAttackBoxCol2D;
-    [FoldoutGroup("SlamAttack")][SerializeField] GameObject leftSlamAttackBoxCol2D;
-    [FoldoutGroup("SlamAttack")][SerializeField] GameObject activeSlamAttackBoxCol2D;
-    [FoldoutGroup("SlamAttack")][SerializeField] float timeHoldingSlam = 0;
-    [FoldoutGroup("SlamAttack")][SerializeField] float timeToHoldSlam = 2f;
-
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingSlam = 0;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSlam = 2f;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamLeft;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamRight;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject activeSlamSide;
     #endregion
 
-    #region //LASER BEAM VARIABLES
+    #region //LASER BEAM
     [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool usingLaser = false;
-    [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isTrackingForLaser = true;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingLaser = 0f;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldLaser = 1.75f;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] LineRenderer laserBeam;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserLeftPosition;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserRightPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserSpawnPosition;
+    [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserHitPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserStartPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserEndPosition;
-    [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserHitPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] float laserMoveTime;
     #endregion
 
-    #region //SWEEP ATTACK VARIABLES
+    #region //SWEEP ATTACK
     [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isSweeping = false;
-    [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool trackPlayerForSweep = true;
-    [FoldoutGroup("SweepAttack")] List<GameObject> playerSideDetectionColliders = new List<GameObject>();
-    [FoldoutGroup("SweepAttack")][SerializeField] GameObject rightSweepAttackBoxCol2D;
-    [FoldoutGroup("SweepAttack")][SerializeField] GameObject leftSweepAttackBoxCol2D;
-    [FoldoutGroup("SweepAttack")][SerializeField] GameObject activeSweepAttackBoxCol2D;
     [FoldoutGroup("SweepAttack")][SerializeField] Transform kaliBasePosition;
-    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepPosition1;
+    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepLeftPosition;
+    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepRightPosition;
+    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepStartPosition;
+    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepEndPosition;
     [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepCurrentPosition;
-    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepPosition2;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingSweep = 0f;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSweep = 2f;
     #endregion
 
-    #region //STATE CHANGE VARIABLES
+    #region //STATE CHANGE
     [FoldoutGroup("ChangeStateDebug")][SerializeField] float maxTimeBetweenStates;
     [FoldoutGroup("ChangeStateDebug")][SerializeField] float minAttackValue;
     [FoldoutGroup("ChangeStateDebug")][SerializeField] float timeTillStateChange;
@@ -95,7 +99,7 @@ public class KaliBossAI : MonoBehaviour
         anim = GetComponent<Animator>();
 
         sweepCurrentPosition = this.gameObject.transform;
-        playerSideDetectionColliders.AddRange(new GameObject[] {rightSlamAttackBoxCol2D, leftSlamAttackBoxCol2D});
+        //playerSideDetectionColliders.AddRange(new GameObject[] {rightSlamAttackBoxCol2D, leftSlamAttackBoxCol2D});
         //stateMachine = new StateMachine<KaliBossAI>(this);
         //stateMachine.ChangeState(IdleState.Instance);
     }
@@ -123,20 +127,51 @@ public class KaliBossAI : MonoBehaviour
     #endregion
 
     #region //CHECK PLAYER SIDE
-    //runs every frame and sets the player-occupied zone as the "active" slam zone
-    private void SlamOnPlayerSide(GameObject side) 
-    {  
-        activeSlamAttackBoxCol2D = side.gameObject;
-    }
-
-    private void SweepOnPlayerSide(GameObject side) 
+    private void UpdatePlayerSide(GameObject side)
     {
-        playerSideDetectionColliders.Remove(side.gameObject);
-        
-        if(playerSideDetectionColliders[0] == rightSlamAttackBoxCol2D) activeSweepAttackBoxCol2D = rightSweepAttackBoxCol2D;
-        else if(playerSideDetectionColliders[0] == leftSlamAttackBoxCol2D) activeSweepAttackBoxCol2D = leftSweepAttackBoxCol2D;
+        currentPlayerActiveSideCollider = side.gameObject;
 
-        trackPlayerForSweep = false;
+        activeSlamSide = side.gameObject;
+
+        if (activeSlamSide == rightMapDetectionCollider)
+        {
+            anim.SetBool("slamRight", true);
+            anim.SetBool("slamLeft", false);
+        }
+
+        else if (activeSlamSide == leftMapDetectionCollider)
+        {
+            anim.SetBool("slamLeft", true);
+            anim.SetBool("slamRight", false);
+        }
+
+        if(currentPlayerActiveSideCollider == rightMapDetectionCollider)
+        {
+            laserStartPosition = laserLeftPosition; //if player is on the right, laser from left
+            laserEndPosition = laserRightPosition;
+        }
+
+        else if(currentPlayerActiveSideCollider == leftMapDetectionCollider)
+        {
+            laserStartPosition = laserRightPosition; //if player is on the left, laser from right
+            laserEndPosition = laserLeftPosition;
+        }
+
+        if(currentPlayerActiveSideCollider == rightMapDetectionCollider)
+        {
+            sweepStartPosition = sweepLeftPosition; //if player is on the right, sweep from left
+            sweepEndPosition = sweepRightPosition;
+            anim.SetBool("sweepRight", true);
+            anim.SetBool("sweepLeft", false);
+        }
+
+        else if(currentPlayerActiveSideCollider == leftMapDetectionCollider)
+        {
+            sweepStartPosition = sweepRightPosition; //if player is on the left, sweep from right
+            sweepEndPosition = sweepLeftPosition;  
+            anim.SetBool("sweepLeft", true);
+            anim.SetBool("sweepRight", false);
+        }
     }
     #endregion
     
@@ -144,6 +179,7 @@ public class KaliBossAI : MonoBehaviour
     void WatchForStageChange()
     {
         if(lifePoints <= lifepointsToChangeState) bossStage = BossStages.Stage2;
+        //anim.SetTriggeer
         else return;
     }
 
@@ -204,19 +240,19 @@ public class KaliBossAI : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.J))
         {
             if(bossStage == BossStages.Stage1)Stage1CurrentState = S1BossStates.S1Attacking;
-            else if(bossStage == BossStages.Stage2)Stage2CurrentState = S2BossStates.S2Attacking;
+            else if(bossStage == BossStages.Stage2) StartCoroutine(LaserEyeBeam()); //Stage2CurrentState = S2BossStates.S2Attacking;
         }
 
         if(Input.GetKeyDown(KeyCode.K))
         {
             if(bossStage == BossStages.Stage1)Stage1CurrentState = S1BossStates.S1Idle;
-            else if(bossStage == BossStages.Stage2)Stage2CurrentState = S2BossStates.S2Idle;
+            else if(bossStage == BossStages.Stage2) StartCoroutine(MoveToSweepAttackLocation()); //Stage2CurrentState = S2BossStates.S2Idle;
         }
 
         if(Input.GetKeyDown(KeyCode.L))
         {
             if(bossStage == BossStages.Stage1)Stage1CurrentState = S1BossStates.S1Dead;
-            else if(bossStage == BossStages.Stage2)Stage2CurrentState = S2BossStates.S2Dead;
+            else if(bossStage == BossStages.Stage2) StartCoroutine(SlamAttack()); //Stage2CurrentState = S2BossStates.S2Dead;
         }
     }
 
@@ -304,22 +340,22 @@ public class KaliBossAI : MonoBehaviour
     IEnumerator SlamAttack()
     {
         isSlamming = true;
-        isTrackingForSlam = false;
+        isTrackingPlayerPosition = false;
         timeHoldingSlam = 0;
 
         while(true)
         {
-            anim.SetBool("S1SlamAttack", true);
+            anim.SetBool("SlamAttack", true);
             
             timeHoldingSlam += Time.deltaTime;
 
             if(timeHoldingSlam >= timeToHoldSlam) // If Kali has held long enough...
             {
-                anim.SetBool("S1SlamAttack", false);
-                activeSlamAttackBoxCol2D.SendMessage("Slamming");
+                anim.SetBool("SlamAttack", false);
+                currentPlayerActiveSideCollider.SendMessage("Slamming");
                 Stage1CurrentState = S1BossStates.S1Idle;
                 Stage2CurrentState = S2BossStates.S2Idle;
-                isTrackingForSlam = true;
+                isTrackingPlayerPosition = true;
                 isSlamming = false;
                 yield break; //...stop the coroutine
             }
@@ -330,14 +366,15 @@ public class KaliBossAI : MonoBehaviour
     
     IEnumerator MoveToSweepAttackLocation()
     {
+        isTrackingPlayerPosition = false;
         float timeSinceStarted = 0f;
 
         while (true)
         {
             timeSinceStarted += Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, sweepPosition1.position, timeSinceStarted);
+            transform.position = Vector3.Lerp(transform.position, sweepStartPosition.position, timeSinceStarted);
 
-            if (transform.position == sweepPosition1.position) // If the object has arrived...
+            if (transform.position == sweepStartPosition.position) // If the object has arrived...
             {
                 StartCoroutine(SweepAttack());
                 yield break; //...stop the coroutine
@@ -349,70 +386,109 @@ public class KaliBossAI : MonoBehaviour
     IEnumerator SweepAttack()
     {
         isSweeping = true;
-        trackPlayerForSweep = false;
+        timeHoldingSweep = 0f;
 
         float timeSinceStarted = 0f;
 
         while (true)
         {
-            anim.SetBool("S2SweepAttack", true);
+            timeHoldingSweep += Time.deltaTime;
+            anim.SetBool("SweepAttack", true);
 
-            timeSinceStarted += Time.deltaTime;
-            transform.position = Vector3.Lerp(sweepPosition1.position, sweepPosition2.position, timeSinceStarted);
-
-            if (transform.position == sweepPosition2.position) // If the object has arrived...
+            if (timeHoldingSweep >= timeToHoldSweep)
             {
-                transform.position = Vector3.Lerp(transform.position, kaliBasePosition.position, timeSinceStarted);
-                anim.SetBool("S2SweepAttack", false);
-                activeSlamAttackBoxCol2D.SendMessage("Sweeping");   
-                Stage2CurrentState = S2BossStates.S2Idle;
-                trackPlayerForSweep = true;
-                isSweeping = false;
-                
-                yield break; //...stop the coroutine
+                timeSinceStarted += Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, sweepEndPosition.position, timeSinceStarted * 0.01f);
+
+                if (transform.position == sweepEndPosition.position) // If the object has arrived...
+                {
+                    transform.position = Vector3.Lerp(transform.position, kaliBasePosition.position, timeSinceStarted);
+
+                    if (transform.position == kaliBasePosition.position)
+                    {                      
+                        anim.SetBool("SweepAttack", false);
+                        
+                        currentPlayerActiveSideCollider.SendMessage("Sweeping");
+                        
+                        Stage2CurrentState = S2BossStates.S2Idle;
+                        
+                        isTrackingPlayerPosition = true;
+                        isSweeping = false;
+                        yield break; //...stop the coroutine  
+                    }
+
+                    yield return null;
+                }
+
+                yield return null; // Otherwise, continue next frame
             }
-           
-            yield return null; // Otherwise, continue next frame
+
+            yield return null;
         }
     }
 
-    IEnumerator LaserEyeBeam()
+    public IEnumerator LaserEyeBeam()
     {
-        usingLaser = true;
+        isTrackingPlayerPosition = false;        
+        timeHoldingLaser = 0;
 
         float sqrRemainingDistanceToDestination = (laserHitPosition.transform.position - laserEndPosition.transform.position).sqrMagnitude;
         float timeSinceStarted = 0f;
 
         while (true)
         {
-            anim.SetBool("S2LaserEyeBeam", true);
+            timeHoldingLaser += Time.deltaTime;
+            anim.SetBool("LaserAttack", true);
 
-            timeSinceStarted += Time.deltaTime;
+            if (timeHoldingLaser >= timeToHoldLaser)
+            {                
+                laserBeam.enabled = true;
+                usingLaser = true;
+                timeSinceStarted += Time.deltaTime;
 
-            RaycastHit2D hit = Physics2D.Raycast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
-
-            if(hit.collider){
-                if(hit.collider.tag == "Obstacle")
+                RaycastHit2D hit = Physics2D.Raycast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
+                Debug.DrawRay(laserSpawnPosition.transform.position, laserHitPosition.transform.position, Color.green);
+                if (hit.collider)
                 {
-                    laserHitPosition.transform.position = new Vector3(hit.point.x, hit.point.y);
-                }}
+                    Debug.Log("I hit " + hit.collider.name);
 
-            laserBeam.SetPosition(0, laserSpawnPosition.transform.position); //defines 1st ("start") point
-            laserBeam.SetPosition(1, laserHitPosition.transform.position); //defines 2nd (or "end") point
-            
-            laserHitPosition.transform.position = laserStartPosition.transform.position;
-            laserHitPosition.transform.position = Vector3.Lerp(laserStartPosition.transform.position, laserEndPosition.transform.position, timeSinceStarted);
+                    if (hit.collider.tag == "Player")
+                    {
+                        Debug.Log("Have touched the player");
+                        //laserHitPosition.transform.position = new Vector3(hit.point.x, hit.point.y);
+                    }
 
-            if (laserHitPosition.transform.position == laserEndPosition.transform.position) // If the object has arrived...
-            {
-                anim.SetBool("S2LaserEyeBeam", false);
-                usingLaser = false;  
-                laserBeam.enabled = false;
-                Stage2CurrentState = S2BossStates.S2Idle;
-                yield break; //...stop the coroutine
+                    if(hit.collider.tag == "Obstacle")
+                    {
+                        Debug.Log("I hit " + hit.collider.name);
+                    }
+
+                    if(hit.collider.tag == "Enemy")
+                    {
+                        Debug.Log("I hit " + hit.collider.name);
+                    }
+                }
+
+                laserHitPosition.transform.position = laserStartPosition.transform.position;
+                laserHitPosition.transform.position = Vector3.Lerp(laserStartPosition.transform.position, laserEndPosition.transform.position, timeSinceStarted);
+
+                laserBeam.SetPosition(0, laserSpawnPosition.transform.position); //defines 1st ("start") point
+                laserBeam.SetPosition(1, laserHitPosition.transform.position); //defines 2nd (or "end") point
+
+                if (laserHitPosition.transform.position == laserEndPosition.transform.position) // If the object has arrived...
+                {
+                    anim.SetBool("LaserAttack", false);
+                    usingLaser = false;
+                    laserBeam.enabled = false;
+                    isTrackingPlayerPosition = true;
+                    Stage2CurrentState = S2BossStates.S2Idle;
+                    yield break; //...stop the coroutine
+                }
+
+                yield return null; // Otherwise, continue next frame
             }
-           
-            yield return null; // Otherwise, continue next frame
+
+            yield return null;
         }
     }
     #endregion

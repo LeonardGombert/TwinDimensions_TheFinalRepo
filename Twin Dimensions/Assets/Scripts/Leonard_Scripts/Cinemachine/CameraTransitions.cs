@@ -78,7 +78,7 @@ public class CameraTransitions : MonoBehaviour
         {            
             if(PlayerInputManager.instance.GetKey("relativeZoom"))
             {
-                if(timeHeldDown >= minTimeToHoldDown && !PlayerController.isMoving)
+                if(timeHeldDown >= minTimeToHoldDown && !PlayerController.playerIsMoving)
                 {
                     relativeZoomCamera.gameObject.SetActive(false);
                     exitCamera.gameObject.SetActive(true);
