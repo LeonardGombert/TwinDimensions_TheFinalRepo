@@ -7,6 +7,8 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(fileName = "New Dialogue Sequence", menuName = "Dialogue")]
 public class DialogueSystem : SerializedScriptableObject
 {
+    Queue<string> sentences = new Queue<string>();
+
     // Start is called before the first frame update
     void Start()
     {
