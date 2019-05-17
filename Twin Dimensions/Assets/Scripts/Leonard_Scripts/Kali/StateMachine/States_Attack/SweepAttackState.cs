@@ -1,9 +1,20 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using StateData;
 
 public class SweepAttackState : State<KaliBossAI>
 {
     private static SweepAttackState _instance;
+
+    KaliBossAI _owner;
+    
+    Animator anim;
+
+    GameObject activeAttackBoxCol2D;
+    GameObject rightAttackBoxCol2D;
+    GameObject leftAttackBoxCol2D;
+    
+    KaliBossAI.S2BossStates currentState;
+    KaliBossAI.S2BossStates idleState;
 
     private SweepAttackState()
     {
@@ -50,4 +61,38 @@ public class SweepAttackState : State<KaliBossAI>
             _owner.stateMachine.ChangeState(IdleState.Instance);
         }
     }
+
+    void S2SweepAttack (KaliBossAI _owner)
+    {
+        anim.SetBool("S1SlamAttack", true);
+
+        activeAttackBoxCol2D = _owner.activeAttackBoxCol2D;
+        rightAttackBoxCol2D = _owner.rightAttackBoxCol2D;
+        leftAttackBoxCol2D = _owner.leftAttackBoxCol2D;
+
+        if(_owner.idleState)
+        {
+            _owner.stateMachine.ChangeState(IdleState.Instance);
+        }
+        
+        if(_owner.deathState)
+        {
+            _owner.stateMachine.ChangeState(DeathState.Instance);
+        }
+
+
+
+
+        // Move our position a step closer to the target.
+        float step =  speed * Time.deltaTime; // calculate distance to move
+        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+
+        // Check if the position of the cube and sphere are approximately equal.
+        if (Vector3.Distance(transform.position, target.position) < 0.001f)
+        {
+            // Swap the position of the cylinder.
+            target.position *= -1.0f;
+        }
+    }
 }
+*/

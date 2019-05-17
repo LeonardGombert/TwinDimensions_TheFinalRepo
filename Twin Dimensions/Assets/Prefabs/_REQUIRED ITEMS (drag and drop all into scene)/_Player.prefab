@@ -440,7 +440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7776813076995326837}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.9, y: 24.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7776813077433392849}
@@ -531,7 +531,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7776813077118386919}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.9, y: -24.8, z: -10}
+  m_LocalPosition: {x: 5, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7776813076995326838}
@@ -1329,6 +1329,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  movementCooldown: 0.1
+  moveTime: 0.3
+  resetTime: 0
+  holdTime: 3
   world1Profile:
     serializedVersion: 2
     m_Bits: 1024
@@ -1336,10 +1340,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   movementTilemap: {fileID: 0}
-  movementCooldown: 0.1
-  moveTime: 0.3
-  resetTime: 0
-  holdTime: 3
+  walkingSounds: []
+  punchingSounds: []
+  summoningSounds: []
+  teleportationSounds: []
+  deathSounds: []
 --- !u!114 &7776813077787256849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1427,5 +1432,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0

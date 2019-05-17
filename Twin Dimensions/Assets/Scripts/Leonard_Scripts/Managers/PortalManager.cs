@@ -14,8 +14,12 @@ public class PortalManager : SerializedMonoBehaviour
     [FoldoutGroup("Tilemap")][SerializeField]
     Tile highlightTile;
 
-    [FoldoutGroup("Portal Exits")][SerializeField]
-    List<GameObject> portalExits = new List<GameObject>();
+    [FoldoutGroup("DEBUG Portal Exits")][SerializeField]
+    List<GameObject> world1Portals = new List<GameObject>();
+    [FoldoutGroup("DEBUG Portal Exits")][SerializeField]
+    List<GameObject> world2Portals = new List<GameObject>();
+    [FoldoutGroup("DEBUG Portal Exits")][SerializeField]
+    List<GameObject> currentWorldPortal = new List<GameObject>();
     
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     GameObject insertBaseActiveTower;
@@ -67,9 +71,11 @@ public class PortalManager : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForPortalLayer();
+
         if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(fillWithActiveHookTowers);
        
-        maxIndexNmber = portalExits.Count;
+        maxIndexNmber = currentWorldPortal.Count;
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0f  && currentIndexNumber <= maxIndexNmber) currentIndexNumber += 1;
 
@@ -77,15 +83,25 @@ public class PortalManager : SerializedMonoBehaviour
 
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
 
-        if(portalExits.Count != 0) SelectPortalExit();
+        if(currentWorldPortal.Count != 0) SelectPortalExit();
+    }
+
+    void CheckForPortalLayer()
+    {
+        
     }
 
     private void UpdatePortals(GameObject touchedPortal = default)
     {
-        portalExits.Clear();  
+        currentWorldPortal.Clear();  
 
-        portalExits.AddRange(GameObject.FindGameObjectsWithTag("Portal"));
-        portalExits.Remove(touchedPortal);
+        world1Portals.AddRange(GameObject.FindGameObjectsWithTag("Portal 1"));
+        world2Portals.AddRange(GameObject.FindGameObjectsWithTag("Portal 2"));
+        
+        if(LayerManager.PlayerIsInRealWorld()) currentWorldPortal = world1Portals;
+        if(!LayerManager.PlayerIsInRealWorld()) currentWorldPortal = world2Portals;
+        
+        currentWorldPortal.Remove(touchedPortal);
     }
     
     private void GetAllHooks (GameObject newHookTower)
@@ -109,7 +125,7 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void SelectPortalExit()
     {
-        currentPortalSelected = movementTilemap.WorldToCell(portalExits[currentIndexNumber].transform.position);
+        currentPortalSelected = movementTilemap.WorldToCell(currentWorldPortal[currentIndexNumber].transform.position);
 
         if (currentPortalSelected != previousPortalSelected)
         {
@@ -130,14 +146,14 @@ public class PortalManager : SerializedMonoBehaviour
     private void TeleportToExit(int exitIndexNumber)
     {
         hasUsedPortal = true;
-        exitPosition = portalExits[exitIndexNumber].transform.position;
+        exitPosition = currentWorldPortal[exitIndexNumber].transform.position;
         player.transform.position = exitPosition;
         PlayerController.canMove = true;
     }
 
     private void PlayerLeftPortalRange()
     {
-        portalExits.Clear();
+        currentWorldPortal.Clear();
         movementTilemap.SetTile(currentPortalSelected, null);
     }
 
