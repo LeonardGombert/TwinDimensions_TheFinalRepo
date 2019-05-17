@@ -28,7 +28,7 @@ public class PlayerController : SerializedMonoBehaviour
     public static float playerMovementSpeed;
 
     public static bool canMove = true;
-    public static bool isMoving = false;
+    public static bool playerIsMoving = false;
     bool playerHasMoved = false;
     bool movementIsCoolingDown = false;
     #endregion
@@ -93,14 +93,13 @@ public class PlayerController : SerializedMonoBehaviour
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
-        MonitorSFX();
-        
-        if(holdTime <= 0 && !hasResetScene) 
-        {
-            hasResetScene = true;
-            holdTime = 0;
-            ResetScene();
-        }
+
+        // if(holdTime <= 0 && !hasResetScene) 
+        // {
+        //     hasResetScene = true;
+        //     holdTime = 0;
+        //     ResetScene();
+        // }
     }
     #endregion
 
@@ -126,7 +125,9 @@ public class PlayerController : SerializedMonoBehaviour
 
         if (horizontal != 0 || vertical != 0)
         {
-            isMoving = true;
+            playerIsMoving = true;
+            
+            FindObjectOfType<AudioManager>().Play("StepsForest");
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
@@ -134,12 +135,7 @@ public class PlayerController : SerializedMonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(boxCol2D.bounds.center, destinationPosition2, 1, selectedLayerMask);
             Debug.DrawRay(boxCol2D.bounds.center, destinationPosition2, Color.green, 800);
 
-            if(hit.collider)
-            {
-                Debug.Log("I've hit " + hit.collider.name);
-
-                if(hit.collider.tag == "Obstacle") return;
-            }
+            if(hit.collider) if(hit.collider.tag == "Obstacle") return;
 
             if(!hit.collider)
             {
@@ -151,7 +147,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(horizontal == 0 && vertical == 0)
         {
-            isMoving = false;
+            playerIsMoving = false;
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
         }
@@ -177,7 +173,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         while (sqrRemainingDistanceToDestination > float.Epsilon)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinationPosition, inverseMoveTime * Time.unscaledDeltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, destinationPosition, inverseMoveTime * Time.deltaTime);
             sqrRemainingDistanceToDestination = (transform.position - destinationPosition).sqrMagnitude;
 
             yield return null;
@@ -232,7 +228,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
-        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+        //if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
     }
 
     void OnTriggerStay2D(Collider2D collider)
@@ -245,7 +241,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
-        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+        //if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
     }
 
     void OnTriggerExit2D(Collider2D collider)
@@ -254,14 +250,4 @@ public class PlayerController : SerializedMonoBehaviour
     }
     #endregion
     #endregion
-
-    void MonitorSFX()
-    {
-        if(TeleportationManager.isTeleporting == true) SoundManager.instance.RandomizeSfx(teleportationSounds);
-        if(isMoving == true) SoundManager.instance.RandomizeSfx(walkingSounds);
-        //if(isPunching == true) SoundManager.instance.RandomizeSfx(punchingSounds);
-        //if(isSummoning == true) SoundManager.instance.RandomizeSfx(summoningSounds);
-        if(GameMaster.playerIsDead == true) SoundManager.instance.RandomizeSfx(deathSounds);
-        else return;
-    }
 }

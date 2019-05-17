@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using StateData;
 
 public class IdleState : State<KaliBossAI>
@@ -71,3 +71,4 @@ public class IdleState : State<KaliBossAI>
         }
     }
 }
+*/
