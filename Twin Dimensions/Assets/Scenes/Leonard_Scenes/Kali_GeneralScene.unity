@@ -134,14 +134,14 @@ GameObject:
   m_Component:
   - component: {fileID: 89274831}
   - component: {fileID: 89274833}
-  - component: {fileID: 89274832}
+  - component: {fileID: 89274834}
   m_Layer: 12
   m_Name: Left Side
   m_TagString: Slam Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &89274831
 Transform:
   m_ObjectHideFlags: 0
@@ -156,19 +156,6 @@ Transform:
   m_Father: {fileID: 8016117419568268229}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &89274832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89274830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52881eafc696a7b4390ce235de23ac82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Kali: {fileID: 8016117418589772106}
 --- !u!61 &89274833
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -195,6 +182,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &89274834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89274830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3856cdfd94727408b115048c1cee49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
 --- !u!1 &101936988
 GameObject:
   m_ObjectHideFlags: 0
@@ -13959,14 +13967,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1981117534}
   - component: {fileID: 1981117536}
-  - component: {fileID: 1981117535}
+  - component: {fileID: 1981117537}
   m_Layer: 12
   m_Name: Right Side
   m_TagString: Slam Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1981117534
 Transform:
   m_ObjectHideFlags: 0
@@ -13981,19 +13989,6 @@ Transform:
   m_Father: {fileID: 8016117419568268229}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1981117535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981117533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52881eafc696a7b4390ce235de23ac82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Kali: {fileID: 8016117418589772106}
 --- !u!61 &1981117536
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14020,6 +14015,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &1981117537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981117533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3856cdfd94727408b115048c1cee49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
 --- !u!4 &255112617538727586
 Transform:
   m_ObjectHideFlags: 0
@@ -14134,7 +14150,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1633913477
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 100
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -14404,13 +14420,35 @@ GameObject:
   m_Component:
   - component: {fileID: 6182004789176433260}
   - component: {fileID: 6182004789176433258}
+  - component: {fileID: 6182004789176433262}
   m_Layer: 21
   m_Name: Left Hand
   m_TagString: Slam Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
+--- !u!114 &6182004789176433262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182004789176433261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3856cdfd94727408b115048c1cee49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
 --- !u!61 &6182004789528115471
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14461,13 +14499,35 @@ GameObject:
   m_Component:
   - component: {fileID: 6182004789528115473}
   - component: {fileID: 6182004789528115471}
+  - component: {fileID: 6182004789528115475}
   m_Layer: 21
   m_Name: Right Hand
   m_TagString: Slam Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
+--- !u!114 &6182004789528115475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182004789528115474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3856cdfd94727408b115048c1cee49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
 --- !u!4 &6182004790572313850
 Transform:
   m_ObjectHideFlags: 0
@@ -14540,6 +14600,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f685ebc7ef88f448871a2a575fb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   anim: {fileID: 8016117418589772105}
   player: {fileID: 1484502892}
   bossStage: 1
@@ -14556,9 +14625,9 @@ MonoBehaviour:
   rightMapDetectionCollider: {fileID: 4248051995770094606}
   currentPlayerActiveSideCollider: {fileID: 0}
   timeHoldingSlam: 0
-  timeToHoldSlam: 2.25
-  slamLeft: {fileID: 89274830}
-  slamRight: {fileID: 1981117533}
+  timeToHoldSlam: 2
+  slamLeftCollider: {fileID: 89274830}
+  slamRightCollider: {fileID: 1981117533}
   activeSlamSide: {fileID: 0}
   timeHoldingLaser: 0
   timeToHoldLaser: 1.5
@@ -14677,7 +14746,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1633913477
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c5de94a30f507ee4fbb6698a6e3aa2d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
