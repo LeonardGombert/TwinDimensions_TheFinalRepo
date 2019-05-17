@@ -93,7 +93,6 @@ public class PlayerController : SerializedMonoBehaviour
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
-        MonitorSFX();
         
         // if(holdTime <= 0 && !hasResetScene) 
         // {
@@ -249,14 +248,4 @@ public class PlayerController : SerializedMonoBehaviour
     }
     #endregion
     #endregion
-
-    void MonitorSFX()
-    {
-        if(TeleportationManager.isTeleporting == true) SoundManager.instance.RandomizeSfx(teleportationSounds);
-        if(playerIsMoving == true) SoundManager.instance.RandomizeSfx(walkingSounds);
-        //if(isPunching == true) SoundManager.instance.RandomizeSfx(punchingSounds);
-        //if(isSummoning == true) SoundManager.instance.RandomizeSfx(summoningSounds);
-        if(GameMaster.playerIsDead == true) SoundManager.instance.RandomizeSfx(deathSounds);
-        else return;
-    }
 }
