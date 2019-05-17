@@ -377,7 +377,7 @@ public class KaliBossAI : SerializedMonoBehaviour
                 isTrackingPlayerPosition = true;
                 isSlamming = false;
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(2);
                 slamLeftCollider.gameObject.SetActive(false);
                 slamRightCollider.gameObject.SetActive(false);
                 yield break; //...stop the coroutine

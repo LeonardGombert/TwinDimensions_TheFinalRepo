@@ -93,7 +93,7 @@ public class PlayerController : SerializedMonoBehaviour
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
-        
+
         // if(holdTime <= 0 && !hasResetScene) 
         // {
         //     hasResetScene = true;
@@ -126,6 +126,8 @@ public class PlayerController : SerializedMonoBehaviour
         if (horizontal != 0 || vertical != 0)
         {
             playerIsMoving = true;
+            
+            FindObjectOfType<AudioManager>().Play("StepsForest");
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
