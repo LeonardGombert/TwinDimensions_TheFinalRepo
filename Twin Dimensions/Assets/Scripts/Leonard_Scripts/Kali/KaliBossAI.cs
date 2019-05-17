@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using StateData;
 
-public class KaliBossAI : MonoBehaviour
+public class KaliBossAI : SerializedMonoBehaviour
 { 
     #region Variable Declarations
     #region //GENERAL
@@ -39,8 +39,8 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("AttackDebug")][ShowInInspector]  public static bool isSlamming = false;
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingSlam = 0;
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSlam = 2f;
-    [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamLeft;
-    [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamRight;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamLeftCollider;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamRightCollider;
     [FoldoutGroup("SlamAttack")][SerializeField] GameObject activeSlamSide;
     #endregion
 
@@ -137,12 +137,17 @@ public class KaliBossAI : MonoBehaviour
         {
             anim.SetBool("slamRight", true);
             anim.SetBool("slamLeft", false);
+            // slamRightCollider.gameObject.SetActive(true);
+            // slamLeftCollider.gameObject.SetActive(false);
         }
 
         else if (activeSlamSide == leftMapDetectionCollider)
         {
+
             anim.SetBool("slamLeft", true);
             anim.SetBool("slamRight", false);
+            //slamLeftCollider.gameObject.SetActive(true);
+            //slamRightCollider.gameObject.SetActive(false);
         }
 
         if(currentPlayerActiveSideCollider == rightMapDetectionCollider)
@@ -351,12 +356,30 @@ public class KaliBossAI : MonoBehaviour
 
             if(timeHoldingSlam >= timeToHoldSlam) // If Kali has held long enough...
             {
+                if (activeSlamSide == rightMapDetectionCollider)
+                {
+                    slamRightCollider.gameObject.SetActive(true);
+                    slamLeftCollider.gameObject.SetActive(false);
+                }
+
+                if (activeSlamSide == leftMapDetectionCollider)
+                {
+                    slamLeftCollider.gameObject.SetActive(true);
+                    slamRightCollider.gameObject.SetActive(false);
+                }
+
                 anim.SetBool("SlamAttack", false);
                 currentPlayerActiveSideCollider.SendMessage("Slamming");
+
                 Stage1CurrentState = S1BossStates.S1Idle;
                 Stage2CurrentState = S2BossStates.S2Idle;
+
                 isTrackingPlayerPosition = true;
                 isSlamming = false;
+
+                yield return new WaitForSeconds(2);
+                slamLeftCollider.gameObject.SetActive(false);
+                slamRightCollider.gameObject.SetActive(false);
                 yield break; //...stop the coroutine
             }
             
@@ -398,11 +421,11 @@ public class KaliBossAI : MonoBehaviour
             if (timeHoldingSweep >= timeToHoldSweep)
             {
                 timeSinceStarted += Time.deltaTime;
-                transform.position = Vector3.Lerp(transform.position, sweepEndPosition.position, timeSinceStarted * 0.01f);
+                transform.position = Vector3.Lerp(transform.position, sweepEndPosition.position, timeSinceStarted * 0.5f);
 
                 if (transform.position == sweepEndPosition.position) // If the object has arrived...
                 {
-                    transform.position = Vector3.Lerp(transform.position, kaliBasePosition.position, timeSinceStarted);
+                    transform.position = Vector3.Lerp(transform.position, kaliBasePosition.position, 1f);
 
                     if (transform.position == kaliBasePosition.position)
                     {                      
