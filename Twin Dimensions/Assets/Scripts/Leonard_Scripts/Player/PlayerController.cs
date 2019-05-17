@@ -93,7 +93,7 @@ public class PlayerController : SerializedMonoBehaviour
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
-        
+
         // if(holdTime <= 0 && !hasResetScene) 
         // {
         //     hasResetScene = true;
