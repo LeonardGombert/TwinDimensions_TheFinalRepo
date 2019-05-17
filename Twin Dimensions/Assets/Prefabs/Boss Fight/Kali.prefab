@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &121875324280031294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 121875324280031293}
+  m_Layer: 21
+  m_Name: LaserPositionLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &121875324280031293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121875324280031294}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -58, y: 2.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9119089477411283084}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &160629185252540925
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 160629185252540924}
-  m_Layer: 8
+  m_Layer: 21
   m_Name: Laser Hit Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160629185252540925}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.84, y: -6.29, z: 0}
+  m_LocalPosition: {x: -17.48, y: 8.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9119089477411283084}
@@ -40,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 160629185944311658}
   - component: {fileID: 160629185944311660}
-  m_Layer: 12
+  m_Layer: 21
   m_Name: Left Hand
   m_TagString: Slam Attack
   m_Icon: {fileID: 0}
@@ -97,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 160629186297107479}
   - component: {fileID: 160629186297107465}
-  m_Layer: 12
+  m_Layer: 21
   m_Name: Right Hand
   m_TagString: Slam Attack
   m_Icon: {fileID: 0}
@@ -144,36 +174,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 5}
   m_EdgeRadius: 0
---- !u!1 &160629186969451999
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 160629186969451998}
-  m_Layer: 8
-  m_Name: Laser End Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &160629186969451998
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160629186969451999}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 6.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9119089477411283084}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4093411062926978754
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4093411062926978755}
-  m_Layer: 12
+  m_Layer: 21
   m_Name: SlamAttackColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,154 +200,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4093411064139928938}
-  - {fileID: 4093411063136558808}
+  m_Children: []
   m_Father: {fileID: 4093411064153633869}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4093411063136558807
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4093411063136558808}
-  - component: {fileID: 4093411063136558809}
-  - component: {fileID: 4093411063136558810}
-  m_Layer: 12
-  m_Name: Right Hand
-  m_TagString: Slam Attack
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4093411063136558808
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4093411063136558807}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.5, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4093411062926978755}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4093411063136558809
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4093411063136558807}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1.5, y: -2}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 10, y: 5}
-  m_EdgeRadius: 0
---- !u!114 &4093411063136558810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4093411063136558807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52881eafc696a7b4390ce235de23ac82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Kali: {fileID: 4093411064153633868}
---- !u!1 &4093411064139928936
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4093411064139928938}
-  - component: {fileID: 4093411064139928937}
-  - component: {fileID: 4093411064139928939}
-  m_Layer: 12
-  m_Name: Left Hand
-  m_TagString: Slam Attack
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4093411064139928938
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4093411064139928936}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.5, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4093411062926978755}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4093411064139928937
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4093411064139928936}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1.5, y: -2}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 10, y: 5}
-  m_EdgeRadius: 0
---- !u!114 &4093411064139928939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4093411064139928936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52881eafc696a7b4390ce235de23ac82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Kali: {fileID: 4093411064153633868}
 --- !u!1 &4093411064153633868
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +216,7 @@ GameObject:
   - component: {fileID: 4093411064153633872}
   - component: {fileID: 4093411064153633871}
   - component: {fileID: 4093411064153633870}
-  m_Layer: 12
+  m_Layer: 21
   m_Name: Kali
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,7 +298,7 @@ Animator:
   m_GameObject: {fileID: 4093411064153633868}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: de5a379edae597a4d9eefae1e61bce31, type: 2}
+  m_Controller: {fileID: 9100000, guid: e06522bceb5ff594db88cf99f75186ae, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -467,37 +323,46 @@ MonoBehaviour:
   player: {fileID: 0}
   bossStage: 1
   Stage1CurrentState: 0
-  Stage2CurrentState: 1
+  Stage2CurrentState: 0
   attackState: 0
   idleState: 0
   deathState: 0
   lifePoints: 1000
   lifepointsToChangeState: 750
   damageValue: 10
-  rightSlamAttackBoxCol2D: {fileID: 4093411063136558807}
-  leftSlamAttackBoxCol2D: {fileID: 4093411064139928936}
-  activeSlamAttackBoxCol2D: {fileID: 0}
-  maxRandom: 2
-  minAttackValue: 1
-  randAttackValue: 0
-  attackProbabilityBooster: 1
+  damageDealt: 0
+  leftMapDetectionCollider: {fileID: 0}
+  rightMapDetectionCollider: {fileID: 0}
+  currentPlayerActiveSideCollider: {fileID: 0}
   timeHoldingSlam: 0
-  timeToHoldSlam: 2
+  timeToHoldSlam: 2.25
   laserBeam: {fileID: 9119089477411283087}
+  laserLeftPosition: {fileID: 121875324280031294}
+  laserRightPosition: {fileID: 6336652632297933312}
   laserSpawnPosition: {fileID: 6087204698753270699}
-  laserStartPosition: {fileID: 6087204699326316513}
-  laserEndPosition: {fileID: 160629186969451999}
   laserHitPosition: {fileID: 160629185252540925}
+  laserStartPosition: {fileID: 0}
+  laserEndPosition: {fileID: 0}
   laserMoveTime: 4
-  usingLaser: 0
-  rightSweepAttackBoxCol2D: {fileID: 160629186297107476}
-  leftSweepAttackBoxCol2D: {fileID: 160629185944311659}
-  activeSweepAttackBoxCol2D: {fileID: 0}
+  timeHoldingLaser: 0
+  timeToHoldLaser: 1.5
+  kaliBasePosition: {fileID: 0}
+  sweepLeftPosition: {fileID: 0}
+  sweepRightPosition: {fileID: 0}
   sweepStartPosition: {fileID: 0}
+  sweepEndPosition: {fileID: 0}
   sweepCurrentPosition: {fileID: 0}
-  sweepDestinationPosition: {fileID: 0}
   timeHoldingSweep: 0
-  timeToHoldSweep: 1
+  timeToHoldSweep: 1.5
+  maxTimeBetweenStates: 0
+  minAttackValue: 1
+  timeTillStateChange: 0
+  attackProbabilityBooster: 1
+  minWaitTime: 0
+  maxWaitTime: 20
+  currentRunTime: 0
+  timeTillNextAttack: 0
+  probabilityBooster: 2
 --- !u!1 &6087204698753270699
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6087204698753270692}
-  m_Layer: 8
+  m_Layer: 21
   m_Name: Laser Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +393,7 @@ Transform:
   m_Father: {fileID: 9119089477411283084}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6087204699326316513
+--- !u!1 &6336652632297933312
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,27 +401,27 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6087204699326316514}
-  m_Layer: 8
-  m_Name: Laser Start Point
+  - component: {fileID: 6336652632297933313}
+  m_Layer: 21
+  m_Name: LaserPositionRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6087204699326316514
+--- !u!4 &6336652632297933313
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6087204699326316513}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34, y: 6.7, z: 0}
+  m_GameObject: {fileID: 6336652632297933312}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12, y: 2.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9119089477411283084}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9119089477411283086
 GameObject:
@@ -568,7 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9119089477411283084}
   - component: {fileID: 9119089477411283087}
-  m_Layer: 8
+  m_Layer: 21
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,8 +452,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6087204698753270692}
-  - {fileID: 6087204699326316514}
-  - {fileID: 160629186969451998}
+  - {fileID: 121875324280031293}
+  - {fileID: 6336652632297933313}
   - {fileID: 160629185252540924}
   m_Father: {fileID: 4093411064153633869}
   m_RootOrder: 2
@@ -697,7 +562,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9119089477803735359}
-  m_Layer: 12
+  m_Layer: 21
   m_Name: SweepAttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

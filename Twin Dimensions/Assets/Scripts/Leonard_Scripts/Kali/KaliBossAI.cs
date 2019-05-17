@@ -8,7 +8,7 @@ using StateData;
 public class KaliBossAI : MonoBehaviour
 { 
     #region Variable Declarations
-    #region //GENERAL VARIABLES
+    #region //GENERAL
     [FoldoutGroup("General")][SerializeField] Animator anim;
     [FoldoutGroup("General")][SerializeField] GameObject player;
     //public StateMachine<KaliBossAI> stateMachine { get; set; }
@@ -29,22 +29,26 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("KaliStats")][SerializeField] float lifepointsToChangeState;
     [FoldoutGroup("KaliStats")][SerializeField] float damageValue;
     [FoldoutGroup("KaliDebug")][SerializeField] bool damageDealt = false;
-    [FoldoutGroup("CollisionDebug")][SerializeField] GameObject leftMapDetectionCollider;
-    [FoldoutGroup("CollisionDebug")][SerializeField] GameObject rightMapDetectionCollider;
-    [FoldoutGroup("CollisionDebug")][SerializeField] GameObject currentPlayerActiveSideCollider;
+    [FoldoutGroup("PlayerTrackingDebug")][SerializeField] GameObject leftMapDetectionCollider;
+    [FoldoutGroup("PlayerTrackingDebug")][SerializeField] GameObject rightMapDetectionCollider;
+    [FoldoutGroup("PlayerTrackingDebug")][SerializeField] GameObject currentPlayerActiveSideCollider;
     #endregion
     
-    #region //SLAM ATTACK VARIABLES
+    #region //SLAM ATTACK
     [FoldoutGroup("AttackDebug")][ShowInInspector]  public static bool isSlamming = false;
     [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isTrackingForSlam = true;
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingSlam = 0;
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSlam = 2f;
-
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamLeft;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamRight;
+    [FoldoutGroup("SlamAttack")][SerializeField] GameObject activeSlamSide;
     #endregion
 
-    #region //LASER BEAM VARIABLES
+    #region //LASER BEAM
     [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool usingLaser = false;
     [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isTrackingForLaser = true;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingLaser = 0f;
+    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldLaser = 1.75f;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] LineRenderer laserBeam;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserLeftPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserRightPosition;
@@ -53,11 +57,9 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserStartPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserEndPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] float laserMoveTime;
-    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingLaser = 0f;
-    [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldLaser = 1.75f;
     #endregion
 
-    #region //SWEEP ATTACK VARIABLES
+    #region //SWEEP ATTACK
     [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool isSweeping = false;
     [FoldoutGroup("AttackDebug")][ShowInInspector] public static bool trackPlayerForSweep = true;
     [FoldoutGroup("SweepAttack")][SerializeField] Transform kaliBasePosition;
@@ -70,7 +72,7 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSweep = 2f;
     #endregion
 
-    #region //STATE CHANGE VARIABLES
+    #region //STATE CHANGE
     [FoldoutGroup("ChangeStateDebug")][SerializeField] float maxTimeBetweenStates;
     [FoldoutGroup("ChangeStateDebug")][SerializeField] float minAttackValue;
     [FoldoutGroup("ChangeStateDebug")][SerializeField] float timeTillStateChange;
@@ -131,6 +133,8 @@ public class KaliBossAI : MonoBehaviour
     {
         currentPlayerActiveSideCollider = side.gameObject;
 
+        activeSlamSide = side.gameObject;
+
         if(currentPlayerActiveSideCollider == rightMapDetectionCollider)
         {
             laserStartPosition = laserLeftPosition; //if player is on the right, sweep from left
@@ -161,6 +165,7 @@ public class KaliBossAI : MonoBehaviour
     void WatchForStageChange()
     {
         if(lifePoints <= lifepointsToChangeState) bossStage = BossStages.Stage2;
+        //anim.SetTriggeer
         else return;
     }
 
@@ -402,8 +407,8 @@ public class KaliBossAI : MonoBehaviour
 
     public IEnumerator LaserEyeBeam()
     {
-        laserBeam.enabled = true;
-        usingLaser = true;
+        isTrackingForLaser = false;
+        
         timeHoldingLaser = 0;
 
         float sqrRemainingDistanceToDestination = (laserHitPosition.transform.position - laserEndPosition.transform.position).sqrMagnitude;
@@ -415,19 +420,31 @@ public class KaliBossAI : MonoBehaviour
             anim.SetBool("LaserAttack", true);
 
             if (timeHoldingLaser >= timeToHoldLaser)
-            {
+            {                
+                laserBeam.enabled = true;
+                usingLaser = true;
                 timeSinceStarted += Time.deltaTime;
 
                 RaycastHit2D hit = Physics2D.Raycast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
-                Debug.DrawLine(laserSpawnPosition.transform.position, laserHitPosition.transform.position, Color.green);
+                Debug.DrawRay(laserSpawnPosition.transform.position, laserHitPosition.transform.position, Color.green);
                 if (hit.collider)
                 {
                     Debug.Log("I hit " + hit.collider.name);
 
-                    if (hit.collider.gameObject.tag == "Player")
+                    if (hit.collider.tag == "Player")
                     {
                         Debug.Log("Have touched the player");
                         //laserHitPosition.transform.position = new Vector3(hit.point.x, hit.point.y);
+                    }
+
+                    if(hit.collider.tag == "Obstacle")
+                    {
+                        Debug.Log("I hit " + hit.collider.name);
+                    }
+
+                    if(hit.collider.tag == "Enemy")
+                    {
+                        Debug.Log("I hit " + hit.collider.name);
                     }
                 }
 
@@ -442,6 +459,7 @@ public class KaliBossAI : MonoBehaviour
                     anim.SetBool("LaserAttack", false);
                     usingLaser = false;
                     laserBeam.enabled = false;
+                    isTrackingForLaser = true;
                     Stage2CurrentState = S2BossStates.S2Idle;
                     yield break; //...stop the coroutine
                 }
