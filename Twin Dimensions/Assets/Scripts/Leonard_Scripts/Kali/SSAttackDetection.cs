@@ -23,9 +23,7 @@ public class SSAttackDetection : MonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = true;
-
-            if(KaliBossAI.isTrackingForSlam) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
-            if(KaliBossAI.trackPlayerForSweep) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
+            if(KaliBossAI.isTrackingPlayerPosition) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
             else return;            
         }
     }
@@ -35,9 +33,7 @@ public class SSAttackDetection : MonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = true;
-
-            if(KaliBossAI.isTrackingForSlam) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
-            if(KaliBossAI.trackPlayerForSweep) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
+            if(KaliBossAI.isTrackingPlayerPosition) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
             else return; 
         }
     }

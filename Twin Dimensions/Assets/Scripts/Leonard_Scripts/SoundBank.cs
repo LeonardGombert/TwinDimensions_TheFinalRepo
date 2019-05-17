@@ -13,25 +13,25 @@ public class SoundBank : MonoBehaviour
     public float lowPitchRange = .95f;
     public float highPitchRange = 1.05f;
     
-    [FoldoutGroup("PlayerSFX")][ShowInInspector] public static AudioClip[] playerWalking;
-    [FoldoutGroup("PlayerSFX")][ShowInInspector] public static AudioClip[] playerPunching;
-    [FoldoutGroup("PlayerSFX")][ShowInInspector] public static AudioClip[] playerSummoning;
-    [FoldoutGroup("PlayerSFX")][ShowInInspector] public static AudioClip[] playerTeleporting;
-    [FoldoutGroup("PlayerSFX")][ShowInInspector] public static AudioClip[] playerDeath;
+    [FoldoutGroup("PlayerSFX")][ShowInInspector] AudioClip[] playerWalking;
+    [FoldoutGroup("PlayerSFX")][ShowInInspector] AudioClip[] playerPunching;
+    [FoldoutGroup("PlayerSFX")][ShowInInspector] AudioClip[] playerSummoning;
+    [FoldoutGroup("PlayerSFX")][ShowInInspector] AudioClip[] playerTeleporting;
+    [FoldoutGroup("PlayerSFX")][ShowInInspector] AudioClip[] playerDeath;
     
-    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] public static AudioClip[] openingDoor;
-    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] public static AudioClip[] spikesRaised;
-    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] public static AudioClip[] spikesLowering;
-    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] public static AudioClip[] pressurePlateActivation;
-    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] public static AudioClip[] pressurePlateDeactivation;
+    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] AudioClip[] openingDoor;
+    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] AudioClip[] spikesRaised;
+    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] AudioClip[] spikesLowering;
+    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] AudioClip[] pressurePlateActivation;
+    [FoldoutGroup("EnvironmentalSFX")][ShowInInspector] AudioClip[] pressurePlateDeactivation;
 
-    [FoldoutGroup("AmbientSFX")][ShowInInspector] public static AudioClip[] windSFX;
-    [FoldoutGroup("AmbientSFX")][ShowInInspector] public static AudioClip[] waterSFX;
-    [FoldoutGroup("AmbientSFX")][ShowInInspector] public static AudioClip[] grassSFX;
+    [FoldoutGroup("AmbientSFX")][ShowInInspector] AudioClip[] windSFX;
+    [FoldoutGroup("AmbientSFX")][ShowInInspector] AudioClip[] waterSFX;
+    [FoldoutGroup("AmbientSFX")][ShowInInspector] AudioClip[] grassSFX;
     
-    [FoldoutGroup("ElephantSFX")][ShowInInspector] public static AudioClip[] elephantCharge;
-    [FoldoutGroup("ElephantSFX")][ShowInInspector] public static AudioClip[] elephantStartCharge;
-    [FoldoutGroup("ElephantSFX")][ShowInInspector] public static AudioClip[] elephantDeath;
+    [FoldoutGroup("ElephantSFX")][ShowInInspector] AudioClip[] elephantCharge;
+    [FoldoutGroup("ElephantSFX")][ShowInInspector] AudioClip[] elephantStartCharge;
+    [FoldoutGroup("ElephantSFX")][ShowInInspector] AudioClip[] elephantDeath;
 
     void Awake()
     {
