@@ -127,8 +127,6 @@ public class PlayerController : SerializedMonoBehaviour
         {
             playerIsMoving = true;
             
-            FindObjectOfType<AudioManager>().Play("StepsForest");
-            
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
 
