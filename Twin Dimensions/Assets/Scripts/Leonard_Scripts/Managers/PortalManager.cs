@@ -13,6 +13,8 @@ public class PortalManager : SerializedMonoBehaviour
     Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
     Tile highlightTile;
+    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
+    GameObject insertBaseActiveTower;
 
     [FoldoutGroup("DEBUG Portal Exits")][SerializeField]
     List<GameObject> world1Portals = new List<GameObject>();
@@ -21,16 +23,12 @@ public class PortalManager : SerializedMonoBehaviour
     [FoldoutGroup("DEBUG Portal Exits")][SerializeField]
     List<GameObject> currentWorldPortal = new List<GameObject>();
     
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
-    GameObject insertBaseActiveTower;
-    [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
-    List<GameObject> fillWithActiveHookTowers = new List<GameObject>();
     [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
     GameObject currentActiveTower;
     [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
-    List<GameObject> inactiveTowers = new List<GameObject>();
+    List<GameObject> activeHookTowers = new List<GameObject>();
     [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
-    List <GameObject> hookTowers;
+    List<GameObject> inactiveHookTowers = new List<GameObject>();
 
     GameObject player;
     GameObject portalEntrance;
@@ -60,20 +58,18 @@ public class PortalManager : SerializedMonoBehaviour
         DontDestroyOnLoad(this);
 
         player = GameObject.FindGameObjectWithTag("Player");
-        hookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
         
         currentActiveTower = insertBaseActiveTower;
-        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));    
-        inactiveTowers.Remove(currentActiveTower);
+        inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));    
+        inactiveHookTowers.Remove(currentActiveTower);
+        activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckForPortalLayer();
-
-        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(fillWithActiveHookTowers);
+        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(activeHookTowers);
        
         maxIndexNmber = currentWorldPortal.Count;
 
@@ -84,11 +80,6 @@ public class PortalManager : SerializedMonoBehaviour
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
 
         if(currentWorldPortal.Count != 0) SelectPortalExit();
-    }
-
-    void CheckForPortalLayer()
-    {
-        
     }
 
     private void UpdatePortals(GameObject touchedPortal = default)
@@ -104,20 +95,20 @@ public class PortalManager : SerializedMonoBehaviour
         currentWorldPortal.Remove(touchedPortal);
     }
     
-    private void GetAllHooks (GameObject newHookTower)
+    private void GetAllHooks(GameObject newHookTower)
     {
         currentActiveTower = newHookTower;
 
-        inactiveTowers.Clear();
-        fillWithActiveHookTowers.Clear();
+        inactiveHookTowers.Clear();
+        activeHookTowers.Clear();
 
-        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));
-        inactiveTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
-        inactiveTowers.Remove(currentActiveTower);
+        inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));
+        inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+        inactiveHookTowers.Remove(currentActiveTower);
 
-        fillWithActiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+        activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
 
-        foreach (GameObject tower in inactiveTowers)
+        foreach (GameObject tower in inactiveHookTowers)
         {
             tower.tag = "Inactive Hook Tower";
         }
