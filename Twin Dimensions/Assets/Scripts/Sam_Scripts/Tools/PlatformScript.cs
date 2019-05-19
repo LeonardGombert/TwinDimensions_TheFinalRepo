@@ -13,8 +13,12 @@ public class PlatformScript : MonoBehaviour
     public bool posA = true;
     public bool posB = false;
 
+    BoxCollider2D bCollider;
+
     void Awake()
     {
+        bCollider = gameObject.GetComponent<BoxCollider2D>();
+
         positionA = objectPositionA.position;
         positionB = objectPositionB.position;
 
@@ -28,12 +32,16 @@ public class PlatformScript : MonoBehaviour
             gameObject.transform.position = positionB;
             posA = false;
             posB = true;
+
+            bCollider.enabled = false;
         }
         else
         {
             gameObject.transform.position = positionA;
             posA = true;
             posB = false;
+
+            bCollider.enabled = true;
         }
     }
 
@@ -44,12 +52,16 @@ public class PlatformScript : MonoBehaviour
             gameObject.transform.position = positionB;
             posA = false;
             posB = true;
+
+            bCollider.enabled = false;
         }
         else
         {
             gameObject.transform.position = positionA;
             posA = true;
             posB = false;
+
+            bCollider.enabled = true;
         }
     }
 }

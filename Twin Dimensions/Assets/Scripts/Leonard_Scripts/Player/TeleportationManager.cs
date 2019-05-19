@@ -31,7 +31,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     [FoldoutGroup("Cameras")][SerializeField]
     CinemachineVirtualCamera world2VirtualCam;
 
-    bool isTeleporting = false;
+    public static bool isTeleporting = false;
     public static bool hasTeleported = false; //avoids looping the Teleport to hook function
 
     Animator anim;
@@ -121,7 +121,7 @@ public class TeleportationManager : SerializedMonoBehaviour
 
             if (teleportTimer > 0)
             {
-                teleportTimer -= Time.fixedUnscaledDeltaTime;
+                teleportTimer -= Time.deltaTime;
 
                 if (teleportTimer <= 0)
                 {

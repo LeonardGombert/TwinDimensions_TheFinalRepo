@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using StateData;
 
 public class DeathState : State<KaliBossAI>
@@ -61,3 +61,4 @@ public class DeathState : State<KaliBossAI>
         }
     }
 }
+*/

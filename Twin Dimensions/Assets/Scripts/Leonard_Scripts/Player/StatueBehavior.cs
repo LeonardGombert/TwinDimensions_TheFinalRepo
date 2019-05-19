@@ -44,12 +44,10 @@ public class StatueBehavior : SerializedMonoBehaviour
             if(PlayerInputManager.instance.GetKeyDown("kickStatue"))
             {
                 rb.AddForce(kickDirection * StatueManager.statueKickSpeed);
-                               
-                anim.SetFloat("animTypeX", 1);
-                anim.SetFloat("animTypeY", 0);
 
                 anim.SetFloat("xDirection", kickDirection.x);
                 anim.SetFloat("yDirection", kickDirection.y);
+                anim.SetTrigger("isPunching");
 
                 StatueManager.isPunchingStatue = false;
             }

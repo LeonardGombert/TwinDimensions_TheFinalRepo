@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
-[CreateAssetMenu(fileName = "Keybindings", menuName = "Keybindings")]
+[CreateAssetMenu(fileName = "New Keybinding Preset", menuName = "Keybindings/New Keybinding Preset")]
 public class KeybindingManager : SerializedScriptableObject
 {
     public KeyCode up;
