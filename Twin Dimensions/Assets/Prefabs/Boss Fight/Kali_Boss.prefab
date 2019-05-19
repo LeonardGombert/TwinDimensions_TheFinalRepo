@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 4093411064153633871}
   - component: {fileID: 4093411064153633870}
   m_Layer: 21
-  m_Name: Kali
+  m_Name: Kali_Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,7 +275,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1633913477
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c5de94a30f507ee4fbb6698a6e3aa2d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -319,6 +319,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f685ebc7ef88f448871a2a575fb809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   anim: {fileID: 4093411064153633871}
   player: {fileID: 0}
   bossStage: 1
@@ -336,6 +345,11 @@ MonoBehaviour:
   currentPlayerActiveSideCollider: {fileID: 0}
   timeHoldingSlam: 0
   timeToHoldSlam: 2.25
+  slamLeftCollider: {fileID: 0}
+  slamRightCollider: {fileID: 0}
+  activeSlamSide: {fileID: 0}
+  timeHoldingLaser: 0
+  timeToHoldLaser: 1.5
   laserBeam: {fileID: 9119089477411283087}
   laserLeftPosition: {fileID: 121875324280031294}
   laserRightPosition: {fileID: 6336652632297933312}
@@ -344,8 +358,6 @@ MonoBehaviour:
   laserStartPosition: {fileID: 0}
   laserEndPosition: {fileID: 0}
   laserMoveTime: 4
-  timeHoldingLaser: 0
-  timeToHoldLaser: 1.5
   kaliBasePosition: {fileID: 0}
   sweepLeftPosition: {fileID: 0}
   sweepRightPosition: {fileID: 0}
@@ -493,7 +505,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1633913477
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 100
   m_Positions:
   - {x: 0, y: 0, z: 0}
