@@ -126,6 +126,8 @@ public class PlayerController : SerializedMonoBehaviour
         if (horizontal != 0 || vertical != 0)
         {
             playerIsMoving = true;
+
+            //FindObjectOfType<AudioManager>().Play("StepsForest");
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
@@ -226,7 +228,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
-        //if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
     }
 
     void OnTriggerStay2D(Collider2D collider)
@@ -239,12 +241,12 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
-        //if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_overProps_underEnemy";
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_overProps";
     }
     #endregion
     #endregion
