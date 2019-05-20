@@ -7,8 +7,6 @@ using Sirenix.Serialization;
 
 public class PortalManager : SerializedMonoBehaviour
 {
-    public static PortalManager instance;
-
     [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
@@ -45,18 +43,8 @@ public class PortalManager : SerializedMonoBehaviour
     
     public static bool hasUsedPortal = false;
 
-    void Awake()
+    void Start()
     {
-        if(instance == null)
-        {            
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(this);
-        }
-        DontDestroyOnLoad(this);
-
         player = GameObject.FindGameObjectWithTag("Player");
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
         

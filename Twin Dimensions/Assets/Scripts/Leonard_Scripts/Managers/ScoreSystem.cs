@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
+    public static ScoreSystem instance;
     int amountOfKills;
     int timeToComplete;
     int roomResets;
@@ -12,6 +13,13 @@ public class ScoreSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (instance == null)
+            instance = this;
+            
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
         
     }
 
