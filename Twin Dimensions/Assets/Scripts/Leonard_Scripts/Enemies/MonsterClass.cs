@@ -19,7 +19,7 @@ public class MonsterClass : SerializedMonoBehaviour
     [HideInInspector]
     public Animator anim;
 
-    private Vector3 playerDirection;
+    private Vector3 playerDirectionForClass;
 
     [HideInInspector]
     public GameObject player;
