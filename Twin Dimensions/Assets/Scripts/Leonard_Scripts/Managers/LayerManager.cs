@@ -5,9 +5,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
 public class LayerManager : SerializedMonoBehaviour
-{
-    public static LayerManager instance;
-
+{    
     //[FoldoutGroup("Enemies in Scene")][SerializeField]
     //List <GameObject> fillThisListWithEnemies;
     
@@ -15,16 +13,6 @@ public class LayerManager : SerializedMonoBehaviour
 
     void Awake()
     {
-        if(instance == null)
-        {            
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(this);
-        }
-        DontDestroyOnLoad(this);
-
         player = GameObject.FindGameObjectWithTag("Player");
         
         //fillThisListWithEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
