@@ -146,6 +146,13 @@ public class PlayerController : SerializedMonoBehaviour
             }                        
         }
 
+        if(TeleportationManager.isTeleporting == true)
+        {
+            anim.SetFloat("xDirection", 0);
+            anim.SetFloat("yDirection", 0);
+            anim.SetTrigger("isTeleporting");
+        }
+
         if(horizontal == 0 && vertical == 0)
         {
             playerIsMoving = false;
@@ -223,6 +230,7 @@ public class PlayerController : SerializedMonoBehaviour
     {
         if(collider.tag == "Sand")
         {
+            anim.SetTrigger("gainedSand");
             manager.gameObject.SendMessage("AddNewSandShard", 1);
             Destroy(collider.gameObject);
         }
@@ -254,7 +262,7 @@ public class PlayerController : SerializedMonoBehaviour
 
     void PlayerDied(Vector3 playerDirection)
     {
-        anim.SetBool("isGuarding", true);
+        anim.SetTrigger("isGuarding");
         anim.SetFloat("xDirection", playerDirection.x);
         anim.SetFloat("yDirection", playerDirection.y);
 
