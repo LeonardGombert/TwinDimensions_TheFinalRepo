@@ -77,7 +77,7 @@ public class SoundBank : MonoBehaviour
         if(TeleportationManager.isTeleporting) RandomizeSfx(playerTeleporting);
         if(StatueManager.isPlacingStatue) RandomizeSfx(playerSummoning);
         if(StatueManager.isPunchingStatue) RandomizeSfx(playerPunching);
-        if(GameMaster.playerIsDead) RandomizeSfx(playerDeath);
+        if(PlayerController.playerIsDead) RandomizeSfx(playerDeath);
 
         //ELEPHANT SFX
 

@@ -157,7 +157,8 @@ public class ElephantController : MonsterClass
                         {
                             lookingForWall = true;
                             isRushingPlayer = true;
-                            LookForWall(direction); 
+                            LookForWall(direction);
+                            rangeDetection.collider.gameObject.SendMessage("PlayerDied", playerDirection);
                         }
                         
                         else if (rangeDetection.collider.tag == "Statue")
