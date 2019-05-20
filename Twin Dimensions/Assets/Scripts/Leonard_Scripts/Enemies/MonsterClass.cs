@@ -19,8 +19,12 @@ public class MonsterClass : SerializedMonoBehaviour
     [HideInInspector]
     public Animator anim;
 
+    private Vector3 playerDirection;
+
     [HideInInspector]
     public GameObject player;
+    [HideInInspector]
+    public GameObject gameMaster;
 
     bool isBeingSwitchedByPriest;
     public static bool isBeingCharged;
@@ -127,7 +131,8 @@ public class MonsterClass : SerializedMonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            GameMaster.playerIsDead = true;
+            Debug.Log("I hit the Player");
+            PlayerController.playerIsDead = true;
         }
 
         if(collision.tag == "Statue")

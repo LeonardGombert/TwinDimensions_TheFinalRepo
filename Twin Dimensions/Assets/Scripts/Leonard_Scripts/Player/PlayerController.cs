@@ -48,6 +48,7 @@ public class PlayerController : SerializedMonoBehaviour
     GameObject manager;
     public static bool isBeingCharged = false;
     public static bool isInSlamRange;
+    public static bool playerIsDead = false;
     bool hasResetScene;    
     #endregion
 
@@ -250,4 +251,18 @@ public class PlayerController : SerializedMonoBehaviour
     }
     #endregion
     #endregion
+
+    void PlayerDied(Vector3 playerDirection)
+    {
+        anim.SetBool("isGuarding", true);
+        anim.SetFloat("xDirection", playerDirection.x);
+        anim.SetFloat("yDirection", playerDirection.y);
+
+        if(playerIsDead)
+        {
+            new WaitForSeconds(1);
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }        
+    }
 }
