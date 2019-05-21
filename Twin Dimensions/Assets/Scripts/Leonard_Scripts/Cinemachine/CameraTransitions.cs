@@ -143,4 +143,11 @@ public class CameraTransitions : MonoBehaviour
         cam1.gameObject.SetActive(true);
         cam2.gameObject.SetActive(false);        
     }
+
+    public static void ScreenshakeOnCharge()
+    {
+        Cinemachine.NoiseSettings.NoiseParams yes;
+        yes.Amplitude = 0.5f;
+        yes.Frequency = 9;
+    }
 }
