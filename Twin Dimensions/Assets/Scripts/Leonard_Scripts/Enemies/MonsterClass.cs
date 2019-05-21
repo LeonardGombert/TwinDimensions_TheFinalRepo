@@ -39,7 +39,7 @@ public class MonsterClass : SerializedMonoBehaviour
     GameObject sandToDrop;
     
     int amountOfSandToDrop;
-    ScoreSystem scoreSystem;
+    GameObject dontDestroyManager;
 
     // Start is called before the first frame update
     public virtual void Awake()
@@ -47,6 +47,7 @@ public class MonsterClass : SerializedMonoBehaviour
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
+        dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
     }
 
     // Update is called once per frame
@@ -149,22 +150,27 @@ public class MonsterClass : SerializedMonoBehaviour
 
         if(collision.tag == "Firebreather")        
         {
-            Debug.Log("The Firebreather hit " + gameObject.name);            
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            Debug.Log("The Firebreather hit " + gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);            
             GenerateSand(amountOfSandToDrop);
-            scoreSystem.gameObject.SendMessage("WasKilled", this.gameObject);
             Destroy(gameObject);
         }
 
         if(collision.tag == "Elephant")
         {
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Elephant hit " + gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
 
         if(collision.tag == "Trap")
         {
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Elephant hit " + collision.gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
