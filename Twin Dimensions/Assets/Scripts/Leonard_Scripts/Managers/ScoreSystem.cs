@@ -30,17 +30,17 @@ public class ScoreSystem : MonoBehaviour
 
         enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Elephant"));
         enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Firebreather"));
-        enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Activation Priest"));
-        enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Priest"));
+        enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("ActivationPriest"));
+        //enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Priest"));
         enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-
-        AmountOfEnemiesAtStart = enemiesInRoom.Count;
+        
+        AmountOfEnemiesAtStart = (int)enemiesInRoom.Count;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(playerCompletedLevel)
+        if(LevelExit.playerCompletedLevel)
         {
             AmountOfEnemiesAtEnd = enemiesInRoom.Count;
             amountOfKills = AmountOfEnemiesAtStart - AmountOfEnemiesAtEnd;
@@ -63,6 +63,7 @@ public class ScoreSystem : MonoBehaviour
 
     void WasKilled(GameObject killedObject)
     {
+        Debug.Log("yeet");
         enemiesInRoom.Remove(killedObject);
     }
 
