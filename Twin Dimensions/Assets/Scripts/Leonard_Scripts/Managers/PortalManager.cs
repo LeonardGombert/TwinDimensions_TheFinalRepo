@@ -158,7 +158,7 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void TeleportToHook(Vector3 towerPosition)
     {
-        player.transform.position = towerPosition;        
+        player.transform.position = new Vector3(towerPosition.x, towerPosition.y + .5f); //offsets player positing correctly 
         TeleportationManager.hasTeleported = false;
     }
 }
