@@ -136,7 +136,7 @@ public class ElephantController : MonsterClass
         {
             foreach (Vector3 direction in CardinalDirections)
             {
-                Debug.DrawRay(transform.position, direction, Color.green, 80f);
+                //Debug.DrawRay(transform.position, direction, Color.green, 80f);
                 if (lookingForPlayer == true && isCharging == false)
                 {
                     RaycastHit2D rangeDetection = RaycastManager(direction, lookingForPlayer);
@@ -157,7 +157,8 @@ public class ElephantController : MonsterClass
                         {
                             lookingForWall = true;
                             isRushingPlayer = true;
-                            LookForWall(direction); 
+                            LookForWall(direction);
+                            rangeDetection.collider.gameObject.SendMessage("PlayerDied", playerDirection);
                         }
                         
                         else if (rangeDetection.collider.tag == "Statue")
@@ -178,7 +179,7 @@ public class ElephantController : MonsterClass
         if (lookingForWall == true)
         {
             RaycastHit2D wallSeeker = RaycastManager(direction, lookingForWall);
-            Debug.DrawRay(transform.position, direction);
+            //Debug.DrawRay(transform.position, direction);
 
             if (wallSeeker.collider.tag == "Obstacle")
             {
