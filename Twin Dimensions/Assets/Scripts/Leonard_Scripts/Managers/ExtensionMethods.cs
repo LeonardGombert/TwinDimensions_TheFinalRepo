@@ -28,9 +28,7 @@ public class ExtensionMethods
         }
 
         else return 0;
-    }
-
-    
+    }   
     
     #region //USED BY ABILITY1, ABILITY2 and MOVEMENT
     //Get World Position

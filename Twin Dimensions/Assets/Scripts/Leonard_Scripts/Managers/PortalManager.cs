@@ -7,8 +7,6 @@ using Sirenix.Serialization;
 
 public class PortalManager : SerializedMonoBehaviour
 {
-    public static PortalManager instance;
-
     [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
@@ -45,18 +43,8 @@ public class PortalManager : SerializedMonoBehaviour
     
     public static bool hasUsedPortal = false;
 
-    void Awake()
+    void Start()
     {
-        if(instance == null)
-        {            
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(this);
-        }
-        DontDestroyOnLoad(this);
-
         player = GameObject.FindGameObjectWithTag("Player");
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
         
@@ -170,7 +158,7 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void TeleportToHook(Vector3 towerPosition)
     {
-        player.transform.position = towerPosition;        
+        player.transform.position = new Vector3(towerPosition.x, towerPosition.y + .5f); //offsets player positing correctly 
         TeleportationManager.hasTeleported = false;
     }
 }
