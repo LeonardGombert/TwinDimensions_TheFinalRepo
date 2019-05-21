@@ -6,8 +6,6 @@ using Sirenix.Serialization;
 
 public class SandManager : SerializedMonoBehaviour
 {
-    public static SandManager instance;
-
     List<List<GameObject>> BigList = new List<List<GameObject>>();
     [FoldoutGroup("SandHolder Lists")][SerializeField]
     List<GameObject> littleSand = new List<GameObject>();
@@ -33,18 +31,8 @@ public class SandManager : SerializedMonoBehaviour
     int sandRequiredForKey = 5;
     int myKeys = 0;
 
-    void Awake()
+    void Start()
     {
-        if(instance == null)
-        {            
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(this);
-        }
-        DontDestroyOnLoad(this);
-
         BigList.AddRange(new List<GameObject>[] { littleSand, mediumSand, highSand, extremeSand });
     }
 
