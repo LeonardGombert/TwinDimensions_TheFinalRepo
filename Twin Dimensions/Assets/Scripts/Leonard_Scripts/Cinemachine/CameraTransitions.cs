@@ -150,5 +150,6 @@ public class CameraTransitions : MonoBehaviour
     {
         noiseCam.Amplitude = 0.5f;
         noiseCam.Frequency = 9;
+        //Serializse Impulse Impulse.GenerateImpuse();
     }
 }
