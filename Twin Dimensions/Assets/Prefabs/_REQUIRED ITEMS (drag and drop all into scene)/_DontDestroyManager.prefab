@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5877728568504382138}
   m_Layer: 0
   m_Name: _DontDestroyManager
-  m_TagString: Untagged
+  m_TagString: DontDestroyManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,6 +58,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99483b900bc5480498e374a2a7a4eb8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AmountOfEnemiesAtStart: 0
+  AmountOfEnemiesAtEnd: 0
+  amountOfKills: 0
+  timeToComplete: 0
+  roomResets: 0
+  playerDeaths: 0
+  enemiesInRoom: []
 --- !u!114 &5877728568504382138
 MonoBehaviour:
   m_ObjectHideFlags: 0

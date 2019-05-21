@@ -46,10 +46,11 @@ public class PlayerController : SerializedMonoBehaviour
     BoxCollider2D boxCol2D;
     SpriteRenderer sr;
     GameObject manager;
+    GameObject dontDestroyManager;
     public static bool isBeingCharged = false;
     public static bool isInSlamRange;
     public static bool playerIsDead = false;
-    bool hasResetScene;    
+    public bool hasResetScene;    
     #endregion
 
     #region //LAYERS
@@ -85,6 +86,7 @@ public class PlayerController : SerializedMonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         manager = GameObject.FindGameObjectWithTag("Manager");
+        dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
     }
 
@@ -95,12 +97,12 @@ public class PlayerController : SerializedMonoBehaviour
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true) MonitorPlayerInpus();
 
-        // if(holdTime <= 0 && !hasResetScene) 
-        // {
-        //     hasResetScene = true;
-        //     holdTime = 0;
-        //     ResetScene();
-        // }
+        if(holdTime <= resetTime && !hasResetScene) 
+        {
+            hasResetScene = true;
+            holdTime = 0;
+            ResetScene();
+        }
     }
     #endregion
 
@@ -120,7 +122,7 @@ public class PlayerController : SerializedMonoBehaviour
         if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
 
         if (PlayerInputManager.instance.GetKey("resetScene")) holdTime -= Time.deltaTime;
-        if (PlayerInputManager.instance.GetKeyUp("resetScene")) holdTime = 0f;
+        //if (PlayerInputManager.instance.GetKeyUp("resetScene")) holdTime = 0f;
               
         if (horizontal != 0) vertical = 0;
 
@@ -204,24 +206,12 @@ public class PlayerController : SerializedMonoBehaviour
     #endregion
 
     #region //OTHER
-    void GuardStance()
-    {
-        if(isBeingCharged == true)
-        {
-            anim.SetFloat("animTypeX", 0);
-            anim.SetFloat("animTypeY", 1);
-
-            //Vector3 elephantDirection = (elephant.transform.position - transform.position).normalized;
-
-            //anim.SetFloat("xDirection", elephantDirection.x);
-            //anim.SetFloat("yDirection", elephantDirection.y);
-        }
-    }
-
     void ResetScene()
     {
-        Scene activeScene = SceneManager.GetActiveScene(); 
-        SceneManager.LoadScene(activeScene.name);         
+        dontDestroyManager.gameObject.SendMessage("PlayerResetRoom");
+        Scene scene = SceneManager.GetActiveScene(); 
+        hasResetScene = true;
+        SceneManager.LoadScene(scene.name);       
     }
     #endregion
 
@@ -268,6 +258,8 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(playerIsDead)
         {
+            dontDestroyManager.gameObject.SendMessage("PlayerDied");
+
             new WaitForSeconds(.5f);
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
