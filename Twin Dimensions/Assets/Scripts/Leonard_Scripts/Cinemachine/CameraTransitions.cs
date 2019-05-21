@@ -8,8 +8,6 @@ using Cinemachine.Editor;
 
 public class CameraTransitions : MonoBehaviour
 {
-    public static CameraTransitions instance;
-
     CinemachineVirtualCamera playerCamera; 
     CinemachineVirtualCamera generalZoomCamera;
     CinemachineVirtualCamera relativeZoomCamera;
@@ -35,17 +33,9 @@ public class CameraTransitions : MonoBehaviour
     float timeHeldDown;
     float minTimeToHoldDown = 7f;
 
-    void Awake()
+    void Start()
     {
-        if(instance == null)
-        {            
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(this);
-        }
-        DontDestroyOnLoad(this);
+
     }
 
     // Update is called once per frame

@@ -7,8 +7,6 @@ using Sirenix.OdinInspector;
 
 public class StatueManager : SerializedMonoBehaviour
 {
-    public static StatueManager instance;
-
     [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;
     [FoldoutGroup("Tilemap")][SerializeField]
@@ -34,18 +32,8 @@ public class StatueManager : SerializedMonoBehaviour
     public static bool isPunchingStatue = false;
     public static bool isInRange = false;
 
-    void Awake()
+    void Start()
     {
-        if(instance == null)
-        {            
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(this);
-        }
-        DontDestroyOnLoad(this);
-
         player = GameObject.FindWithTag("Player");
         anim = GameObject.FindWithTag("Player").GetComponent<Animator>();
         
@@ -88,7 +76,6 @@ public class StatueManager : SerializedMonoBehaviour
 
             if(Input.GetMouseButtonDown(0)){isPlacingStatue = true; isSelectingStatueLocation = false;}
         }
-        
     }
 
     private void PlaceStatue(LayerMask layer)
