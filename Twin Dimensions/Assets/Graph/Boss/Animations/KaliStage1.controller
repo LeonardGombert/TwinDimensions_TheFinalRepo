@@ -811,9 +811,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.625
+  m_ExitTime: 1
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -983,7 +983,13 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: SlamAttack
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: slamLeft
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102794606852598136}
   m_Solo: 0
@@ -992,7 +998,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
-  m_ExitTime: 0.625
+  m_ExitTime: 0.75
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1033,6 +1039,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: SlamAttack
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: slamRight
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102724729928841160}
@@ -1365,7 +1374,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: S1_SlamHold 1
+  m_Name: S1_SlamHoldLeft
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1771,7 +1780,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: S1_SlamAttack
+  m_Name: S1_SlamAttackRight
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1826,7 +1835,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: S1_SlamHold
+  m_Name: S1_SlamHoldRight
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2239,7 +2248,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: S1_SlamStart
+  m_Name: S1_SlamStartRight
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2320,7 +2329,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: S1_SlamStart 1
+  m_Name: S1_SlamStartLeft
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2428,7 +2437,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: S1_SlamAttack 1
+  m_Name: S1_SlamAttackLeft
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2556,7 +2565,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 156, y: 96, z: 0}
-  m_EntryPosition: {x: -156, y: -312, z: 0}
+  m_EntryPosition: {x: -180, y: 0, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 1102401865841716478}
+  m_DefaultState: {fileID: 1102319989546455800}
