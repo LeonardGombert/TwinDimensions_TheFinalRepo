@@ -19,7 +19,7 @@ public class MonsterClass : SerializedMonoBehaviour
     [HideInInspector]
     public Animator anim;
 
-    private Vector3 playerDirection;
+    private Vector3 playerDirectionForClass;
 
     [HideInInspector]
     public GameObject player;
@@ -39,6 +39,7 @@ public class MonsterClass : SerializedMonoBehaviour
     GameObject sandToDrop;
     
     int amountOfSandToDrop;
+    ScoreSystem scoreSystem;
 
     // Start is called before the first frame update
     public virtual void Awake()
@@ -148,8 +149,9 @@ public class MonsterClass : SerializedMonoBehaviour
 
         if(collision.tag == "Firebreather")        
         {
-            Debug.Log("The Firebreather hit " + gameObject.name);
+            Debug.Log("The Firebreather hit " + gameObject.name);            
             GenerateSand(amountOfSandToDrop);
+            scoreSystem.gameObject.SendMessage("WasKilled", this.gameObject);
             Destroy(gameObject);
         }
 
