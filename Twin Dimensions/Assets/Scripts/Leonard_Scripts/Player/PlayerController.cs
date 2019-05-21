@@ -134,7 +134,7 @@ public class PlayerController : SerializedMonoBehaviour
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
 
             RaycastHit2D hit = Physics2D.Raycast(boxCol2D.bounds.center, destinationPosition2, 1, selectedLayerMask);
-            Debug.DrawRay(boxCol2D.bounds.center, destinationPosition2, Color.green, 800);
+            //Debug.DrawRay(boxCol2D.bounds.center, destinationPosition2, Color.green, 800);
 
             if(hit.collider) if(hit.collider.tag == "Obstacle") return;
 
@@ -144,6 +144,13 @@ public class PlayerController : SerializedMonoBehaviour
                 microMovementCooldown(movementCooldown);
                 MovementCalculations(horizontal, vertical);                
             }                        
+        }
+
+        if(TeleportationManager.isTeleporting == true)
+        {
+            anim.SetFloat("xDirection", 0);
+            anim.SetFloat("yDirection", 0);
+            anim.SetTrigger("isTeleporting");
         }
 
         if(horizontal == 0 && vertical == 0)
@@ -223,6 +230,7 @@ public class PlayerController : SerializedMonoBehaviour
     {
         if(collider.tag == "Sand")
         {
+            anim.SetTrigger("gainedSand");
             manager.gameObject.SendMessage("AddNewSandShard", 1);
             Destroy(collider.gameObject);
         }
@@ -254,13 +262,13 @@ public class PlayerController : SerializedMonoBehaviour
 
     void PlayerDied(Vector3 playerDirection)
     {
-        anim.SetBool("isGuarding", true);
+        anim.SetTrigger("isGuarding");
         anim.SetFloat("xDirection", playerDirection.x);
         anim.SetFloat("yDirection", playerDirection.y);
 
         if(playerIsDead)
         {
-            new WaitForSeconds(1);
+            new WaitForSeconds(.5f);
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
         }        
