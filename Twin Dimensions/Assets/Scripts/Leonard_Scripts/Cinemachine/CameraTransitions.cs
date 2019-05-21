@@ -13,6 +13,8 @@ public class CameraTransitions : MonoBehaviour
     CinemachineVirtualCamera relativeZoomCamera;
     CinemachineVirtualCamera otherWorldCam;
 
+    [FoldoutGroup("Yes")][SerializeField] Cinemachine.NoiseSettings.NoiseParams yes;
+
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera world1PlayerCamera;
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
@@ -144,10 +146,9 @@ public class CameraTransitions : MonoBehaviour
         cam2.gameObject.SetActive(false);        
     }
 
-    public static void ScreenshakeOnCharge()
+    public static void ScreenshakeOnCharge(CinemachineVirtualCamera cam2, Cinemachine.NoiseSettings.NoiseParams noiseCam)
     {
-        Cinemachine.NoiseSettings.NoiseParams yes;
-        yes.Amplitude = 0.5f;
-        yes.Frequency = 9;
+        noiseCam.Amplitude = 0.5f;
+        noiseCam.Frequency = 9;
     }
 }
