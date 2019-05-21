@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 89274831}
   - component: {fileID: 89274833}
   - component: {fileID: 89274834}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Left Side
   m_TagString: Slam Attack
   m_Icon: {fileID: 0}
@@ -999,25 +999,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 7776813077118386919, guid: 83cb38e2a3f684d4e9decc5441e44025,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7776813077323024850, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7776813077323024681, guid: 83cb38e2a3f684d4e9decc5441e44025,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 3844663
-      objectReference: {fileID: 0}
-    - target: {fileID: 7776813076254739711, guid: 83cb38e2a3f684d4e9decc5441e44025,
-        type: 3}
-      propertyPath: m_Lens.OrthographicSize
-      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 647591239002074047, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
@@ -1037,6 +1022,21 @@ PrefabInstance:
     - target: {fileID: 647591239002074047, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
       propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813076254739711, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077323024681, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 3844663
+      objectReference: {fileID: 0}
+    - target: {fileID: 7776813077118386919, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1363,7 +1363,7 @@ GameObject:
   - component: {fileID: 1981117534}
   - component: {fileID: 1981117536}
   - component: {fileID: 1981117537}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Right Side
   m_TagString: Slam Attack
   m_Icon: {fileID: 0}
@@ -16863,7 +16863,7 @@ MonoBehaviour:
   anim: {fileID: 8016117418589772105}
   player: {fileID: 1484502892}
   kaliStatue: {fileID: 5234040764275865127}
-  bossStage: 1
+  bossStage: 0
   Stage1CurrentState: 0
   Stage2CurrentState: 0
   attackState: 0
@@ -17044,3 +17044,72 @@ Transform:
   m_Father: {fileID: 8016117418589772107}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &8880392798051313353
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8880392797776521498, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_Name
+      value: Elephant Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880392797776521501, guid: 5ddd8578518bb2441809dc80f700bc57,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5ddd8578518bb2441809dc80f700bc57, type: 3}

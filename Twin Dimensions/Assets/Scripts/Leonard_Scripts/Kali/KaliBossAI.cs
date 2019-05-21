@@ -107,10 +107,9 @@ public class KaliBossAI : SerializedMonoBehaviour
         if(Input.GetKeyDown(KeyCode.F))
         {
             lifePoints -= damageValue;
-            //StartCoroutine(StateSwitch());
+            StartCoroutine(StateSwitch(4));
         }
 
-        //stateMachine.Update();
         StateSwitching();
 
         WatchForStageChange();
@@ -131,16 +130,18 @@ public class KaliBossAI : SerializedMonoBehaviour
 
         if (activeSlamSide == rightMapDetectionCollider)
         {
-            anim.SetBool("slamRight", true);
-            anim.SetBool("slamLeft", false);
+            anim.SetBool("slamLeft", true);
+            anim.SetBool("slamRight", false);
+            
             // slamRightCollider.gameObject.SetActive(true);
             // slamLeftCollider.gameObject.SetActive(false);
         }
 
         else if (activeSlamSide == leftMapDetectionCollider)
         {
-            anim.SetBool("slamLeft", true);
-            anim.SetBool("slamRight", false);
+            anim.SetBool("slamRight", true);
+            anim.SetBool("slamLeft", false);
+            
             //slamLeftCollider.gameObject.SetActive(true);
             //slamRightCollider.gameObject.SetActive(false);
         }

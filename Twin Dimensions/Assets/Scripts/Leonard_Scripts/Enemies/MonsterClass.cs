@@ -35,8 +35,7 @@ public class MonsterClass : SerializedMonoBehaviour
 
     public static bool isOnMyLayer = false;
 
-    [FoldoutGroup("Sand")][SerializeField] 
-    GameObject sandToDrop;
+    [FoldoutGroup("Sand")][SerializeField] GameObject sandToDrop;
     
     int amountOfSandToDrop;
     GameObject dontDestroyManager;

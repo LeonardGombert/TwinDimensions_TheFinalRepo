@@ -335,4 +335,9 @@ public class ElephantController : MonsterClass
         //if(isDead== true) SoundManager.instance.RandomizeSfx(deathSounds);
         else return;
     }
+
+    void OnDestroy()
+    {
+        ElephantSpawnPoint.canSpawnElephant = true;
+    }
 }
