@@ -122,7 +122,6 @@ public class PlayerController : SerializedMonoBehaviour
         if(PlayerInputManager.instance.GetKey("right")) horizontal = 1;
 
         if (PlayerInputManager.instance.GetKey("resetScene")) holdTime -= Time.deltaTime;
-        //if (PlayerInputManager.instance.GetKeyUp("resetScene")) holdTime = 0f;
               
         if (horizontal != 0) vertical = 0;
 
