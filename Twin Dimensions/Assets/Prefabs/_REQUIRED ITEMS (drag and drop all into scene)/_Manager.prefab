@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1452998247321029631}
   - component: {fileID: 1452998247321029626}
   - component: {fileID: 1452998247321029629}
+  - component: {fileID: 2963865380044858394}
   - component: {fileID: 1452998247321029627}
   - component: {fileID: 1452998247321029624}
   - component: {fileID: 4681297715056189333}
@@ -82,6 +83,31 @@ MonoBehaviour:
   - {fileID: 3699419212462434927, guid: 408653c7ffd59db47a25faccb358d8fd, type: 3}
   world2Statue:
   - {fileID: 4287817259120952189, guid: 4ddbfe574d6ba7b4abde61744596ea32, type: 3}
+--- !u!114 &2963865380044858394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452998247321029600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b75814ee7c08c47924c302ed51b02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  index: 0
+  levelName: 
+  black: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &1452998247321029627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2fb6d36716b39458af86dc9d0e4d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yes:
+    Frequency: 0
+    Amplitude: 0
+    Constant: 0
   world1PlayerCamera: {fileID: 0}
   world1RelativeZoom: {fileID: 0}
   world1GeneralZoom: {fileID: 0}

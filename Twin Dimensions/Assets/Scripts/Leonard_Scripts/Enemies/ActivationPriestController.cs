@@ -30,4 +30,12 @@ public class ActivationPriestController : MonsterClass
             Enemy.gameObject.SendMessage("SwitchedByPriest", true);
         }
     }
+    
+    void OnDestroy()
+    {
+        foreach (GameObject Enemy in hitEnemies)
+        {
+            Enemy.gameObject.SendMessage("SwitchedByPriest", false);
+        }
+    }
 }
