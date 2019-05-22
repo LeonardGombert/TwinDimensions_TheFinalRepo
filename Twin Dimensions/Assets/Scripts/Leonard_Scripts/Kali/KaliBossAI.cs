@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using StateData;
 
 public class KaliBossAI : SerializedMonoBehaviour
 { 
@@ -11,7 +10,7 @@ public class KaliBossAI : SerializedMonoBehaviour
     #region //GENERAL
     [FoldoutGroup("General")][SerializeField] Animator anim;
     [FoldoutGroup("General")][SerializeField] GameObject player;
-    //public StateMachine<KaliBossAI> stateMachine { get; set; }
+    [FoldoutGroup("General")][SerializeField] GameObject kaliStatue;
     #endregion
 
     #region //BOSS STATES AND STAGES
@@ -99,9 +98,6 @@ public class KaliBossAI : SerializedMonoBehaviour
         anim = GetComponent<Animator>();
 
         sweepCurrentPosition = this.gameObject.transform;
-        //playerSideDetectionColliders.AddRange(new GameObject[] {rightSlamAttackBoxCol2D, leftSlamAttackBoxCol2D});
-        //stateMachine = new StateMachine<KaliBossAI>(this);
-        //stateMachine.ChangeState(IdleState.Instance);
     }
 
     // Update is called once per frame
@@ -111,10 +107,9 @@ public class KaliBossAI : SerializedMonoBehaviour
         if(Input.GetKeyDown(KeyCode.F))
         {
             lifePoints -= damageValue;
-            //StartCoroutine(StateSwitch());
+            StartCoroutine(StateSwitch(4));
         }
 
-        //stateMachine.Update();
         StateSwitching();
 
         WatchForStageChange();
@@ -135,17 +130,18 @@ public class KaliBossAI : SerializedMonoBehaviour
 
         if (activeSlamSide == rightMapDetectionCollider)
         {
-            anim.SetBool("slamRight", true);
-            anim.SetBool("slamLeft", false);
+            anim.SetBool("slamLeft", true);
+            anim.SetBool("slamRight", false);
+            
             // slamRightCollider.gameObject.SetActive(true);
             // slamLeftCollider.gameObject.SetActive(false);
         }
 
         else if (activeSlamSide == leftMapDetectionCollider)
         {
-
-            anim.SetBool("slamLeft", true);
-            anim.SetBool("slamRight", false);
+            anim.SetBool("slamRight", true);
+            anim.SetBool("slamLeft", false);
+            
             //slamLeftCollider.gameObject.SetActive(true);
             //slamRightCollider.gameObject.SetActive(false);
         }
@@ -183,8 +179,7 @@ public class KaliBossAI : SerializedMonoBehaviour
     #region //ATTACK MANAGER
     void WatchForStageChange()
     {
-        if(lifePoints <= lifepointsToChangeState) bossStage = BossStages.Stage2;
-        //anim.SetTriggeer
+        if(lifePoints <= lifepointsToChangeState){bossStage = BossStages.Stage2; anim.SetTrigger("isTransitioning");}
         else return;
     }
 
@@ -235,6 +230,20 @@ public class KaliBossAI : SerializedMonoBehaviour
         if(whichAttack == 2) StartCoroutine(LaserEyeBeam());
 
         Stage2CurrentState = S2BossStates.S2Idle;
+    }
+    #endregion
+
+    #region //STATS MANAGEMENT
+    void DealDamage(string damageType)
+    {
+        switch (damageType)
+        {
+            case "Elephant": Debug.Log("An Elephant Hit Me"); lifePoints = lifePoints - damageValue; break;
+
+            case "Yeetos": Debug.Log("A Yeetos Hit Me"); break;
+
+            default: Debug.Log("Wut in a bugger's dick is this?"); break;
+        }
     }
     #endregion
 
