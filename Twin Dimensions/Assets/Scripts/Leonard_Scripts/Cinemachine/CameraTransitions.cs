@@ -13,8 +13,6 @@ public class CameraTransitions : MonoBehaviour
     CinemachineVirtualCamera relativeZoomCamera;
     CinemachineVirtualCamera otherWorldCam;
 
-    [FoldoutGroup("Yes")][SerializeField] Cinemachine.NoiseSettings.NoiseParams yes;
-
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera world1PlayerCamera;
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
