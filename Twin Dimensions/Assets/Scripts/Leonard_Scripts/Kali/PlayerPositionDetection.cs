@@ -22,7 +22,6 @@ public class PlayerPositionDetection : MonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            PlayerController.isInSlamRange = true;
             if(KaliBossAI.isTrackingPlayerPosition) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
             else return;            
         }
@@ -32,7 +31,6 @@ public class PlayerPositionDetection : MonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            PlayerController.isInSlamRange = true;
             if(KaliBossAI.isTrackingPlayerPosition) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
             else return; 
         }
@@ -48,15 +46,15 @@ public class PlayerPositionDetection : MonoBehaviour
 
     void Slamming()
     {
-        if(PlayerController.isInSlamRange == true) Debug.Log(this.gameObject.name + " just smashed the player");
+        if(PlayerController.isInSlamRange == true) PlayerController.playerIsDead = true;//Debug.Log(this.gameObject.name + " just smashed the player");
 
         if(PlayerController.isInSlamRange == false) Debug.Log("I missed");
     }
 
     void Sweeping()
     {
-        //if(PlayerController.isInSlamRange == true) Debug.Log(this.gameObject.name + " just smashed the player");
+        if(PlayerController.isInSlamRange == true) PlayerController.playerIsDead = true;//Debug.Log(this.gameObject.name + " just smashed the player");
 
-        //if(PlayerController.isInSlamRange == false) Debug.Log("I missed");
+        if(PlayerController.isInSlamRange == false) Debug.Log("I missed");
     }
 }

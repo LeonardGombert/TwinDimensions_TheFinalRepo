@@ -81,6 +81,7 @@ public class PlayerController : SerializedMonoBehaviour
     #region Monobehavior Callbacks
     private void Awake()
     {
+        playerIsDead = false;
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
@@ -96,7 +97,7 @@ public class PlayerController : SerializedMonoBehaviour
     {
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
-        if(canMove == true) MonitorPlayerInpus();
+        if(canMove == true && !TeleportationManager.hasTeleported) MonitorPlayerInpus();
 
         if(holdTime <= resetTime && !hasResetScene) 
         {
@@ -104,6 +105,8 @@ public class PlayerController : SerializedMonoBehaviour
             holdTime = 0;
             ResetScene();
         }
+
+        if(playerIsDead) Death();
     }
     #endregion
 
@@ -232,12 +235,6 @@ public class PlayerController : SerializedMonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.tag == "Sand")
-        {
-            manager.gameObject.SendMessage("AddNewSandShard", 1);
-            Destroy(collider.gameObject);
-        }
-
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
@@ -255,14 +252,13 @@ public class PlayerController : SerializedMonoBehaviour
         anim.SetTrigger("isGuarding");
         anim.SetFloat("xDirection", playerDirection.x);
         anim.SetFloat("yDirection", playerDirection.y);
+    }
 
-        if(playerIsDead)
-        {
-            dontDestroyManager.gameObject.SendMessage("PlayerDied");
-
-            new WaitForSeconds(.5f);
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
-        }        
+    void Death()
+    {
+        dontDestroyManager.gameObject.SendMessage("PlayerDied");
+        new WaitForSeconds(.5f);
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }
