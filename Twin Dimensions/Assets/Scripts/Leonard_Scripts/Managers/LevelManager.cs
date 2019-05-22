@@ -44,7 +44,9 @@ public class LevelManager : SerializedMonoBehaviour
         else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    void LoadNextLevel()
+    public void ReachedExit()
     {
+        playerCompletedLevel = true;
+        StartCoroutine(Fading());
     }
 }
