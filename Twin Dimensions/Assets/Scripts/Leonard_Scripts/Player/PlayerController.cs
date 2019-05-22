@@ -28,10 +28,15 @@ public class PlayerController : SerializedMonoBehaviour
     [FoldoutGroup("Player Movement")][SerializeField]
     public static float playerMovementSpeed;
 
+    int horizontal = 0;
+    int vertical = 0;
+
     public static bool canMove = true;
     public static bool playerIsMoving = false;
     bool playerHasMoved = false;
     bool movementIsCoolingDown = false;
+
+    public static bool cinematicMoveUp;
     #endregion
 
     #region //GENERAL VARIABLES
@@ -81,6 +86,7 @@ public class PlayerController : SerializedMonoBehaviour
     #region Monobehavior Callbacks
     private void Awake()
     {
+        cinematicMoveUp = false;
         playerIsDead = false;
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
@@ -99,6 +105,8 @@ public class PlayerController : SerializedMonoBehaviour
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true && !TeleportationManager.hasTeleported) MonitorPlayerInpus();
 
+        if(cinematicMoveUp);
+        
         if(holdTime <= resetTime && !hasResetScene) 
         {
             hasResetScene = true;
@@ -117,8 +125,8 @@ public class PlayerController : SerializedMonoBehaviour
         //Movement Overrides all other functions
         if (playerHasMoved || movementIsCoolingDown) return;
 
-        int horizontal = 0;
-        int vertical = 0;
+        horizontal = 0;
+        vertical = 0;
 
         if(PlayerInputManager.instance.GetKey("up")) vertical = 1;
         if(PlayerInputManager.instance.GetKey("down")) vertical = -1;
@@ -163,6 +171,14 @@ public class PlayerController : SerializedMonoBehaviour
             playerIsMoving = false;
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
+        }
+
+        if(cinematicMoveUp)
+        {
+            vertical = 10;
+            canMove = false;
+            microMovementCooldown(movementCooldown);
+            MovementCalculations(horizontal, vertical);
         }
     }
 
