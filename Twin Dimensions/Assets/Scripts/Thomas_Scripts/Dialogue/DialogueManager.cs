@@ -5,16 +5,17 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour {
 
-	public TextMesh nameText;
-	public TextMesh dialogueText;
+	public Text nameText;
+	public Text dialogueText;
 
 	public Animator animator;
 
-	private Queue<string> sentences;
+	private Queue<string> sentences = new Queue<string>();
 
 	// Use this for initialization
-	void Start () {
-		sentences = new Queue<string>();
+	void Start () 
+	{
+
 	}
 
 	public void StartDialogue (Dialogue dialogue)
