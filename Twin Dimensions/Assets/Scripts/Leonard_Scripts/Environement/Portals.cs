@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
 public class Portals : MonoBehaviour
-{    
+{
     GameObject manager;
     bool isInteracting = false;
 
