@@ -148,7 +148,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4194103
 --- !u!114 &194053687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +188,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 1020339151}
   - component: {fileID: 1020339153}
   - component: {fileID: 1020339152}
+  - component: {fileID: 1020339154}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -476,6 +477,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020339150}
   m_CullTransparentMesh: 0
+--- !u!114 &1020339154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020339150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a047082bd2e7d4f83414b0a13606d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: The Brother
+    sentences:
+    - 
+    - 
+    - 
+    englishSentences:
+    - '[Name of our character]... I am trapped... I need your help sister !'
+    - It is a long story, but Khalee hold me hostage in her realm...
+    - Please... You must fight her !!!
+    frenchSentences: []
 --- !u!1 &1145596566
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 1845476597}
-  dialogueText: {fileID: 1693065541}
+  dialogueText: {fileID: 1020339152}
   animator: {fileID: 1741239113}
 --- !u!4 &1228552699
 Transform:
@@ -969,7 +993,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d81912744802a764e8879de5abbcd8ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b5c1af382305ee6458ef219e2c45eaa9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1018,7 +1042,6 @@ GameObject:
   - component: {fileID: 1743615521}
   - component: {fileID: 1743615520}
   - component: {fileID: 1743615523}
-  - component: {fileID: 1743615524}
   m_Layer: 5
   m_Name: TestButton
   m_TagString: Untagged
@@ -1086,7 +1109,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1743615524}
+      - m_Target: {fileID: 0}
         m_MethodName: TriggerDialogue
         m_Mode: 1
         m_Arguments:
@@ -1151,24 +1174,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.272}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
---- !u!114 &1743615524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743615518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a047082bd2e7d4f83414b0a13606d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue:
-    name: The Brother
-    sentences:
-    - '[Name of our character]... I am trapped... I need your help sister !'
-    - It is a long story, but Khalee hold me hostage in her realm...
-    - Please... You must fight her !!!
 --- !u!1 &1845476595
 GameObject:
   m_ObjectHideFlags: 0

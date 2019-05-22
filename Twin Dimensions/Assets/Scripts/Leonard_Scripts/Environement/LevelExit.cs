@@ -7,12 +7,12 @@ using Sirenix.Serialization;
 
 public class LevelExit : SerializedMonoBehaviour
 {
-    [ShowInInspector] public static bool playerCompletedLevel = false;
+    GameObject manager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        manager = GameObject.FindGameObjectWithTag("Manager");
     }
 
     // Update is called once per frame
@@ -25,8 +25,7 @@ public class LevelExit : SerializedMonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            playerCompletedLevel = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            manager.gameObject.SendMessage("ReachedExit");
         }
     }
 }
