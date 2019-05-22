@@ -7,7 +7,7 @@ using Sirenix.Serialization;
 
 public class LevelExit : SerializedMonoBehaviour
 {
-    [ShowInInspector] public static bool playerCompletedLevel = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +25,7 @@ public class LevelExit : SerializedMonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            playerCompletedLevel = true;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            
         }
     }
 }

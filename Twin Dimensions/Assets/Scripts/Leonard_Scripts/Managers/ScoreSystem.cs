@@ -42,7 +42,7 @@ public class ScoreSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(LevelExit.playerCompletedLevel)
+        if(LevelManager.playerCompletedLevel)
         {
             AmountOfEnemiesAtEnd = enemiesInRoom.Count;
             amountOfKills = AmountOfEnemiesAtStart - AmountOfEnemiesAtEnd;
