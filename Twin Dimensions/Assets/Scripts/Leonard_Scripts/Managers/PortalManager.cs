@@ -37,6 +37,8 @@ public class PortalManager : SerializedMonoBehaviour
     Vector3 worldMousePosition;
     Vector3Int currentPortalSelected;
     Vector3Int previousPortalSelected;
+    
+    [SerializeField] ParticleSystem ps;
 
     int currentIndexNumber = 0;
     int maxIndexNmber = 0;
@@ -106,14 +108,19 @@ public class PortalManager : SerializedMonoBehaviour
     {
         currentPortalSelected = movementTilemap.WorldToCell(currentWorldPortal[currentIndexNumber].transform.position);
 
+        ps.transform.position = currentPortalSelected;
+
         if (currentPortalSelected != previousPortalSelected)
         {
+            ps.Play();
             movementTilemap.SetTile(currentPortalSelected, highlightTile);
 
             movementTilemap.SetTile(previousPortalSelected, null);
 
             previousPortalSelected = currentPortalSelected;
-        } 
+        }
+        
+        ps.Stop();
 
         if(PlayerInputManager.instance.GetKeyDown("selectedPortalExit"))
         {
