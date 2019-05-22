@@ -45,9 +45,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eca3ffc14a13e14faafada7edc2f549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  spiritWorldVisuals: {fileID: 0}
+  realWorldVisuals: {fileID: 0}
+  spriteList: []
   sr: {fileID: 8792020596287759742}
   anim: {fileID: 8792020596287759729}
+  player: {fileID: 0}
+  gameMaster: {fileID: 0}
+  sandToDrop: {fileID: 0}
+  hitEnemies: []
 --- !u!61 &8792020594488994056
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -72,7 +87,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 7, y: 7}
   m_EdgeRadius: 0
 --- !u!1 &8792020596287759731
 GameObject:
@@ -141,7 +156,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1633913477
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d09ad99725b8dbd4e9d8067101d5bdb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

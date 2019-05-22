@@ -16,11 +16,9 @@ public class Portals : MonoBehaviour
 
     void Update()
     {
-        if(PlayerInputManager.instance.GetKey("interactionKey"))
-        { 
-            isInteracting = true;
-        }
-        else 
+        if(PlayerInputManager.instance.GetKey("interactionKey")) isInteracting = true;
+
+        if (PlayerInputManager.instance.GetKeyUp("interactionKey"))
         {
             isInteracting = false;
             PlayerController.canMove = true;
@@ -52,5 +50,10 @@ public class Portals : MonoBehaviour
                 PlayerController.canMove = false;
             }
         }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        isInteracting = false;
     }
 }
