@@ -235,12 +235,6 @@ public class PlayerController : SerializedMonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.tag == "Sand")
-        {
-            manager.gameObject.SendMessage("AddNewSandShard", 1);
-            Destroy(collider.gameObject);
-        }
-
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
