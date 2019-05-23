@@ -69,6 +69,10 @@ public class LayerManager : SerializedMonoBehaviour
 
         if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("Hook Layer 2")) return false;
 
+        if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("World Obstacle Detection 1")) return true;
+
+        if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("World Obstacle Detection 2")) return false;
+
         else return false;
     }
 
