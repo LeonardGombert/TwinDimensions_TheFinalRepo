@@ -64,6 +64,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   anim: {fileID: 0}
   player: {fileID: 0}
+  gameMaster: {fileID: 0}
   sandToDrop: {fileID: 0}
   lookingForPlayer: 1
   lookingForWall: 0
@@ -72,6 +73,7 @@ MonoBehaviour:
   chargeSpeed: 3
   chargeRadiusInTiles: 4
   highlightTile: {fileID: 11400000, guid: 5fee537ac051f824b9aa3d05c75464ae, type: 2}
+  movementTilemap: {fileID: 0}
   elephantCamera: {fileID: 7044332439007807756}
   playerCamera: {fileID: 0}
   world1Profile:
@@ -80,7 +82,10 @@ MonoBehaviour:
   world2Profile:
     serializedVersion: 2
     m_Bits: 2560
-  movementTilemap: {fileID: 0}
+  startCharging: []
+  chargeSounds: []
+  collisionSounds: []
+  deathSounds: []
 --- !u!50 &2815914251523049652
 Rigidbody2D:
   serializedVersion: 4
@@ -126,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.75}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &2815914252922998326
 GameObject:
@@ -195,7 +200,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1633913477
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 521ce6e343e0a844e9a8b9615cde189c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
