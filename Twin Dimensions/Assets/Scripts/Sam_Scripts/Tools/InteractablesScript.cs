@@ -22,7 +22,7 @@ public class InteractablesScript : MonoBehaviour
     public float requiredSand = 0f;
     SpriteRenderer sr;
 
-    void Awake ()
+    void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
 
@@ -44,41 +44,45 @@ public class InteractablesScript : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collider)
+    public void OnTriggerStay2D(Collider2D collider)
     {
-
         if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                interactable.SendMessage("Activated");
+                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                if (PlayerInputManager.instance.GetKeyDown("interactionKey")) interactable.SendMessage("Activated");
+                break;
             }
-
         }
 
         else if (activationType == ActivationType.Lever && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                interactable.SendMessage("Activated");
+                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                if (PlayerInputManager.instance.GetKeyDown("interactionKey")) interactable.SendMessage("Activated");
+                break;
             }
         }
 
         else if (activationType == ActivationType.Gong && collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
-                {
-                    interactable.SendMessage("Activated");
-                }
+            {
+                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                interactable.SendMessage("Activated");
+            }
         }
 
         else if (activationType == ActivationType.Receptacle && SandManager.mySandAmount >= requiredSand && collider.gameObject.CompareTag("Player"))
         {
             foreach (GameObject interactable in interactableObjects)
-                {
-
-                    interactable.SendMessage("Activated");
-                }
+            {
+                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                if (PlayerInputManager.instance.GetKeyDown("interactionKey")) interactable.SendMessage("Activated");
+                break;
+            }
         }
     }
 
