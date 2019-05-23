@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5654071091991458632}
   - component: {fileID: 5654071091991458633}
   - component: {fileID: 5654071091991458630}
+  - component: {fileID: 7955334946477518001}
   m_Layer: 13
   m_Name: DragonDemon_World 2
-  m_TagString: Enemy
+  m_TagString: Firebreather
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1633913477
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2c219ee323d21fe4e91c230ed17d9c3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -100,6 +101,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &7955334946477518001
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5654071091991458635}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.6875, y: 2.03125}
+    newSize: {x: 2.6875, y: 2.03125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
 --- !u!1 &5654071092823379912
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +142,7 @@ GameObject:
   - component: {fileID: 5654071092823379909}
   m_Layer: 13
   m_Name: DragonDemon_Functions
-  m_TagString: Untagged
+  m_TagString: Firebreather
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +185,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
 --- !u!50 &5654071092823379908
 Rigidbody2D:
@@ -189,7 +216,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5654071092823379912}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0ed2a5f5621e8d04f8c37bbeec36ae61, type: 2}
   m_CullingMode: 0
@@ -228,3 +255,5 @@ MonoBehaviour:
   sr: {fileID: 0}
   anim: {fileID: 0}
   player: {fileID: 0}
+  gameMaster: {fileID: 0}
+  sandToDrop: {fileID: 0}
