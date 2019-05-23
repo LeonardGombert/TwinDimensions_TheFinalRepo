@@ -11,13 +11,14 @@ public class LevelManager : SerializedMonoBehaviour
     [ShowInInspector] public static bool playerCompletedLevel = false;
     //public int index;
     //public string levelName;
-    public Image black;
-    public Animator anim;
+    Image black;
+    Animator anim;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        black = GameObject.FindGameObjectWithTag("LevelFadeAnim").GetComponent<Image>();
+        anim = GameObject.FindGameObjectWithTag("LevelFadeAnim").GetComponent<Animator>();
     }
 
     // Update is called once per frame

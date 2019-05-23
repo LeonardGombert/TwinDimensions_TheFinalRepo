@@ -23,6 +23,7 @@ public class InteractablesScript : MonoBehaviour
     public bool isOpen;
     SpriteRenderer sr;
     BoxCollider2D bxc;
+    
 
     void Awake()
     {
