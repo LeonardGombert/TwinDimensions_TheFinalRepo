@@ -20,11 +20,14 @@ public class InteractablesScript : MonoBehaviour
     public ActivationType activationType;
     public float requiredMass = 1f;
     public float requiredSand = 0f;
+    public bool isOpen;
     SpriteRenderer sr;
+    BoxCollider2D bxc;
 
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        bxc = GetComponent<BoxCollider2D>();
 
         if (activationType == ActivationType.Plate)
         {
@@ -33,10 +36,13 @@ public class InteractablesScript : MonoBehaviour
         else if (activationType == ActivationType.Lever)
         {
             sr.sprite = activationTypeSprite[1];
+            bxc.size = new Vector2 (3, 3);
         }
         else if (activationType == ActivationType.Gong)
         {
             sr.sprite = activationTypeSprite[2];
+            bxc.size = new Vector2 (2, 0.5f);
+            bxc.offset = new Vector2 (0, -1);
         }
         else if (activationType == ActivationType.Receptacle)
         {
@@ -46,13 +52,37 @@ public class InteractablesScript : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collider)
     {
-        if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
                 GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
-                if (PlayerInputManager.instance.GetKeyDown("interactionKey")) interactable.SendMessage("Activated");
+                if (PlayerInputManager.instance.GetKey("interactionKey") && isOpen == false)
+                {
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        isOpen = true;
+                        thing.SendMessage("Activated");
+                    }
+                }
+                if (PlayerInputManager.instance.GetKeyUp("interactionKey") && isOpen == true)
+                {
+                    foreach (GameObject thing2 in interactableObjects)
+                    {
+                        isOpen = false;
+                        thing2.SendMessage("Released");
+                    }
+
+                }
                 break;
+            }
+        }
+
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                interactable.SendMessage("Released");
             }
         }
 
@@ -61,7 +91,13 @@ public class InteractablesScript : MonoBehaviour
             foreach (GameObject interactable in interactableObjects)
             {
                 GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
-                if (PlayerInputManager.instance.GetKeyDown("interactionKey")) interactable.SendMessage("Activated");
+                if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
+                {
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        thing.SendMessage("Activated");
+                    }
+                }
                 break;
             }
         }
@@ -80,7 +116,13 @@ public class InteractablesScript : MonoBehaviour
             foreach (GameObject interactable in interactableObjects)
             {
                 GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
-                if (PlayerInputManager.instance.GetKeyDown("interactionKey")) interactable.SendMessage("Activated");
+                if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
+                {
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        thing.SendMessage("Activated");
+                    }
+                }
                 break;
             }
         }
@@ -88,7 +130,7 @@ public class InteractablesScript : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
