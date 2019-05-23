@@ -109,8 +109,6 @@ public class PortalManager : SerializedMonoBehaviour
     {
         currentPortalSelected = movementTilemap.WorldToCell(currentWorldPortal[currentIndexNumber].transform.position);
 
-        ps.transform.position = currentPortalSelected;
-
         if (currentPortalSelected != previousPortalSelected)
         {
             movementTilemap.SetTile(currentPortalSelected, highlightTile);
