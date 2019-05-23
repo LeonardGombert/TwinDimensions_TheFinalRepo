@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
+
 public class PlayerController : SerializedMonoBehaviour
 {
     #region Variable Decarations
@@ -27,10 +28,15 @@ public class PlayerController : SerializedMonoBehaviour
     [FoldoutGroup("Player Movement")][SerializeField]
     public static float playerMovementSpeed;
 
+    int horizontal = 0;
+    int vertical = 0;
+
     public static bool canMove = true;
     public static bool playerIsMoving = false;
     bool playerHasMoved = false;
     bool movementIsCoolingDown = false;
+
+    public static bool cinematicMoveUp;
     #endregion
 
     #region //GENERAL VARIABLES
@@ -80,6 +86,8 @@ public class PlayerController : SerializedMonoBehaviour
     #region Monobehavior Callbacks
     private void Awake()
     {
+        cinematicMoveUp = false;
+        playerIsDead = false;
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
@@ -95,14 +103,18 @@ public class PlayerController : SerializedMonoBehaviour
     {
         if(LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world1Profile;
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
-        if(canMove == true) MonitorPlayerInpus();
+        if(canMove == true && !TeleportationManager.hasTeleported) MonitorPlayerInpus();
 
+        if(cinematicMoveUp);
+        
         if(holdTime <= resetTime && !hasResetScene) 
         {
             hasResetScene = true;
             holdTime = 0;
             ResetScene();
         }
+
+        if(playerIsDead) Death();
     }
     #endregion
 
@@ -113,8 +125,8 @@ public class PlayerController : SerializedMonoBehaviour
         //Movement Overrides all other functions
         if (playerHasMoved || movementIsCoolingDown) return;
 
-        int horizontal = 0;
-        int vertical = 0;
+        horizontal = 0;
+        vertical = 0;
 
         if(PlayerInputManager.instance.GetKey("up")) vertical = 1;
         if(PlayerInputManager.instance.GetKey("down")) vertical = -1;
@@ -159,6 +171,14 @@ public class PlayerController : SerializedMonoBehaviour
             playerIsMoving = false;
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
+        }
+
+        if(cinematicMoveUp)
+        {
+            vertical = 10;
+            canMove = false;
+            microMovementCooldown(movementCooldown);
+            MovementCalculations(horizontal, vertical);
         }
     }
 
@@ -231,12 +251,6 @@ public class PlayerController : SerializedMonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.tag == "Sand")
-        {
-            manager.gameObject.SendMessage("AddNewSandShard", 1);
-            Destroy(collider.gameObject);
-        }
-
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
 
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
@@ -254,14 +268,13 @@ public class PlayerController : SerializedMonoBehaviour
         anim.SetTrigger("isGuarding");
         anim.SetFloat("xDirection", playerDirection.x);
         anim.SetFloat("yDirection", playerDirection.y);
+    }
 
-        if(playerIsDead)
-        {
-            dontDestroyManager.gameObject.SendMessage("PlayerDied");
-
-            new WaitForSeconds(.5f);
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
-        }        
+    void Death()
+    {
+        dontDestroyManager.gameObject.SendMessage("PlayerDied");
+        new WaitForSeconds(.5f);
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }
