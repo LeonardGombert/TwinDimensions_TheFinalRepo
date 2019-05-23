@@ -27,7 +27,7 @@ public class SandManager : SerializedMonoBehaviour
 
     int sandAmount;
 
-    int mySandAmount = 0;
+    public static int mySandAmount = 0;
     int sandRequiredForKey = 5;
     int myKeys = 0;
 
