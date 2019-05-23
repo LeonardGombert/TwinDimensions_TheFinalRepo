@@ -84,7 +84,7 @@ public class InteractablesScript : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
+        if (activationType == ActivationType.Plate)
         {
             foreach (GameObject interactable in interactableObjects)
             {
