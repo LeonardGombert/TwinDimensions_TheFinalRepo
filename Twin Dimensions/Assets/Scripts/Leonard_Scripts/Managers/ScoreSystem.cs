@@ -27,6 +27,8 @@ public class ScoreSystem : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+        
+        enemiesInRoom.Clear();
 
         enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Elephant"));
         enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Firebreather"));
@@ -40,7 +42,7 @@ public class ScoreSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(LevelExit.playerCompletedLevel)
+        if(LevelManager.playerCompletedLevel)
         {
             AmountOfEnemiesAtEnd = enemiesInRoom.Count;
             amountOfKills = AmountOfEnemiesAtStart - AmountOfEnemiesAtEnd;
@@ -63,7 +65,6 @@ public class ScoreSystem : MonoBehaviour
 
     void WasKilled(GameObject killedObject)
     {
-        Debug.Log("yeet");
         enemiesInRoom.Remove(killedObject);
     }
 

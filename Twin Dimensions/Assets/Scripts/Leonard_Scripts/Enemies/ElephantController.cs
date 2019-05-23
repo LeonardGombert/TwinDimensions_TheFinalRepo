@@ -240,6 +240,10 @@ public class ElephantController : MonsterClass
     #region  //CHARGE
     private IEnumerator Charging(Vector3 destination, Vector3 direction)
     {
+        Cinemachine.NoiseSettings.NoiseParams noiseCam;
+        noiseCam.Amplitude = 0.5f;
+        noiseCam.Frequency = 9;
+
         playerDirection = (target.position - transform.position).normalized;
 
         anim.SetFloat("MoveX", playerDirection.x);
@@ -330,5 +334,10 @@ public class ElephantController : MonsterClass
         //if(hasTouchedWall == true) SoundManager.instance.RandomizeSfx(collisionSounds);
         //if(isDead== true) SoundManager.instance.RandomizeSfx(deathSounds);
         else return;
+    }
+
+    void OnDestroy()
+    {
+        ElephantSpawnPoint.canSpawnElephant = true;
     }
 }
