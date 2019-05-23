@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7833093988027911758}
   - component: {fileID: 7833093988027911763}
   - component: {fileID: 7833093988027911762}
+  - component: {fileID: 6279987271489405905}
   m_Layer: 12
   m_Name: MiniPope_World 1
   m_TagString: ActivationPriest
@@ -45,9 +46,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eca3ffc14a13e14faafada7edc2f549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  spiritWorldVisuals: {fileID: 0}
+  realWorldVisuals: {fileID: 0}
+  spriteList: []
   sr: {fileID: 7833093989819466276}
   anim: {fileID: 7833093989819466283}
+  player: {fileID: 0}
+  gameMaster: {fileID: 0}
+  sandToDrop: {fileID: 0}
+  hitEnemies: []
 --- !u!61 &7833093988027911762
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -74,6 +90,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!58 &6279987271489405905
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7833093988027911761}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &7833093989819466281
 GameObject:
   m_ObjectHideFlags: 0
