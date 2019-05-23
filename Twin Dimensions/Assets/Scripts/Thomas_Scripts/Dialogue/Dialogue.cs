@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,6 +10,7 @@ public class Dialogue
 
 	[TextArea(3, 10)]
 	public string[] sentences;
+
 	[TextArea(3, 10)]
 	public string[] englishSentences;
 	[TextArea(3, 10)]
