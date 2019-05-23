@@ -18,7 +18,11 @@ public class CameraTransitions : MonoBehaviour
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera world1RelativeZoom;
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
+    CinemachineVirtualCamera exitCamera;
+    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera world1GeneralZoom;
+    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
+    CinemachineVirtualCamera previewWorld1;
 
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     CinemachineVirtualCamera world2Player2Camera;    
@@ -26,9 +30,8 @@ public class CameraTransitions : MonoBehaviour
     CinemachineVirtualCamera world2RelativeZoom;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     CinemachineVirtualCamera world2GeneralZoom;
-    
-    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
-    CinemachineVirtualCamera exitCamera;
+    [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
+    CinemachineVirtualCamera previewWorld2;
 
     float timeHeldDown;
     float minTimeToHoldDown = 7f;
@@ -42,7 +45,8 @@ public class CameraTransitions : MonoBehaviour
     void Update()
     {
         UpdateCameras();
-        PlayerLevelView();        
+        PlayerLevelView();
+        PreviewOtherWorld();
     }
 
     void UpdateCameras()
@@ -149,5 +153,40 @@ public class CameraTransitions : MonoBehaviour
         noiseCam.Amplitude = 0.5f;
         noiseCam.Frequency = 9;
         //Serializse Impulse --> Impulse.GenerateImpuse();
+    }
+
+    public void PreviewOtherWorld()
+    {
+        if(Input.GetKey(KeyCode.LeftControl))
+        {            
+            if(PlayerInputManager.instance.GetKey("previewOther"))
+            {
+                if(LayerManager.PlayerIsInRealWorld())
+                {
+                    playerCamera.gameObject.SetActive(false);
+                    previewWorld1.gameObject.SetActive(true);
+                    previewWorld2.gameObject.SetActive(false);
+                }
+
+            }
+
+            if(PlayerInputManager.instance.GetKeyUp("previewOther"))
+            {
+                if(!LayerManager.PlayerIsInRealWorld())
+                {
+                    playerCamera.gameObject.SetActive(false);
+                    previewWorld2.gameObject.SetActive(true);
+                    previewWorld1.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            playerCamera.gameObject.SetActive(true);
+            previewWorld2.gameObject.SetActive(false);
+            previewWorld1.gameObject.SetActive(false);
+            timeHeldDown = 0;
+        }
     }
 }

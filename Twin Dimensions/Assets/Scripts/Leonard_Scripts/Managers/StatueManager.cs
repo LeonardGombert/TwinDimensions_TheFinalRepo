@@ -99,7 +99,7 @@ public class StatueManager : SerializedMonoBehaviour
                 isPlacingStatue = false;
 
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                //mousePosition = (mousePosition - transform.position).normalized;
+                mousePosition = (mousePosition - transform.position).normalized;
                 Debug.Log(mousePosition);
 
                 anim.SetFloat("xDirection", mousePosition.x);
@@ -127,7 +127,7 @@ public class StatueManager : SerializedMonoBehaviour
                 isPlacingStatue = false;
 
                 Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                //mousePosition = (mousePosition - transform.position).normalized;
+                mousePosition = (mousePosition - transform.position).normalized;
                 Debug.Log(mousePosition);
 
                 anim.SetFloat("xDirection", mousePosition.x);
