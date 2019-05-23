@@ -38,19 +38,19 @@ public class InteractablesScript : MonoBehaviour
 
         if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
-                foreach (GameObject interactable in interactableObjects)
-                {
-                    interactable.SendMessage("Activated");
-                }
+            foreach (GameObject interactable in interactableObjects)
+            {
+                interactable.SendMessage("Activated");
+            }
 
         }
 
         else if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
-                {
-                    interactable.SendMessage("Activated");
-                }
+            {
+                interactable.SendMessage("Activated");
+            }
         }
     }
 
@@ -60,7 +60,7 @@ public class InteractablesScript : MonoBehaviour
         {
             foreach (GameObject interactable in interactableObjects)
             {
-            interactable.SendMessage("Released");
+                interactable.SendMessage("Released");
             }
         }
     }
