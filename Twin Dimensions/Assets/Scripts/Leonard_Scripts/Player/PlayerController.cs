@@ -20,7 +20,6 @@ public class PlayerController : SerializedMonoBehaviour
     Vector3 currentPosition;
     Vector3 desiredPosition;
     
-    
     [FoldoutGroup("Player Movement")][SerializeField]
     float movementCooldown = 0.3f;
     [FoldoutGroup("Player Movement")][SerializeField]
@@ -76,10 +75,10 @@ public class PlayerController : SerializedMonoBehaviour
     
     #region //SOUND EFFECTS
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkingSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] punchingSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] summoningSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] teleportationSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] deathSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip punchingSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip summoningSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip teleportationSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip deathSounds;
     #endregion
     #endregion
 
