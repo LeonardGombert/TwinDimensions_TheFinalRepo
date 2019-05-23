@@ -37,8 +37,6 @@ public class PortalManager : SerializedMonoBehaviour
     Vector3 worldMousePosition;
     Vector3Int currentPortalSelected;
     Vector3Int previousPortalSelected;
-    
-    [SerializeField] ParticleSystem ps;
 
     int currentIndexNumber = 0;
     int maxIndexNmber = 0;
@@ -51,7 +49,7 @@ public class PortalManager : SerializedMonoBehaviour
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
         
         currentActiveTower = insertBaseActiveTower;
-        inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));    
+        inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));    
         inactiveHookTowers.Remove(currentActiveTower);
         activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
     }
@@ -95,12 +93,15 @@ public class PortalManager : SerializedMonoBehaviour
         inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));
         inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
         inactiveHookTowers.Remove(currentActiveTower);
-
-        activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+        activeHookTowers.Add(currentActiveTower);
 
         foreach (GameObject tower in inactiveHookTowers)
         {
             tower.tag = "Inactive Hook Tower";
+        }
+        foreach (GameObject tower in activeHookTowers)
+        {
+            tower.tag = "Hook Tower";
         }
     }
 
@@ -108,19 +109,14 @@ public class PortalManager : SerializedMonoBehaviour
     {
         currentPortalSelected = movementTilemap.WorldToCell(currentWorldPortal[currentIndexNumber].transform.position);
 
-        ps.transform.position = currentPortalSelected;
-
         if (currentPortalSelected != previousPortalSelected)
         {
-            ps.Play();
             movementTilemap.SetTile(currentPortalSelected, highlightTile);
 
             movementTilemap.SetTile(previousPortalSelected, null);
 
             previousPortalSelected = currentPortalSelected;
         }
-        
-        ps.Stop();
 
         if(PlayerInputManager.instance.GetKeyDown("selectedPortalExit"))
         {
