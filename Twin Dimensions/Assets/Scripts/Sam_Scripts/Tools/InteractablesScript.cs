@@ -56,7 +56,7 @@ public class InteractablesScript : MonoBehaviour
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
                 if (PlayerInputManager.instance.GetKey("interactionKey") && isOpen == false)
                 {
                     foreach (GameObject thing in interactableObjects)
@@ -90,7 +90,7 @@ public class InteractablesScript : MonoBehaviour
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
                 if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
                 {
                     foreach (GameObject thing in interactableObjects)
@@ -106,7 +106,7 @@ public class InteractablesScript : MonoBehaviour
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
                 interactable.SendMessage("Activated");
             }
         }
@@ -115,7 +115,7 @@ public class InteractablesScript : MonoBehaviour
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
                 if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
                 {
                     foreach (GameObject thing in interactableObjects)
