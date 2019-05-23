@@ -8,6 +8,9 @@ using Cinemachine.Editor;
 
 public class CameraTransitions : MonoBehaviour
 {
+
+    public Camera world1Camera;
+    public Camera world2Camera;
     CinemachineVirtualCamera playerCamera; 
     CinemachineVirtualCamera generalZoomCamera;
     CinemachineVirtualCamera relativeZoomCamera;
@@ -25,7 +28,7 @@ public class CameraTransitions : MonoBehaviour
     CinemachineVirtualCamera previewWorld1;
 
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    CinemachineVirtualCamera world2Player2Camera;    
+    CinemachineVirtualCamera world2PlayerCamera;    
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     CinemachineVirtualCamera world2RelativeZoom;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
@@ -38,7 +41,7 @@ public class CameraTransitions : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -60,7 +63,7 @@ public class CameraTransitions : MonoBehaviour
         
         else if(!LayerManager.PlayerIsInRealWorld())
         {
-            playerCamera = world2Player2Camera;
+            playerCamera = world2PlayerCamera;
             relativeZoomCamera = world2RelativeZoom;
             generalZoomCamera = world2GeneralZoom;
         }
@@ -163,20 +166,21 @@ public class CameraTransitions : MonoBehaviour
             {
                 if(LayerManager.PlayerIsInRealWorld())
                 {
-                    playerCamera.gameObject.SetActive(false);
-                    previewWorld1.gameObject.SetActive(true);
-                    previewWorld2.gameObject.SetActive(false);
+                    world1PlayerCamera.gameObject.SetActive(false);
+                    world2PlayerCamera.gameObject.SetActive(true);
+                    previewWorld1.gameObject.SetActive(false);
+                    previewWorld2.gameObject.SetActive(true);
                 }
-
             }
 
             if(PlayerInputManager.instance.GetKeyUp("previewOther"))
             {
                 if(!LayerManager.PlayerIsInRealWorld())
                 {
-                    playerCamera.gameObject.SetActive(false);
-                    previewWorld2.gameObject.SetActive(true);
-                    previewWorld1.gameObject.SetActive(false);
+                    world1PlayerCamera.gameObject.SetActive(true);
+                    world2PlayerCamera.gameObject.SetActive(false);
+                    previewWorld1.gameObject.SetActive(true);
+                    previewWorld2.gameObject.SetActive(false);
                 }
             }
         }
