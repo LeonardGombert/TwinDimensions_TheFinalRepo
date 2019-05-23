@@ -25,17 +25,11 @@ public class ActivationPriestController : MonsterClass
     {
         hitEnemies.Add(collider.gameObject);
 
-        foreach (GameObject Enemy in hitEnemies)
-        {
-            Enemy.gameObject.SendMessage("SwitchedByPriest", true);
-        }
+        foreach (GameObject Enemy in hitEnemies) Enemy.gameObject.SendMessage("SwitchedByPriest", true);
     }
     
     void OnDestroy()
     {
-        foreach (GameObject Enemy in hitEnemies)
-        {
-            Enemy.gameObject.SendMessage("SwitchedByPriest", false);
-        }
+        foreach (GameObject Enemy in hitEnemies) Enemy.gameObject.SendMessage("SwitchedByPriest", false);
     }
 }
