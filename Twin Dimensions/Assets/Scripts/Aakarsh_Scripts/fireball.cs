@@ -23,5 +23,27 @@ public class fireball : MonoBehaviour
             Destroy(col.gameObject);
             Destroy(gameObject);
         }
+
+        if (col.gameObject.tag.Equals("Projectile"))
+        {
+            Destroy(col.gameObject);
+            Destroy(gameObject);
+        }
+
+        if (col.gameObject.tag.Equals("Obstacle"))
+        {
+            
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.tag.Equals("Elephant"))
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
     }
 }
