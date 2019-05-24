@@ -83,8 +83,8 @@ public class ElephantController : MonsterClass
     #region //SOUND EFFECTS
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] startCharging;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] chargeSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] collisionSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] deathSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] collision;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] dying;
     #endregion
     #endregion
 
