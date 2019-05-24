@@ -117,8 +117,6 @@ public class PlayerController : SerializedMonoBehaviour
         }
 
         if(playerIsDead) Death();
-
-        //if(PlayerInputManager.instance.GetKeyDown("interactionKey")) GUICameraController.MoveCameraToPosition(this.gameObject, this.gameObject.layer);
     }
     #endregion
 

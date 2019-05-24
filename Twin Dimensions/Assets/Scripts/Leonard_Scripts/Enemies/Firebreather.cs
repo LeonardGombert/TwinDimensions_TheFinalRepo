@@ -15,7 +15,7 @@ public class Firebreather : MonsterClass
     // Start is called before the first frame update
     public override void Awake ()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -28,6 +28,13 @@ public class Firebreather : MonsterClass
     {
         if(collider.gameObject.tag == "Elephant")
         {
+            //Instantiate(Fireball)
+            base.anim.SetBool("isActive", true);
+        }
+
+        if(collider.gameObject.tag == "Statue")
+        {
+            //Instantiate(Fireball)
             base.anim.SetBool("isActive", true);
         }
     }
