@@ -13,6 +13,8 @@ public class PortalManager : SerializedMonoBehaviour
     Tile highlightTile;
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     GameObject insertBaseActiveTower;
+    [FoldoutGroup("Insert Locked Portals")][SerializeField]
+    List<GameObject> lockedPortals = new List<GameObject>();
 
     [FoldoutGroup("DEBUG Portal Exits")][SerializeField]
     List<GameObject> world1Portals = new List<GameObject>();
@@ -52,6 +54,11 @@ public class PortalManager : SerializedMonoBehaviour
         inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));    
         inactiveHookTowers.Remove(currentActiveTower);
         activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+
+        foreach(GameObject portal in lockedPortals)
+        {
+            portal.gameObject.SendMessage("LockPortals");
+        }
     }
 
     // Update is called once per frame

@@ -27,7 +27,7 @@ public class SandManager : SerializedMonoBehaviour
 
     int sandAmount;
 
-    public static int mySandAmount = 0;
+    [ShowInInspector] public static int playerSandAmount = 0;
     int sandRequiredForKey = 5;
     int myKeys = 0;
 
@@ -44,13 +44,13 @@ public class SandManager : SerializedMonoBehaviour
 
     void AddNewSandShard(int sandGained)
     {
-        mySandAmount = mySandAmount + sandGained;
+        playerSandAmount = playerSandAmount + sandGained;
 
-        Debug.Log("I've currently got " + mySandAmount + " sand shards");
+        Debug.Log("I've currently got " + playerSandAmount + " sand shards");
 
-        if(mySandAmount == sandRequiredForKey)
+        if(playerSandAmount == sandRequiredForKey)
         {
-            mySandAmount = 0;
+            playerSandAmount = 0;
             myKeys += 1;
             Debug.Log("I've currently got " + myKeys + " keys");
         }
