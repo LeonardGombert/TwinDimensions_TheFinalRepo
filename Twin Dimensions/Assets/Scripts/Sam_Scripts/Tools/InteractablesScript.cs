@@ -37,7 +37,6 @@ public class InteractablesScript : MonoBehaviour
         else if (activationType == ActivationType.Lever)
         {
             sr.sprite = activationTypeSprite[1];
-            bxc.size = new Vector2 (3, 3);
         }
         else if (activationType == ActivationType.Gong)
         {
