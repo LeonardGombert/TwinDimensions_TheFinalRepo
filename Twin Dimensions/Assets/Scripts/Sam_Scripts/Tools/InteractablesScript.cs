@@ -23,6 +23,7 @@ public class InteractablesScript : MonoBehaviour
     public bool isOpen;
     SpriteRenderer sr;
     BoxCollider2D bxc;
+    
 
     void Awake()
     {
@@ -50,13 +51,33 @@ public class InteractablesScript : MonoBehaviour
         }
     }
 
-    public void OnTriggerStay2D(Collider2D collider)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player"))
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant") && collider.attachedRigidbody.mass > requiredMass)
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                interactable.SendMessage("Released");
+            }
+        }
+
+        else if (activationType == ActivationType.Gong && collider.gameObject.CompareTag("Elephant"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
+                interactable.SendMessage("Activated");
+            }
+        }
+    }
+
+    public void OnTriggerStay2D(Collider2D collider)
+    {
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") && collider.attachedRigidbody.mass < requiredMass)
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
                 if (PlayerInputManager.instance.GetKey("interactionKey") && isOpen == false)
                 {
                     foreach (GameObject thing in interactableObjects)
@@ -78,19 +99,19 @@ public class InteractablesScript : MonoBehaviour
             }
         }
 
-        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant"))
+        /*if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
                 interactable.SendMessage("Released");
             }
-        }
+        }*/
 
         else if (activationType == ActivationType.Lever && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
                 if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
                 {
                     foreach (GameObject thing in interactableObjects)
@@ -102,20 +123,11 @@ public class InteractablesScript : MonoBehaviour
             }
         }
 
-        else if (activationType == ActivationType.Gong && collider.gameObject.CompareTag("Elephant"))
-        {
-            foreach (GameObject interactable in interactableObjects)
-            {
-                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
-                interactable.SendMessage("Activated");
-            }
-        }
-
         else if (activationType == ActivationType.Receptacle && SandManager.mySandAmount >= requiredSand && collider.gameObject.CompareTag("Player"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
                 if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
                 {
                     foreach (GameObject thing in interactableObjects)
