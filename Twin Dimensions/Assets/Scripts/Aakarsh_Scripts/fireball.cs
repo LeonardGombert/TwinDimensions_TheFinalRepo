@@ -16,33 +16,28 @@ public class fireball : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D (Collision2D col)
+    private void OnCollisionEnter2D (Collision2D collider)
     {
-        if (col.gameObject.tag.Equals ("ActivationPriest"))
+        if (collider.gameObject.tag == "Enemy")
         {
-            Destroy(col.gameObject);
+            Destroy(collider.gameObject);
             Destroy(gameObject);
         }
 
-        if (col.gameObject.tag.Equals("Projectile"))
+        if (collider.gameObject.tag == "Projectile")
         {
-            Destroy(col.gameObject);
+            Destroy(collider.gameObject);
             Destroy(gameObject);
         }
 
-        if (col.gameObject.tag.Equals("Obstacle"))
+        if (collider.gameObject.tag == "Obstacle")
         {
-            
             Destroy(gameObject);
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        if (collision.gameObject.tag.Equals("Elephant"))
+        if (collider.gameObject.tag == "Elephant")
         {
-            Destroy(collision.gameObject);
+            Destroy(collider.gameObject);
             Destroy(gameObject);
         }
     }
