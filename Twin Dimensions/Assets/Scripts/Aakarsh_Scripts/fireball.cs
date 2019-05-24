@@ -32,7 +32,6 @@ public class fireball : MonoBehaviour
 
         if (col.gameObject.tag.Equals("Obstacle"))
         {
-            
             Destroy(gameObject);
         }
     }

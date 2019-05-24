@@ -23,7 +23,10 @@ public class InteractablesScript : MonoBehaviour
     public bool isOpen;
     SpriteRenderer sr;
     BoxCollider2D bxc;
+<<<<<<< HEAD
+=======
     
+>>>>>>> testingBranchReborn
 
     void Awake()
     {
@@ -53,6 +56,54 @@ public class InteractablesScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
+<<<<<<< HEAD
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                if (PlayerInputManager.instance.GetKey("interactionKey") && isOpen == false)
+                {
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        isOpen = true;
+                        thing.SendMessage("Activated");
+                    }
+                }
+                if (PlayerInputManager.instance.GetKeyUp("interactionKey") && isOpen == true)
+                {
+                    foreach (GameObject thing2 in interactableObjects)
+                    {
+                        isOpen = false;
+                        thing2.SendMessage("Released");
+                    }
+
+                }
+                break;
+            }
+        }
+
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                interactable.SendMessage("Released");
+            }
+        }
+
+        else if (activationType == ActivationType.Lever && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+                if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
+                {
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        thing.SendMessage("Activated");
+                    }
+                }
+=======
         if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant") && collider.attachedRigidbody.mass > requiredMass)
         {
             foreach (GameObject interactable in interactableObjects)
@@ -95,6 +146,7 @@ public class InteractablesScript : MonoBehaviour
                     }
 
                 }
+>>>>>>> testingBranchReborn
                 break;
             }
         }
@@ -127,7 +179,11 @@ public class InteractablesScript : MonoBehaviour
         {
             foreach (GameObject interactable in interactableObjects)
             {
+<<<<<<< HEAD
+                GUICameraController.MoveCameraToPosition(interactable.transform.position, interactable.gameObject.layer);
+=======
                 GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
+>>>>>>> testingBranchReborn
                 if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
                 {
                     foreach (GameObject thing in interactableObjects)
