@@ -75,7 +75,10 @@ public class PlayerController : SerializedMonoBehaviour
     #endregion
     
     #region //SOUND EFFECTS
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkingSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walking;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkInSnow;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkInForest;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] gameOver;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] punchingSounds;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] summoningSounds;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] teleportationSounds;
