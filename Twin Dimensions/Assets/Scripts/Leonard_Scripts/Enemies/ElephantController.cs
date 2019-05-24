@@ -340,4 +340,10 @@ public class ElephantController : MonsterClass
     {
         ElephantSpawnPoint.canSpawnElephant = true;
     }
+
+    public override void SwitchedByPriest(bool Switched)
+    {
+        if(Switched) base.isBeingSwitchedByPriest = true;
+        else if(!Switched) base.isBeingSwitchedByPriest = false;
+    }
 }

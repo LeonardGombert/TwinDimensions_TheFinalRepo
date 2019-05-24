@@ -48,12 +48,12 @@ public class SandManager : SerializedMonoBehaviour
 
         Debug.Log("I've currently got " + playerSandAmount + " sand shards");
 
-        if(playerSandAmount == sandRequiredForKey)
-        {
-            playerSandAmount = 0;
-            myKeys += 1;
-            Debug.Log("I've currently got " + myKeys + " keys");
-        }
+        // if(playerSandAmount == sandRequiredForKey)
+        // {
+        //     playerSandAmount = 0;
+        //     myKeys += 1;
+        //     Debug.Log("I've currently got " + myKeys + " keys");
+        // }
     }
 
     private void SandHeldByEntity()
