@@ -47,6 +47,8 @@ public class InteractablesScript : MonoBehaviour
         else if (activationType == ActivationType.Receptacle)
         {
             sr.sprite = activationTypeSprite[3];
+            bxc.size = new Vector2 (3, 2);
+            bxc.offset = new Vector2 (0, -1);
         }
     }
 
