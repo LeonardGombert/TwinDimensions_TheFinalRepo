@@ -12,7 +12,7 @@ public class AttackCollisionDetection : SerializedMonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = true;
-            Debug.Log("I just rammed the player's ass, yo");
+            //Debug.Log("I just rammed the player's ass, yo");
         }
     }
 
@@ -21,7 +21,7 @@ public class AttackCollisionDetection : SerializedMonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = true;
-            Debug.Log("I just rammed the player's ass, yo");
+            //Debug.Log("I just rammed the player's ass, yo");
         }
     }
 
@@ -30,7 +30,7 @@ public class AttackCollisionDetection : SerializedMonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = false;
-            Debug.Log("I just rammed the player's ass, yo");
+            //Debug.Log("I just rammed the player's ass, yo");
         }
     }
 }
