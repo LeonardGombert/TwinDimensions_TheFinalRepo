@@ -29,8 +29,7 @@ public class AudioManager : MonoBehaviour
            s.source.volume = s.volume;
            s.source.pitch = s.pitch;
            s.source.loop = s.loop;
-       }
-   
+       }   
    }
 
     void Start()
@@ -38,8 +37,7 @@ public class AudioManager : MonoBehaviour
         Play("Theme");
     }
 
-
-   public void Play (string name)
+   public void Play(string name)
    {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
@@ -49,9 +47,7 @@ public class AudioManager : MonoBehaviour
         }
         s.source.Play();
    }
-
 }
-
 
 // Pour jouer le son, exemple de Brackeys (a mettre dans le script concerné)
 

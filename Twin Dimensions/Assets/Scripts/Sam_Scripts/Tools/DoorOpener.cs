@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Sirenix.Serialization;
+using Sirenix.OdinInspector;
 
 public class DoorOpener : MonoBehaviour
 {
@@ -57,6 +59,8 @@ public class DoorOpener : MonoBehaviour
     Animator anim;
     BoxCollider2D boxcol2D;
     SpriteRenderer sr;
+
+    [FoldoutGroup("Herses SFX")][SerializeField] AudioClip moveHerses;
 
     void Awake()
     {

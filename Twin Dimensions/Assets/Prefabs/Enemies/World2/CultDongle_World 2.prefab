@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 671069912273306809}
   - component: {fileID: 671069912273306808}
-  - component: {fileID: 1592873008435262880}
+  - component: {fileID: 7993069960712194050}
   m_Layer: 13
   m_Name: CultDongle_World 2
   m_TagString: Enemy
@@ -59,7 +59,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1592873008435262880
+--- !u!114 &7993069960712194050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,8 +74,8 @@ MonoBehaviour:
   projectile: {fileID: 4426424857474755419, guid: a333400ca9f69f64c8d4e73770e45ac9,
     type: 3}
   direction: 0
-  speed: 0
-  attackdelay: 0
+  speed: 4
+  attackdelay: 3
   lastAttacktime: 0
 --- !u!1 &671069913795808136
 GameObject:

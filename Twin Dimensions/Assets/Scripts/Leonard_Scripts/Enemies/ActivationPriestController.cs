@@ -23,9 +23,12 @@ public class ActivationPriestController : MonsterClass
     
     void OnTriggerEnter2D(Collider2D collider)
     {
-        hitEnemies.Add(collider.gameObject);
+        if (collider.tag != "Projectile")
+        {
+            hitEnemies.Add(collider.gameObject);
 
-        foreach (GameObject Enemy in hitEnemies) Enemy.gameObject.SendMessage("SwitchedByPriest", true);
+            foreach (GameObject Enemy in hitEnemies) Enemy.gameObject.SendMessage("SwitchedByPriest", true);
+        }
     }
     
     void OnDestroy()
