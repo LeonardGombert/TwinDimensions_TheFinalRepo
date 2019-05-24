@@ -8,26 +8,26 @@ public class fireball : MonoBehaviour
     public bool Spike;
     void Start()
     {
-        
+
     }
 
-   
+
     void Update()
     {
-        
+
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag.Equals ("ActivationPriest") && EnemyShooter == true)
+        if (col.gameObject.tag.Equals("ActivationPriest") && EnemyShooter == true)
         {
-            Destroy(collision.gameObject);
+            Destroy(col.gameObject);
             Destroy(gameObject);
         }
 
         if (col.gameObject.tag.Equals("Projectile") && EnemyShooter == true)
         {
-            Destroy(collision.gameObject);
+            Destroy(col.gameObject);
             Destroy(gameObject);
         }
 
@@ -36,10 +36,12 @@ public class fireball : MonoBehaviour
             Destroy(gameObject);
         }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+        
+    }
+    void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag.Equals("Elephant") && EnemyShooter == true )
+        if (collision.gameObject.tag.Equals("Elephant") && EnemyShooter == true)
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
@@ -48,9 +50,11 @@ public class fireball : MonoBehaviour
         if (collision.gameObject.tag.Equals("Elephant") && Spike == true)
         {
             Destroy(collision.gameObject);
-        
+           
+
         }
 
 
     }
 }
+
