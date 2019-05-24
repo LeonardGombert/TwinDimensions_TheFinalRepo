@@ -8,14 +8,17 @@ using Cinemachine.Editor;
 
 public class GUICameraController : MonoBehaviour
 {
-    [FoldoutGroup("MyCameras")][ShowInInspector] public static GameObject myGUICamera1;
-    [FoldoutGroup("MyCameras")][ShowInInspector] public static GameObject myGUICamera2;
+    [FoldoutGroup("MyCameras")] public static GameObject myGUICamera1;
+    [FoldoutGroup("MyCameras")] public static GameObject myGUICamera2;
 
     // Start is called before the first frame update
     void Start()
     {
         myGUICamera1 = GameObject.FindGameObjectWithTag("GUI World1");
         myGUICamera2 = GameObject.FindGameObjectWithTag("GUI World2");
+
+        myGUICamera1.SetActive(false);
+        myGUICamera2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -29,7 +32,6 @@ public class GUICameraController : MonoBehaviour
         if(LayerManager.ObjectIsInRealWorld(targetPosition))
         {
             myGUICamera1.SetActive(true);
-            myGUICamera2.SetActive(false);
             myGUICamera1.transform.position = new Vector3(targetPosition.transform.position.x, targetPosition.transform.position.y, -10);
             myGUICamera1.layer = layer;
         }
@@ -37,9 +39,14 @@ public class GUICameraController : MonoBehaviour
         if(!LayerManager.ObjectIsInRealWorld(targetPosition))
         {
             myGUICamera2.SetActive(true);
-            myGUICamera1.SetActive(false);
             myGUICamera2.transform.position = new Vector3(targetPosition.transform.position.x, targetPosition.transform.position.y, -10);
-            myGUICamera2.layer = layer;   
+            myGUICamera2.layer = layer;
         }        
+    }
+
+    public static void ClearCameraPosition()
+    {   
+        myGUICamera1.SetActive(false);
+        myGUICamera2.SetActive(false);
     }
 }
