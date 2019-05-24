@@ -26,6 +26,9 @@ public class Firebreather : MonsterClass
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        
+        if(collider.gameObject.tag == "Elephant")
+        {
+            base.anim.SetBool("isActive", true);
+        }
     }
 }
