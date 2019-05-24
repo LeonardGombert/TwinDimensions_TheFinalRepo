@@ -13,6 +13,8 @@ public class PortalManager : SerializedMonoBehaviour
     Tile highlightTile;
     [FoldoutGroup("Checkpoint Teleporter")][SerializeField]
     GameObject insertBaseActiveTower;
+    [FoldoutGroup("Insert Locked Portals")][SerializeField]
+    List<GameObject> lockedPortals = new List<GameObject>();
 
     [FoldoutGroup("DEBUG Portal Exits")][SerializeField]
     List<GameObject> world1Portals = new List<GameObject>();
@@ -43,7 +45,7 @@ public class PortalManager : SerializedMonoBehaviour
     
     public static bool hasUsedPortal = false;
 
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
@@ -52,6 +54,11 @@ public class PortalManager : SerializedMonoBehaviour
         inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));    
         inactiveHookTowers.Remove(currentActiveTower);
         activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
+
+        foreach(GameObject portal in lockedPortals)
+        {
+            portal.gameObject.SendMessage("LockPortals");
+        }
     }
 
     // Update is called once per frame
@@ -72,10 +79,16 @@ public class PortalManager : SerializedMonoBehaviour
 
     private void UpdatePortals(GameObject touchedPortal = default)
     {
-        currentWorldPortal.Clear();  
+        currentWorldPortal.Clear();
 
         world1Portals.AddRange(GameObject.FindGameObjectsWithTag("Portal 1"));
         world2Portals.AddRange(GameObject.FindGameObjectsWithTag("Portal 2"));
+
+        foreach (GameObject lockedP in lockedPortals)
+        {
+            world1Portals.Remove(lockedP);
+            world2Portals.Remove(lockedP);
+        }
         
         if(LayerManager.PlayerIsInRealWorld()) currentWorldPortal = world1Portals;
         if(!LayerManager.PlayerIsInRealWorld()) currentWorldPortal = world2Portals;
@@ -163,5 +176,10 @@ public class PortalManager : SerializedMonoBehaviour
     {
         player.transform.position = new Vector3(towerPosition.x, towerPosition.y + .5f); //offsets player positing correctly 
         TeleportationManager.hasTeleported = false;
+    }
+
+    void UnlockThisPortal(GameObject portalToRemove)
+    {
+        lockedPortals.Remove(portalToRemove);
     }
 }

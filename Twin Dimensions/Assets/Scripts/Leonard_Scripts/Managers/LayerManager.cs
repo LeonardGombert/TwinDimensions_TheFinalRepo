@@ -59,6 +59,23 @@ public class LayerManager : SerializedMonoBehaviour
         else return false;
     }
 
+    public static bool ObjectIsInRealWorld(GameObject objectBeingChecked) //checks if enemy is on level 1
+    {
+        if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("Environement Layer 1")) return true;
+
+        if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("Environement Layer 2")) return false;
+
+        if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("Hook Layer 1")) return true;
+
+        if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("Hook Layer 2")) return false;
+
+        if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("World Obstacle Detection 1")) return true;
+
+        if(objectBeingChecked.gameObject.layer == LayerMask.NameToLayer("World Obstacle Detection 2")) return false;
+
+        else return false;
+    }
+
     private void CompareEnemyToPlayerLayer(List<GameObject> EnemyEntities) //sends message to each enemy to notify them if they share the same layer as the player
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");

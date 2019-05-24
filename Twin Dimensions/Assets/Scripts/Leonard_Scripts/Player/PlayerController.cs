@@ -20,7 +20,6 @@ public class PlayerController : SerializedMonoBehaviour
     Vector3 currentPosition;
     Vector3 desiredPosition;
     
-    
     [FoldoutGroup("Player Movement")][SerializeField]
     float movementCooldown = 0.3f;
     [FoldoutGroup("Player Movement")][SerializeField]
@@ -119,7 +118,7 @@ public class PlayerController : SerializedMonoBehaviour
 
         if(playerIsDead) Death();
 
-        //if(PlayerInputManager.instance.GetKeyDown("interactionKey")) GUICameraController.MoveCameraToPosition(this.transform.position, this.gameObject.layer);
+        //if(PlayerInputManager.instance.GetKeyDown("interactionKey")) GUICameraController.MoveCameraToPosition(this.gameObject, this.gameObject.layer);
     }
     #endregion
 

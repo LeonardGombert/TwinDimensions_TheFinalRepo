@@ -4,21 +4,15 @@ using UnityEngine.UI;
 using UnityEngine;
 
 [System.Serializable]
-public class Dialogue 
+public struct Dialogue 
 {
 	public string name;
 
 	[TextArea(3, 10)]
-	public string[] sentences;
+	public string[] mySentences;
 
 	[TextArea(3, 10)]
 	public string[] englishSentences;
 	[TextArea(3, 10)]
 	public string[] frenchSentences;
-
-	void Start () 
-	{
-		if(LanguageSelection.englishDialogue) sentences = englishSentences;
-		if(LanguageSelection.frenchDialogue) sentences = frenchSentences;		
-	}
 }

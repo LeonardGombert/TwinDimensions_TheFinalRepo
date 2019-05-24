@@ -8,6 +8,9 @@ using Cinemachine.Editor;
 
 public class CameraTransitions : MonoBehaviour
 {
+
+    public Camera world1Camera;
+    public Camera world2Camera;
     CinemachineVirtualCamera playerCamera; 
     CinemachineVirtualCamera generalZoomCamera;
     CinemachineVirtualCamera relativeZoomCamera;
@@ -18,31 +21,35 @@ public class CameraTransitions : MonoBehaviour
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera world1RelativeZoom;
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
+    CinemachineVirtualCamera exitCamera;
+    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera world1GeneralZoom;
+    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
+    CinemachineVirtualCamera previewWorld1;
 
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    CinemachineVirtualCamera world2Player2Camera;    
+    CinemachineVirtualCamera world2PlayerCamera;    
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     CinemachineVirtualCamera world2RelativeZoom;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     CinemachineVirtualCamera world2GeneralZoom;
-    
-    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
-    CinemachineVirtualCamera exitCamera;
+    [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
+    CinemachineVirtualCamera previewWorld2;
 
     float timeHeldDown;
     float minTimeToHoldDown = 7f;
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateCameras();
-        PlayerLevelView();        
+        PlayerLevelView();
+        PreviewOtherWorld();
     }
 
     void UpdateCameras()
@@ -56,7 +63,7 @@ public class CameraTransitions : MonoBehaviour
         
         else if(!LayerManager.PlayerIsInRealWorld())
         {
-            playerCamera = world2Player2Camera;
+            playerCamera = world2PlayerCamera;
             relativeZoomCamera = world2RelativeZoom;
             generalZoomCamera = world2GeneralZoom;
         }
@@ -149,5 +156,41 @@ public class CameraTransitions : MonoBehaviour
         noiseCam.Amplitude = 0.5f;
         noiseCam.Frequency = 9;
         //Serializse Impulse --> Impulse.GenerateImpuse();
+    }
+
+    public void PreviewOtherWorld()
+    {
+        if(Input.GetKey(KeyCode.LeftControl))
+        {            
+            if(PlayerInputManager.instance.GetKey("previewOther"))
+            {
+                if(LayerManager.PlayerIsInRealWorld())
+                {
+                    world1PlayerCamera.gameObject.SetActive(false);
+                    world2PlayerCamera.gameObject.SetActive(true);
+                    previewWorld1.gameObject.SetActive(false);
+                    previewWorld2.gameObject.SetActive(true);
+                }
+            }
+
+            if(PlayerInputManager.instance.GetKeyUp("previewOther"))
+            {
+                if(!LayerManager.PlayerIsInRealWorld())
+                {
+                    world1PlayerCamera.gameObject.SetActive(true);
+                    world2PlayerCamera.gameObject.SetActive(false);
+                    previewWorld1.gameObject.SetActive(true);
+                    previewWorld2.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            playerCamera.gameObject.SetActive(true);
+            previewWorld2.gameObject.SetActive(false);
+            previewWorld1.gameObject.SetActive(false);
+            timeHeldDown = 0;
+        }
     }
 }

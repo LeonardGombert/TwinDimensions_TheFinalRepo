@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour {
 
 	public Animator animator;
 
-	private Queue<string> sentences = new Queue<string>();
+	private Queue<string> sentenceQueue = new Queue<string>();
 
 	// Use this for initialization
 	void Start () 
@@ -24,25 +24,36 @@ public class DialogueManager : MonoBehaviour {
 
 		nameText.text = dialogue.name;
 
-		sentences.Clear();
+		sentenceQueue.Clear();
 
-		foreach (string sentence in dialogue.sentences)
-		{
-			sentences.Enqueue(sentence);
-		}
+		if (LanguageSelection.frenchDialogue)
+        {
+            foreach (string sentence in dialogue.frenchSentences)
+            {
+                sentenceQueue.Enqueue(sentence);
+            }
+        }
 
-		DisplayNextSentence();
+		if (LanguageSelection.englishDialogue)
+        {
+            foreach (string sentence in dialogue.englishSentences)
+            {
+                sentenceQueue.Enqueue(sentence);
+            }
+        }
+
+        DisplayNextSentence();
 	}
 
 	public void DisplayNextSentence ()
 	{
-		if (sentences.Count == 0)
+		if (sentenceQueue.Count == 0)
 		{
 			EndDialogue();
 			return;
 		}
 
-		string sentence = sentences.Dequeue();
+		string sentence = sentenceQueue.Dequeue();
 		StopAllCoroutines();
 		StartCoroutine(TypeSentence(sentence));
 	}
