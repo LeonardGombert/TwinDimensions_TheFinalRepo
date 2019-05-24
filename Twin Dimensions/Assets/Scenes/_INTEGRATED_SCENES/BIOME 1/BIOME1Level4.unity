@@ -1103,7 +1103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &424396570
 Transform:
   m_ObjectHideFlags: 0
@@ -1791,6 +1791,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hook Tower (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5094032209228012041, guid: 66bc20999b7c9a24e961ab0b949b95c1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Inactive Hook Tower 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5094032209228012086, guid: 66bc20999b7c9a24e961ab0b949b95c1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1938,7 +1943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &702571455
 Transform:
   m_ObjectHideFlags: 0
@@ -2561,7 +2566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &909199601
 Transform:
   m_ObjectHideFlags: 0
@@ -2692,7 +2697,7 @@ PrefabInstance:
     - target: {fileID: 7776813077787256854, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1499977
+      value: 11.15
       objectReference: {fileID: 0}
     - target: {fileID: 7776813077787256854, guid: 83cb38e2a3f684d4e9decc5441e44025,
         type: 3}
@@ -3075,7 +3080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1111478004
 Transform:
   m_ObjectHideFlags: 0
@@ -4606,6 +4611,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hook Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 5094032209228012041, guid: 66bc20999b7c9a24e961ab0b949b95c1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hook Tower 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5094032209228012086, guid: 66bc20999b7c9a24e961ab0b949b95c1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4687,6 +4697,69 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 1452998247321029626, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1452998247321029626, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: activeHookTowers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: fillWithActiveHookTowers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: baseActiveTower
+      value: 
+      objectReference: {fileID: 1703414377}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: activeHookTowers.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: activeHookTowers.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: currentActiveTower
+      value: 
+      objectReference: {fileID: 5094032209037808129}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: insertBaseActiveTower
+      value: 
+      objectReference: {fileID: 1703414377}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: fillWithActiveHookTowers.Array.data[0]
+      value: 
+      objectReference: {fileID: 5094032209037808129}
+    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: fillWithActiveHookTowers.Array.data[1]
+      value: 
+      objectReference: {fileID: 1703414377}
+    - target: {fileID: 1452998247321029629, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1452998247321029629, guid: 12ae8334d335f1548b9544788433ff2a,
+        type: 3}
     - target: {fileID: 1452998247321029631, guid: 12ae8334d335f1548b9544788433ff2a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4742,69 +4815,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1452998247321029626, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 1452998247321029626, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-    - target: {fileID: 1452998247321029629, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 1452998247321029629, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: activeHookTowers.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: fillWithActiveHookTowers.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: baseActiveTower
-      value: 
-      objectReference: {fileID: 1703414377}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: activeHookTowers.Array.data[0]
-      value: 
-      objectReference: {fileID: 5094032209037808129}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: activeHookTowers.Array.data[1]
-      value: 
-      objectReference: {fileID: 1703414377}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: currentActiveTower
-      value: 
-      objectReference: {fileID: 5094032209037808129}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: insertBaseActiveTower
-      value: 
-      objectReference: {fileID: 1703414377}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: fillWithActiveHookTowers.Array.data[0]
-      value: 
-      objectReference: {fileID: 5094032209037808129}
-    - target: {fileID: 1452998247321029627, guid: 12ae8334d335f1548b9544788433ff2a,
-        type: 3}
-      propertyPath: fillWithActiveHookTowers.Array.data[1]
-      value: 
-      objectReference: {fileID: 1703414377}
     - target: {fileID: 1452998247321029624, guid: 12ae8334d335f1548b9544788433ff2a,
         type: 3}
       propertyPath: world1PlayerCamera
@@ -4865,6 +4875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hook Tower (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5094032209228012041, guid: 66bc20999b7c9a24e961ab0b949b95c1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Inactive Hook Tower 1
       objectReference: {fileID: 0}
     - target: {fileID: 5094032209228012086, guid: 66bc20999b7c9a24e961ab0b949b95c1,
         type: 3}
@@ -42688,7 +42703,7 @@ GameObject:
   - component: {fileID: 6485655570563517256}
   m_Layer: 17
   m_Name: Hook Tower (1)
-  m_TagString: Hook Tower
+  m_TagString: Hook Tower 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
