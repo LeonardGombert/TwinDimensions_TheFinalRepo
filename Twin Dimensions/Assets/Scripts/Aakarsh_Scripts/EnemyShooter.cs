@@ -54,7 +54,6 @@ public class EnemyShooter : MonoBehaviour
             GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity=dir;
             lastAttacktime = Time.time;
-            Debug.Log("Shooting");
         }
     }
 }

@@ -122,7 +122,7 @@ public class InteractablesScript : MonoBehaviour
             }
         }
 
-        else if (activationType == ActivationType.Receptacle && SandManager. >= requiredSand && collider.gameObject.CompareTag("Player"))
+        else if (activationType == ActivationType.Receptacle && SandManager.playerSandAmount >= requiredSand && collider.gameObject.CompareTag("Player"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
