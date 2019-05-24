@@ -1,9 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.Serialization;
+using Sirenix.OdinInspector;
 
 public class Firebreather : MonsterClass
 {
+    #region //AudioClip
+    [FoldoutGroup("Firebreather SFX")] [SerializeField] AudioClip FireIdle;
+    [FoldoutGroup("Firebreather SFX")] [SerializeField] AudioClip Embrasement;
+    [FoldoutGroup("Firebreather SFX")] [SerializeField] AudioClip FirebreatherDeath;
+    #endregion
+
     // Start is called before the first frame update
     public override void Awake ()
     {
@@ -18,6 +26,9 @@ public class Firebreather : MonsterClass
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        
+        if(collider.gameObject.tag == "Elephant")
+        {
+            base.anim.SetBool("isActive", true);
+        }
     }
 }

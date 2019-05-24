@@ -38,9 +38,10 @@ public class KaliBossAI : SerializedMonoBehaviour
     [FoldoutGroup("AttackDebug")][ShowInInspector]  public static bool isSlamming = false;
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingSlam = 0;
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSlam = 2f;
+    [FoldoutGroup("AttackUpdatesDebug")][SerializeField] GameObject activeSlamSide;
     [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamLeftCollider;
     [FoldoutGroup("SlamAttack")][SerializeField] GameObject slamRightCollider;
-    [FoldoutGroup("SlamAttack")][SerializeField] GameObject activeSlamSide;
+   
     #endregion
 
     #region //LASER BEAM
@@ -52,8 +53,8 @@ public class KaliBossAI : SerializedMonoBehaviour
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserRightPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserSpawnPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserHitPosition;
-    [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserStartPosition;
-    [FoldoutGroup("LaserBeamAttack")][SerializeField] GameObject laserEndPosition;
+    [FoldoutGroup("AttackUpdatesDebug")][SerializeField] GameObject laserStartPosition;
+    [FoldoutGroup("AttackUpdatesDebug")][SerializeField] GameObject laserEndPosition;
     [FoldoutGroup("LaserBeamAttack")][SerializeField] float laserMoveTime;
     #endregion
 
@@ -62,9 +63,9 @@ public class KaliBossAI : SerializedMonoBehaviour
     [FoldoutGroup("SweepAttack")][SerializeField] Transform kaliBasePosition;
     [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepLeftPosition;
     [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepRightPosition;
-    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepStartPosition;
-    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepEndPosition;
-    [FoldoutGroup("SweepAttack")][SerializeField] Transform sweepCurrentPosition;
+    [FoldoutGroup("AttackUpdatesDebug")][SerializeField] Transform sweepStartPosition;
+    [FoldoutGroup("AttackUpdatesDebug")][SerializeField] Transform sweepEndPosition;
+    [FoldoutGroup("AttackUpdatesDebug")][SerializeField] Transform sweepCurrentPosition;
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeHoldingSweep = 0f;
     [FoldoutGroup("AttackVariablesDebug")][SerializeField] float timeToHoldSweep = 2f;
     #endregion

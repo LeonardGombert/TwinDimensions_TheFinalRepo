@@ -26,7 +26,7 @@ public class MonsterClass : SerializedMonoBehaviour
     [HideInInspector]
     public GameObject gameMaster;
 
-    bool isBeingSwitchedByPriest;
+    public bool isBeingSwitchedByPriest;
     public static bool isBeingCharged;
     public static bool isBeingTeleported;
 
@@ -121,6 +121,7 @@ public class MonsterClass : SerializedMonoBehaviour
 
     public virtual void ActivateTriggerBehavior(){}
     public virtual void MonitorSFX(){}
+    public virtual void SwitchedByPriest(bool Switched){}
 
     private bool isActivatedByTurret(bool messageListener = false)
     {
@@ -175,6 +176,15 @@ public class MonsterClass : SerializedMonoBehaviour
         }
     }
 
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "ActivationPriest")
+        {
+            Debug.Log("The Priest has stopped activating " + this.gameObject.name);
+            isBeingSwitchedByPriest = false;
+        }
+    }
+
     void DropSand(int sandAmount)
     {
         amountOfSandToDrop = sandAmount;
@@ -186,13 +196,5 @@ public class MonsterClass : SerializedMonoBehaviour
         {
             Instantiate(sandToDrop, transform.position, Quaternion.identity);
         }
-    }
-
-    bool SwitchedByPriest(bool isBeingSwitched)
-    {
-        if(isBeingSwitched == true) isBeingSwitched = true;
-        if(isBeingSwitched == false) isBeingSwitched = false;
-
-        return isBeingSwitched;
     }
 }

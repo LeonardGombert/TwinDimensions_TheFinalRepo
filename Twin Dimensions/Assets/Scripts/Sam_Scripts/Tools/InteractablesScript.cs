@@ -14,53 +14,139 @@ public class InteractablesScript : MonoBehaviour
 
     public enum ActivationType
     {
-        Plate, Lever
+        Plate, Lever, Gong, Receptacle
     }
 
     public ActivationType activationType;
     public float requiredMass = 1f;
     public float requiredSand = 0f;
+    public bool isOpen;
     SpriteRenderer sr;
+    BoxCollider2D bxc;
+    
 
-    void Awake ()
+    void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        bxc = GetComponent<BoxCollider2D>();
 
         if (activationType == ActivationType.Plate)
         {
             sr.sprite = activationTypeSprite[0];
         }
-        else sr.sprite = activationTypeSprite[1];
+        else if (activationType == ActivationType.Lever)
+        {
+            sr.sprite = activationTypeSprite[1];
+            bxc.size = new Vector2 (3, 3);
+        }
+        else if (activationType == ActivationType.Gong)
+        {
+            sr.sprite = activationTypeSprite[2];
+            bxc.size = new Vector2 (2, 0.5f);
+            bxc.offset = new Vector2 (0, -1);
+        }
+        else if (activationType == ActivationType.Receptacle)
+        {
+            sr.sprite = activationTypeSprite[3];
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-
-        if (activationType == ActivationType.Plate && collider.attachedRigidbody.mass >= requiredMass && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
-        {
-                foreach (GameObject interactable in interactableObjects)
-                {
-                    interactable.SendMessage("Activated");
-                }
-
-        }
-
-        else if (activationType == ActivationType.Lever && SandTextScript.sandAmount >= requiredSand && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant") && collider.attachedRigidbody.mass > requiredMass)
         {
             foreach (GameObject interactable in interactableObjects)
+            {
+                interactable.SendMessage("Released");
+            }
+        }
+
+        else if (activationType == ActivationType.Gong && collider.gameObject.CompareTag("Elephant"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
+                interactable.SendMessage("Activated");
+            }
+        }
+    }
+
+    public void OnTriggerStay2D(Collider2D collider)
+    {
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") && collider.attachedRigidbody.mass < requiredMass)
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
+                if (PlayerInputManager.instance.GetKey("interactionKey") && isOpen == false)
                 {
-                    interactable.SendMessage("Activated");
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        isOpen = true;
+                        thing.SendMessage("Activated");
+                    }
                 }
+                if (PlayerInputManager.instance.GetKeyUp("interactionKey") && isOpen == true)
+                {
+                    foreach (GameObject thing2 in interactableObjects)
+                    {
+                        isOpen = false;
+                        thing2.SendMessage("Released");
+                    }
+
+                }
+                break;
+            }
+        }
+
+        /*if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                interactable.SendMessage("Released");
+            }
+        }*/
+
+        else if (activationType == ActivationType.Lever && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
+                if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
+                {
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        thing.SendMessage("Activated");
+                    }
+                }
+                break;
+            }
+        }
+
+        else if (activationType == ActivationType.Receptacle && SandManager.playerSandAmount >= requiredSand && collider.gameObject.CompareTag("Player"))
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
+                if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
+                {
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        thing.SendMessage("Activated");
+                    }
+                }
+                break;
+            }
         }
     }
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Elephant"))
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Elephant"))
         {
             foreach (GameObject interactable in interactableObjects)
             {
-            interactable.SendMessage("Released");
+                interactable.SendMessage("Released");
             }
         }
     }

@@ -21,6 +21,7 @@ public class KeybindingManager : SerializedScriptableObject
 
     public KeyCode relativeZoom;
     public KeyCode generalZoom;
+    public KeyCode previewOtherWorld;
     public KeyCode resetScene;
 
     public KeyCode chargeElephant;
@@ -45,6 +46,7 @@ public class KeybindingManager : SerializedScriptableObject
             
             case "relativeZoom" : return relativeZoom;
             case "generalZoom": return generalZoom;
+            case "previewOther": return previewOtherWorld;
 
             case "resetScene": return resetScene;
             
