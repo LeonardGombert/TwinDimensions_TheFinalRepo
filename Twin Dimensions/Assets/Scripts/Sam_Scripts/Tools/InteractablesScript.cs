@@ -150,5 +150,7 @@ public class InteractablesScript : MonoBehaviour
                 interactable.SendMessage("Released");
             }
         }
+
+        GUICameraController.ClearCameraPosition();
     }
 }
