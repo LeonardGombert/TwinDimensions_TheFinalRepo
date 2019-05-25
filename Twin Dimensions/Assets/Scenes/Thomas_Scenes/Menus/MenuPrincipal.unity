@@ -664,6 +664,7 @@ GameObject:
   - component: {fileID: 825540424}
   - component: {fileID: 825540423}
   - component: {fileID: 825540422}
+  - component: {fileID: 825540425}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -730,7 +731,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 825540423}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 825540425}
+        m_MethodName: PlayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &825540423
@@ -770,6 +782,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825540420}
   m_CullTransparentMesh: 0
+--- !u!114 &825540425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825540420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8cad2d7b5174245809477122eb2d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfTheScene: BIOME1Level1
 --- !u!1 &1063279582
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +1004,7 @@ GameObject:
   - component: {fileID: 1383252046}
   - component: {fileID: 1383252045}
   - component: {fileID: 1383252044}
+  - component: {fileID: 1383252047}
   m_Layer: 5
   m_Name: LevelsButton
   m_TagString: Untagged
@@ -1045,7 +1071,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1383252045}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1383252047}
+        m_MethodName: PlayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1383252045
@@ -1085,6 +1122,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383252042}
   m_CullTransparentMesh: 0
+--- !u!114 &1383252047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383252042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8cad2d7b5174245809477122eb2d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfTheScene: MenuNiveaux
 --- !u!1 &1595837723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,6 +1596,7 @@ GameObject:
   - component: {fileID: 2087722517}
   - component: {fileID: 2087722516}
   - component: {fileID: 2087722515}
+  - component: {fileID: 2087722518}
   m_Layer: 5
   m_Name: LanguagesButton
   m_TagString: Untagged
@@ -1612,7 +1663,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2087722516}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2087722518}
+        m_MethodName: PlayGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2087722516
@@ -1652,3 +1714,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087722513}
   m_CullTransparentMesh: 0
+--- !u!114 &2087722518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087722513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8cad2d7b5174245809477122eb2d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfTheScene: MenuLanguage
