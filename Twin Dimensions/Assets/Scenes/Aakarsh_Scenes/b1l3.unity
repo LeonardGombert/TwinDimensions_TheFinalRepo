@@ -1091,7 +1091,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017546954}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 113, y: 4, z: 0}
+  m_LocalPosition: {x: 113, y: 15.92, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1510231830}
@@ -1342,7 +1342,7 @@ PrefabInstance:
     - target: {fileID: 2815914251523049650, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.73
+      value: 9.64
       objectReference: {fileID: 0}
     - target: {fileID: 2815914251523049650, guid: f6c1d6cb7dcf23b4e942296ec6d3aecc,
         type: 3}
@@ -1528,6 +1528,7 @@ MonoBehaviour:
   activationType: 1
   requiredMass: 1
   requiredSand: 2
+  isOpen: 0
 --- !u!61 &1359134674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1657,7 +1658,7 @@ PrefabInstance:
     - target: {fileID: 8792020594488994068, guid: b97ae54f87b9b5e4ab85ad7a844b663b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 8792020594488994068, guid: b97ae54f87b9b5e4ab85ad7a844b663b,
         type: 3}
@@ -1950,7 +1951,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1592873008435262880, guid: e53b16c4200ecc644a2feeedd0c9a3ab, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e53b16c4200ecc644a2feeedd0c9a3ab, type: 3}
 --- !u!1 &1673875259 stripped
 GameObject:
@@ -90387,6 +90389,7 @@ MonoBehaviour:
   activationType: 0
   requiredMass: 1
   requiredSand: 0
+  isOpen: 0
 --- !u!114 &7021364158169735528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90405,6 +90408,7 @@ MonoBehaviour:
   activationType: 0
   requiredMass: 1
   requiredSand: 0
+  isOpen: 0
 --- !u!114 &7021364158215790212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90424,6 +90428,7 @@ MonoBehaviour:
   activationType: 0
   requiredMass: 1
   requiredSand: 0
+  isOpen: 0
 --- !u!114 &7021364158486979153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90442,6 +90447,7 @@ MonoBehaviour:
   activationType: 0
   requiredMass: 1
   requiredSand: 0
+  isOpen: 0
 --- !u!114 &7021364158987552688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90460,6 +90466,7 @@ MonoBehaviour:
   activationType: 0
   requiredMass: 1
   requiredSand: 0
+  isOpen: 0
 --- !u!1 &7145910273300559155
 GameObject:
   m_ObjectHideFlags: 0
@@ -90801,6 +90808,7 @@ MonoBehaviour:
   activationType: 1
   requiredMass: 1
   requiredSand: 0
+  isOpen: 0
 --- !u!212 &8224339376358391597
 SpriteRenderer:
   m_ObjectHideFlags: 0
