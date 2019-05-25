@@ -21,13 +21,22 @@ public class ActivationPriestController : MonsterClass
 
     }
     
-    public override void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collider.tag != "Projectile")
+        if (collision.tag != "Projectile")
         {
-            hitEnemies.Add(collider.gameObject);
+            hitEnemies.Add(collision.gameObject);
 
             foreach (GameObject Enemy in hitEnemies) Enemy.gameObject.SendMessage("SwitchedByPriest", true);
+        }
+
+        if(collision.tag == "Elephant")
+        {
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            Debug.Log("The Elephant hit " + gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            GenerateSand();
+            Destroy(gameObject);
         }
     }
     

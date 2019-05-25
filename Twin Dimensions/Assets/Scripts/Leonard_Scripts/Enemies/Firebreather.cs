@@ -26,16 +26,30 @@ public class Firebreather : MonsterClass
         
     }
 
-    public override void OnTriggerEnter2D(Collider2D collider)
-    {
-        if(collider.gameObject.tag == "Elephant")
+    void OnTriggerEnter2D(Collider2D collision)
+    {        
+        if(collision.tag == "Player")
         {
-            //Instantiate(Fireball)
-            base.anim.SetBool("isActive", true);
-            base.GenerateSand();
+            Debug.Log("I hit the Player");
+            PlayerController.playerIsDead = true;
         }
 
-        if(collider.gameObject.tag == "Statue")
+        if(collision.tag == "Statue")
+        {
+            Destroy(collision.gameObject);
+        }
+
+        if(collision.tag == "Elephant")
+        {
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            Debug.Log("The Elephant hit " + gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            anim.SetBool("isActive", true);
+            GenerateSand();
+            Destroy(gameObject);
+        }
+
+        if(collision.gameObject.tag == "Statue")
         {
             //Instantiate(Fireball)
             base.anim.SetBool("isActive", true);
