@@ -36,6 +36,7 @@ public class PlayerController : SerializedMonoBehaviour
     bool movementIsCoolingDown = false;
 
     public static bool cinematicMoveUp;
+    [FoldoutGroup("General Stats")][ShowInInspector] public static int playerSandAmount = 0;
     #endregion
 
     #region //GENERAL VARIABLES
@@ -248,14 +249,12 @@ public class PlayerController : SerializedMonoBehaviour
         }
 
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
-
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
     }
 
     void OnTriggerStay2D(Collider2D collider)
     {
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
-
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
     }
 
@@ -269,6 +268,8 @@ public class PlayerController : SerializedMonoBehaviour
     void PlayerDied(Vector3 playerDirection)
     {
         anim.SetTrigger("isGuarding");
+        canMove = false;
+        TeleportationManager.isOnLockedLayer = true;
         anim.SetFloat("xDirection", playerDirection.x);
         anim.SetFloat("yDirection", playerDirection.y);
     }
