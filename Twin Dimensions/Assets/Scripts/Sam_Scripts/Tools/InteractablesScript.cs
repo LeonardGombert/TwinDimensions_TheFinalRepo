@@ -74,7 +74,7 @@ public class InteractablesScript : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collider)
     {
-        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") && collider.attachedRigidbody.mass < requiredMass)
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") && collider.attachedRigidbody.mass <= requiredMass)
         {
             foreach (GameObject interactable in interactableObjects)
             {
