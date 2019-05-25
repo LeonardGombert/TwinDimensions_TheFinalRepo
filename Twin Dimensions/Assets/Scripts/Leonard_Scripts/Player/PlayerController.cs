@@ -89,6 +89,7 @@ public class PlayerController : SerializedMonoBehaviour
     private void Awake()
     {
         cinematicMoveUp = false;
+        isInSlamRange = false;
         playerIsDead = false;
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
