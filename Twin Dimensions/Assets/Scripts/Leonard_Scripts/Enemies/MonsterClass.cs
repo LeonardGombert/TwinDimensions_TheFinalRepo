@@ -16,7 +16,7 @@ public class MonsterClass : SerializedMonoBehaviour
     public List<Sprite> spriteList = new List<Sprite>();
     [HideInInspector]
     public SpriteRenderer sr;
-    [HideInInspector]
+    //[]
     public Animator anim;
 
     private Vector3 playerDirectionForClass;
