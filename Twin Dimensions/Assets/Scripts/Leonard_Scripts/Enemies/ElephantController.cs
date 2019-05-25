@@ -336,7 +336,7 @@ public class ElephantController : MonsterClass
         else return;
     }
 
-    void OnDestroy()
+    public override void OnDestroy()
     {
         ElephantSpawnPoint.canSpawnElephant = true;
     }
@@ -356,6 +356,7 @@ public class ElephantController : MonsterClass
 
         if(collider.tag == "Firebreather")        
         {
+            base.GenerateSand();
             Destroy(collider.gameObject);
             Destroy(gameObject);
         }

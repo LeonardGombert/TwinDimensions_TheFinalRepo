@@ -32,6 +32,7 @@ public class Firebreather : MonsterClass
         {
             //Instantiate(Fireball)
             base.anim.SetBool("isActive", true);
+            base.GenerateSand();
         }
 
         if(collider.gameObject.tag == "Statue")
@@ -41,7 +42,7 @@ public class Firebreather : MonsterClass
         }
     }
 
-    void OnDestroy()
+    public override void OnDestroy()
     {
         Destroy(parent);
     }

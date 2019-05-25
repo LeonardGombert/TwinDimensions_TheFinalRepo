@@ -153,7 +153,7 @@ public class MonsterClass : SerializedMonoBehaviour
             dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Firebreather hit " + gameObject.name);
             dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
-            GenerateSand(amountOfSandToDrop);
+            GenerateSand();
             Destroy(gameObject);
         }
 
@@ -162,7 +162,6 @@ public class MonsterClass : SerializedMonoBehaviour
             dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Elephant hit " + gameObject.name);
             dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
-            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
 
@@ -171,7 +170,6 @@ public class MonsterClass : SerializedMonoBehaviour
             dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Elephant hit " + collision.gameObject.name);
             dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
-            GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
     }
@@ -185,16 +183,19 @@ public class MonsterClass : SerializedMonoBehaviour
         }
     }
 
-    void DropSand(int sandAmount)
+    public virtual void DropSand(int sandAmount)
     {
         amountOfSandToDrop = sandAmount;
     }
 
-    void GenerateSand(int amountOfSandToDrop)
+    public virtual  void GenerateSand()
     {
-        for (int i = 0; i < amountOfSandToDrop; ++i)
-        {
-            Instantiate(sandToDrop, transform.position, Quaternion.identity);
-        }
+        Debug.Log(this.gameObject.name + " is dropping");
+        Instantiate(sandToDrop, transform.position, Quaternion.identity);
+    }
+
+    public virtual void OnDestroy()
+    {        
+        Instantiate(sandToDrop, transform.position, Quaternion.identity);
     }
 }
