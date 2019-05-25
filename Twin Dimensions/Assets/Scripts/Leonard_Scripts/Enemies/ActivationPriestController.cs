@@ -29,15 +29,6 @@ public class ActivationPriestController : MonsterClass
 
             foreach (GameObject Enemy in hitEnemies) Enemy.gameObject.SendMessage("SwitchedByPriest", true);
         }
-
-        if(collision.tag == "Elephant")
-        {
-            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
-            Debug.Log("The Elephant hit " + gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
-            GenerateSand();
-            Destroy(gameObject);
-        }
     }
     
     public override void OnDestroy()
