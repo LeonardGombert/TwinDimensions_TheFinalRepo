@@ -63,6 +63,9 @@ public class KaliBossAI : SerializedMonoBehaviour
     [FoldoutGroup("SweepAttack")] [SerializeField] Vector3 kaliBasePosition;
     [FoldoutGroup("SweepAttack")] [SerializeField] Transform sweepLeftPosition;
     [FoldoutGroup("SweepAttack")] [SerializeField] Transform sweepRightPosition;
+    [FoldoutGroup("SweepAttack")] [SerializeField] GameObject sweepLeftCollider;
+    [FoldoutGroup("SweepAttack")] [SerializeField] GameObject sweepRightCollider;    
+    [FoldoutGroup("SweepAttack")] [SerializeField] GameObject activeSweepSide;
     [FoldoutGroup("AttackUpdatesDebug")] [SerializeField] Transform sweepStartPosition;
     [FoldoutGroup("AttackUpdatesDebug")] [SerializeField] Transform sweepEndPosition;
     [FoldoutGroup("AttackUpdatesDebug")] [SerializeField] Transform sweepCurrentPosition;
@@ -71,15 +74,17 @@ public class KaliBossAI : SerializedMonoBehaviour
     #endregion
 
     #region //STATE CHANGE
-    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float maxTimeBetweenStates;
-    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float minAttackValue;
-    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float timeTillStateChange;
-    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float attackProbabilityBooster;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] bool newAttackTimeGenerated;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage1TimeLeftBeforeAttack;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage1MaxTimeBeforeAttack;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage1CurrentRunTimeBeforeAttack;
+    
 
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float minAttackValue;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float attackProbabilityBooster;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float minWaitTime;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float maxWaitTime;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float currentRunTime;
-    [FoldoutGroup("ChangeStateDebug")] [SerializeField] float timeTillNextAttack;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float probabilityBooster;
     #endregion
 
@@ -100,6 +105,12 @@ public class KaliBossAI : SerializedMonoBehaviour
 
         sweepCurrentPosition = this.gameObject.transform;
         kaliBasePosition = this.gameObject.transform.position;
+        
+        slamLeftCollider.gameObject.SetActive(false);
+        slamRightCollider.gameObject.SetActive(false);
+        
+        sweepLeftCollider.gameObject.SetActive(false);
+        sweepRightCollider.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -109,21 +120,16 @@ public class KaliBossAI : SerializedMonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             lifePoints -= damageValue;
-            StateSwitch();
+            StartCoroutine(Stage1StateManager());
         }
-
-        if (Stage1CurrentState != S1BossStates.S1Attacking) StateSwitch();
-        else return;
-        if (Stage2CurrentState != S2BossStates.S2Attacking) StateSwitch();
-        else return;
+        
+        if (bossStage == BossStages.Stage1 && !newAttackTimeGenerated) StartCoroutine(Stage1StateManager());
+        if (bossStage == BossStages.Stage2) Stage2StateManager();
 
         //DebugStateSwitching();
 
         WatchForStageChange();
-
-        if (bossStage == BossStages.Stage1) Stage1StateManager();
-        if (bossStage == BossStages.Stage2) Stage2StateManager();
-
+        
         UpdateCurrentState();
     }
     #endregion
@@ -134,6 +140,7 @@ public class KaliBossAI : SerializedMonoBehaviour
         currentPlayerActiveSideCollider = side.gameObject;
 
         activeSlamSide = side.gameObject;
+        activeSweepSide = side.gameObject;
 
         if (activeSlamSide == rightMapDetectionCollider)
         {
@@ -190,45 +197,41 @@ public class KaliBossAI : SerializedMonoBehaviour
         else return;
     }
 
-    void Stage1StateManager()
+    IEnumerator Stage1StateManager()
     {
-        Debug.Log("I'm managing");
+        stage1CurrentRunTimeBeforeAttack = 0;
+        //timeLeftBeforeAttack = Random.Range(0, maxTimeBeforeAttack);
+        newAttackTimeGenerated = true;
+        Debug.Log(stage1TimeLeftBeforeAttack);
 
-        //timeTillNextAttack = Random.Range(minWaitTime, maxWaitTime);
-
-        if (Stage1CurrentState == S1BossStates.S1Attacking)
+        while(true)
         {
+            if(Stage1CurrentState != S1BossStates.S1Attacking)
+            {     
+                stage1CurrentRunTimeBeforeAttack += Time.deltaTime;
 
-            RandomizeState1Attacks();
-
-            // if (currentRunTime >= timeTillNextAttack)
-            // {
-            //     RandomizeState1Attacks();
-            //     currentRunTime = 0;
-            // }
-            // else currentRunTime += Time.deltaTime;
+                if(stage1CurrentRunTimeBeforeAttack >= stage1MaxTimeBeforeAttack)
+                {
+                    RandomizeState1Attacks();
+                    newAttackTimeGenerated = false;
+                    Debug.Log("Countdown complete, time to attack");
+                    yield break;
+                }
+                yield return null;
+            }
+            yield return null;
         }
-
-        //if (Stage1CurrentState == S1BossStates.S1Idle) StartCoroutine(IdleState());
-        //if(Stage1CurrentState == S1BossStates.S1Dead) StartCoroutine(DeathState()); 
     }
 
     void Stage2StateManager()
     {
-        timeTillNextAttack = Random.Range(minWaitTime, maxWaitTime);
 
-        if (Stage2CurrentState == S2BossStates.S2Attacking)
+        if (Stage2CurrentState != S2BossStates.S2Attacking)
         {
-            if (currentRunTime >= timeTillNextAttack)
-            {
-                RandomizeState2Attacks();
-                currentRunTime = 0;
-            }
-            else currentRunTime += Time.deltaTime;
+            stage1TimeLeftBeforeAttack = Random.Range(0, stage1MaxTimeBeforeAttack);
+            //StateSwitch(timeLeftBeforeAttack);
         }
-
-        if (Stage2CurrentState == S2BossStates.S2Idle) StartCoroutine(IdleState());
-        //if(Stage2CurrentState == S2BossStates.S2Dead) StartCoroutine(DeathState());
+        else return;
     }
 
     void RandomizeState1Attacks()
@@ -294,11 +297,9 @@ public class KaliBossAI : SerializedMonoBehaviour
         }
     }
 
-    void StateSwitch()
+    /*void StateSwitch(float timeTillStateChange)
     {
         currentRunTime = 0;
-
-        timeTillStateChange = Random.Range(0, maxTimeBetweenStates);
         currentRunTime += Time.deltaTime;
 
         if (bossStage == BossStages.Stage1)
@@ -325,7 +326,7 @@ public class KaliBossAI : SerializedMonoBehaviour
                 Stage2CurrentState = S2BossStates.S2Attacking; //attacks, repeat
             }
         }
-    }
+    }*/
 
     void UpdateCurrentState()
     {
@@ -466,6 +467,18 @@ public class KaliBossAI : SerializedMonoBehaviour
 
             if (timeHoldingSweep >= timeToHoldSweep)
             {
+                if (activeSweepSide == rightMapDetectionCollider)
+                {
+                    sweepRightCollider.gameObject.SetActive(true);
+                    sweepLeftCollider.gameObject.SetActive(false);
+                }
+
+                if (activeSweepSide == leftMapDetectionCollider)
+                {
+                    sweepLeftCollider.gameObject.SetActive(true);
+                    sweepRightCollider.gameObject.SetActive(false);
+                }
+
                 timeSinceStarted += Time.deltaTime;
                 transform.position = Vector3.Lerp(transform.position, sweepEndPosition.position, timeSinceStarted * 0.5f);
 
@@ -483,6 +496,8 @@ public class KaliBossAI : SerializedMonoBehaviour
 
                         isTrackingPlayerPosition = true;
                         isSweeping = false;
+                        sweepRightCollider.gameObject.SetActive(false);
+                         sweepLeftCollider.gameObject.SetActive(false);
                         yield break; //...stop the coroutine  
                     }
 
