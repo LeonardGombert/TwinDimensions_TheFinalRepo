@@ -12,16 +12,12 @@ public class AttackCollisionDetection : SerializedMonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = true;
-            Debug.Log("I just rammed the player's ass, yo");
+            //Debug.Log("I just rammed the player's ass, yo");
         }
-    }
 
-    void OnTriggerStay2D(Collider2D collider)
-    {
-        if(collider.tag == "Player")
+        if(collider.tag == "Elephant")
         {
-            PlayerController.isInSlamRange = true;
-            Debug.Log("I just rammed the player's ass, yo");
+            Destroy(collider.gameObject);
         }
     }
 
@@ -30,7 +26,7 @@ public class AttackCollisionDetection : SerializedMonoBehaviour
         if(collider.tag == "Player")
         {
             PlayerController.isInSlamRange = false;
-            Debug.Log("I just rammed the player's ass, yo");
+            //Debug.Log("I just rammed the player's ass, yo");
         }
     }
 }

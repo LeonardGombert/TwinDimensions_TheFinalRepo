@@ -160,7 +160,7 @@ public class PlayerController : SerializedMonoBehaviour
                 MovementCalculations(horizontal, vertical);                
             }                        
         }
-
+        
         if(TeleportationManager.isTeleporting == true)
         {
             anim.SetFloat("xDirection", 0);
@@ -174,11 +174,11 @@ public class PlayerController : SerializedMonoBehaviour
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
         }
-
+        
         if(cinematicMoveUp)
         {
-            vertical = 10;
             canMove = false;
+            vertical = 10;
             microMovementCooldown(movementCooldown);
             MovementCalculations(horizontal, vertical);
         }
