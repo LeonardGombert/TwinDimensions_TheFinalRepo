@@ -12,6 +12,8 @@ public class Firebreather : MonsterClass
     [FoldoutGroup("Firebreather SFX")] [SerializeField] AudioClip FirebreatherDeath;
     #endregion
 
+    [SerializeField] GameObject parent;
+
     // Start is called before the first frame update
     public override void Awake ()
     {
@@ -24,7 +26,7 @@ public class Firebreather : MonsterClass
         
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    public override void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.gameObject.tag == "Elephant")
         {
@@ -37,5 +39,10 @@ public class Firebreather : MonsterClass
             //Instantiate(Fireball)
             base.anim.SetBool("isActive", true);
         }
+    }
+
+    void OnDestroy()
+    {
+        Destroy(parent);
     }
 }
