@@ -129,7 +129,7 @@ public class MonsterClass : SerializedMonoBehaviour
         else return false;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")
         {
@@ -152,7 +152,7 @@ public class MonsterClass : SerializedMonoBehaviour
         {
             dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Firebreather hit " + gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);            
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             GenerateSand(amountOfSandToDrop);
             Destroy(gameObject);
         }
@@ -176,7 +176,7 @@ public class MonsterClass : SerializedMonoBehaviour
         }
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    public virtual void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.tag == "ActivationPriest")
         {

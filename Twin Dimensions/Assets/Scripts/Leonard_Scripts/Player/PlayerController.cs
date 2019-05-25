@@ -108,7 +108,7 @@ public class PlayerController : SerializedMonoBehaviour
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true && !TeleportationManager.hasTeleported) MonitorPlayerInpus();
 
-        if(cinematicMoveUp);
+        //if(cinematicMoveUp)
         
         if(holdTime <= resetTime && !hasResetScene) 
         {
