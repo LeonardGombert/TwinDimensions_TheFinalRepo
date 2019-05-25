@@ -406,22 +406,28 @@ MonoBehaviour:
   laserStartPosition: {fileID: 0}
   laserEndPosition: {fileID: 0}
   laserMoveTime: 4
-  kaliBasePosition: {fileID: 0}
-  sweepLeftPosition: {fileID: 0}
-  sweepRightPosition: {fileID: 0}
+  kaliBasePosition: {x: 0, y: 0, z: 0}
+  sweepLeftPosition: {fileID: 3813572107012444974, guid: e77eae62184f47a44979e8b0ca3ba5a9,
+    type: 3}
+  sweepRightPosition: {fileID: 7482614325155831864, guid: 64d5c8e45a863804280cadae9b8ab833,
+    type: 3}
+  sweepLeftCollider: {fileID: 160629185944311659}
+  sweepRightCollider: {fileID: 160629186297107476}
+  activeSweepSide: {fileID: 0}
   sweepStartPosition: {fileID: 0}
   sweepEndPosition: {fileID: 0}
   sweepCurrentPosition: {fileID: 0}
   timeHoldingSweep: 0
   timeToHoldSweep: 1.5
-  maxTimeBetweenStates: 0
+  newAttackTimeGenerated: 0
+  stage1TimeLeftBeforeAttack: 0
+  stage1MaxTimeBeforeAttack: 0
+  stage1CurrentRunTimeBeforeAttack: 0
   minAttackValue: 1
-  timeTillStateChange: 0
   attackProbabilityBooster: 1
   minWaitTime: 0
   maxWaitTime: 20
   currentRunTime: 0
-  timeTillNextAttack: 0
   probabilityBooster: 2
 --- !u!1 &5019175207108773465
 GameObject:

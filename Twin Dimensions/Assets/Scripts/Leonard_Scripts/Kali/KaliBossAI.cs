@@ -226,7 +226,8 @@ public class KaliBossAI : SerializedMonoBehaviour
                 stage1CurrentRunTimeBeforeAttack += Time.deltaTime;
 
                 if(stage1CurrentRunTimeBeforeAttack >= stage1MaxTimeBeforeAttack)
-                {                     
+                {           
+                    newAttackTimeGenerated = false;          
                     RandomizeState2Attacks();
                     Debug.Log("Countdown complete, time to attack");
                     yield break;
@@ -259,7 +260,7 @@ public class KaliBossAI : SerializedMonoBehaviour
         if (whichAttack == 1) StartCoroutine(MoveToSweepAttackLocation());
         if (whichAttack == 2) StartCoroutine(LaserEyeBeam());
 
-        Stage2CurrentState = S2BossStates.S2Idle;
+        Stage2CurrentState = S2BossStates.S2Attacking;
     }
     #endregion
 
@@ -574,6 +575,7 @@ public class KaliBossAI : SerializedMonoBehaviour
                     usingLaser = false;
                     laserBeam.enabled = false;
                     isTrackingPlayerPosition = true;
+                    
                     Stage2CurrentState = S2BossStates.S2Idle;
                      
                     yield break; //...stop the coroutine
