@@ -6,6 +6,6 @@ public class LanguageTest : MonoBehaviour
 {
     public void changeLanguage()
     {
-        Debug.Log("TuEsBilingue");
+        Debug.Log("BravoTuEsBilingue");
     }
 }
