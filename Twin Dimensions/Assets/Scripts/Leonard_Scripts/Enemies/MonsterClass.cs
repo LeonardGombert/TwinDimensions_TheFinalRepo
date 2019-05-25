@@ -129,9 +129,9 @@ public class MonsterClass : SerializedMonoBehaviour
         else return false;
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collider)
     {
-        if(collision.tag == "ActivationPriest")
+        if(collider.tag == "ActivationPriest")
         {
             Debug.Log("The Priest has stopped activating " + this.gameObject.name);
             isBeingSwitchedByPriest = false;

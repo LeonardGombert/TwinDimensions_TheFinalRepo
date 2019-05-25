@@ -347,40 +347,40 @@ public class ElephantController : MonsterClass
         else if(!Switched) base.isBeingSwitchedByPriest = false;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collision.tag == "Player")
+        if(collider.tag == "Player")
         {
             Debug.Log("I hit the Player");
             PlayerController.playerIsDead = true;
         }
 
-        if(collision.tag == "Statue")
+        if(collider.tag == "Statue")
         {
-            Destroy(collision.gameObject);
+            Destroy(collider.gameObject);
         }
 
-        if(collision.tag == "ActivationPriest")
+        if(collider.tag == "ActivationPriest")
         {
             Debug.Log("The Priest has activated " + this.gameObject.name);
             isBeingSwitchedByPriest = true;
         }
 
-        if(collision.tag == "Enemy")
+        if(collider.tag == "Enemy")
         {
             anim.Play("Death");
         }
 
-        if(collision.tag == "Trap")
+        if(collider.tag == "Trap")
         {
             dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
-            Debug.Log("The Elephant hit " + collision.gameObject.name);
+            Debug.Log("The Elephant hit " + collider.gameObject.name);
             dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             GenerateSand();
             Destroy(gameObject);
         }
 
-        if(collision.tag == "Firebreather")        
+        if(collider.tag == "Firebreather")        
         {
             dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Firebreather hit " + gameObject.name);
@@ -388,5 +388,8 @@ public class ElephantController : MonsterClass
             GenerateSand();
             Destroy(gameObject);
         }
+
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Enemy_underProps";
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Enemy_overProps";
     }
 }

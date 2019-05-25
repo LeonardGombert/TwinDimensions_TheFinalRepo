@@ -56,6 +56,12 @@ public class Firebreather : MonsterClass
         }
     }
 
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Enemy_underProps";
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Enemy_overProps";
+    }
+
     public override void OnDestroy()
     {
         Destroy(parent);
