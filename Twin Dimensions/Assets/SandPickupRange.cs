@@ -11,6 +11,13 @@ public class SandPickupRange : MonoBehaviour
     {
         manager = GameObject.FindGameObjectWithTag("Manager");
     }
+
+    void Update()
+    {
+        if(LayerManager.PlayerIsInRealWorld()) this.gameObject.layer = LayerMask.NameToLayer("Player Layer 1");
+        if(!LayerManager.PlayerIsInRealWorld()) this.gameObject.layer = LayerMask.NameToLayer("Player Layer 2");
+    }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.tag == "Sand")
