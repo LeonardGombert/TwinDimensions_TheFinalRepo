@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using System;
+using UnityEngine.UI;
 
 public class ScoreSystem : MonoBehaviour
 {
     public static ScoreSystem instance;
-    
+    public Text Enemies;
+    public Text time;
+    public Text death;
+    public Text reset;
+    public Text FinalGrade;
+
+
+
+
     [FoldoutGroup("DEBUG Stats")][SerializeField] int AmountOfEnemiesAtStart;
     [FoldoutGroup("DEBUG Stats")][SerializeField] int AmountOfEnemiesAtEnd;
     [FoldoutGroup("DEBUG Stats")][SerializeField] int amountOfKills;
@@ -37,6 +47,8 @@ public class ScoreSystem : MonoBehaviour
         enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         
         AmountOfEnemiesAtStart = (int)enemiesInRoom.Count;
+
+
     }
 
     // Update is called once per frame
@@ -48,6 +60,8 @@ public class ScoreSystem : MonoBehaviour
             amountOfKills = AmountOfEnemiesAtStart - AmountOfEnemiesAtEnd;
             ConvertValues(amountOfKills, roomResets, playerDeaths);
         }
+
+
     }
     
     void ConvertValues(int kills, int resets, int deaths)
@@ -78,5 +92,13 @@ public class ScoreSystem : MonoBehaviour
     {
         ++playerDeaths;
         Debug.Log(playerDeaths);
+    }
+
+    private void FixedUpdate()
+    {
+        Enemies.text = "ENEMIES KILLED " + amountOfKills;
+        time.text = "TIME FOR COMPLETION " + Time.timeSinceLevelLoad;
+        death.text = "RESETS " + playerDeaths;
+        reset.text = "DEATHS " + roomResets;
     }
 }

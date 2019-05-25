@@ -5,14 +5,22 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using System;
 
 public class LevelManager : SerializedMonoBehaviour
 {
+    public GameObject EndPanel;
+
+
+
+   
     [ShowInInspector] public static bool playerCompletedLevel = false;
     //public int index;
     //public string levelName;
     Image black;
     Animator anim;
+
+    public static object Instance { get; internal set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -49,5 +57,6 @@ public class LevelManager : SerializedMonoBehaviour
     {
         playerCompletedLevel = true;
         StartCoroutine(Fading());
+        EndPanel.SetActive(true);
     }
 }
