@@ -346,4 +346,18 @@ public class ElephantController : MonsterClass
         if(Switched) base.isBeingSwitchedByPriest = true;
         else if(!Switched) base.isBeingSwitchedByPriest = false;
     }
+
+    public override void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "Enemy")
+        {
+            anim.Play("Death");
+        }
+
+        if(collider.tag == "Firebreather")        
+        {
+            Destroy(collider.gameObject);
+            Destroy(gameObject);
+        }
+    }
 }

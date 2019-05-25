@@ -547,24 +547,24 @@ public class KaliBossAI : SerializedMonoBehaviour
 
                 RaycastHit2D hit = Physics2D.Linecast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
             
-                if (hit.collider)
-                {
-                    if (hit.collider.tag == "Player")
-                    {
-                        Debug.Log("Have touched the player");
-                    }
+                // if (hit.collider)
+                // {
+                //     if (hit.collider.tag == "Player")
+                //     {
+                //         Debug.Log("Have touched the player");
+                //     }
 
-                    if (hit.collider.tag == "Obstacle")
-                    {
-                        Debug.Log("I hit " + hit.collider.name);
-                        laserHitPosition.transform.position = new Vector3(hit.point.x, hit.point.y);
-                    }
+                //     if (hit.collider.tag == "Obstacle")
+                //     {
+                //         Debug.Log("I hit " + hit.collider.name);
+                //         laserHitPosition.transform.position = new Vector3(hit.point.x, hit.point.y);
+                //     }
 
-                    if (hit.collider.tag == "Enemy")
-                    {
-                        Debug.Log("I hit " + hit.collider.name);
-                    }
-                }
+                //     if (hit.collider.tag == "Enemy")
+                //     {
+                //         Debug.Log("I hit " + hit.collider.name);
+                //     }
+                // }
                 
                 Debug.DrawLine(laserSpawnPosition.transform.position, laserHitPosition.transform.position, Color.green);
 
