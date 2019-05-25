@@ -33,9 +33,9 @@ public class Portals : MonoBehaviour
 
     bool PlayerHasRequiredSandAmount()
     {
-        if(SandManager.playerSandAmount >= 1)
+        if(PlayerController.playerSandAmount >= 1)
         {
-            SandManager.playerSandAmount-- ;
+            PlayerController.playerSandAmount-- ;
             return true;
         }
         else return false;

@@ -36,6 +36,7 @@ public class PlayerController : SerializedMonoBehaviour
     bool movementIsCoolingDown = false;
 
     public static bool cinematicMoveUp;
+    [FoldoutGroup("General Stats")][ShowInInspector] public static int playerSandAmount = 0;
     #endregion
 
     #region //GENERAL VARIABLES
