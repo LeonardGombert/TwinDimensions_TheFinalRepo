@@ -4,7 +4,6 @@ using UnityEngine;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using Cinemachine;
-using Cinemachine.Editor;
 
 public class GUICameraController : MonoBehaviour
 {

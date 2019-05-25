@@ -6,7 +6,7 @@ using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
 
-public class MonsterClass : SerializedMonoBehaviour
+public class MonsterClass : MonoBehaviour
 {
     [HideInInspector]
     public SpriteRenderer spiritWorldVisuals;
