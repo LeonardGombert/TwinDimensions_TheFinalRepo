@@ -25,7 +25,7 @@ public class InteractablesScript : MonoBehaviour
 
 
 
-
+    bool activatingPlate = false;
     bool activatingLevers = false;
     bool activatingReceptacle = false;
 
@@ -67,7 +67,7 @@ public class InteractablesScript : MonoBehaviour
         if (activatingLevers)
         {
             foreach (GameObject interactable in interactableObjects)
-            {
+            {                
                 GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
 
                 if (PlayerInputManager.instance.GetKeyDown("interactionKey"))
@@ -76,6 +76,7 @@ public class InteractablesScript : MonoBehaviour
                     {
                         thing.SendMessage("Activated");
                     }
+                    break;
                 }
             }
         }
@@ -93,6 +94,33 @@ public class InteractablesScript : MonoBehaviour
                         thing.SendMessage("Activated");
                     }
                 }
+            }
+        }
+
+        if(activatingPlate)
+        {
+            foreach (GameObject interactable in interactableObjects)
+            {
+                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
+
+                if (PlayerInputManager.instance.GetKey("interactionKey") && isOpen == false)
+                {
+                    foreach (GameObject thing in interactableObjects)
+                    {
+                        isOpen = true;
+                        thing.SendMessage("Activated");
+                    }
+                }
+
+                if (PlayerInputManager.instance.GetKeyUp("interactionKey") && isOpen == true)
+                {
+                    foreach (GameObject thing2 in interactableObjects)
+                    {
+                        isOpen = false;
+                        thing2.SendMessage("Released");
+                    }
+                }
+                break;
             }
         }
     }
@@ -122,29 +150,7 @@ public class InteractablesScript : MonoBehaviour
     {
         if (activationType == ActivationType.Plate && collider.gameObject.tag == "Player" && collider.attachedRigidbody.mass <= requiredMass)
         {
-            foreach (GameObject interactable in interactableObjects)
-            {
-                GUICameraController.MoveCameraToPosition(interactable, interactable.gameObject.layer);
-
-                if (PlayerInputManager.instance.GetKey("interactionKey") && isOpen == false)
-                {
-                    foreach (GameObject thing in interactableObjects)
-                    {
-                        isOpen = true;
-                        thing.SendMessage("Activated");
-                    }
-                }
-
-                if (PlayerInputManager.instance.GetKeyUp("interactionKey") && isOpen == true)
-                {
-                    foreach (GameObject thing2 in interactableObjects)
-                    {
-                        isOpen = false;
-                        thing2.SendMessage("Released");
-                    }
-                }
-                break;
-            }
+            activatingPlate = true;
         }
 
         if (activationType == ActivationType.Lever && collider.gameObject.tag == "Player")
@@ -181,14 +187,15 @@ public class InteractablesScript : MonoBehaviour
         {
             foreach (GameObject interactable in interactableObjects)
             {
-                interactable.SendMessage("Released");
+                interactable.SendMessage("Released");                
+                GUICameraController.ClearCameraPosition();
             }
         }
-        GUICameraController.ClearCameraPosition();
 
         if (activationType == ActivationType.Lever && collider.gameObject.tag == "Player")
         {
             activatingLevers = false;
+            GUICameraController.ClearCameraPosition();
         }
     }
 }
