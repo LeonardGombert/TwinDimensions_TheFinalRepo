@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.Serialization;
+using Sirenix.OdinInspector;
 
 public class InteractablesScript : MonoBehaviour
 
@@ -33,6 +35,10 @@ public class InteractablesScript : MonoBehaviour
 
     SpriteRenderer sr;
     BoxCollider2D bxc;
+    
+    #region
+    [FoldoutGroup("Interactables SFX")][SerializeField] AudioClip PressurePlateSound;
+    #endregion
 
 
     void Awake()
