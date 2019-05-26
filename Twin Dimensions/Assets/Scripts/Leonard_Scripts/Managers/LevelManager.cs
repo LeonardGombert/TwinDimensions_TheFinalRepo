@@ -5,14 +5,19 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using System;
 
 public class LevelManager : MonoBehaviour
 {
+    public GameObject EndPanel;
     [ShowInInspector] public static bool playerCompletedLevel = false;
     //public int index;
     //public string levelName;
     Image black;
     Animator anim;
+
+    public static object Instance { get; internal set; }
+    public object FinalScore { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -25,12 +30,7 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         if(PlayerInputManager.instance.GetKeyDown("resetScene")) StartCoroutine(Fading());
-        if(Input.GetKeyDown(KeyCode.X)) ReachedExit();
-    }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if(collider.tag == "Player") StartCoroutine(Fading());
+        if(Input.GetKeyDown(KeyCode.X)) LoadNext();
     }
 
     IEnumerator Fading()
@@ -44,11 +44,18 @@ public class LevelManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        Debug.Log(FinalScore);       
     }
 
     public void ReachedExit()
     {
         playerCompletedLevel = true;
+        EndPanel.SetActive(true);
+    }
+    
+    void LoadNext()
+    {       
         StartCoroutine(Fading());
     }
 }

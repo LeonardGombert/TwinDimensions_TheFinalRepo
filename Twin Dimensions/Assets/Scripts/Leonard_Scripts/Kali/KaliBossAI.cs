@@ -119,6 +119,8 @@ public class KaliBossAI : MonoBehaviour
         WatchForStageChange();
 
         UpdateCurrentState();
+
+        DebugStateSwitching();
     }
     #endregion
 
@@ -293,13 +295,13 @@ public class KaliBossAI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            if (bossStage == BossStages.Stage1) Stage1CurrentState = S1BossStates.S1Idle;
+            if (bossStage == BossStages.Stage1) StartCoroutine(MoveToSweepAttackLocation());
             else if (bossStage == BossStages.Stage2) StartCoroutine(MoveToSweepAttackLocation()); //Stage2CurrentState = S2BossStates.S2Idle;
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            if (bossStage == BossStages.Stage1) Stage1CurrentState = S1BossStates.S1Dead;
+            if (bossStage == BossStages.Stage1) StartCoroutine(SlamAttack());
             else if (bossStage == BossStages.Stage2) StartCoroutine(SlamAttack()); //Stage2CurrentState = S2BossStates.S2Dead;
         }
     }
