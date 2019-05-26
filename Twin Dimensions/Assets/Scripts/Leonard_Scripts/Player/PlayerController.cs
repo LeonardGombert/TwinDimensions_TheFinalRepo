@@ -75,14 +75,14 @@ public class PlayerController : MonoBehaviour
     #endregion
     
     #region //SOUND EFFECTS
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walking;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkInSnow;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkInForest;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] gameOver;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] punchingSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] summoningSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] teleportationSounds;
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] deathSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip walking;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip walkInSnow;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip walkInForest;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip gameOver;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip punchingSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip summoningSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip teleportationSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip deathSounds;
     #endregion
     #endregion
 
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true && !TeleportationManager.hasTeleported) MonitorPlayerInpus();
 
-        //if(cinematicMoveUp)
+        //MonitorSFX();
         
         if(holdTime <= resetTime && !hasResetScene) 
         {
@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             playerIsMoving = true;
 
-            //FindObjectOfType<AudioManager>().Play("StepsForest");
+            SoundManager.instance.PlaySingle(walking);
             
             Vector2 destinationPosition1 = new Vector2(transform.position.x + horizontal, transform.position.y + vertical);
             Vector2 destinationPosition2 = new Vector2(horizontal, vertical);
@@ -270,9 +270,20 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
+        SoundManager.instance.PlaySingle(deathSounds);
         dontDestroyManager.gameObject.SendMessage("PlayerDied");
         new WaitForSeconds(.5f);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+
+    void MonitorSFX()
+    {
+        if(playerIsDead)SoundManager.instance.PlaySingle(gameOver);
+        if(StatueManager.isPunchingStatue)SoundManager.instance.PlaySingle(punchingSounds);
+
+        //if(StatueManager.isPlacingStatue)SoundManager.instance.PlaySingle(summoningSounds);
+        //if(TeleportationManager.isTeleporting)SoundManager.instance.PlaySingle(summoningSounds);
+        if(playerIsDead)SoundManager.instance.PlaySingle(deathSounds);
     }
 }

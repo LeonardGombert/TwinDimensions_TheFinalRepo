@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647591239002074040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 24, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 647591239219517138}
@@ -596,7 +596,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7776813076995326837}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 24, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7776813077433392849}
@@ -702,7 +702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7776813077118386919}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: -10}
+  m_LocalPosition: {x: -24, y: -5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7776813076995326838}
@@ -1520,18 +1520,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   movementTilemap: {fileID: 0}
-  walking: []
-  walkInSnow: []
-  walkInForest: []
-  gameOver: []
-  punchingSounds:
-  - {fileID: 0}
-  summoningSounds:
-  - {fileID: 0}
-  teleportationSounds:
-  - {fileID: 0}
-  deathSounds:
-  - {fileID: 0}
+  walking: {fileID: 8300000, guid: 8a73c3afbf6a3684290e7c52097a862d, type: 3}
+  walkInSnow: {fileID: 8300000, guid: 39562085de848cc4ba8c7447d4c5ac28, type: 3}
+  walkInForest: {fileID: 8300000, guid: faf007ab3483ddc4da40ab8c13a37f2e, type: 3}
+  gameOver: {fileID: 8300000, guid: 8b2bd37a1c8203340b079edfd43ffea0, type: 3}
+  punchingSounds: {fileID: 8300000, guid: 0afc67fa811adc14aa8e69f17f1b9d13, type: 3}
+  summoningSounds: {fileID: 8300000, guid: 5296ef4264118f741bd0ddaa3ea7dfb6, type: 3}
+  teleportationSounds: {fileID: 8300000, guid: a19cdb355bd2b344da32dd65ad568868, type: 3}
+  deathSounds: {fileID: 0}
 --- !u!114 &7776813077787256849
 MonoBehaviour:
   m_ObjectHideFlags: 0

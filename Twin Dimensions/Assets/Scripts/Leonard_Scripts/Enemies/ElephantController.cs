@@ -126,7 +126,7 @@ public class ElephantController : MonsterClass
         
         //TriggerBehavior();
 
-        MonitorSFX();
+        //MonitorSFX();
     }
     #endregion
 
