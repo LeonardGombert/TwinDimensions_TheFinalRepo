@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class LayerManager : SerializedMonoBehaviour
+public class LayerManager : MonoBehaviour
 {    
     //[FoldoutGroup("Enemies in Scene")][SerializeField]
     //List <GameObject> fillThisListWithEnemies;

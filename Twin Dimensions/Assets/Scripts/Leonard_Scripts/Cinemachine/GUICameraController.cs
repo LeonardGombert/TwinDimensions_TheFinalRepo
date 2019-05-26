@@ -4,7 +4,6 @@ using UnityEngine;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using Cinemachine;
-using Cinemachine.Editor;
 
 public class GUICameraController : MonoBehaviour
 {
@@ -16,9 +15,6 @@ public class GUICameraController : MonoBehaviour
     {
         myGUICamera1 = GameObject.FindGameObjectWithTag("GUI World1");
         myGUICamera2 = GameObject.FindGameObjectWithTag("GUI World2");
-
-        myGUICamera1.SetActive(false);
-        myGUICamera2.SetActive(false);
     }
 
     // Update is called once per frame

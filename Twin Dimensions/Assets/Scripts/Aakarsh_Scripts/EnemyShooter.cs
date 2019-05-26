@@ -19,7 +19,7 @@ public class EnemyShooter : MonoBehaviour
     }
 
     
-    void FixedUpdate()
+    void Update()
     {
         switch (direction)
         {

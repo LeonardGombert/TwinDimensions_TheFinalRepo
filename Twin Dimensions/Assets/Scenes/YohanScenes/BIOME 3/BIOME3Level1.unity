@@ -2395,6 +2395,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 647591239002074047, guid: 83cb38e2a3f684d4e9decc5441e44025,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83cb38e2a3f684d4e9decc5441e44025, type: 3}
 --- !u!114 &619516033 stripped
@@ -2842,6 +2847,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571957076086958001, guid: e49893935a5ca8144b8afb0ba357ba7c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6501575156580527148, guid: e49893935a5ca8144b8afb0ba357ba7c,
         type: 3}
@@ -4028,6 +4038,55 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1160937387}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1235580672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1235580674}
+  - component: {fileID: 1235580673}
+  m_Layer: 0
+  m_Name: QHierarchyObjectList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1235580673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235580672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845e8bd83609e3549af5a311ad811681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockedObjects: []
+  editModeVisibileObjects: []
+  editModeInvisibleObjects: []
+  wireframeHiddenObjects: []
+  gameObjectColorKeys: []
+  gameObjectColorValues: []
+--- !u!4 &1235580674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235580672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1241187198
 PrefabInstance:
   m_ObjectHideFlags: 0

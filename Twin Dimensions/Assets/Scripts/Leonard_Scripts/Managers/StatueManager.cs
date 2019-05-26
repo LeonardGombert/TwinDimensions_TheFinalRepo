@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
-public class StatueManager : SerializedMonoBehaviour
+public class StatueManager : MonoBehaviour
 {
     [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class KaliBossAI : SerializedMonoBehaviour
+public class KaliBossAI : MonoBehaviour
 {
     #region Variable Declarations
     #region //GENERAL
