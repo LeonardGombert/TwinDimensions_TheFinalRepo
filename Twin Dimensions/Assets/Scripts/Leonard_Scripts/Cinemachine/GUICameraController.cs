@@ -16,13 +16,6 @@ public class GUICameraController : MonoBehaviour
         myGUICamera1 = GameObject.FindGameObjectWithTag("GUI World1");
         myGUICamera2 = GameObject.FindGameObjectWithTag("GUI World2");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public static void MoveCameraToPosition(GameObject targetPosition, LayerMask layer)
     {
         if(LayerManager.ObjectIsInRealWorld(targetPosition))
