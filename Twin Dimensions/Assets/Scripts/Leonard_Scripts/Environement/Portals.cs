@@ -6,10 +6,14 @@ using Sirenix.Serialization;
 
 public class Portals : MonoBehaviour
 {
+    [SerializeField] SpriteRenderer sr;
+    [SerializeField] Sprite lockedSprite;
+    [SerializeField] Animator anim;
     GameObject manager;
-    bool isInteracting = false;
+    [SerializeField] bool isInteracting = false;
+    [SerializeField] bool thisPortalIsLocked = false;  
 
-    void Awake()
+    void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager");
     }
@@ -25,29 +29,46 @@ public class Portals : MonoBehaviour
             PortalManager.hasUsedPortal = false;
             manager.SendMessage("PlayerLeftPortalRange");
         }
+    }    
+
+    bool PlayerHasRequiredSandAmount()
+    {
+        if(PlayerController.playerSandAmount >= 1)
+        {
+            PlayerController.playerSandAmount-- ;
+            return true;
+        }
+        else return false;
     }
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if(isInteracting == true)
+        if (isInteracting == true)
         {
-            if(collider.gameObject.tag == "Player" && PortalManager.hasUsedPortal == false)
+            if (collider.gameObject.tag == "Player" && PortalManager.hasUsedPortal == false)
             {
-                manager.SendMessage("UpdatePortals", this.gameObject);
-                PortalManager.hasUsedPortal = true;
-                PlayerController.canMove = false;
-            }
-        }
-    }
+                if (thisPortalIsLocked)
+                {
+                    if (PlayerHasRequiredSandAmount())
+                    {
+                        anim.enabled = true;
+                        anim.SetBool("isUnlocked", true);
 
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if(isInteracting == true)
-        {
-            if(collider.gameObject.tag == "Player" && PortalManager.hasUsedPortal == true)
-            {
-                manager.SendMessage("UpdatePortals", this.gameObject);
-                PlayerController.canMove = false;
+                        manager.SendMessage("UpdatePortals", this.gameObject);
+                        PortalManager.hasUsedPortal = true;
+                        PlayerController.canMove = false;
+                        UnlockPortal();
+                    }
+
+                    else return;
+                }
+
+                else if (!thisPortalIsLocked)
+                {
+                    manager.SendMessage("UpdatePortals", this.gameObject);
+                    PortalManager.hasUsedPortal = true;
+                    PlayerController.canMove = false;
+                }
             }
         }
     }
@@ -55,5 +76,18 @@ public class Portals : MonoBehaviour
     void OnTriggerExit2D(Collider2D collider)
     {
         isInteracting = false;
+    }
+
+    void LockPortals()
+    {
+        thisPortalIsLocked = true;
+        anim.enabled = false;
+        sr.sprite = lockedSprite;
+    }
+
+    void UnlockPortal()
+    {
+        thisPortalIsLocked = false;
+        manager.gameObject.SendMessage("UnlockThisPortal", this.gameObject);
     }
 }

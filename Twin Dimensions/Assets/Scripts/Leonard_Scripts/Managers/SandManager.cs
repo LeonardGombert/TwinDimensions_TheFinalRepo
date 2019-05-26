@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class SandManager : SerializedMonoBehaviour
+public class SandManager : MonoBehaviour
 {
     List<List<GameObject>> BigList = new List<List<GameObject>>();
     [FoldoutGroup("SandHolder Lists")][SerializeField]
@@ -26,8 +26,6 @@ public class SandManager : SerializedMonoBehaviour
     int extremeAmount;
 
     int sandAmount;
-
-    public static int mySandAmount = 0;
     int sandRequiredForKey = 5;
     int myKeys = 0;
 
@@ -44,16 +42,16 @@ public class SandManager : SerializedMonoBehaviour
 
     void AddNewSandShard(int sandGained)
     {
-        mySandAmount = mySandAmount + sandGained;
+        PlayerController.playerSandAmount = PlayerController.playerSandAmount + sandGained;
 
-        Debug.Log("I've currently got " + mySandAmount + " sand shards");
+        Debug.Log("I've currently got " + PlayerController.playerSandAmount + " sand shards");
 
-        if(mySandAmount == sandRequiredForKey)
-        {
-            mySandAmount = 0;
-            myKeys += 1;
-            Debug.Log("I've currently got " + myKeys + " keys");
-        }
+        // if(playerSandAmount == sandRequiredForKey)
+        // {
+        //     playerSandAmount = 0;
+        //     myKeys += 1;
+        //     Debug.Log("I've currently got " + myKeys + " keys");
+        // }
     }
 
     private void SandHeldByEntity()

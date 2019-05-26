@@ -7,9 +7,9 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine.Rendering.PostProcessing;
 using Cinemachine;
-using Cinemachine.Editor;
+  
 
-public class TeleportationManager : SerializedMonoBehaviour
+public class TeleportationManager : MonoBehaviour
 {
     #region Variable Declarations
 
@@ -137,7 +137,7 @@ public class TeleportationManager : SerializedMonoBehaviour
     private void SwitchWorlds()
     {
         //PLAYER TELEPORTATION
-        if (LayerManager.PlayerIsInRealWorld())
+        if (LayerManager.PlayerIsInRealWorld())//if in real world, switch to Kali
         {
             world1Cam.gameObject.SetActive(false);
             world2Cam.gameObject.SetActive(true);
@@ -151,6 +151,14 @@ public class TeleportationManager : SerializedMonoBehaviour
             //CameraTransitions.ChangingWorlds(world2VirtualCam);
             
             hasTeleported = true;
+
+
+
+
+            //AudioManager.musiqueMonde1.Stop();
+            //float timeStamp = AudioManager.musiqueMonde1.time;
+            //AudioManager.musiqueMonde2.time = timeStamp;
+            //AudioManager.musiqueMonde2.Play();
         }
 
         else if (!LayerManager.PlayerIsInRealWorld())
@@ -167,6 +175,13 @@ public class TeleportationManager : SerializedMonoBehaviour
             //CameraTransitions.ChangingWorlds(world1VirtualCam);
 
             hasTeleported = true;
+
+
+
+            //AudioManager.musiqueMonde2.Stop();
+            //float timeStamp = AudioManager.musiqueMonde2.time;
+            //AudioManager.musiqueMonde2.time = timeStamp;
+            //AudioManager.musiqueMonde2.Play();
         }
 
         isTeleporting = false;

@@ -19,7 +19,7 @@ public class EnemyShooter : MonoBehaviour
     }
 
     
-    void FixedUpdate()
+    void Update()
     {
         switch (direction)
         {
@@ -54,7 +54,6 @@ public class EnemyShooter : MonoBehaviour
             GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity=dir;
             lastAttacktime = Time.time;
-            Debug.Log("Shooting");
         }
     }
 }

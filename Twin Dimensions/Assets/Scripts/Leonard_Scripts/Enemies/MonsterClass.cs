@@ -6,7 +6,7 @@ using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
 
-public class MonsterClass : SerializedMonoBehaviour
+public class MonsterClass : MonoBehaviour
 {
     [HideInInspector]
     public SpriteRenderer spiritWorldVisuals;
@@ -16,7 +16,7 @@ public class MonsterClass : SerializedMonoBehaviour
     public List<Sprite> spriteList = new List<Sprite>();
     [HideInInspector]
     public SpriteRenderer sr;
-    [HideInInspector]
+    //[]
     public Animator anim;
 
     private Vector3 playerDirectionForClass;
@@ -26,7 +26,7 @@ public class MonsterClass : SerializedMonoBehaviour
     [HideInInspector]
     public GameObject gameMaster;
 
-    bool isBeingSwitchedByPriest;
+    public bool isBeingSwitchedByPriest;
     public static bool isBeingCharged;
     public static bool isBeingTeleported;
 
@@ -38,7 +38,7 @@ public class MonsterClass : SerializedMonoBehaviour
     [FoldoutGroup("Sand")][SerializeField] GameObject sandToDrop;
     
     int amountOfSandToDrop;
-    GameObject dontDestroyManager;
+    public GameObject dontDestroyManager;
 
     // Start is called before the first frame update
     public virtual void Awake()
@@ -121,6 +121,7 @@ public class MonsterClass : SerializedMonoBehaviour
 
     public virtual void ActivateTriggerBehavior(){}
     public virtual void MonitorSFX(){}
+    public virtual void SwitchedByPriest(bool Switched){}
 
     private bool isActivatedByTurret(bool messageListener = false)
     {
@@ -128,71 +129,28 @@ public class MonsterClass : SerializedMonoBehaviour
         else return false;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collider)
     {
-        if(collision.tag == "Player")
+        if(collider.tag == "ActivationPriest")
         {
-            Debug.Log("I hit the Player");
-            PlayerController.playerIsDead = true;
-        }
-
-        if(collision.tag == "Statue")
-        {
-            Destroy(collision.gameObject);
-        }
-
-        if(collision.tag == "ActivationPriest")
-        {
-            Debug.Log("The Priest has activated " + this.gameObject.name);
-            isBeingSwitchedByPriest = true;
-        }
-
-        if(collision.tag == "Firebreather")        
-        {
-            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
-            Debug.Log("The Firebreather hit " + gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);            
-            GenerateSand(amountOfSandToDrop);
-            Destroy(gameObject);
-        }
-
-        if(collision.tag == "Elephant")
-        {
-            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
-            Debug.Log("The Elephant hit " + gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
-            GenerateSand(amountOfSandToDrop);
-            Destroy(gameObject);
-        }
-
-        if(collision.tag == "Trap")
-        {
-            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
-            Debug.Log("The Elephant hit " + collision.gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
-            GenerateSand(amountOfSandToDrop);
-            Destroy(gameObject);
+            Debug.Log("The Priest has stopped activating " + this.gameObject.name);
+            isBeingSwitchedByPriest = false;
         }
     }
 
-    void DropSand(int sandAmount)
+    public virtual void DropSand(int sandAmount)
     {
         amountOfSandToDrop = sandAmount;
     }
 
-    void GenerateSand(int amountOfSandToDrop)
+    public virtual  void GenerateSand()
     {
-        for (int i = 0; i < amountOfSandToDrop; ++i)
-        {
-            Instantiate(sandToDrop, transform.position, Quaternion.identity);
-        }
+        Debug.Log(this.gameObject.name + " is dropping");
+        Instantiate(sandToDrop, transform.position, Quaternion.identity);
     }
 
-    bool SwitchedByPriest(bool isBeingSwitched)
-    {
-        if(isBeingSwitched == true) isBeingSwitched = true;
-        if(isBeingSwitched == false) isBeingSwitched = false;
-
-        return isBeingSwitched;
+    public virtual void OnDestroy()
+    {        
+        Instantiate(sandToDrop, transform.position, Quaternion.identity);
     }
 }

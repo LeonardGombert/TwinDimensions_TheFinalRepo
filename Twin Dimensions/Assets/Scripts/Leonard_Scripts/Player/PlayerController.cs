@@ -8,7 +8,7 @@ using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
 
-public class PlayerController : SerializedMonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     #region Variable Decarations
     #region //BASIC MOVEMENT
@@ -19,7 +19,6 @@ public class PlayerController : SerializedMonoBehaviour
 
     Vector3 currentPosition;
     Vector3 desiredPosition;
-    
     
     [FoldoutGroup("Player Movement")][SerializeField]
     float movementCooldown = 0.3f;
@@ -37,6 +36,7 @@ public class PlayerController : SerializedMonoBehaviour
     bool movementIsCoolingDown = false;
 
     public static bool cinematicMoveUp;
+    [FoldoutGroup("General Stats")][ShowInInspector] public static int playerSandAmount = 0;
     #endregion
 
     #region //GENERAL VARIABLES
@@ -75,7 +75,10 @@ public class PlayerController : SerializedMonoBehaviour
     #endregion
     
     #region //SOUND EFFECTS
-    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkingSounds;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walking;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkInSnow;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] walkInForest;
+    [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] gameOver;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] punchingSounds;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] summoningSounds;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] teleportationSounds;
@@ -87,6 +90,7 @@ public class PlayerController : SerializedMonoBehaviour
     private void Awake()
     {
         cinematicMoveUp = false;
+        isInSlamRange = false;
         playerIsDead = false;
         anim = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
@@ -105,7 +109,7 @@ public class PlayerController : SerializedMonoBehaviour
         if(!LayerManager.PlayerIsInRealWorld()) selectedLayerMask = world2Profile;
         if(canMove == true && !TeleportationManager.hasTeleported) MonitorPlayerInpus();
 
-        if(cinematicMoveUp);
+        //if(cinematicMoveUp)
         
         if(holdTime <= resetTime && !hasResetScene) 
         {
@@ -115,8 +119,6 @@ public class PlayerController : SerializedMonoBehaviour
         }
 
         if(playerIsDead) Death();
-
-        //if(PlayerInputManager.instance.GetKeyDown("interactionKey")) GUICameraController.MoveCameraToPosition(this.transform.position, this.gameObject.layer);
     }
     #endregion
 
@@ -160,7 +162,7 @@ public class PlayerController : SerializedMonoBehaviour
                 MovementCalculations(horizontal, vertical);                
             }                        
         }
-
+        
         if(TeleportationManager.isTeleporting == true)
         {
             anim.SetFloat("xDirection", 0);
@@ -174,11 +176,11 @@ public class PlayerController : SerializedMonoBehaviour
             anim.SetFloat("xDirection", horizontal);
             anim.SetFloat("yDirection", vertical);
         }
-
+        
         if(cinematicMoveUp)
         {
-            vertical = 10;
             canMove = false;
+            vertical = 10;
             microMovementCooldown(movementCooldown);
             MovementCalculations(horizontal, vertical);
         }
@@ -239,22 +241,13 @@ public class PlayerController : SerializedMonoBehaviour
     #region //COLLISION DETECTION
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.tag == "Sand")
-        {
-            anim.SetTrigger("gainedSand");
-            manager.gameObject.SendMessage("AddNewSandShard", 1);
-            Destroy(collider.gameObject);
-        }
-
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
-
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
     }
 
     void OnTriggerStay2D(Collider2D collider)
     {
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
-
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
     }
 
@@ -268,6 +261,8 @@ public class PlayerController : SerializedMonoBehaviour
     void PlayerDied(Vector3 playerDirection)
     {
         anim.SetTrigger("isGuarding");
+        canMove = false;
+        TeleportationManager.isOnLockedLayer = true;
         anim.SetFloat("xDirection", playerDirection.x);
         anim.SetFloat("yDirection", playerDirection.y);
     }

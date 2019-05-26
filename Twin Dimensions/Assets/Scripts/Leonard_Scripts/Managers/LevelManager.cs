@@ -6,24 +6,26 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class LevelManager : SerializedMonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     [ShowInInspector] public static bool playerCompletedLevel = false;
     //public int index;
     //public string levelName;
-    public Image black;
-    public Animator anim;
+    Image black;
+    Animator anim;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        black = GameObject.FindGameObjectWithTag("LevelFadeAnim").GetComponent<Image>();
+        anim = GameObject.FindGameObjectWithTag("LevelFadeAnim").GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if(PlayerInputManager.instance.GetKeyDown("resetScene")) StartCoroutine(Fading());
+        if(Input.GetKeyDown(KeyCode.X)) ReachedExit();
     }
 
     void OnTriggerEnter2D(Collider2D collider)
