@@ -88,7 +88,9 @@ public class PlayerController : MonoBehaviour
 
     #region Monobehavior Callbacks
     private void Awake()
-    {
+    {        
+        canMove = true;
+        TeleportationManager.isOnLockedLayer = false;
         cinematicMoveUp = false;
         isInSlamRange = false;
         playerIsDead = false;
@@ -281,7 +283,6 @@ public class PlayerController : MonoBehaviour
     {
         if(playerIsDead)SoundManager.instance.PlaySingle(gameOver);
         if(StatueManager.isPunchingStatue)SoundManager.instance.PlaySingle(punchingSounds);
-
         //if(StatueManager.isPlacingStatue)SoundManager.instance.PlaySingle(summoningSounds);
         //if(TeleportationManager.isTeleporting)SoundManager.instance.PlaySingle(summoningSounds);
         if(playerIsDead)SoundManager.instance.PlaySingle(deathSounds);
