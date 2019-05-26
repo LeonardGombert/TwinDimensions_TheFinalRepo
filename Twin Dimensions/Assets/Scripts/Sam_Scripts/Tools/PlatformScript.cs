@@ -1,10 +1,13 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.Serialization;
+using Sirenix.OdinInspector;
 
 public class PlatformScript : MonoBehaviour
 {
+    [FoldoutGroup("Platform SFX")][SerializeField] AudioClip PlatformSound;
+
     Vector2 positionA;
     Vector2 positionB;
 

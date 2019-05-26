@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class LayerManager : SerializedMonoBehaviour
+public class LayerManager : MonoBehaviour
 {    
     //[FoldoutGroup("Enemies in Scene")][SerializeField]
     //List <GameObject> fillThisListWithEnemies;
@@ -76,7 +76,7 @@ public class LayerManager : SerializedMonoBehaviour
         else return false;
     }
 
-    private void CompareEnemyToPlayerLayer(List<GameObject> EnemyEntities) //sends message to each enemy to notify them if they share the same layer as the player
+    void CompareEnemyToPlayerLayer(List<GameObject> EnemyEntities) //sends message to each enemy to notify them if they share the same layer as the player
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         
@@ -108,6 +108,22 @@ public class LayerManager : SerializedMonoBehaviour
             {
                 PriestClass.isOnMyLayer = false;
                 MonsterClass.isOnMyLayer = false;
+            }
+        }
+    }
+
+    public static void LayerContainsOtherHook(GameObject activeHookTower, List<GameObject> hookTowers)
+    {
+        if(activeHookTower.gameObject.layer == LayerMask.NameToLayer("Hook Layer 1"))
+        {
+            if(hookTowers.Count >= 1) Debug.Log("I've got more than one towers");
+        }
+
+        if (activeHookTower.gameObject.layer == LayerMask.NameToLayer("Hook Layer 2"))
+        {
+            foreach (GameObject tower in hookTowers)
+            {
+                if(hookTowers.Count >= 1) Debug.Log("I've got more than one towers");
             }
         }
     }

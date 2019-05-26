@@ -12,6 +12,8 @@ public class Firebreather : MonsterClass
     [FoldoutGroup("Firebreather SFX")] [SerializeField] AudioClip FirebreatherDeath;
     #endregion
 
+    [SerializeField] GameObject parent;
+
     // Start is called before the first frame update
     public override void Awake ()
     {
@@ -25,17 +27,27 @@ public class Firebreather : MonsterClass
     }
 
     void OnTriggerEnter2D(Collider2D collider)
-    {
-        if(collider.gameObject.tag == "Elephant")
+    {        
+        if(collider.tag == "Player")
         {
-            //Instantiate(Fireball)
-            base.anim.SetBool("isActive", true);
+            Debug.Log("I hit the Player");
+            PlayerController.playerIsDead = true;
         }
 
-        if(collider.gameObject.tag == "Statue")
+        if(collider.tag == "Elephant" || collider.gameObject.tag == "Statue")
         {
-            //Instantiate(Fireball)
-            base.anim.SetBool("isActive", true);
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            Debug.Log("The Elephant hit " + gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            anim.SetBool("isActive", true);
+            GenerateSand();
+            Destroy(gameObject);
         }
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Enemy_underProps";
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Enemy_overProps";
     }
 }

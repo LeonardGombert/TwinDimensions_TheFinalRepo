@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using System;
 
-public class LevelManager : SerializedMonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     public GameObject EndPanel;
 
@@ -34,6 +34,7 @@ public class LevelManager : SerializedMonoBehaviour
     void Update()
     {
         if(PlayerInputManager.instance.GetKeyDown("resetScene")) StartCoroutine(Fading());
+        if(Input.GetKeyDown(KeyCode.X)) ReachedExit();
     }
 
     void OnTriggerEnter2D(Collider2D collider)

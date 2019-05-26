@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class PortalManager : SerializedMonoBehaviour
+public class PortalManager : MonoBehaviour
 {
     [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;
@@ -26,9 +26,13 @@ public class PortalManager : SerializedMonoBehaviour
     [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
     GameObject currentActiveTower;
     [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
-    List<GameObject> activeHookTowers = new List<GameObject>();
+    List<GameObject> activeHookTowersWorld1 = new List<GameObject>();
     [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
-    List<GameObject> inactiveHookTowers = new List<GameObject>();
+    List<GameObject> inactiveHookTowersWorld1 = new List<GameObject>();
+    [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
+    List<GameObject> activeHookTowersWorld2 = new List<GameObject>();
+    [FoldoutGroup("DEBUG Checkpoint Teleporter")][SerializeField]
+    List<GameObject> inactiveHookTowersWorld2 = new List<GameObject>();
 
     GameObject player;
     GameObject portalEntrance;
@@ -51,10 +55,16 @@ public class PortalManager : SerializedMonoBehaviour
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
         
         currentActiveTower = insertBaseActiveTower;
-        inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));    
-        inactiveHookTowers.Remove(currentActiveTower);
-        activeHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
 
+        inactiveHookTowersWorld1.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower 1"));
+        inactiveHookTowersWorld2.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower 2"));
+
+        activeHookTowersWorld1.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower 1"));
+        activeHookTowersWorld2.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower 2"));
+
+        //inactiveHookTowersWorld1.Remove(currentActiveTower);
+        //inactiveHookTowersWorld1.Remove(currentActiveTower);
+        
         foreach(GameObject portal in lockedPortals)
         {
             portal.gameObject.SendMessage("LockPortals");
@@ -64,7 +74,8 @@ public class PortalManager : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(activeHookTowers);
+        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(activeHookTowersWorld1);
+        if(TeleportationManager.hasTeleported) CheckIfLayerContainsHook(activeHookTowersWorld2);
        
         maxIndexNmber = currentWorldPortal.Count;
 
@@ -77,6 +88,7 @@ public class PortalManager : SerializedMonoBehaviour
         if(currentWorldPortal.Count != 0) SelectPortalExit();
     }
 
+    #region //PORTALS
     private void UpdatePortals(GameObject touchedPortal = default)
     {
         currentWorldPortal.Clear();
@@ -96,28 +108,6 @@ public class PortalManager : SerializedMonoBehaviour
         currentWorldPortal.Remove(touchedPortal);
     }
     
-    private void GetAllHooks(GameObject newHookTower)
-    {
-        currentActiveTower = newHookTower;
-
-        inactiveHookTowers.Clear();
-        activeHookTowers.Clear();
-
-        inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Inactive Hook Tower"));
-        inactiveHookTowers.AddRange(GameObject.FindGameObjectsWithTag("Hook Tower"));
-        inactiveHookTowers.Remove(currentActiveTower);
-        activeHookTowers.Add(currentActiveTower);
-
-        foreach (GameObject tower in inactiveHookTowers)
-        {
-            tower.tag = "Inactive Hook Tower";
-        }
-        foreach (GameObject tower in activeHookTowers)
-        {
-            tower.tag = "Hook Tower";
-        }
-    }
-
     private void SelectPortalExit()
     {
         currentPortalSelected = movementTilemap.WorldToCell(currentWorldPortal[currentIndexNumber].transform.position);
@@ -137,7 +127,7 @@ public class PortalManager : SerializedMonoBehaviour
             TeleportToExit(currentIndexNumber);
         }
     }
-
+    
     private void TeleportToExit(int exitIndexNumber)
     {
         hasUsedPortal = true;
@@ -145,11 +135,54 @@ public class PortalManager : SerializedMonoBehaviour
         player.transform.position = exitPosition;
         PlayerController.canMove = true;
     }
-
+    
     private void PlayerLeftPortalRange()
     {
         currentWorldPortal.Clear();
         movementTilemap.SetTile(currentPortalSelected, null);
+    }    
+
+    void UnlockThisPortal(GameObject portalToRemove)
+    {
+        lockedPortals.Remove(portalToRemove);
+    }
+    #endregion
+    
+    #region //TELEPORTER
+    private void GetAllHooks(GameObject newHookTower)
+    {
+        if(newHookTower.layer == LayerMask.NameToLayer("Hook Layer 1")) newHookTower.tag = "Hook Tower 1";
+        if(newHookTower.layer == LayerMask.NameToLayer("Hook Layer 2")) newHookTower.tag = "Hook Tower 2";
+
+        if(newHookTower.layer == LayerMask.NameToLayer("Hook Layer 1"))
+        {
+            foreach (GameObject tower in activeHookTowersWorld1)
+            {
+                if(tower.layer == LayerMask.NameToLayer("Hook Layer 1"))
+                {
+                    tower.tag = "Inactive Hook Tower 1";
+                    activeHookTowersWorld1.Clear();
+                    activeHookTowersWorld1.Add(newHookTower);
+                    inactiveHookTowersWorld1.Add(tower);
+                    inactiveHookTowersWorld1.Remove(newHookTower);
+                }
+            }
+        }
+
+        if (newHookTower.layer == LayerMask.NameToLayer("Hook Layer 2"))
+        {
+            foreach (GameObject tower in activeHookTowersWorld2)
+            {
+                if (tower.layer == LayerMask.NameToLayer("Hook Layer 2"))
+                {
+                    tower.tag = "Inactive Hook Tower 2";
+                    activeHookTowersWorld2.Clear();
+                    activeHookTowersWorld2.Add(newHookTower);
+                    inactiveHookTowersWorld2.Add(tower);
+                    inactiveHookTowersWorld2.Remove(newHookTower);
+                }
+            }
+        }
     }
 
     private void CheckIfLayerContainsHook(List<GameObject> hookTowerList)
@@ -177,9 +210,5 @@ public class PortalManager : SerializedMonoBehaviour
         player.transform.position = new Vector3(towerPosition.x, towerPosition.y + .5f); //offsets player positing correctly 
         TeleportationManager.hasTeleported = false;
     }
-
-    void UnlockThisPortal(GameObject portalToRemove)
-    {
-        lockedPortals.Remove(portalToRemove);
-    }
+    #endregion
 }

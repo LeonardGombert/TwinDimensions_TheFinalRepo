@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
-public class StatueBehavior : SerializedMonoBehaviour
+public class StatueBehavior : MonoBehaviour
 {
     public Transform player;
     Vector3 currentPositionOnGrid;

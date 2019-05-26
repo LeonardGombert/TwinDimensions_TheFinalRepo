@@ -7,9 +7,9 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine.Rendering.PostProcessing;
 using Cinemachine;
-using Cinemachine.Editor;
+  
 
-public class TeleportationManager : SerializedMonoBehaviour
+public class TeleportationManager : MonoBehaviour
 {
     #region Variable Declarations
 

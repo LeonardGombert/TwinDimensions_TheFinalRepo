@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using Cinemachine;
-using Cinemachine.Editor;
+  
 
 public class ElephantController : MonsterClass
 {
@@ -86,6 +86,9 @@ public class ElephantController : MonsterClass
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] collision;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] dying;
     #endregion
+
+    [SerializeField] CinemachineImpulseSource screenshakeImpulse;
+
     #endregion
 
     #region Monobehavior Callbacks
@@ -121,7 +124,7 @@ public class ElephantController : MonsterClass
 
         if(currentIndexNumber >= maxIndexNmber) currentIndexNumber = 0;
         
-        TriggerBehavior();
+        //TriggerBehavior();
 
         MonitorSFX();
     }
@@ -240,9 +243,7 @@ public class ElephantController : MonsterClass
     #region  //CHARGE
     private IEnumerator Charging(Vector3 destination, Vector3 direction)
     {
-        Cinemachine.NoiseSettings.NoiseParams noiseCam;
-        noiseCam.Amplitude = 0.5f;
-        noiseCam.Frequency = 9;
+        screenshakeImpulse.GenerateImpulse();
 
         playerDirection = (target.position - transform.position).normalized;
 
@@ -284,47 +285,47 @@ public class ElephantController : MonsterClass
     }
     #endregion    
     
-    public override void ActivateTriggerBehavior()
-    {
-        Debug.Log("I'm triggered");
-        isTriggered = true;           
-    }
+    // public override void ActivateTriggerBehavior()
+    // {
+    //     Debug.Log("I'm triggered");
+    //     isTriggered = true;           
+    // }
     
-    void TriggerBehavior()
-    {
-        if(isTriggered)
-        { 
-            playerCamera.gameObject.SetActive(false);
-            elephantCamera.gameObject.SetActive(true);
+    // void TriggerBehavior()
+    // {
+    //     if(isTriggered)
+    //     { 
+    //         playerCamera.gameObject.SetActive(false);
+    //         elephantCamera.gameObject.SetActive(true);
             
-            anim.SetFloat("MoveX", CardinalDirections[currentIndexNumber].x);
-            anim.SetFloat("MoveY", CardinalDirections[currentIndexNumber].y);
+    //         anim.SetFloat("MoveX", CardinalDirections[currentIndexNumber].x);
+    //         anim.SetFloat("MoveY", CardinalDirections[currentIndexNumber].y);
 
-            //highlight 4 squares around, representing directions
+    //         //highlight 4 squares around, representing directions
             
-            currentSelectedDirection = movementTilemap.WorldToCell(CardinalDirections[currentIndexNumber]);
+    //         currentSelectedDirection = movementTilemap.WorldToCell(CardinalDirections[currentIndexNumber]);
 
-            if (currentSelectedDirection != previousSelectedDirection)
-            {
-                movementTilemap.SetTile(currentSelectedDirection, highlightTile);
+    //         if (currentSelectedDirection != previousSelectedDirection)
+    //         {
+    //             movementTilemap.SetTile(currentSelectedDirection, highlightTile);
 
-                movementTilemap.SetTile(previousSelectedDirection, null);
+    //             movementTilemap.SetTile(previousSelectedDirection, null);
 
-                previousSelectedDirection = currentSelectedDirection;
-            } 
+    //             previousSelectedDirection = currentSelectedDirection;
+    //         } 
 
-            if(PlayerInputManager.instance.GetKeyDown("chargeElephant"))
-            {
-                lookingForWall = true;
-                isCharging = true;
-                LookForWall(currentSelectedDirection);
-                isTriggered = false;
-                elephantCamera.gameObject.SetActive(false);
-                playerCamera.gameObject.SetActive(true);
-            }
-        }
-        else return;
-    }
+    //         if(PlayerInputManager.instance.GetKeyDown("chargeElephant"))
+    //         {
+    //             lookingForWall = true;
+    //             isCharging = true;
+    //             LookForWall(currentSelectedDirection);
+    //             isTriggered = false;
+    //             elephantCamera.gameObject.SetActive(false);
+    //             playerCamera.gameObject.SetActive(true);
+    //         }
+    //     }
+    //     else return;
+    // }
     #endregion
 
     public override void MonitorSFX()
@@ -336,7 +337,7 @@ public class ElephantController : MonsterClass
         else return;
     }
 
-    void OnDestroy()
+    public override void OnDestroy()
     {
         ElephantSpawnPoint.canSpawnElephant = true;
     }
@@ -345,5 +346,61 @@ public class ElephantController : MonsterClass
     {
         if(Switched) base.isBeingSwitchedByPriest = true;
         else if(!Switched) base.isBeingSwitchedByPriest = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "Player")
+        {
+            Debug.Log("I hit the Player");
+            PlayerController.playerIsDead = true;
+        }
+
+        if(collider.tag == "Statue")
+        {
+            Destroy(collider.gameObject);
+        }
+
+        if(collider.tag == "ActivationPriest")
+        {
+            Debug.Log("The Priest has activated " + this.gameObject.name);
+            isBeingSwitchedByPriest = true;
+        }
+
+        if(collider.tag == "Enemy")
+        {
+            anim.Play("Death");
+        }
+
+        if(collider.tag == "Trap")
+        {
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            Debug.Log("The Elephant hit " + collider.gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            GenerateSand();
+            Destroy(gameObject);
+        }
+
+        if(collider.tag == "Elephant")
+        {
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            Debug.Log("The Elephant hit " + gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            anim.SetBool("isActive", true);
+            GenerateSand();
+            Destroy(gameObject);
+        }
+
+        if(collider.tag == "Firebreather")        
+        {
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            Debug.Log("The Firebreather hit " + gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            GenerateSand();
+            Destroy(gameObject);
+        }
+
+        if(collider.tag == "overLayering") sr.sortingLayerName = "Enemy_underProps";
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Enemy_overProps";
     }
 }
