@@ -245,6 +245,7 @@ public class PlayerController : MonoBehaviour
     {
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
+        if(collider.tag == "KaliCrystal" && KaliBossAI.oneInPosition && KaliBossAI.twoInPosition) DestroyCrystal();
     }
 
     // void OnTriggerStay2D(Collider2D collider)
@@ -286,5 +287,12 @@ public class PlayerController : MonoBehaviour
         //if(StatueManager.isPlacingStatue)SoundManager.instance.PlaySingle(summoningSounds);
         //if(TeleportationManager.isTeleporting)SoundManager.instance.PlaySingle(summoningSounds);
         if(playerIsDead)SoundManager.instance.PlaySingle(deathSounds);
+    }
+
+    void DestroyCrystal()
+    {
+        //press and hold E
+        Debug.Log("I hit the crystal");
+        anim.SetBool("killKali", true);
     }
 }
