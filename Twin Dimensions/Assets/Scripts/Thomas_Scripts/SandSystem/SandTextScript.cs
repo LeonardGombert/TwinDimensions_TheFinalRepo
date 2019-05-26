@@ -15,11 +15,11 @@ public class SandTextScript : MonoBehaviour
     }
     void Update()
     {
-        text.text = sandAmount.ToString();
-        if (sandAmount < 0)
-        {
-            SceneManager.LoadScene("GameOver");
-            sandAmount = 0;
-        }
+        text.text = PlayerController.playerSandAmount.ToString();
+        //if (sandAmount < 0)
+       // {
+        //    SceneManager.LoadScene("GameOver");
+         //   sandAmount = 0;
+       // }
     }
 }
