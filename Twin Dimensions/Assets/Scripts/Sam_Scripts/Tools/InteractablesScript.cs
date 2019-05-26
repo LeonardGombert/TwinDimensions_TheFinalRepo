@@ -203,5 +203,11 @@ public class InteractablesScript : MonoBehaviour
             activatingLevers = false;
             GUICameraController.ClearCameraPosition();
         }
+
+        if (activationType == ActivationType.Plate && collider.gameObject.tag == "Player")
+        {
+            activatingPlate = false;
+            GUICameraController.ClearCameraPosition();
+        }
     }
 }
