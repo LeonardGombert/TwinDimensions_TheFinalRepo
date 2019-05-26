@@ -14,6 +14,7 @@ public class ScoreSystem : MonoBehaviour
     //public Text death;
     public Text reset;
     public Text FinalGrade;
+    public Text Grade;
     public int timeCap1;
     public int timeCap2;
     public int resetCap1;
@@ -104,8 +105,8 @@ public class ScoreSystem : MonoBehaviour
         //Enemies.text = "ENEMIES KILLED " + amountOfKills;
         time.text = "TIME FOR COMPLETION " + timeToComplete;
         //death.text = "RESETS " + playerDeaths;
-        reset.text = "DEATHS " + roomResets;
-        FinalGrade.text = "YOUR FINAL GRADE IS " + FinalScore;
+        reset.text = "RESETS " + roomResets;
+        FinalGrade.text = "YOUR FINAL GRADE IS : ";
 
         if (CalculateGrade1 == true && LevelManager.playerCompletedLevel == true && (roomResets + playerDeaths) < resetCap1)
         {
@@ -145,9 +146,21 @@ public class ScoreSystem : MonoBehaviour
 
         if (FinalScore == 6)
         {
-
+            Grade.text = "A";
         }
-        
+        if (FinalScore == 5 || FinalScore == 4)
+        {
+            Grade.text = "B";
+        }
+        if (FinalScore == 3 || FinalScore == 2)
+        {
+            Grade.text = "C";
+        }
+        if (FinalScore == 1 || FinalScore == 0)
+        {
+            Grade.text = "D";
+        }
+
     }
 
  
