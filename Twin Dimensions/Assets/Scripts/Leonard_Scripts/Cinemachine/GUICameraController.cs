@@ -20,6 +20,11 @@ public class GUICameraController : MonoBehaviour
         myGUICamera2 = GameObject.FindGameObjectWithTag("GUI World2");
         myGUICamera1Frame = GameObject.FindGameObjectWithTag("GUI World1 Frame");
         myGUICamera2Frame = GameObject.FindGameObjectWithTag("GUI World2 Frame");
+
+        myGUICamera1.SetActive(false);
+        myGUICamera2.SetActive(false);
+        myGUICamera1Frame.SetActive(false);
+        myGUICamera2Frame.SetActive(false);
     }
     public static void MoveCameraToPosition(GameObject targetPosition, LayerMask layer)
     {
