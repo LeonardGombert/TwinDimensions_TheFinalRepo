@@ -339,11 +339,6 @@ public class ElephantController : MonsterClass
         else return;
     }
 
-    public override void OnDestroy()
-    {
-        ElephantSpawnPoint.canSpawnElephant = true;
-    }
-
     public override void SwitchedByPriest(bool Switched)
     {
         if(Switched) base.isBeingSwitchedByPriest = true;
