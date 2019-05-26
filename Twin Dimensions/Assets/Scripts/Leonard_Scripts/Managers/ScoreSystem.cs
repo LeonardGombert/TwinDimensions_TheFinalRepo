@@ -143,7 +143,10 @@ public class ScoreSystem : MonoBehaviour
             CalculateGrade2 = false;
         }
 
-        
+        if (FinalScore == 6)
+        {
+
+        }
         
     }
 
