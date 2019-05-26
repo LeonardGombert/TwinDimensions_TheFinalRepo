@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class SandManager : SerializedMonoBehaviour
+public class SandManager : MonoBehaviour
 {
     List<List<GameObject>> BigList = new List<List<GameObject>>();
     [FoldoutGroup("SandHolder Lists")][SerializeField]

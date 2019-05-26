@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2815914251523049650}
   - component: {fileID: 2815914251523049653}
+  - component: {fileID: 2641626403807001024}
   - component: {fileID: 2815914251523049652}
   - component: {fileID: 2815914251523049655}
   m_Layer: 13
@@ -47,15 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3115d5fb5b4fe1e45afa139e2fc68846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   spiritWorldVisuals: {fileID: 2815914252922998327}
   realWorldVisuals: {fileID: 2815914252922998327}
   spriteList:
@@ -68,7 +60,8 @@ MonoBehaviour:
   isBeingSwitchedByPriest: 0
   sandToDrop: {fileID: 8432475591768976378, guid: 3bb65e8c59ee19c439b9ed8e196e52b7,
     type: 3}
-  dontDestroyManager: {fileID: 0}
+  dontDestroyManager: {fileID: 5877728568504382141, guid: 38008438ea0651043a6e180b739b5d54,
+    type: 3}
   lookingForPlayer: 1
   lookingForWall: 0
   isRushingPlayer: 0
@@ -89,6 +82,48 @@ MonoBehaviour:
   chargeSounds: []
   collision: []
   dying: []
+  screenshakeImpulse: {fileID: 2641626403807001024}
+--- !u!114 &2641626403807001024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2815914251523049654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: -1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 3
+    m_FrequencyGain: 0.5
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 2
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
 --- !u!50 &2815914251523049652
 Rigidbody2D:
   serializedVersion: 4

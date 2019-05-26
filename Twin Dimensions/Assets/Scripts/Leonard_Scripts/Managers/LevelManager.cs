@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class LevelManager : SerializedMonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     [ShowInInspector] public static bool playerCompletedLevel = false;
     //public int index;
@@ -25,6 +25,7 @@ public class LevelManager : SerializedMonoBehaviour
     void Update()
     {
         if(PlayerInputManager.instance.GetKeyDown("resetScene")) StartCoroutine(Fading());
+        if(Input.GetKeyDown(KeyCode.X)) ReachedExit();
     }
 
     void OnTriggerEnter2D(Collider2D collider)

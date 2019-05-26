@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using StateData;
 
-public class AttackCollisionDetection : SerializedMonoBehaviour
+public class AttackCollisionDetection : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collider)
     {

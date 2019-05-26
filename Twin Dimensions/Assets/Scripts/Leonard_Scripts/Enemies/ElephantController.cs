@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using Cinemachine;
-using Cinemachine.Editor;
+  
 
 public class ElephantController : MonsterClass
 {
@@ -86,6 +86,9 @@ public class ElephantController : MonsterClass
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] collision;
     [FoldoutGroup("Player SFX")][SerializeField] AudioClip[] dying;
     #endregion
+
+    [SerializeField] CinemachineImpulseSource screenshakeImpulse;
+
     #endregion
 
     #region Monobehavior Callbacks
@@ -240,9 +243,7 @@ public class ElephantController : MonsterClass
     #region  //CHARGE
     private IEnumerator Charging(Vector3 destination, Vector3 direction)
     {
-        Cinemachine.NoiseSettings.NoiseParams noiseCam;
-        noiseCam.Amplitude = 0.5f;
-        noiseCam.Frequency = 9;
+        screenshakeImpulse.GenerateImpulse();
 
         playerDirection = (target.position - transform.position).normalized;
 
@@ -376,6 +377,16 @@ public class ElephantController : MonsterClass
             dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Elephant hit " + collider.gameObject.name);
             dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            GenerateSand();
+            Destroy(gameObject);
+        }
+
+        if(collider.tag == "Elephant")
+        {
+            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            Debug.Log("The Elephant hit " + gameObject.name);
+            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            anim.SetBool("isActive", true);
             GenerateSand();
             Destroy(gameObject);
         }

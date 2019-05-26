@@ -26,20 +26,15 @@ public class Firebreather : MonsterClass
         
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collider)
     {        
-        if(collision.tag == "Player")
+        if(collider.tag == "Player")
         {
             Debug.Log("I hit the Player");
             PlayerController.playerIsDead = true;
         }
 
-        if(collision.tag == "Statue")
-        {
-            Destroy(collision.gameObject);
-        }
-
-        if(collision.tag == "Elephant")
+        if(collider.tag == "Elephant" || collider.gameObject.tag == "Statue")
         {
             dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Elephant hit " + gameObject.name);
@@ -48,22 +43,11 @@ public class Firebreather : MonsterClass
             GenerateSand();
             Destroy(gameObject);
         }
-
-        if(collision.gameObject.tag == "Statue")
-        {
-            //Instantiate(Fireball)
-            base.anim.SetBool("isActive", true);
-        }
     }
 
     void OnTriggerStay2D(Collider2D collider)
     {
         if(collider.tag == "overLayering") sr.sortingLayerName = "Enemy_underProps";
         if(collider.tag == "underLayering") sr.sortingLayerName = "Enemy_overProps";
-    }
-
-    public override void OnDestroy()
-    {
-        Destroy(parent);
     }
 }
