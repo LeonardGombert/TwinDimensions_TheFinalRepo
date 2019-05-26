@@ -8,26 +8,26 @@ public class PrintKey : MonoBehaviour
 {
 
     [SerializeField]
-    private Text printKeyText;
+    GameObject printKey;
 
     private void Start ()
     {
-        printKeyText.gameObject.SetActive(false);
+        printKey.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Equals("Player"))
+        if (collision.gameObject.tag.Equals("Player"))
         {
-            printKeyText.gameObject.SetActive(true);
+            printKey.gameObject.SetActive(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Equals("Player"))
+        if (collision.gameObject.tag.Equals("Player"))
         {
-            printKeyText.gameObject.SetActive(false);
+            printKey.gameObject.SetActive(false);
         }
     }
 }
