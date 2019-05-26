@@ -23,9 +23,9 @@ public class UIpanel : MonoBehaviour
     {
         
         //Enemies.text = "ENEMIES TO BE KILLED " + EnemiesCap;
-        Time.text = "TIME LIMIT FOR BEST GRADE " + TimeCap + " MINS";
+        Time.text = "TIME LIMIT FOR BEST GRADE " + TimeCap + " SECONDS";
         //Deaths.text = "RESETS CAP FOR BEST GRADE " + DeathCap;
-        Resets.text = "RESET LIMIT FOR BEST GRADE " + ResetCap;
+        Resets.text = "RESET LIMIT FOR BEST GRADE: " + ResetCap;
     }
 
     public void showhidePanel()
