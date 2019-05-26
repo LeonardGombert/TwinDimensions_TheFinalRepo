@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     //public string levelName;
     Image black;
     Animator anim;
+   
 
     public static object Instance { get; internal set; }
     public object FinalScore { get; private set; }
@@ -52,6 +53,7 @@ public class LevelManager : MonoBehaviour
     {
         playerCompletedLevel = true;
         EndPanel.SetActive(true);
+       
     }
     
     void LoadNext()
