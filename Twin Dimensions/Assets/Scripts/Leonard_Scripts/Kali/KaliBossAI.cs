@@ -86,6 +86,7 @@ public class KaliBossAI : MonoBehaviour
 
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] public static bool oneInPosition = false;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] public static bool twoInPosition = false;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] public static bool DestroyedCrytal = false;
     #endregion
 
     #region //KALI ENUM STATES
@@ -284,7 +285,16 @@ public class KaliBossAI : MonoBehaviour
     #region //STATE CHANGING
     void WatchForStageChange()
     {
-        if (lifePoints <= lifepointsToChangeState) { bossStage = BossStages.Stage2; anim.SetTrigger("isTransitioning"); }
+        if (oneInPosition && twoInPosition)
+        {
+            bossStage = BossStages.Stage2; 
+            anim.SetBool("Beaten", true);
+        }
+
+        if(DestroyedCrytal)        
+        {
+            anim.SetTrigger("Beaten");
+        }
         else return;
     }
 
