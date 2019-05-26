@@ -91,9 +91,9 @@ public class ScoreSystem : MonoBehaviour
         }
 
         //Enemies.text = "ENEMIES KILLED " + amountOfKills;
-        time.text = "TIME FOR COMPLETION " + timeToComplete;
+        time.text = "TIME TAKEN: " + timeToComplete;
         //death.text = "RESETS " + playerDeaths;
-        reset.text = "RESETS " + roomResets;
+        reset.text = "RESETS DONE: " + roomResets;
         FinalGrade.text = "YOUR FINAL GRADE IS : ";
 
         if (CalculateGrade1 == true && LevelManager.playerCompletedLevel == true && (roomResets + playerDeaths) < resetCap1)
