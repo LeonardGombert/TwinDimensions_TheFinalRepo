@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class PortalManager : SerializedMonoBehaviour
+public class PortalManager : MonoBehaviour
 {
     [FoldoutGroup("Tilemap")]
     Tilemap movementTilemap;

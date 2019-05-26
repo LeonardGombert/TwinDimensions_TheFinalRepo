@@ -36,6 +36,11 @@ public class fireball : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (col.gameObject.tag.Equals("Enemy") && EnemyShooter == true)
+        {
+            Destroy(col.gameObject);
+        }
+
         
     }
     void OnTriggerEnter2D(Collider2D collision)

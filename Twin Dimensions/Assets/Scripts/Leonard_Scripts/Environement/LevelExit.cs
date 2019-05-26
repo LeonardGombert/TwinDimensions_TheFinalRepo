@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
-public class LevelExit : SerializedMonoBehaviour
+public class LevelExit : MonoBehaviour
 {
     GameObject manager;
 

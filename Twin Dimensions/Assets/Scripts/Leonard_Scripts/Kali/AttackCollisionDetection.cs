@@ -5,13 +5,13 @@ using UnityEditor;
 using UnityEngine;
 using StateData;
 
-public class AttackCollisionDetection : SerializedMonoBehaviour
+public class AttackCollisionDetection : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.tag == "Player")
         {
-            PlayerController.isInSlamRange = true;
+            PlayerController.playerIsDead = true;
             Debug.Log("I just rammed the player's ass, yo");
         }
 

@@ -11,7 +11,7 @@ public class EnemyShooter : MonoBehaviour
     public float attackdelay;
     public float lastAttacktime;
 
-    private Vector2 dir;
+    private Vector3 dir;
    
     void Start()
     {
@@ -19,39 +19,39 @@ public class EnemyShooter : MonoBehaviour
     }
 
     
-    void FixedUpdate()
+    void Update()
     {
         switch (direction)
         {
             case 1:
                 {
-                    dir =new Vector2(0,speed);
+                    dir =new Vector3(0,speed);
                 }
                 break;
             case 2:
                 {
-                    dir = new Vector2(0, -speed);
+                    dir = new Vector3(0, -speed);
                 }
                 break;
             case 3:
                 {
-                    dir = new Vector2(speed,0);
+                    dir = new Vector3(speed,0);
                 }
                 break;
             case 4:
                 {
-                    dir = new Vector2(-speed,0);
+                    dir = new Vector3(-speed,0);
                 }
                 break;
             default:
                 {
-                    dir = new Vector2(0, speed);
+                    dir = new Vector3(0, speed);
                 }
                 break;
         }
         if (Time.time > attackdelay + lastAttacktime)
         {
-            GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity);
+            GameObject bullet = Instantiate(projectile, transform.position + dir.normalized, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity=dir;
             lastAttacktime = Time.time;
         }
