@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void fixedUpdate()
+    void Update()
     {
         if(PlayerInputManager.instance.GetKeyDown("resetScene")) StartCoroutine(Fading());
         if(Input.GetKeyDown(KeyCode.X)) ReachedExit();
