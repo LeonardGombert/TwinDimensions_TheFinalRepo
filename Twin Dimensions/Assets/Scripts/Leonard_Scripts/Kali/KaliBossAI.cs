@@ -11,6 +11,10 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("General")] [SerializeField] Animator anim;
     [FoldoutGroup("General")] [SerializeField] GameObject player;
     [FoldoutGroup("General")] [SerializeField] GameObject kaliStatue;
+    [FoldoutGroup("General")] [SerializeField] ParticleSystem SlamRight;
+    [FoldoutGroup("General")] [SerializeField] ParticleSystem SlamLeft;
+    [FoldoutGroup("General")] [SerializeField] ParticleSystem SweepRight;
+    [FoldoutGroup("General")] [SerializeField] ParticleSystem SweepLeft;
     #endregion
 
     #region //BOSS STATES AND STAGES
@@ -117,8 +121,8 @@ public class KaliBossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bossStage == BossStages.Stage1 && !newAttackTimeGenerated) StartCoroutine(Stage1StateManager());
-        if (bossStage == BossStages.Stage2 && !newAttackTimeGenerated) StartCoroutine(Stage2StateManager());
+        if (bossStage == BossStages.Stage1 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld()) StartCoroutine(Stage1StateManager());
+        if (bossStage == BossStages.Stage2 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld()) StartCoroutine(Stage2StateManager());
 
         WatchForStageChange();
 
@@ -412,7 +416,12 @@ public class KaliBossAI : MonoBehaviour
 
     #region //ATTACK STATES
     IEnumerator SlamAttack()
-    {
+    {        
+        var slL = SlamLeft.emission;
+            slL.enabled = true;
+        var slR = SlamRight.emission;
+            slR.enabled = true;
+
         isSlamming = true;
         isTrackingPlayerPosition = false;
         timeHoldingSlam = 0;
@@ -449,6 +458,8 @@ public class KaliBossAI : MonoBehaviour
                 yield return new WaitForSeconds(.5f);
                 slamLeftCollider.gameObject.SetActive(false);
                 slamRightCollider.gameObject.SetActive(false);
+                slR.enabled = false;
+                slL.enabled = false;
                 yield break; //...stop the coroutine
             }
 
@@ -477,6 +488,11 @@ public class KaliBossAI : MonoBehaviour
 
     IEnumerator SweepAttack()
     {
+        var swL = SweepLeft.emission;
+            swL.enabled = true;
+        var swR = SweepRight.emission;
+            swR.enabled = true;
+
         isSweeping = true;
         timeHoldingSweep = 0f;
 
@@ -521,6 +537,8 @@ public class KaliBossAI : MonoBehaviour
                         isSweeping = false;
                         sweepRightCollider.gameObject.SetActive(false);
                         sweepLeftCollider.gameObject.SetActive(false);
+                        swR.enabled = false;
+                        swL.enabled  = false;
                         yield break; //...stop the coroutine  
                     }
 
