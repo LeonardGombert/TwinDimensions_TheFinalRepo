@@ -11,7 +11,7 @@ public class Portals : MonoBehaviour
     [SerializeField] Animator anim;
     GameObject manager;
     [SerializeField] bool isInteracting = false;
-    [SerializeField] bool thisPortalIsLocked = false;  
+    [SerializeField] bool thisPortalIsLocked = false;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class Portals : MonoBehaviour
 
     void Update()
     {
-        if(PlayerInputManager.instance.GetKey("interactionKey")) isInteracting = true;
+        if (PlayerInputManager.instance.GetKey("interactionKey")) isInteracting = true;
 
         if (PlayerInputManager.instance.GetKeyUp("interactionKey"))
         {
@@ -29,13 +29,13 @@ public class Portals : MonoBehaviour
             PortalManager.hasUsedPortal = false;
             manager.SendMessage("PlayerLeftPortalRange");
         }
-    }    
+    }
 
     bool PlayerHasRequiredSandAmount()
     {
-        if(PlayerController.playerSandAmount >= 1)
+        if (PlayerController.playerSandAmount >= 1)
         {
-            PlayerController.playerSandAmount-- ;
+            PlayerController.playerSandAmount--;
             return true;
         }
         else return false;
