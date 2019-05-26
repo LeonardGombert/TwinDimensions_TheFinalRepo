@@ -7,9 +7,6 @@ using Cinemachine;
 
 public class CameraTransitions : MonoBehaviour
 {
-
-    public Camera world1Camera;
-    public Camera world2Camera;
     CinemachineVirtualCamera playerCamera; 
     CinemachineVirtualCamera generalZoomCamera;
     CinemachineVirtualCamera relativeZoomCamera;
@@ -23,8 +20,6 @@ public class CameraTransitions : MonoBehaviour
     CinemachineVirtualCamera exitCamera;
     [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
     CinemachineVirtualCamera world1GeneralZoom;
-    [FoldoutGroup("Virtual Camera World 1 References")][SerializeField]
-    CinemachineVirtualCamera previewWorld1;
 
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     CinemachineVirtualCamera world2PlayerCamera;    
@@ -32,8 +27,6 @@ public class CameraTransitions : MonoBehaviour
     CinemachineVirtualCamera world2RelativeZoom;
     [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
     CinemachineVirtualCamera world2GeneralZoom;
-    [FoldoutGroup("Virtual Camera World 2 References")][SerializeField]
-    CinemachineVirtualCamera previewWorld2;
 
     float timeHeldDown;
     float minTimeToHoldDown = 7f;
@@ -48,7 +41,7 @@ public class CameraTransitions : MonoBehaviour
     {
         UpdateCameras();
         PlayerLevelView();
-        PreviewOtherWorld();
+        //PreviewOtherWorld();
     }
 
     void UpdateCameras()
@@ -157,39 +150,39 @@ public class CameraTransitions : MonoBehaviour
         //Serializse Impulse --> Impulse.GenerateImpuse();
     }
 
-    public void PreviewOtherWorld()
-    {
-        if(Input.GetKey(KeyCode.LeftControl))
-        {            
-            if(PlayerInputManager.instance.GetKey("previewOther"))
-            {
-                if(LayerManager.PlayerIsInRealWorld())
-                {
-                    world1PlayerCamera.gameObject.SetActive(false);
-                    world2PlayerCamera.gameObject.SetActive(true);
-                    previewWorld1.gameObject.SetActive(false);
-                    previewWorld2.gameObject.SetActive(true);
-                }
-            }
+    // public void PreviewOtherWorld()
+    // {
+    //     if(Input.GetKey(KeyCode.LeftControl))
+    //     {            
+    //         if(PlayerInputManager.instance.GetKey("previewOther"))
+    //         {
+    //             if(LayerManager.PlayerIsInRealWorld())
+    //             {
+    //                 world1PlayerCamera.gameObject.SetActive(false);
+    //                 world2PlayerCamera.gameObject.SetActive(true);
+    //                 previewWorld1.gameObject.SetActive(false);
+    //                 previewWorld2.gameObject.SetActive(true);
+    //             }
+    //         }
 
-            if(PlayerInputManager.instance.GetKeyUp("previewOther"))
-            {
-                if(!LayerManager.PlayerIsInRealWorld())
-                {
-                    world1PlayerCamera.gameObject.SetActive(true);
-                    world2PlayerCamera.gameObject.SetActive(false);
-                    previewWorld1.gameObject.SetActive(true);
-                    previewWorld2.gameObject.SetActive(false);
-                }
-            }
-        }
+    //         if(PlayerInputManager.instance.GetKeyUp("previewOther"))
+    //         {
+    //             if(!LayerManager.PlayerIsInRealWorld())
+    //             {
+    //                 world1PlayerCamera.gameObject.SetActive(true);
+    //                 world2PlayerCamera.gameObject.SetActive(false);
+    //                 previewWorld1.gameObject.SetActive(true);
+    //                 previewWorld2.gameObject.SetActive(false);
+    //             }
+    //         }
+    //     }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            playerCamera.gameObject.SetActive(true);
-            previewWorld2.gameObject.SetActive(false);
-            previewWorld1.gameObject.SetActive(false);
-            timeHeldDown = 0;
-        }
-    }
+    //     if (Input.GetKeyUp(KeyCode.LeftControl))
+    //     {
+    //         playerCamera.gameObject.SetActive(true);
+    //         previewWorld2.gameObject.SetActive(false);
+    //         previewWorld1.gameObject.SetActive(false);
+    //         timeHeldDown = 0;
+    //     }
+    // }
 }

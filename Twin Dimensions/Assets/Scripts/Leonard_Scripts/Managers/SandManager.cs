@@ -29,9 +29,12 @@ public class SandManager : MonoBehaviour
     int sandRequiredForKey = 5;
     int myKeys = 0;
 
+    Animator sablierAnimator;
+
     void Start()
     {
         BigList.AddRange(new List<GameObject>[] { sandHolders, mediumSand, highSand, extremeSand });
+        sablierAnimator = GameObject.FindGameObjectWithTag("Sablier").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -46,6 +49,11 @@ public class SandManager : MonoBehaviour
 
         Debug.Log("I've currently got " + PlayerController.playerSandAmount + " sand shards");
 
+        if(PlayerController.playerSandAmount >= 0)
+        {
+            sablierAnimator.SetBool("hasSand", true);
+        }
+
         // if(playerSandAmount == sandRequiredForKey)
         // {
         //     playerSandAmount = 0;
@@ -54,7 +62,13 @@ public class SandManager : MonoBehaviour
         // }
     }
 
-    private void SandHeldByEntity()
+    void FlipSandKeeper()
+    {
+        sablierAnimator.SetBool("usedSand", true);
+        sablierAnimator.SetBool("hasSand", false);
+    }
+
+    void SandHeldByEntity()
     {
         foreach (List<GameObject> list in BigList)
         {
