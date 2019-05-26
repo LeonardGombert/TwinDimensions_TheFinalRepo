@@ -245,15 +245,16 @@ public class PlayerController : MonoBehaviour
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
     }
 
-    void OnTriggerStay2D(Collider2D collider)
-    {
-        if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
-        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
-    }
+    // void OnTriggerStay2D(Collider2D collider)
+    // {
+    //     if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
+    //     if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
+    // }
 
     void OnTriggerExit2D(Collider2D collider)
     {
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_overProps";
+        if(collider.tag == "underLayering") sr.sortingLayerName = "Player_underProps";
     }
     #endregion
     #endregion
