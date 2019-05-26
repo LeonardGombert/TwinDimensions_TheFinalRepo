@@ -53,6 +53,8 @@ public class InteractablesScript : MonoBehaviour
         else if (activationType == ActivationType.Receptacle)
         {
             sr.sprite = activationTypeSprite[3];
+            bxc.size = new Vector2 (3, 2);
+            bxc.offset = new Vector2 (0, -1);
         }
     }
 
@@ -78,7 +80,7 @@ public class InteractablesScript : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collider)
     {
-        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") && collider.attachedRigidbody.mass < requiredMass)
+        if (activationType == ActivationType.Plate && collider.gameObject.CompareTag("Player") && collider.attachedRigidbody.mass <= requiredMass)
         {
             foreach (GameObject interactable in interactableObjects)
             {
