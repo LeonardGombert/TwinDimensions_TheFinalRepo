@@ -83,6 +83,9 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage2MinTimeBeforeAttack;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage2MaxTimeBeforeAttack;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage2CurrentRunTimeBeforeAttack;
+
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] public static bool oneInPosition = false;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] public static bool twoInPosition = false;
     #endregion
 
     #region //KALI ENUM STATES
