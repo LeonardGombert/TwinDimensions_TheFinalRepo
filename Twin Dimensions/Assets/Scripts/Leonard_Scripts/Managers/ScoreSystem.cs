@@ -9,11 +9,19 @@ using UnityEngine.UI;
 public class ScoreSystem : MonoBehaviour
 {
     public static ScoreSystem instance;
-    public Text Enemies;
+    //public Text Enemies;
     public Text time;
-    public Text death;
+    //public Text death;
     public Text reset;
     public Text FinalGrade;
+    public int timeCap1;
+    public int timeCap2;
+    public int resetCap1;
+    public int resetCap2;
+    bool CalculateGrade1 = true;
+    bool CalculateGrade2 = true;
+    [ShowInInspector] public static int FinalScore;
+    //[ShowInInspector] public static int FinalScore1;
 
 
 
@@ -72,10 +80,7 @@ public class ScoreSystem : MonoBehaviour
         playerDeaths = deaths;
     }
 
-    void CalculateGrade()
-    {
-
-    }
+  
 
     void WasKilled(GameObject killedObject)
     {
@@ -94,11 +99,56 @@ public class ScoreSystem : MonoBehaviour
         Debug.Log(playerDeaths);
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        Enemies.text = "ENEMIES KILLED " + amountOfKills;
-        time.text = "TIME FOR COMPLETION " + Time.timeSinceLevelLoad;
-        death.text = "RESETS " + playerDeaths;
+        //Enemies.text = "ENEMIES KILLED " + amountOfKills;
+        time.text = "TIME FOR COMPLETION " + timeToComplete;
+        //death.text = "RESETS " + playerDeaths;
         reset.text = "DEATHS " + roomResets;
+        FinalGrade.text = "YOUR FINAL GRADE IS " + FinalScore;
+
+        if (CalculateGrade1 == true && LevelManager.playerCompletedLevel == true && (roomResets + playerDeaths) < resetCap1)
+        {
+            FinalScore += 3;
+            CalculateGrade1 = false;
+        }
+
+        if (CalculateGrade1  && LevelManager.playerCompletedLevel  && (roomResets + playerDeaths) > resetCap1)
+        {
+            FinalScore += 2;
+            CalculateGrade1 = false;
+        }
+
+        if (CalculateGrade1 == true && LevelManager.playerCompletedLevel == true && (roomResets + playerDeaths) > resetCap2)
+        {
+            FinalScore += 1;
+            CalculateGrade1 = false;
+        } 
+        
+        if (CalculateGrade2 == true && LevelManager.playerCompletedLevel == true && timeToComplete < timeCap1)
+        {
+            FinalScore += 3;
+            CalculateGrade2 = false;
+        }
+
+        if (CalculateGrade2 == true && LevelManager.playerCompletedLevel == true && timeToComplete > timeCap1)
+        {
+            FinalScore += 2;
+            CalculateGrade2 = false;
+        }
+
+        if (CalculateGrade2 == true && LevelManager.playerCompletedLevel == true &&  timeToComplete > timeCap2)
+        {
+            FinalScore += 1;
+            CalculateGrade2 = false;
+        }
+
+        
+        
     }
+
+ 
+
+   
+
 }

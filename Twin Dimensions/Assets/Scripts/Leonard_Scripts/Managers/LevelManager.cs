@@ -21,6 +21,7 @@ public class LevelManager : SerializedMonoBehaviour
     Animator anim;
 
     public static object Instance { get; internal set; }
+    public object FinalScore { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -51,6 +52,9 @@ public class LevelManager : SerializedMonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        Debug.Log(FinalScore);
+       
     }
 
     public void ReachedExit()

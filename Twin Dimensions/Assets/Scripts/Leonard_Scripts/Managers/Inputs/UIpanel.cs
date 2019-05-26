@@ -6,26 +6,25 @@ using System;
 
 public class UIpanel : MonoBehaviour
 {
-    public Text Enemies;
+    //public Text Enemies;
     public Text Time;
-    public Text Deaths;
+    //public Text Deaths;
     public Text Resets;
-    public int EnemiesCap;
+    //public int EnemiesCap;
     public int TimeCap;
-    public int DeathCap;
+    //public int DeathCap;
     public int ResetCap;
 
     public GameObject Panel;
     int counter;
 
-    public GameObject EndPanel;
 
     private void Start()
     {
         
-        Enemies.text = "ENEMIES TO BE KILLED " + EnemiesCap;
-        Time.text = "TIME FOR BEST GRADE " + TimeCap;
-        Deaths.text = "RESETS CAP FOR BEST GRADE " + DeathCap;
+        //Enemies.text = "ENEMIES TO BE KILLED " + EnemiesCap;
+        Time.text = "TIME FOR BEST GRADE " + TimeCap + " MINS";
+        //Deaths.text = "RESETS CAP FOR BEST GRADE " + DeathCap;
         Resets.text = "DEATHS CAP FOR BEST GRADE " + ResetCap;
     }
 
