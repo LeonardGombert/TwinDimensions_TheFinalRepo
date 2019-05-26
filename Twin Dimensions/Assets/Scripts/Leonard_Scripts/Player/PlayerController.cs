@@ -8,7 +8,7 @@ using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 
 
-public class PlayerController : SerializedMonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     #region Variable Decarations
     #region //BASIC MOVEMENT
