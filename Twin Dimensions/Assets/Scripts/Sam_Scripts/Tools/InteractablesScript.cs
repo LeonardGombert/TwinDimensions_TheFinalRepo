@@ -21,7 +21,7 @@ public class InteractablesScript : MonoBehaviour
 
     public ActivationType activationType;
     public float requiredMass = 1f;
-    public float requiredSand = 0f;
+    public int requiredSand = 0;
     public bool isOpen;
 
 
@@ -35,6 +35,7 @@ public class InteractablesScript : MonoBehaviour
 
     SpriteRenderer sr;
     BoxCollider2D bxc;
+    SandManager sM;
     
     #region
     [FoldoutGroup("Interactables SFX")][SerializeField] AudioClip PressurePlateSound;
@@ -45,6 +46,7 @@ public class InteractablesScript : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         bxc = GetComponent<BoxCollider2D>();
+        sM = GetComponent<SandManager>();
 
         if (activationType == ActivationType.Plate)
         {
@@ -97,6 +99,10 @@ public class InteractablesScript : MonoBehaviour
                 {
                     foreach (GameObject thing in interactableObjects)
                     {
+                        PlayerController.playerSandAmount = PlayerController.playerSandAmount - requiredSand;
+                        GameObject manager;
+                        manager = GameObject.FindGameObjectWithTag("Manager");
+                        manager.gameObject.SendMessage("FlipSandKeeper");
                         thing.SendMessage("Activated");
                     }
                 }

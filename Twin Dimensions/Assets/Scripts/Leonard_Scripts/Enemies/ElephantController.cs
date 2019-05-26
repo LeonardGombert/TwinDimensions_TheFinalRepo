@@ -126,7 +126,7 @@ public class ElephantController : MonsterClass
         
         //TriggerBehavior();
 
-        MonitorSFX();
+        //MonitorSFX();
     }
     #endregion
 
@@ -156,6 +156,8 @@ public class ElephantController : MonsterClass
 
                     if (rangeDetection.collider)
                     {
+                        Debug.Log(rangeDetection.collider.name);
+                        
                         if(rangeDetection.collider.tag == "Player")
                         {
                             lookingForWall = true;
