@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 671069912273306809}
   - component: {fileID: 671069912273306808}
   - component: {fileID: 7993069960712194050}
+  - component: {fileID: 5080228818911986044}
   m_Layer: 13
   m_Name: CultDongle_World 2
   m_TagString: Enemy
@@ -77,6 +78,22 @@ MonoBehaviour:
   speed: 4
   attackdelay: 3
   lastAttacktime: 0
+--- !u!58 &5080228818911986044
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671069912273306814}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.4
 --- !u!1 &671069913795808136
 GameObject:
   m_ObjectHideFlags: 0
