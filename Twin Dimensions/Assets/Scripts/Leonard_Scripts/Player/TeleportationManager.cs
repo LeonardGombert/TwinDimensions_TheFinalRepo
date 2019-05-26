@@ -146,14 +146,8 @@ public class TeleportationManager : MonoBehaviour
             world2VirtualCam.gameObject.SetActive(true);
 
             gameObject.layer = LayerMask.NameToLayer("Player Layer 2");
-
-            //CameraTransitions.ChangingWorldsBack(world1VirtualCam);
-            //CameraTransitions.ChangingWorlds(world2VirtualCam);
             
             hasTeleported = true;
-
-
-
 
             //AudioManager.musiqueMonde1.Stop();
             //float timeStamp = AudioManager.musiqueMonde1.time;
@@ -171,12 +165,7 @@ public class TeleportationManager : MonoBehaviour
 
             gameObject.layer = LayerMask.NameToLayer("Player Layer 1");
 
-            //CameraTransitions.ChangingWorldsBack(world2VirtualCam);
-            //CameraTransitions.ChangingWorlds(world1VirtualCam);
-
             hasTeleported = true;
-
-
 
             //AudioManager.musiqueMonde2.Stop();
             //float timeStamp = AudioManager.musiqueMonde2.time;
