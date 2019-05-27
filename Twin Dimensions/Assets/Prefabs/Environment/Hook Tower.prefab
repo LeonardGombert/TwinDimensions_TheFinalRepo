@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5094032209228012087}
   - component: {fileID: 5094032209228012040}
   - component: {fileID: 6485655570875351872}
+  - component: {fileID: 2203494533589204981}
   m_Layer: 16
   m_Name: Hook Tower
   m_TagString: Hook Tower 1
@@ -132,6 +133,19 @@ MonoBehaviour:
   - {fileID: 978593348982365148}
   - {fileID: 2608131401583716889}
   - {fileID: 1755033718740773515}
+--- !u!114 &2203494533589204981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094032209228012041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16bffffaeccbef499e2460ec90bc980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  printKey: {fileID: 0}
 --- !u!1001 &1580991580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245,16 +259,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5094032209228012086}
     m_Modifications:
-    - target: {fileID: 5726949668449804857, guid: 999f3b088784b274d8e0ba6bcb2e3999,
-        type: 3}
-      propertyPath: m_Name
-      value: all_CheckpointTower_Circle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5726949668449804857, guid: 999f3b088784b274d8e0ba6bcb2e3999,
-        type: 3}
-      propertyPath: m_Layer
-      value: 18
-      objectReference: {fileID: 0}
     - target: {fileID: 5726949668449804856, guid: 999f3b088784b274d8e0ba6bcb2e3999,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -314,6 +318,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.7400007
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726949668449804857, guid: 999f3b088784b274d8e0ba6bcb2e3999,
+        type: 3}
+      propertyPath: m_Name
+      value: all_CheckpointTower_Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726949668449804857, guid: 999f3b088784b274d8e0ba6bcb2e3999,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5726949668449804859, guid: 999f3b088784b274d8e0ba6bcb2e3999,
         type: 3}
