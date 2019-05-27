@@ -88,6 +88,7 @@ public class ElephantController : MonsterClass
     #endregion
 
     [SerializeField] CinemachineImpulseSource screenshakeImpulse;
+    GameObject dontDestroyManager;
 
     #endregion
 
@@ -100,6 +101,7 @@ public class ElephantController : MonsterClass
         boxCol2D = GetComponent<BoxCollider2D>();
 
         movementTilemap = GameObject.FindGameObjectWithTag("Movement Tilemap").GetComponent<Tilemap>();
+        dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
 
         target = GameObject.FindWithTag("Player").transform;
 
@@ -371,18 +373,16 @@ public class ElephantController : MonsterClass
 
         if(collider.tag == "Trap")
         {
-            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Elephant hit " + collider.gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            //dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             GenerateSand();
             Destroy(gameObject);
         }
-
+    
         if(collider.tag == "Elephant")
         {
-            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
+            //dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             Debug.Log("The Elephant hit " + gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             anim.SetBool("isActive", true);
             GenerateSand();
             Destroy(gameObject);
@@ -390,9 +390,8 @@ public class ElephantController : MonsterClass
 
         if(collider.tag == "Firebreather")        
         {
-            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Firebreather hit " + gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            //dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             GenerateSand();
             Destroy(gameObject);
         }
