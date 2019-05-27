@@ -6,20 +6,21 @@ using UnityEngine.UI;
 
 public class PrintKey : MonoBehaviour
 {
+    Animator anim;
+    public enum AnimatorKeys{isInteracting, isALt, isSpace}
 
-    [SerializeField]
-    GameObject printKey;
+    public AnimatorKeys animKeys;
 
     private void Start ()
     {
-        printKey.gameObject.SetActive(false);
+        anim = GameObject.FindGameObjectWithTag("ButtonMap").GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            printKey.gameObject.SetActive(true);
+            anim.SetBool(animKeys.ToString(), true);
         }
     }
 
@@ -27,7 +28,7 @@ public class PrintKey : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            printKey.gameObject.SetActive(false);
+            anim.SetBool(animKeys.ToString(), false);
         }
     }
 }

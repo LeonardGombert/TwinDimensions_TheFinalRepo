@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 5654071091991458633}
   - component: {fileID: 5654071091991458630}
   - component: {fileID: 3555088384686571042}
+  - component: {fileID: 934850106899692855}
   m_Layer: 13
   m_Name: DragonDemon_World 2
   m_TagString: Untagged
@@ -185,6 +186,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &934850106899692855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5654071091991458635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee89d39b67b829b40b307f0e407fe53f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spiritWorldVisuals: {fileID: 5654071091991458633}
+  realWorldVisuals: {fileID: 5654071091991458633}
+  spriteList:
+  - {fileID: 21300000, guid: 2c219ee323d21fe4e91c230ed17d9c3c, type: 3}
+  sr: {fileID: 0}
+  anim: {fileID: 5654071091991458630}
+  player: {fileID: 0}
+  gameMaster: {fileID: 0}
+  isBeingSwitchedByPriest: 0
+  sandToDrop: {fileID: 8432475591768976378, guid: 3bb65e8c59ee19c439b9ed8e196e52b7,
+    type: 3}
+  FireIdle: {fileID: 0}
+  Embrasement: {fileID: 0}
+  FirebreatherDeath: {fileID: 0}
+  parent: {fileID: 5654071091991458635}
 --- !u!1 &5654071092823379912
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +225,6 @@ GameObject:
   - component: {fileID: 5654071092823379911}
   - component: {fileID: 5654071092823379908}
   - component: {fileID: 5654071092823379913}
-  - component: {fileID: 5654071092823379909}
   m_Layer: 13
   m_Name: DragonDemon_Functions
   m_TagString: Enemy
@@ -285,32 +312,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5654071092823379909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5654071092823379912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee89d39b67b829b40b307f0e407fe53f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spiritWorldVisuals: {fileID: 5654071091991458633}
-  realWorldVisuals: {fileID: 5654071091991458633}
-  spriteList:
-  - {fileID: 21300000, guid: 2c219ee323d21fe4e91c230ed17d9c3c, type: 3}
-  sr: {fileID: 0}
-  anim: {fileID: 5654071091991458630}
-  player: {fileID: 0}
-  gameMaster: {fileID: 0}
-  isBeingSwitchedByPriest: 0
-  sandToDrop: {fileID: 8432475591768976378, guid: 3bb65e8c59ee19c439b9ed8e196e52b7,
-    type: 3}
-  dontDestroyManager: {fileID: 5877728568504382141, guid: 38008438ea0651043a6e180b739b5d54,
-    type: 3}
-  FireIdle: {fileID: 0}
-  Embrasement: {fileID: 0}
-  FirebreatherDeath: {fileID: 0}
-  parent: {fileID: 5654071091991458635}
