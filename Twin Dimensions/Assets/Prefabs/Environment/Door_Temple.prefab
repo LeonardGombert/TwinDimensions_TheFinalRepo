@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2772290556998326225}
   - component: {fileID: 2772290556998326226}
-  - component: {fileID: 2772290556998326227}
   - component: {fileID: 2367572919235368635}
   - component: {fileID: 4728057177652187341}
   m_Layer: 0
@@ -68,8 +67,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1661399457
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7982a02d5b8a05c45b0e7196701b485b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -82,25 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2772290556998326227
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2772290556998326228}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ce75d3ad3117174b9409274cd4e22d9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2367572919235368635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,15 +93,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042cc046a2e9f834c9860cea0f162697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!61 &4728057177652187341
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,5 +117,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.6}
+  m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0

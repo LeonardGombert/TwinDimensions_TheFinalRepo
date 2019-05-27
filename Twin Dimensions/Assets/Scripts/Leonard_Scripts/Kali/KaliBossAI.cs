@@ -11,6 +11,10 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("General")] [SerializeField] Animator anim;
     [FoldoutGroup("General")] [SerializeField] GameObject player;
     [FoldoutGroup("General")] [SerializeField] GameObject kaliStatue;
+    [FoldoutGroup("General")] [SerializeField] ParticleSystem SlamRight;
+    [FoldoutGroup("General")] [SerializeField] ParticleSystem SlamLeft;
+    [FoldoutGroup("General")] [SerializeField] ParticleSystem SweepRight;
+    [FoldoutGroup("General")] [SerializeField] ParticleSystem SweepLeft;
     #endregion
 
     #region //BOSS STATES AND STAGES
@@ -32,6 +36,7 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("PlayerTrackingDebug")] [SerializeField] GameObject rightMapDetectionCollider;
     [FoldoutGroup("PlayerTrackingDebug")] [SerializeField] GameObject currentPlayerActiveSideCollider;
     [FoldoutGroup("PlayerTrackingDebug")] [ShowInInspector] public static bool isTrackingPlayerPosition = true;
+    [FoldoutGroup("PlayerTrackingDebug")] [ShowInInspector] public static bool playerFound = false;
     #endregion
 
     #region //SLAM ATTACK
@@ -83,6 +88,10 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage2MinTimeBeforeAttack;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage2MaxTimeBeforeAttack;
     [FoldoutGroup("ChangeStateDebug")] [SerializeField] float stage2CurrentRunTimeBeforeAttack;
+
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] public static bool oneInPosition = false;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] public static bool twoInPosition = false;
+    [FoldoutGroup("ChangeStateDebug")] [SerializeField] public static bool DestroyedCrytal = false;
     #endregion
 
     #region //KALI ENUM STATES
@@ -113,12 +122,14 @@ public class KaliBossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bossStage == BossStages.Stage1 && !newAttackTimeGenerated) StartCoroutine(Stage1StateManager());
-        if (bossStage == BossStages.Stage2 && !newAttackTimeGenerated) StartCoroutine(Stage2StateManager());
-
-        WatchForStageChange();
+        if (bossStage == BossStages.Stage1 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld()) StartCoroutine(Stage1StateManager());
+        if (bossStage == BossStages.Stage2 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld()) StartCoroutine(Stage2StateManager());
 
         UpdateCurrentState();
+
+        DebugStateSwitching();
+
+        WatchForStageChange();
     }
     #endregion
 
@@ -279,7 +290,16 @@ public class KaliBossAI : MonoBehaviour
     #region //STATE CHANGING
     void WatchForStageChange()
     {
-        if (lifePoints <= lifepointsToChangeState) { bossStage = BossStages.Stage2; anim.SetTrigger("isTransitioning"); }
+        if (oneInPosition && twoInPosition)
+        {
+            bossStage = BossStages.Stage2;
+            anim.SetBool("Beaten", true);
+        }
+
+        if (DestroyedCrytal)
+        {
+            anim.SetTrigger("Beaten");
+        }
         else return;
     }
 
@@ -293,13 +313,13 @@ public class KaliBossAI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            if (bossStage == BossStages.Stage1) Stage1CurrentState = S1BossStates.S1Idle;
+            if (bossStage == BossStages.Stage1) StartCoroutine(MoveToSweepAttackLocation());
             else if (bossStage == BossStages.Stage2) StartCoroutine(MoveToSweepAttackLocation()); //Stage2CurrentState = S2BossStates.S2Idle;
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            if (bossStage == BossStages.Stage1) Stage1CurrentState = S1BossStates.S1Dead;
+            if (bossStage == BossStages.Stage1) StartCoroutine(SlamAttack());
             else if (bossStage == BossStages.Stage2) StartCoroutine(SlamAttack()); //Stage2CurrentState = S2BossStates.S2Dead;
         }
     }
@@ -398,6 +418,11 @@ public class KaliBossAI : MonoBehaviour
     #region //ATTACK STATES
     IEnumerator SlamAttack()
     {
+        var slL = SlamLeft.emission;
+        slL.enabled = true;
+        var slR = SlamRight.emission;
+        slR.enabled = true;
+
         isSlamming = true;
         isTrackingPlayerPosition = false;
         timeHoldingSlam = 0;
@@ -434,6 +459,8 @@ public class KaliBossAI : MonoBehaviour
                 yield return new WaitForSeconds(.5f);
                 slamLeftCollider.gameObject.SetActive(false);
                 slamRightCollider.gameObject.SetActive(false);
+                slR.enabled = false;
+                slL.enabled = false;
                 yield break; //...stop the coroutine
             }
 
@@ -462,6 +489,11 @@ public class KaliBossAI : MonoBehaviour
 
     IEnumerator SweepAttack()
     {
+        var swL = SweepLeft.emission;
+        swL.enabled = true;
+        var swR = SweepRight.emission;
+        swR.enabled = true;
+
         isSweeping = true;
         timeHoldingSweep = 0f;
 
@@ -506,6 +538,8 @@ public class KaliBossAI : MonoBehaviour
                         isSweeping = false;
                         sweepRightCollider.gameObject.SetActive(false);
                         sweepLeftCollider.gameObject.SetActive(false);
+                        swR.enabled = false;
+                        swL.enabled = false;
                         yield break; //...stop the coroutine  
                     }
 
@@ -546,7 +580,7 @@ public class KaliBossAI : MonoBehaviour
                 timeSinceStarted += Time.deltaTime;
 
                 RaycastHit2D hit = Physics2D.Linecast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
-            
+
                 // if (hit.collider)
                 // {
                 //     if (hit.collider.tag == "Player")
@@ -565,7 +599,7 @@ public class KaliBossAI : MonoBehaviour
                 //         Debug.Log("I hit " + hit.collider.name);
                 //     }
                 // }
-                
+
                 Debug.DrawLine(laserSpawnPosition.transform.position, laserHitPosition.transform.position, Color.green);
 
                 laserHitPosition.transform.position = laserStartPosition.transform.position;

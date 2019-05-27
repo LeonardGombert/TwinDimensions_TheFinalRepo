@@ -7,21 +7,36 @@ using Sirenix.OdinInspector;
 
 public class ElephantSpawnPoint : MonoBehaviour
 {
-    [FoldoutGroup("AssignVariable")][SerializeField] GameObject Elephant;
-    [FoldoutGroup("DEBUGVariables")][SerializeField] bool isOccupied = false;
-    [FoldoutGroup("DEBUGVariables")][ShowInInspector] public static bool canSpawnElephant = true;
+    [FoldoutGroup("AssignVariable")] [SerializeField] GameObject Elephant;
+    [FoldoutGroup("DEBUGVariables")] [SerializeField] bool isOccupied = false;
+    [FoldoutGroup("DEBUGVariables")] [ShowInInspector] private bool canSpawnElephant = true;
+
+    float runTime;
+    float endTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isOccupied && canSpawnElephant) SpawnElephant();
+        if (!isOccupied && canSpawnElephant) SpawnElephant();
         else return;
+        Timer();
+    }
+
+    void Timer()
+    {
+        if (runTime >= endTime)
+        {
+            canSpawnElephant = true;
+            runTime = 0;
+        }
+
+        else runTime += Time.deltaTime;
     }
 
     void SpawnElephant()
@@ -33,7 +48,7 @@ public class ElephantSpawnPoint : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.tag == "Elephant")
+        if (collider.tag == "Elephant")
         {
             isOccupied = true;
         }
