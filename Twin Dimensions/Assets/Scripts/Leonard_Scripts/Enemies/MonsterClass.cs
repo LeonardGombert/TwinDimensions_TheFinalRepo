@@ -38,7 +38,7 @@ public class MonsterClass : MonoBehaviour
     [FoldoutGroup("Sand")][SerializeField] GameObject sandToDrop;
     
     int amountOfSandToDrop;
-    public GameObject dontDestroyManager;
+    GameObject dontDestroyManager;
 
     // Start is called before the first frame update
     public virtual void Awake()
