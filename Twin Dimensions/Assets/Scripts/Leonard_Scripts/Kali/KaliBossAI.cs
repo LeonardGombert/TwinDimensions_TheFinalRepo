@@ -36,6 +36,7 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("PlayerTrackingDebug")] [SerializeField] GameObject rightMapDetectionCollider;
     [FoldoutGroup("PlayerTrackingDebug")] [SerializeField] GameObject currentPlayerActiveSideCollider;
     [FoldoutGroup("PlayerTrackingDebug")] [ShowInInspector] public static bool isTrackingPlayerPosition = true;
+    [FoldoutGroup("PlayerTrackingDebug")] [ShowInInspector] public static bool playerFound = false;
     #endregion
 
     #region //SLAM ATTACK
@@ -124,11 +125,11 @@ public class KaliBossAI : MonoBehaviour
         if (bossStage == BossStages.Stage1 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld()) StartCoroutine(Stage1StateManager());
         if (bossStage == BossStages.Stage2 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld()) StartCoroutine(Stage2StateManager());
 
-        WatchForStageChange();
-
         UpdateCurrentState();
 
         DebugStateSwitching();
+
+        WatchForStageChange();
     }
     #endregion
 
@@ -291,11 +292,11 @@ public class KaliBossAI : MonoBehaviour
     {
         if (oneInPosition && twoInPosition)
         {
-            bossStage = BossStages.Stage2; 
+            bossStage = BossStages.Stage2;
             anim.SetBool("Beaten", true);
         }
 
-        if(DestroyedCrytal)        
+        if (DestroyedCrytal)
         {
             anim.SetTrigger("Beaten");
         }
@@ -416,11 +417,11 @@ public class KaliBossAI : MonoBehaviour
 
     #region //ATTACK STATES
     IEnumerator SlamAttack()
-    {        
+    {
         var slL = SlamLeft.emission;
-            slL.enabled = true;
+        slL.enabled = true;
         var slR = SlamRight.emission;
-            slR.enabled = true;
+        slR.enabled = true;
 
         isSlamming = true;
         isTrackingPlayerPosition = false;
@@ -489,9 +490,9 @@ public class KaliBossAI : MonoBehaviour
     IEnumerator SweepAttack()
     {
         var swL = SweepLeft.emission;
-            swL.enabled = true;
+        swL.enabled = true;
         var swR = SweepRight.emission;
-            swR.enabled = true;
+        swR.enabled = true;
 
         isSweeping = true;
         timeHoldingSweep = 0f;
@@ -538,7 +539,7 @@ public class KaliBossAI : MonoBehaviour
                         sweepRightCollider.gameObject.SetActive(false);
                         sweepLeftCollider.gameObject.SetActive(false);
                         swR.enabled = false;
-                        swL.enabled  = false;
+                        swL.enabled = false;
                         yield break; //...stop the coroutine  
                     }
 
@@ -579,7 +580,7 @@ public class KaliBossAI : MonoBehaviour
                 timeSinceStarted += Time.deltaTime;
 
                 RaycastHit2D hit = Physics2D.Linecast(laserSpawnPosition.transform.position, laserHitPosition.transform.position);
-            
+
                 // if (hit.collider)
                 // {
                 //     if (hit.collider.tag == "Player")
@@ -598,7 +599,7 @@ public class KaliBossAI : MonoBehaviour
                 //         Debug.Log("I hit " + hit.collider.name);
                 //     }
                 // }
-                
+
                 Debug.DrawLine(laserSpawnPosition.transform.position, laserHitPosition.transform.position, Color.green);
 
                 laserHitPosition.transform.position = laserStartPosition.transform.position;
