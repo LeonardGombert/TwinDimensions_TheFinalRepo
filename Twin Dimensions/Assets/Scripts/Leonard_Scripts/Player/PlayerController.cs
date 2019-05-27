@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Monobehavior Callbacks
-    private void Awake()
+    private void Start()
     {        
         canMove = true;
         TeleportationManager.isOnLockedLayer = false;
@@ -274,7 +274,6 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         SoundManager.instance.PlaySingle(deathSounds);
-        dontDestroyManager.gameObject.SendMessage("PlayerDied");
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
