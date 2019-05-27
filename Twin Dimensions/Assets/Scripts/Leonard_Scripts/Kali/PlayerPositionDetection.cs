@@ -10,7 +10,7 @@ public class PlayerPositionDetection : MonoBehaviour
     {
         if(collider.tag == "Player")
         {
-            if(KaliBossAI.isTrackingPlayerPosition) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
+            if(KaliBossAI.isTrackingPlayerPosition && !LayerManager.PlayerIsInRealWorld()) Kali.gameObject.SendMessage("UpdatePlayerSide", this.gameObject);
             else return; 
         }
     }

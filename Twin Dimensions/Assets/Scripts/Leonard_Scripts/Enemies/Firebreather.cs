@@ -13,11 +13,12 @@ public class Firebreather : MonsterClass
     #endregion
 
     [SerializeField] GameObject parent;
+    GameObject dontDestroyManager;
 
     // Start is called before the first frame update
     public override void Awake ()
     {
-
+        dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
     }
 
     // Update is called once per frame
@@ -36,9 +37,8 @@ public class Firebreather : MonsterClass
 
         if(collider.tag == "Elephant" || collider.gameObject.tag == "Statue")
         {
-            dontDestroyManager = GameObject.FindGameObjectWithTag("DontDestroyManager");
             Debug.Log("The Elephant hit " + gameObject.name);
-            dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
+            //dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             anim.SetBool("isActive", true);
             GenerateSand();
             Destroy(gameObject);
