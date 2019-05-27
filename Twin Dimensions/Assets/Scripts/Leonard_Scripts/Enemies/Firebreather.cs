@@ -44,10 +44,4 @@ public class Firebreather : MonsterClass
             Destroy(gameObject);
         }
     }
-
-    void OnTriggerStay2D(Collider2D collider)
-    {
-        if(collider.tag == "overLayering") sr.sortingLayerName = "Enemy_underProps";
-        if(collider.tag == "underLayering") sr.sortingLayerName = "Enemy_overProps";
-    }
 }
