@@ -14,16 +14,22 @@ public class LevelManager : MonoBehaviour
     //public int index;
     //public string levelName;
     Image black;
+    Image white;
     Animator anim;
 
     public static object Instance { get; internal set; }
     public object FinalScore { get; private set; }
 
+    public static bool fadeToWhiteTransition;
+
     // Start is called before the first frame update
     void Awake()
     {
         black = GameObject.FindGameObjectWithTag("LevelFadeAnim").GetComponent<Image>();
+        white = GameObject.FindGameObjectWithTag("BossFadeAnim").GetComponent<Image>();
         anim = GameObject.FindGameObjectWithTag("LevelFadeAnim").GetComponent<Animator>();
+        white.enabled = false;
+        black.enabled = true;
     }
 
     // Update is called once per frame
@@ -31,6 +37,7 @@ public class LevelManager : MonoBehaviour
     {
         if(PlayerInputManager.instance.GetKeyDown("resetScene")) StartCoroutine(Fading());
         if(Input.GetKeyDown(KeyCode.X)) LoadNext();
+        if(fadeToWhiteTransition) StartCoroutine(FadeToWhite());
     }
 
     IEnumerator Fading()
@@ -46,6 +53,26 @@ public class LevelManager : MonoBehaviour
         else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         Debug.Log(FinalScore);       
+    }
+
+    IEnumerator FadeToWhite()
+    {        
+        white.enabled = true;
+        black.enabled = false;
+
+        anim.SetBool("Fade", true);
+
+        yield return new WaitUntil(()=>white.color.a==1);
+        
+        if (playerCompletedLevel)
+        {
+            playerCompletedLevel = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        black.enabled = true;
+        white.enabled = false;
+        fadeToWhiteTransition = false;
     }
 
     public void ReachedExit()

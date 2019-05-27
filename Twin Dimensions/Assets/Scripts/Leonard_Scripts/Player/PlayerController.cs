@@ -290,6 +290,7 @@ public class PlayerController : MonoBehaviour
     void DestroyCrystal() //CINEMATIC COROUTINE?
     {
         Debug.Log("I hit the crystal");
-        anim.SetBool("killKali", true);
+        anim.SetTrigger("killKali");
+        KaliBossAI.DestroyedCrytal = true;
     }
 }

@@ -40,6 +40,13 @@ public class Firebreather : MonsterClass
             Debug.Log("The Elephant hit " + gameObject.name);
             //dontDestroyManager.gameObject.SendMessage("WasKilled", this.gameObject);
             anim.SetBool("isActive", true);
+            Animator[] fireAnim = GetComponentsInChildren<Animator>();
+
+            foreach(Animator anim in fireAnim)
+            {
+                anim.SetBool("FireFade", true);
+            }
+
             GenerateSand();
             Destroy(gameObject);
         }

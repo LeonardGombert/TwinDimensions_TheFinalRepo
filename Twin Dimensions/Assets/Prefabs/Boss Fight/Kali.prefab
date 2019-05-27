@@ -151,6 +151,7 @@ MonoBehaviour:
   anim: {fileID: 2195190332083196833}
   player: {fileID: 0}
   kaliStatue: {fileID: 0}
+  Crystal: {fileID: 0}
   SlamRight: {fileID: 4904789649095213117}
   SlamLeft: {fileID: 4904789647175298293}
   SweepRight: {fileID: 4904789648627918530}
@@ -415,6 +416,7 @@ GameObject:
   - component: {fileID: 611655861602013473}
   - component: {fileID: 7362246184715079900}
   - component: {fileID: 2926998560482246876}
+  - component: {fileID: 8591711301664264723}
   m_Layer: 13
   m_Name: Krystal_Kali
   m_TagString: Kali
@@ -510,6 +512,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.28125, y: 4.25}
   m_EdgeRadius: 0
+--- !u!95 &8591711301664264723
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473897829840346321}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6356221493869371088
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,6 +907,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: particle kali sweep base Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 16.111622
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 27.944067
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2814388190146771633, guid: cd113bfbb39667f4f9409ab390655700,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -941,26 +982,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.x
-      value: 16.111622
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.y
-      value: 27.944067
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: prewarm
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd113bfbb39667f4f9409ab390655700, type: 3}
 --- !u!4 &4904789648824613387 stripped
@@ -986,6 +1007,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: particle kali sweep base Variant (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 16.111622
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 27.944067
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: prewarm
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2814388190146771633, guid: cd113bfbb39667f4f9409ab390655700,
         type: 3}
@@ -1042,26 +1083,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.x
-      value: 16.111622
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.y
-      value: 27.944067
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: prewarm
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd113bfbb39667f4f9409ab390655700, type: 3}
 --- !u!4 &4904789648627918540 stripped
@@ -1087,6 +1108,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: particle kali sweep base Variant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2814388190146771633, guid: cd113bfbb39667f4f9409ab390655700,
         type: 3}
@@ -1143,27 +1174,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: prewarm
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd113bfbb39667f4f9409ab390655700, type: 3}
---- !u!198 &4904789649095213117 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-    type: 3}
-  m_PrefabInstance: {fileID: 7142681620835072642}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4904789649095213107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2814388190146771633, guid: cd113bfbb39667f4f9409ab390655700,
+    type: 3}
+  m_PrefabInstance: {fileID: 7142681620835072642}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4904789649095213117 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
     type: 3}
   m_PrefabInstance: {fileID: 7142681620835072642}
   m_PrefabAsset: {fileID: 0}
@@ -1178,6 +1199,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: particle kali sweep base Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+        type: 3}
+      propertyPath: prewarm
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2814388190146771633, guid: cd113bfbb39667f4f9409ab390655700,
         type: 3}
@@ -1234,27 +1265,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
-        type: 3}
-      propertyPath: prewarm
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd113bfbb39667f4f9409ab390655700, type: 3}
---- !u!4 &4904789647175298299 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2814388190146771633, guid: cd113bfbb39667f4f9409ab390655700,
-    type: 3}
-  m_PrefabInstance: {fileID: 7142681621146441290}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &4904789647175298293 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2814388190146771647, guid: cd113bfbb39667f4f9409ab390655700,
+    type: 3}
+  m_PrefabInstance: {fileID: 7142681621146441290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4904789647175298299 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2814388190146771633, guid: cd113bfbb39667f4f9409ab390655700,
     type: 3}
   m_PrefabInstance: {fileID: 7142681621146441290}
   m_PrefabAsset: {fileID: 0}

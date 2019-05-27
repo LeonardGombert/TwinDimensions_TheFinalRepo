@@ -11,6 +11,7 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("General")] [SerializeField] Animator anim;
     [FoldoutGroup("General")] [SerializeField] GameObject player;
     [FoldoutGroup("General")] [SerializeField] GameObject kaliStatue;
+    [FoldoutGroup("General")] [SerializeField] GameObject Crystal;
     [FoldoutGroup("General")] [SerializeField] ParticleSystem SlamRight;
     [FoldoutGroup("General")] [SerializeField] ParticleSystem SlamLeft;
     [FoldoutGroup("General")] [SerializeField] ParticleSystem SweepRight;
@@ -37,6 +38,7 @@ public class KaliBossAI : MonoBehaviour
     [FoldoutGroup("PlayerTrackingDebug")] [SerializeField] GameObject currentPlayerActiveSideCollider;
     [FoldoutGroup("PlayerTrackingDebug")] [ShowInInspector] public static bool isTrackingPlayerPosition = true;
     [FoldoutGroup("PlayerTrackingDebug")] [ShowInInspector] public static bool playerFound = false;
+    [FoldoutGroup("PlayerTrackingDebug")] [ShowInInspector] public static bool playerHeavyAttack = false;
     #endregion
 
     #region //SLAM ATTACK
@@ -122,14 +124,14 @@ public class KaliBossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bossStage == BossStages.Stage1 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld()) StartCoroutine(Stage1StateManager());
-        if (bossStage == BossStages.Stage2 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld()) StartCoroutine(Stage2StateManager());
+        if (bossStage == BossStages.Stage1 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld() && Stage1CurrentState != S1BossStates.S1Dead) StartCoroutine(Stage1StateManager());
+        if (bossStage == BossStages.Stage2 && !newAttackTimeGenerated && !LayerManager.PlayerIsInRealWorld() && Stage2CurrentState != S2BossStates.S2Dead) StartCoroutine(Stage2StateManager());
 
         UpdateCurrentState();
 
         DebugStateSwitching();
 
-        WatchForStageChange();
+        StartCoroutine(WatchForStageChange());
     }
     #endregion
 
@@ -199,10 +201,8 @@ public class KaliBossAI : MonoBehaviour
 
         while (true)
         {
-            if (Stage1CurrentState != S1BossStates.S1Attacking)
+            if (Stage1CurrentState != S1BossStates.S1Attacking && Stage1CurrentState != S1BossStates.S1Dead)
             {
-                Stage1CurrentState = S1BossStates.S1Idle;
-
                 stage1CurrentRunTimeBeforeAttack += Time.deltaTime;
 
                 if (stage1CurrentRunTimeBeforeAttack >= stage1MaxTimeBeforeAttack)
@@ -227,10 +227,8 @@ public class KaliBossAI : MonoBehaviour
 
         while (true)
         {
-            if (Stage2CurrentState != S2BossStates.S2Attacking)
+            if (Stage2CurrentState != S2BossStates.S2Attacking || Stage2CurrentState != S2BossStates.S2Dead)
             {
-                Stage2CurrentState = S2BossStates.S2Idle;
-
                 stage2CurrentRunTimeBeforeAttack += Time.deltaTime;
 
                 if (stage2CurrentRunTimeBeforeAttack >= stage2TimeBeforeAttack)
@@ -288,19 +286,24 @@ public class KaliBossAI : MonoBehaviour
     #endregion
 
     #region //STATE CHANGING
-    void WatchForStageChange()
+    IEnumerator WatchForStageChange()
     {
         if (oneInPosition && twoInPosition)
         {
-            bossStage = BossStages.Stage2;
+            Stage1CurrentState = S1BossStates.S1Dead;
             anim.SetBool("Beaten", true);
         }
 
         if (DestroyedCrytal)
         {
-            anim.SetTrigger("Beaten");
+            Animator crystalAnim = Crystal.GetComponent<Animator>();
+            anim.SetBool("isTransitioning", true);
+
+            yield return new WaitForSeconds(.5f);
+
+            crystalAnim.Play("Destroyed");
+            LevelManager.fadeToWhiteTransition = true;
         }
-        else return;
     }
 
     void DebugStateSwitching()
