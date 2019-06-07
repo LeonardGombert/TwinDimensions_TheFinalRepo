@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Monobehavior Callbacks
-    private void Awake()
+    private void Start()
     {        
         canMove = true;
         TeleportationManager.isOnLockedLayer = false;
@@ -274,8 +274,6 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         SoundManager.instance.PlaySingle(deathSounds);
-        dontDestroyManager.gameObject.SendMessage("PlayerDied");
-        new WaitForSeconds(.5f);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
@@ -289,9 +287,8 @@ public class PlayerController : MonoBehaviour
         if(playerIsDead)SoundManager.instance.PlaySingle(deathSounds);
     }
 
-    void DestroyCrystal()
+    void DestroyCrystal() //CINEMATIC COROUTINE?
     {
-        //press and hold E
         Debug.Log("I hit the crystal");
         anim.SetBool("killKali", true);
     }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class ScoreSystem : MonoBehaviour
 {
-    public static ScoreSystem instance;
+    public static ScoreSystem instance = null;
     //public Text Enemies;
     public Text time;
     //public Text death;
@@ -35,7 +35,7 @@ public class ScoreSystem : MonoBehaviour
     [FoldoutGroup("DEBUG Stats")][SerializeField] List<GameObject> enemiesInRoom = new List<GameObject>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (instance == null)
             instance = this;
@@ -54,6 +54,20 @@ public class ScoreSystem : MonoBehaviour
         enemiesInRoom.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         
         AmountOfEnemiesAtStart = (int)enemiesInRoom.Count;
+    }
+    
+    void Update()
+    {
+        if(LevelManager.playerCompletedLevel)
+        {
+            AmountOfEnemiesAtEnd = enemiesInRoom.Count;
+            amountOfKills = AmountOfEnemiesAtStart - AmountOfEnemiesAtEnd;
+            ConvertValues(amountOfKills, roomResets, playerDeaths);
+        }
+
+        PlayerDied();
+
+        CalculateGrade();
     }
     
     void ConvertValues(int kills, int resets, int deaths)
@@ -77,19 +91,17 @@ public class ScoreSystem : MonoBehaviour
 
     void PlayerDied()
     {
-        ++playerDeaths;
-        Debug.Log(playerDeaths);
-    }
-
-    void Update()
-    {
-        if(LevelManager.playerCompletedLevel)
+        if (PlayerController.playerIsDead)
         {
-            AmountOfEnemiesAtEnd = enemiesInRoom.Count;
-            amountOfKills = AmountOfEnemiesAtStart - AmountOfEnemiesAtEnd;
-            ConvertValues(amountOfKills, roomResets, playerDeaths);
+            ++playerDeaths;
+            PlayerController.playerIsDead = false;
+            Debug.Log(playerDeaths);
         }
-
+        else return;
+    }
+    
+    void CalculateGrade()
+    {
         //Enemies.text = "ENEMIES KILLED " + amountOfKills;
         time.text = "TIME TAKEN: " + timeToComplete;
         //death.text = "RESETS " + playerDeaths;
@@ -148,11 +160,5 @@ public class ScoreSystem : MonoBehaviour
         {
             Grade.text = "D";
         }
-
     }
-
- 
-
-   
-
 }
