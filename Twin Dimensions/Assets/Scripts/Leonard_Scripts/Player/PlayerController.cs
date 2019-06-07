@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Monobehavior Callbacks
-    private void Awake()
+    private void Start()
     {        
         canMove = true;
         TeleportationManager.isOnLockedLayer = false;
@@ -245,6 +245,7 @@ public class PlayerController : MonoBehaviour
     {
         if(collider.tag == "overLayering") sr.sortingLayerName = "Player_underProps";
         if(collider.tag == "underLayering") sr.sortingLayerName = "Player_overProps";
+        if(collider.tag == "KaliCrystal" && KaliBossAI.oneInPosition && KaliBossAI.twoInPosition) DestroyCrystal();
     }
 
     // void OnTriggerStay2D(Collider2D collider)
@@ -273,8 +274,6 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         SoundManager.instance.PlaySingle(deathSounds);
-        dontDestroyManager.gameObject.SendMessage("PlayerDied");
-        new WaitForSeconds(.5f);
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
@@ -286,5 +285,11 @@ public class PlayerController : MonoBehaviour
         //if(StatueManager.isPlacingStatue)SoundManager.instance.PlaySingle(summoningSounds);
         //if(TeleportationManager.isTeleporting)SoundManager.instance.PlaySingle(summoningSounds);
         if(playerIsDead)SoundManager.instance.PlaySingle(deathSounds);
+    }
+
+    void DestroyCrystal() //CINEMATIC COROUTINE?
+    {
+        Debug.Log("I hit the crystal");
+        anim.SetBool("killKali", true);
     }
 }
